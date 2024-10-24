@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "535839792993",
+    "project_id": "flow-zero-waste",
+    "storage_bucket": "flow-zero-waste.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:535839792993:android:a4fb4196b1842453cfaf20",
+        "android_client_info": {
+          "package_name": "com.tr0u8l3gif.flow.app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCSlOoY2jN3bzB2-8dm_Jm-dADRlpSsToQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

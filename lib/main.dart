@@ -1,3 +1,4 @@
+import 'package:flow_zero_waste/config/l10n/l10n.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -11,6 +12,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
+      localizationsDelegates: L10n.allDelegates,
+      supportedLocales: L10n.supportedLocales,
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,

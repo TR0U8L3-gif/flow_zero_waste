@@ -89,13 +89,13 @@ BEGIN
     BEGIN
         BLOCK "040904e4"
         BEGIN
-            VALUE "CompanyName", "com.example" "\0"
-            VALUE "FileDescription", "flow_zero_waste" "\0"
+            VALUE "CompanyName", "com.tr0u8l3gif.flow" "\0"
+            VALUE "FileDescription", "flow zero waste app" "\0"
             VALUE "FileVersion", VERSION_AS_STRING "\0"
-            VALUE "InternalName", "flow_zero_waste" "\0"
-            VALUE "LegalCopyright", "Copyright (C) 2024 com.example. All rights reserved." "\0"
-            VALUE "OriginalFilename", "flow_zero_waste.exe" "\0"
-            VALUE "ProductName", "flow_zero_waste" "\0"
+            VALUE "InternalName", "flow zero waste app" "\0"
+            VALUE "LegalCopyright", "Copyright (C) 2024 com.tr0u8l3gif.flow. All rights reserved." "\0"
+            VALUE "OriginalFilename", "flow_zero_waste_app.exe" "\0"
+            VALUE "ProductName", "flow zero waste app" "\0"
             VALUE "ProductVersion", VERSION_AS_STRING "\0"
         END
     END

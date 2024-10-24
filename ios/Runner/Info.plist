@@ -12,7 +12,7 @@
 	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
-	<key>CFBundleName</key>
+	<key>com.tr0u8l3gif.flow.app</key>
 	<string>flow_zero_waste</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
