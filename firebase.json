@@ -1,0 +1,21 @@
+{
+  "flutter": {
+    "platforms": {
+      "android": {
+        "default": {
+          "projectId": "flow-zero-waste",
+          "appId": "1:535839792993:android:a4fb4196b1842453cfaf20",
+          "fileOutput": "android/app/google-services.json"
+        }
+      },
+      "dart": {
+        "lib/config/firebase/firebase_options.dart": {
+          "projectId": "flow-zero-waste",
+          "configurations": {
+            "android": "1:535839792993:android:a4fb4196b1842453cfaf20"
+          }
+        }
+      }
+    }
+  }
+}
