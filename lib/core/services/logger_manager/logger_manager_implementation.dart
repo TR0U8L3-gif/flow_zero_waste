@@ -1,10 +1,22 @@
 import 'package:device_info_plus/device_info_plus.dart';
+import 'package:flow_zero_waste/core/extensions/string_extension.dart';
 import 'package:flow_zero_waste/core/services/device_info/device_info.dart';
-import 'package:flow_zero_waste/core/services/init/app_env.dart';
+import 'package:flow_zero_waste/core/services/logger_manager/logger_manager_parameters.dart';
+import 'package:flow_zero_waste/core/services/setup/app_env.dart';
 import 'package:injectable/injectable.dart';
 import 'package:logger/logger.dart';
 import 'package:logger_manager/logger_manager.dart';
 import 'package:package_info_plus/package_info_plus.dart';
+
+@Singleton(as: LoggerManagerParameters)
+class LoggerManagerParametersFromAppEnv extends LoggerManagerParameters {
+  LoggerManagerParametersFromAppEnv()
+      : super(
+          buildType: AppEnv().buildType,
+          errorHost: AppEnv().errorHost,
+          errorInstrumentationKey: AppEnv().errorInstrumentationKey,
+        );
+}
 
 @Singleton(as: LoggerManager)
 
@@ -13,9 +25,12 @@ class LoggerManagerImplementation extends LoggerManager {
   /// LoggerManagerImplementation constructor
   LoggerManagerImplementation({
     required DeviceInfoManager deviceInfo,
-  }) : _deviceInfo = deviceInfo;
+    required LoggerManagerParameters parameters,
+  })  : _deviceInfo = deviceInfo,
+        _loggerManagerParameters = parameters;
 
   final DeviceInfoManager _deviceInfo;
+  final LoggerManagerParameters _loggerManagerParameters;
 
   @override
   Logger build(LoggerBuildTypes type) {
@@ -59,38 +74,44 @@ class LoggerManagerImplementation extends LoggerManager {
       logLevel: Level.all,
     );
 
-    // TODO(feature): implement azure insights
-    // final openTelemetry = OpenTelemetryOutputService(
-    //   ingestionEndpoint: '${AppEnv().errorHost}/v2/track',
-    //   instrumentationKey: AppEnv().errorInstrumentationKey,
-    //   canLog: decideLoggerBuildType(
-    //     type,
-    //     debug: false,
-    //     profile: true,
-    //     production: true,
-    //   ),
-    //   logLevel: Level.all,
-    //   buildType: type,
-    //   telemetryContextParams: TelemetryContextParams(
-    //     cloudRoleInstance: AppEnv().buildType.name,
-    //     deviceType: _deviceInfo.platform.name,
-    //     sessionIsFirst: true,
-    //   ),
-    //   capacity: decideLoggerBuildType<int>(
-    //     type,
-    //     debug: 48,
-    //     profile: 36,
-    //     production: 24,
-    //   ),
-    //   flushDelay: Duration(
-    //     seconds: decideLoggerBuildType<int>(
-    //       type,
-    //       debug: 90,
-    //       profile: 45,
-    //       production: 15,
-    //     ),
-    //   ),
-    // );
+    OpenTelemetryOutputService? openTelemetry;
+
+    if (!_loggerManagerParameters.errorHost.isNullOrEmpty &&
+        !_loggerManagerParameters.errorInstrumentationKey.isNullOrEmpty) {
+      openTelemetry = OpenTelemetryOutputService(
+        ingestionEndpoint:
+            '${_loggerManagerParameters.errorHost ?? ''}/v2/track',
+        instrumentationKey:
+            _loggerManagerParameters.errorInstrumentationKey ?? '',
+        canLog: decideLoggerBuildType(
+          type,
+          debug: false,
+          profile: true,
+          production: true,
+        ),
+        logLevel: Level.all,
+        buildType: type,
+        telemetryContextParams: TelemetryContextParams(
+          cloudRoleInstance: _loggerManagerParameters.buildType.name,
+          deviceType: _deviceInfo.platform.name,
+          sessionIsFirst: true,
+        ),
+        capacity: decideLoggerBuildType<int>(
+          type,
+          debug: 48,
+          profile: 36,
+          production: 24,
+        ),
+        flushDelay: Duration(
+          seconds: decideLoggerBuildType<int>(
+            type,
+            debug: 90,
+            profile: 45,
+            production: 15,
+          ),
+        ),
+      );
+    }
 
     final crashlytics = CrashlyticsOutputService(
       canLog: decideLoggerBuildType(
@@ -102,7 +123,7 @@ class LoggerManagerImplementation extends LoggerManager {
       logLevel: Level.all,
       buildType: type,
       crashlyticsKeyParams: CrashlyticsKeyParams(
-        cloudRoleInstance: AppEnv().buildType.name,
+        cloudRoleInstance: _loggerManagerParameters.buildType.name,
         deviceType: _deviceInfo.platform.name,
       ),
       capacity: decideLoggerBuildType<int>(
@@ -143,8 +164,14 @@ class LoggerManagerImplementation extends LoggerManager {
       ),
     );
 
+    final logServices = <LoggerOutputService>[console, terminal, file, crashlytics];
+
+    if (openTelemetry != null) {
+      logServices.add(openTelemetry);
+    }
+
     output = LoggerOutput(
-      logServices: [console, terminal, file, crashlytics],
+      logServices: logServices,
     );
 
     Future.wait([
@@ -164,7 +191,7 @@ class LoggerManagerImplementation extends LoggerManager {
             //errorLevel: null,
             applicationVersion: '${package.version}+${package.buildNumber}',
             cloudRole: package.appName,
-            // cloudRoleInstance: '$appFlavor ${AppEnv().buildType.name}'
+            // cloudRoleInstance: '$appFlavor ${_loggerManagerParameters.buildType.name}'
             deviceModel: deviceInfo.deviceModel,
             deviceOsVersion: deviceInfo.deviceOsVersion,
             // sessionId: "",

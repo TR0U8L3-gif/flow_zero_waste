@@ -7,21 +7,21 @@ enum BuildTypes {
   profile,
 
   /// Production
-  production;
+  release;
 
   /// Decide the value based on the build type.
   Type decideBuildType<Type>({
     required Type debug,
     required Type profile,
-    required Type production,
+    required Type release,
   }) {
     switch (this) {
       case BuildTypes.debug:
         return debug;
       case BuildTypes.profile:
         return profile;
-      case BuildTypes.production:
-        return production;
+      case BuildTypes.release:
+        return release;
     }
   }
 }

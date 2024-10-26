@@ -9,13 +9,10 @@
         }
       },
       "dart": {
-        "lib/firebase_options.dart": {
+        "lib/config/firebase/firebase_options.dart": {
           "projectId": "flow-zero-waste",
           "configurations": {
-            "android": "1:535839792993:android:a4fb4196b1842453cfaf20",
-            "ios": "1:535839792993:ios:b0bfb73d6c59b501cfaf20",
-            "macos": "1:535839792993:ios:b0bfb73d6c59b501cfaf20",
-            "windows": "1:535839792993:web:9b38a66a82772273cfaf20"
+            "android": "1:535839792993:android:a4fb4196b1842453cfaf20"
           }
         }
       }

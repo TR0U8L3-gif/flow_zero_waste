@@ -14,6 +14,20 @@
     "color": "purple-500",
     "lightColor": "purple-700",
     "folderNames": ["di", "injection",]
-  }
+  },
+  {
+    "name": "logics",
+    "base": "functions",
+    "color": "blue-500",
+    "lightColor": "blue-700",
+    "folderNames": ["logics", "logic"]
+  },
+  {
+    "name": "models",
+    "base": "class",
+    "color": "gray-600",
+    "lightColor": "gray-800",
+    "folderNames": ["models", "model", "entities", "entity",]
+  },
 ]
 }

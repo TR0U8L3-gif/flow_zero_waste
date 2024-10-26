@@ -8,3 +8,8 @@ extension StringExtension on String {
     return '${substring(0, maxLength - (suffix?.length ?? 0))}${suffix ?? ''}';
   }
 }
+
+extension StringNullExtension on String? {
+  /// Check if the string is null or empty
+  bool get isNullOrEmpty => this == null || this!.isEmpty;
+}

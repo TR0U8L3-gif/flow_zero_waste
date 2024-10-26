@@ -12,8 +12,10 @@ class NavigationRouter extends RootStackRouter {
   
   @override
   List<AutoRoute> get routes => [
+    AutoRoute(page: MyHomeRoute.page, initial: true),
   ];
 
   @override
   List<AutoRouteGuard> get guards => [];
+  
 }

@@ -13,6 +13,13 @@ abstract class BaseException implements Exception {
   String get message => '$sender: $description';
 }
 
+class AppSetupException extends BaseException {
+  AppSetupException({
+    required super.sender,
+    required super.description,
+  });
+}
+
 /// Exception thrown when navigation fails
 class NavigateException extends BaseException {
   /// Navigate exception constructor
