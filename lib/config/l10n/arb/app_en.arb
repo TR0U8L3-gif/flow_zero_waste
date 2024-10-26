@@ -1,0 +1,17 @@
+{
+  "helloWorld": "Hello World!",
+  "language": "Language",
+  "languageCode": "Language code",
+  "languageName": "{language, select, en{English} pl{Polish} other{Language unknown}}",
+  "@languageName": {
+    "description": "A languageName message",
+    "placeholders": {
+      "language": {
+        "type": "String"
+      }
+    }
+  },
+  "noContent": "No Content",
+  "yes": "Yes",
+  "no": "No"
+}
