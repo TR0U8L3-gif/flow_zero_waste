@@ -8,8 +8,10 @@ import 'package:logger/logger.dart';
 import 'package:logger_manager/logger_manager.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 
+/// LoggerManagerParametersFromAppEnv class for the logger manager parameters.
 @Singleton(as: LoggerManagerParameters)
 class LoggerManagerParametersFromAppEnv extends LoggerManagerParameters {
+  /// LoggerManagerParametersFromAppEnv constructor
   LoggerManagerParametersFromAppEnv()
       : super(
           buildType: AppEnv().buildType,
@@ -164,7 +166,12 @@ class LoggerManagerImplementation extends LoggerManager {
       ),
     );
 
-    final logServices = <LoggerOutputService>[console, terminal, file, crashlytics];
+    final logServices = <LoggerOutputService>[
+      console,
+      terminal,
+      file,
+      crashlytics,
+    ];
 
     if (openTelemetry != null) {
       logServices.add(openTelemetry);
@@ -191,7 +198,8 @@ class LoggerManagerImplementation extends LoggerManager {
             //errorLevel: null,
             applicationVersion: '${package.version}+${package.buildNumber}',
             cloudRole: package.appName,
-            // cloudRoleInstance: '$appFlavor ${_loggerManagerParameters.buildType.name}'
+            // cloudRoleInstance: '$appFlavor '
+            // '${_loggerManagerParameters.buildType.name}'
             deviceModel: deviceInfo.deviceModel,
             deviceOsVersion: deviceInfo.deviceOsVersion,
             // sessionId: "",

@@ -1,7 +1,7 @@
 /// App exception
 abstract class BaseException implements Exception {
   /// App exception constructor
-  BaseException({required this.sender, required this.description});
+  const BaseException({required this.sender, required this.description});
 
   /// Exception description
   final String description;
@@ -13,8 +13,10 @@ abstract class BaseException implements Exception {
   String get message => '$sender: $description';
 }
 
+/// Exception thrown when app setup fails
 class AppSetupException extends BaseException {
-  AppSetupException({
+  /// AppSetup exception constructor
+  const AppSetupException({
     required super.sender,
     required super.description,
   });
@@ -23,7 +25,7 @@ class AppSetupException extends BaseException {
 /// Exception thrown when navigation fails
 class NavigateException extends BaseException {
   /// Navigate exception constructor
-  NavigateException({
+  const NavigateException({
     required super.sender,
     required super.description,
     required this.navigationType,
@@ -44,7 +46,7 @@ class NavigateException extends BaseException {
 /// Exception thrown when app environment fails
 class AppEnvException extends BaseException {
   /// AppEnv exception constructor
-  AppEnvException({
+  const AppEnvException({
     required super.sender,
     required super.description,
   });
@@ -53,7 +55,7 @@ class AppEnvException extends BaseException {
 /// Exception thrown when hive manager fails
 class HiveManagerException extends BaseException {
   /// HiveManager exception constructor
-  HiveManagerException({
+  const HiveManagerException({
     required super.sender,
     required super.description,
   });

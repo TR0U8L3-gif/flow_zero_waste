@@ -9,6 +9,7 @@ extension StringExtension on String {
   }
 }
 
+/// String extension methods for null safety
 extension StringNullExtension on String? {
   /// Check if the string is null or empty
   bool get isNullOrEmpty => this == null || this!.isEmpty;

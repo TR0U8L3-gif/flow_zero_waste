@@ -10,7 +10,7 @@ class AppEnv {
   /// `set` method should be called before the AppEnv instance is used.
   factory AppEnv() {
     return _instance == null
-        ? throw AppEnvException(
+        ? throw const AppEnvException(
             sender: 'AppEnv._instance',
             description: 'not initialized',
           )
@@ -90,9 +90,9 @@ class AppEnv {
     required String apiUrl,
     required String clientId,
     required String clientSecret,
+    required BuildType buildType, 
     String? errorHost,
     String? errorInstrumentationKey,
-    required BuildType buildType,
   }) {
     _instance = AppEnv._(
       apiUrl: apiUrl,

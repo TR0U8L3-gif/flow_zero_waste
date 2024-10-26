@@ -1,7 +1,10 @@
 import 'package:flow_zero_waste/core/enums/build_type.dart';
 
+/// LoggerManagerParameters is a class that holds 
+/// the parameters for the logger manager.
 class LoggerManagerParameters {
-  LoggerManagerParameters({
+  /// Initializes the LoggerManagerParameters instance.
+  const LoggerManagerParameters({
     required this.buildType,
     this.errorHost,
     this.errorInstrumentationKey,

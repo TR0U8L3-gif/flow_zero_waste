@@ -4,6 +4,9 @@ import 'dart:typed_data';
 import 'package:flow_zero_waste/core/utils/exceptions.dart';
 import 'package:hive/hive.dart';
 
+/// Default value for the compact threshold.
+/// 
+/// The compact threshold is the number of changed entries
 const compactThresholdDefault = 50;
 
 /// HiveManager is a class that manages the Hive box for a specific type.

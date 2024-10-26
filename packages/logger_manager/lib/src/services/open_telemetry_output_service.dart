@@ -8,7 +8,6 @@ import 'package:http/http.dart';
 import 'package:logger/logger.dart';
 import 'package:logger_manager/core/helpers/fixed_sized_heap.dart';
 import 'package:logger_manager/core/utils/utils.dart';
-import 'package:logger_manager/src/logger_message.dart';
 import 'package:logger_manager/logger_manager.dart';
 
 /// OpenTelemetryOutputService

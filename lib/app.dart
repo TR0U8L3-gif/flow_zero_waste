@@ -19,7 +19,7 @@ class App extends StatelessWidget {
     required String flavour,
     BuildType? buildType,
   }) async {
-    var exception = AppSetupException(
+    var exception = const AppSetupException(
       sender: 'MyApp.setup',
       description: 'Unknown error occurred while initializing the app',
     );
@@ -75,7 +75,7 @@ class App extends StatelessWidget {
         // locale: state.currentLanguage,
         home: ErrorPage(
           data: ErrorPageData(
-            title: "context.l10n.errorTitle",
+            title: 'context.l10n.errorTitle',
             message: message,
             exception: exception,
           ),
@@ -131,6 +131,7 @@ class App extends StatelessWidget {
 
 /// Class to represent the result of the app setup
 abstract class MyAppResult {
+  /// Constructor
   const MyAppResult();
 }
 
@@ -139,6 +140,8 @@ class MyAppSuccess extends MyAppResult {}
 
 /// Class to represent the failure result of the app setup
 class MyAppFailure extends MyAppResult {
+  /// Constructor
   const MyAppFailure(this.exception);
+  /// The exception that caused the failure
   final Exception exception;
 }

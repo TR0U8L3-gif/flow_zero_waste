@@ -1,9 +1,9 @@
 import 'dart:async';
+
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/foundation.dart';
 import 'package:logger/logger.dart';
 import 'package:logger_manager/core/helpers/fixed_sized_heap.dart';
-import 'package:logger_manager/src/logger_message.dart';
 import 'package:logger_manager/logger_manager.dart';
 
 /// CrashlyticsOutputService class

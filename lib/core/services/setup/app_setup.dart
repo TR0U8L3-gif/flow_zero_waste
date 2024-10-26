@@ -3,8 +3,6 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flow_zero_waste/config/firebase/firebase.dart';
 import 'package:flow_zero_waste/config/injection/injection.dart';
 import 'package:flow_zero_waste/core/enums/build_type.dart';
-import 'package:flow_zero_waste/core/services/device_info/device_info.dart';
-import 'package:flow_zero_waste/core/services/logger_manager/logger_manager.dart';
 import 'package:flow_zero_waste/core/services/setup/app_env.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -19,15 +17,47 @@ class AppSetup {
     required Widget failure,
   }) async {
     if (AppEnv.isInitialized) {
-      initSuccess(success);
+      _init(
+        isSuccess: true,
+        app: success,
+      );
     } else {
-      initFailure(failure);
+      _init(
+        isSuccess: false,
+        app: failure,
+      );
     }
   }
 
-  /// `initSuccess` method should be called
+  /// `_init` method should be called
   /// when the app is initialized successfully.
-  static FutureOr<void> initSuccess(Widget app) async {
+  static FutureOr<void> _init({
+    required bool isSuccess,
+    required Widget app,
+  }) async {
+    
+    if (!isSuccess) {
+      // get the build type
+      BuildType buildType;
+      if (kDebugMode) {
+        buildType = BuildType.debug;
+      } else if (kProfileMode) {
+        buildType = BuildType.profile;
+      } else {
+        buildType = BuildType.release;
+      }
+      // set the app environment
+      AppEnv.set(
+        apiUrl: '',
+        clientId: '',
+        clientSecret: '',
+        // TODO(add): add error host end error instrumentation key
+        errorHost: '',
+        errorInstrumentationKey: '',
+        buildType: buildType,
+      );
+    }
+
     // ensure widgets binding is initialized
     WidgetsFlutterBinding.ensureInitialized();
 
@@ -48,47 +78,6 @@ class AppSetup {
     // create logger based on the environment
     final logManager = locator<LoggerManager>()
       ..createLogger(type: AppEnv().buildType.name);
-
-    // catch errors
-    _onError(logManager);
-
-    // run application
-    runApp(app);
-  }
-
-  /// `initFailure` method should be called when the app initialization fails.
-  static FutureOr<void> initFailure(Widget app) async {
-    // ensure widgets binding is initialized
-    WidgetsFlutterBinding.ensureInitialized();
-
-    // initialize firebase
-    await Firebase.initializeApp(
-      options: FirebaseOptionsManager.currentFlavorPlatform,
-    );
-
-    // ignore locator configuration
-
-    // get build type based on the environment
-    BuildType buildType;
-
-    if (kDebugMode) {
-      buildType = BuildType.debug;
-    } else if (kProfileMode) {
-      buildType = BuildType.profile;
-    } else {
-      buildType = BuildType.release;
-    }
-
-    // create logger parameters based on the environment
-    final logManagerParameters = LoggerManagerParameters(
-      buildType: buildType,
-    );
-
-    // create logger based on the environment
-    final logManager = LoggerManagerImplementation(
-      deviceInfo: DeviceInfoImplementation(),
-      parameters: logManagerParameters,
-    )..createLogger(type: buildType.name);
 
     // catch errors
     _onError(logManager);

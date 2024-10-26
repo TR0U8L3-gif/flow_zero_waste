@@ -5,8 +5,11 @@ import 'package:flutter/foundation.dart';
 abstract class Response {
   /// Constructor for Response
   const Response({this.message, this.data})
-      : assert(message != null || data != null,
-            'Either message or data must be provided');
+      : assert(
+          message != null || data != null,
+          'Either message or data must be provided',
+        );
+
   /// Readable message for the response
   final String? message;
 

@@ -15,6 +15,7 @@ enum NavigationType {
   /// maybe pop route
   maybePop;
 
+  /// Returns the input type for the navigation type
   NavigationInput get input {
     switch (this) {
       case NavigationType.push:
@@ -31,8 +32,12 @@ enum NavigationType {
   }
 }
 
+/// Navigation input
 enum NavigationInput {
+  /// No input
   none,
+  /// Route input
   route,
+  /// List of Routes input
   list,
 }

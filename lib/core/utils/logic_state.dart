@@ -1,7 +1,7 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:flow_zero_waste/core/enums/navigation_type.dart';
 import 'package:flow_zero_waste/core/utils/exceptions.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flow_zero_waste/core/enums/navigation_type.dart';
 
 /// Base state that reduces boilerplate when trying to
 /// distinguish buildable states from listenable states
@@ -86,20 +86,20 @@ mixin NavigatableLogicState on BaseLogicState
         } else {
           throw NavigateException(
             sender: sender,
-            description: "$descriptionRoute, proper route type should be null",
+            description: '$descriptionRoute, proper route type should be null',
             navigationType: type.toString(),
             routeRuntimeType: route.runtimeType.toString(),
           );
         }
       case NavigationInput.route:
-        if(route is PageRouteInfo<dynamic>) {
+        if (route != null && route is PageRouteInfo<dynamic>) {
           switch (type) {
             case NavigationType.push:
-              return context.router.push(route as PageRouteInfo<dynamic>);
+              return context.router.push(route! as PageRouteInfo<dynamic>);
             case NavigationType.replace:
-              return context.router.replace(route as PageRouteInfo<dynamic>);
+              return context.router.replace(route! as PageRouteInfo<dynamic>);
             case NavigationType.navigate:
-              return context.router.navigate(route as PageRouteInfo<dynamic>);
+              return context.router.navigate(route! as PageRouteInfo<dynamic>);
             default:
               throw NavigateException(
                 sender: sender,
@@ -111,18 +111,21 @@ mixin NavigatableLogicState on BaseLogicState
         } else {
           throw NavigateException(
             sender: sender,
-            description: "$descriptionRoute, proper route type should be PageRouteInfo<dynamic>",
+            description: '$descriptionRoute, proper route type should be '
+                'PageRouteInfo<dynamic>',
             navigationType: type.toString(),
             routeRuntimeType: route.runtimeType.toString(),
           );
         }
       case NavigationInput.list:
-        if(route is List<PageRouteInfo<dynamic>>) {
+        if (route != null && route is List<PageRouteInfo<dynamic>>) {
           switch (type) {
             case NavigationType.pushAll:
-              return context.router.pushAll(route as List<PageRouteInfo<dynamic>>);
+              return context.router
+                  .pushAll(route! as List<PageRouteInfo<dynamic>>);
             case NavigationType.replaceAll:
-              return context.router.replaceAll(route as List<PageRouteInfo<dynamic>>);
+              return context.router
+                  .replaceAll(route! as List<PageRouteInfo<dynamic>>);
             default:
               throw NavigateException(
                 sender: sender,
@@ -134,7 +137,8 @@ mixin NavigatableLogicState on BaseLogicState
         } else {
           throw NavigateException(
             sender: sender,
-            description: "$descriptionRoute, proper route type should be List<PageRouteInfo<dynamic>>",
+            description: '$descriptionRoute, proper route type should be '
+                'List<PageRouteInfo<dynamic>>',
             navigationType: type.toString(),
             routeRuntimeType: route.runtimeType.toString(),
           );

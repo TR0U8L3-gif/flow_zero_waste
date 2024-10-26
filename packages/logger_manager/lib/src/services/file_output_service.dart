@@ -7,11 +7,11 @@ import 'dart:math';
 import 'package:encrypt/encrypt.dart';
 import 'package:intl/intl.dart';
 import 'package:logger/logger.dart';
-import 'package:path_provider/path_provider.dart';
-import 'package:pointycastle/asymmetric/api.dart';
 import 'package:logger_manager/core/helpers/fixed_sized_heap.dart';
 import 'package:logger_manager/core/helpers/get_file_from_assets.dart';
 import 'package:logger_manager/logger_manager.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:pointycastle/asymmetric/api.dart';
 
 /// FileOutputService class
 ///
@@ -457,8 +457,11 @@ enum FileIndex {
 /// class to hold data for hashing isolate
 class HashData {
   /// Constructor for HashData
-  HashData(
-      {required this.sendPort, required this.encrypter, required this.lines});
+  HashData({
+    required this.sendPort,
+    required this.encrypter,
+    required this.lines,
+  });
 
   /// SendPort
   final SendPort sendPort;
@@ -511,7 +514,9 @@ void _hashIsolate(HashData data) {
       encrypted = data.encrypter.encrypt(line);
     } catch (e) {
       dev.log(
-          'FileOutputService._hashIsolate: Error encrypting line (${line.length}): $e');
+        'FileOutputService._hashIsolate: Error encrypting line '
+        '(${line.length}): $e',
+      );
     }
 
     if (encrypted != null) {

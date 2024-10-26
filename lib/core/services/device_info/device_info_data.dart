@@ -3,6 +3,7 @@ import 'package:flow_zero_waste/core/services/device_info/device_info_enum.dart'
 import 'package:flutter/foundation.dart';
 
 @immutable
+
 /// DeviceInfoData class
 class DeviceInfoData {
   /// DeviceInfoData constructor
@@ -39,7 +40,8 @@ class DeviceInfoData {
 
   /// factory from AndroidDeviceInfo
   factory DeviceInfoData.fromAndroidDevice(
-      AndroidDeviceInfo androidDeviceInfo) {
+    AndroidDeviceInfo androidDeviceInfo,
+  ) {
     return DeviceInfoData(
       deviceId: androidDeviceInfo.serialNumber,
       deviceLocale: null,
@@ -53,7 +55,9 @@ class DeviceInfoData {
 
   /// factory from BaseDeviceInfo
   factory DeviceInfoData.fromBaseDeviceInfo(
-      BaseDeviceInfo baseDeviceInfo, DevicePlatform platform) {
+    BaseDeviceInfo baseDeviceInfo,
+    DevicePlatform platform,
+  ) {
     if (platform == DevicePlatform.android) {
       return DeviceInfoData.fromAndroidDevice(
         baseDeviceInfo as AndroidDeviceInfo,
