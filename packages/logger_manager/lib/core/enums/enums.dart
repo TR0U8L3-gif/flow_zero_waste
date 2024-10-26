@@ -7,7 +7,7 @@ enum LoggerBuildTypes {
   profile,
 
   /// Production
-  production,
+  release,
 }
 
 /// Decide the value based on the build type.
@@ -15,14 +15,14 @@ Type decideLoggerBuildType<Type>(
   LoggerBuildTypes type, {
   required Type debug,
   required Type profile,
-  required Type production,
+  required Type release,
 }) {
   switch (type) {
     case LoggerBuildTypes.debug:
       return debug;
     case LoggerBuildTypes.profile:
       return profile;
-    case LoggerBuildTypes.production:
-      return production;
+    case LoggerBuildTypes.release:
+      return release;
   }
 }

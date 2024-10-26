@@ -13,6 +13,7 @@ import 'package:logger_manager/logger_manager.dart';
 class AppSetup {
   /// The AppSetup initialization.
   static FutureOr<void> init({
+    required BuildType buildType,
     required Widget success,
     required Widget failure,
   }) async {
@@ -20,11 +21,13 @@ class AppSetup {
       _init(
         isSuccess: true,
         app: success,
+        buildType: buildType,
       );
     } else {
       _init(
         isSuccess: false,
         app: failure,
+        buildType: buildType,
       );
     }
   }
@@ -34,18 +37,9 @@ class AppSetup {
   static FutureOr<void> _init({
     required bool isSuccess,
     required Widget app,
+    required BuildType buildType,
   }) async {
-    
     if (!isSuccess) {
-      // get the build type
-      BuildType buildType;
-      if (kDebugMode) {
-        buildType = BuildType.debug;
-      } else if (kProfileMode) {
-        buildType = BuildType.profile;
-      } else {
-        buildType = BuildType.release;
-      }
       // set the app environment
       AppEnv.set(
         apiUrl: '',

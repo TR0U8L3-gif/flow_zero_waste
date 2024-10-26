@@ -204,7 +204,7 @@ class OpenTelemetryOutputService extends LoggerOutputService {
       case LoggerBuildTypes.profile:
         // send info logs and above to telemetry processor other to heap
         _logTelemetryOrHeap(event: event.origin, separator: Level.info);
-      case LoggerBuildTypes.production:
+      case LoggerBuildTypes.release:
         // send warning logs and above to telemetry processor other to heap
         _logTelemetryOrHeap(event: event.origin, separator: Level.warning);
     }

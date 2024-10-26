@@ -157,7 +157,7 @@ class CrashlyticsOutputService extends LoggerOutputService {
       case LoggerBuildTypes.profile:
         // send info logs and above to crashlytics other to heap
         _logCrashlyticsOrHeap(event: event.origin, separator: Level.info);
-      case LoggerBuildTypes.production:
+      case LoggerBuildTypes.release:
         // send warning logs and above to crashlytics other to heap
         _logCrashlyticsOrHeap(event: event.origin, separator: Level.warning);
     }

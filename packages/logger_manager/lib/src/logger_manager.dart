@@ -16,7 +16,7 @@ abstract class LoggerManager {
 
   /// logger getter
   Logger get logger {
-    return _logger ??= build(LoggerBuildTypes.production);
+    return _logger ??= build(LoggerBuildTypes.release);
   }
 
   /// filter getter
@@ -89,10 +89,11 @@ abstract class LoggerManager {
   /// create logger from build type
   void createLogger({required String type}) {
     try {
+      // TODO(add): implement proper mapper
       final buildType = LoggerBuildTypes.values.byName(type);
       _logger = build(buildType);
     } catch (e) {
-      _logger = build(LoggerBuildTypes.production);
+      _logger = build(LoggerBuildTypes.release);
       throw Exception('LoggerBuildTypes not found for $type');
     }
   }

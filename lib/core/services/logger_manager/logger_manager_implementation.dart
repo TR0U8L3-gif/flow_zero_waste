@@ -43,7 +43,7 @@ class LoggerManagerImplementation extends LoggerManager {
         type,
         debug: Level.all,
         profile: Level.info,
-        production: Level.warning,
+        release: Level.warning,
       ),
     );
 
@@ -55,7 +55,7 @@ class LoggerManagerImplementation extends LoggerManager {
         type,
         debug: Level.all,
         profile: Level.info,
-        production: Level.warning,
+        release: Level.warning,
       ),
     );
 
@@ -64,13 +64,13 @@ class LoggerManagerImplementation extends LoggerManager {
         type,
         debug: true,
         profile: true,
-        production: true,
+        release: true,
       ),
       fileMaxSize: decideLoggerBuildType(
         type,
         debug: 25600,
         profile: 102400,
-        production: 204800,
+        release: 204800,
       ),
       buildType: type,
       logLevel: Level.all,
@@ -89,7 +89,7 @@ class LoggerManagerImplementation extends LoggerManager {
           type,
           debug: false,
           profile: true,
-          production: true,
+          release: true,
         ),
         logLevel: Level.all,
         buildType: type,
@@ -102,14 +102,14 @@ class LoggerManagerImplementation extends LoggerManager {
           type,
           debug: 48,
           profile: 36,
-          production: 24,
+          release: 24,
         ),
         flushDelay: Duration(
           seconds: decideLoggerBuildType<int>(
             type,
             debug: 90,
             profile: 45,
-            production: 15,
+            release: 15,
           ),
         ),
       );
@@ -120,7 +120,7 @@ class LoggerManagerImplementation extends LoggerManager {
         type,
         debug: false,
         profile: true,
-        production: true,
+        release: true,
       ),
       logLevel: Level.all,
       buildType: type,
@@ -132,7 +132,7 @@ class LoggerManagerImplementation extends LoggerManager {
         type,
         debug: 16,
         profile: 12,
-        production: 8,
+        release: 8,
       ),
     );
 
@@ -143,26 +143,26 @@ class LoggerManagerImplementation extends LoggerManager {
         type,
         debug: 6,
         profile: 4,
-        production: 2,
+        release: 2,
       ),
       errorMethodCount: decideLoggerBuildType<int>(
         type,
         debug: 16,
         profile: 12,
-        production: 8,
+        release: 8,
       ),
       lineLength: 80,
       printEmojis: decideLoggerBuildType<bool>(
         type,
         debug: true,
         profile: false,
-        production: false,
+        release: false,
       ),
       dateTimeFormat: decideLoggerBuildType<String Function(DateTime)>(
         type,
         debug: DateTimeFormat.onlyTimeAndSinceStart,
         profile: DateTimeFormat.onlyTimeAndSinceStart,
-        production: DateTimeFormat.dateAndTime,
+        release: DateTimeFormat.dateAndTime,
       ),
     );
 

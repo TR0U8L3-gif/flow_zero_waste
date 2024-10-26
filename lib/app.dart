@@ -24,6 +24,8 @@ class App extends StatelessWidget {
       description: 'Unknown error occurred while initializing the app',
     );
 
+    var stackTrace = StackTrace.current;
+
     try {
       // get the environment variables
       await dotenv.load(fileName: 'assets/env/.env');
@@ -34,18 +36,20 @@ class App extends StatelessWidget {
         flavour: flavour,
         buildType: buildType ?? BuildType.fromFlutter,
       );
-    } catch (e) {
+    } catch (e, st) {
       exception = AppSetupException(
         sender: 'MyApp.setup',
         description: 'Error occurred during setting environment variables'
             ' ${e.runtimeType}',
       );
+      stackTrace = st;
     }
 
     // initialize the app
     AppSetup.init(
+      buildType: buildType ?? BuildType.fromFlutter,
       success: App._(MyAppSuccess()),
-      failure: App._(MyAppFailure(exception)),
+      failure: App._(MyAppFailure(exception, stackTrace)),
     );
   }
 
@@ -60,6 +64,7 @@ class App extends StatelessWidget {
 
     if (result is MyAppFailure) {
       final exception = (result as MyAppFailure).exception;
+      final stackTrace = (result as MyAppFailure).stackTrace;
       String message;
 
       if (exception is BaseException) {
@@ -74,10 +79,12 @@ class App extends StatelessWidget {
         supportedLocales: supportedLocales,
         // locale: state.currentLanguage,
         home: ErrorPage(
+          reportError: true,
           data: ErrorPageData(
             title: 'context.l10n.errorTitle',
             message: message,
             exception: exception,
+            stackTrace: stackTrace,
           ),
         ),
       );
@@ -141,7 +148,11 @@ class MyAppSuccess extends MyAppResult {}
 /// Class to represent the failure result of the app setup
 class MyAppFailure extends MyAppResult {
   /// Constructor
-  const MyAppFailure(this.exception);
+  const MyAppFailure(this.exception, [this.stackTrace]);
+
   /// The exception that caused the failure
   final Exception exception;
+
+  /// The stack trace of the exception
+  final StackTrace? stackTrace;
 }
