@@ -1,5 +1,7 @@
+import 'package:flutter/foundation.dart';
+
 /// BuildType enum
-enum BuildTypes {
+enum BuildType {
   /// Development
   debug,
 
@@ -16,12 +18,25 @@ enum BuildTypes {
     required Type release,
   }) {
     switch (this) {
-      case BuildTypes.debug:
+      case BuildType.debug:
         return debug;
-      case BuildTypes.profile:
+      case BuildType.profile:
         return profile;
-      case BuildTypes.release:
+      case BuildType.release:
         return release;
+    }
+  }
+
+  /// Get the build type from flutter.
+  static BuildType get fromFlutter {
+    if(kDebugMode){
+      return BuildType.debug;
+    }
+    else if(kProfileMode){
+      return BuildType.profile;
+    }
+    else {
+      return BuildType.release;
     }
   }
 }

@@ -46,6 +46,7 @@ app.*.map.json
 .fvm/
 
 # Firebase
+google-services.json
 firebase_options.dart
 
 # keys

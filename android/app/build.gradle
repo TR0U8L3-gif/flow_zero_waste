@@ -8,6 +8,18 @@ plugins {
     id "dev.flutter.flutter-gradle-plugin"
 }
 
+dependencies {
+    implementation("com.google.android.material:material:1.9.0")
+    implementation(platform("com.google.firebase:firebase-bom:33.5.1"))
+    implementation("com.google.firebase:firebase-analytics")
+}
+
+def keystoreProperties = new Properties()
+def keystorePropertiesFile = rootProject.file('key.properties')
+if (keystorePropertiesFile.exists()) {
+    keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
+}
+
 android {
     namespace = "com.tr0u8l3gif.app"
     compileSdk = flutter.compileSdkVersion
@@ -33,13 +45,44 @@ android {
         versionName = flutter.versionName
     }
 
-    buildTypes {
+    signingConfigs {
         release {
-            // TODO: Add your own signing config for the release build.
-            // Signing with the debug keys for now, so `flutter run --release` works.
-            signingConfig = signingConfigs.debug
+            keyAlias = keystoreProperties['keyAlias']
+            keyPassword = keystoreProperties['keyPassword']
+            storeFile = keystoreProperties['storeFile'] ? file(keystoreProperties['storeFile']) : null
+            storePassword = keystoreProperties['storePassword']
         }
     }
+    buildTypes {
+        release {
+            signingConfig = signingConfigs.debug
+            // signingConfig = signingConfigs.release
+        }
+    }
+
+    flavorDimensions "default"
+    productFlavors { 
+        development {
+            dimension "default"
+            manifestPlaceholders = [appName: "[DEV] Flow - Zero Waste App"]
+            resValue "string", "app_name", "[DEV] Flow - Zero Waste App"
+            applicationIdSuffix ".dev"
+        }
+        demonstration {
+            dimension "default"
+            manifestPlaceholders = [appName: "[DEMO] Flow - Zero Waste App"]
+            resValue "string", "app_name", "[DEMO] Flow - Zero Waste App"
+            applicationIdSuffix ".demo"
+        }
+        production {
+            dimension "default"
+            manifestPlaceholders = [appName: "Flow - Zero Waste App"]
+            resValue "string", "app_name", "Flow - Zero Waste App"
+            applicationIdSuffix ""
+        }
+    }
+
+
 }
 
 flutter {

@@ -69,14 +69,14 @@ class AppSetup {
     // ignore locator configuration
 
     // get build type based on the environment
-    BuildTypes buildType;
+    BuildType buildType;
 
     if (kDebugMode) {
-      buildType = BuildTypes.debug;
+      buildType = BuildType.debug;
     } else if (kProfileMode) {
-      buildType = BuildTypes.profile;
+      buildType = BuildType.profile;
     } else {
-      buildType = BuildTypes.release;
+      buildType = BuildType.release;
     }
 
     // create logger parameters based on the environment

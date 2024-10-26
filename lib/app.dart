@@ -2,6 +2,7 @@ import 'package:flow_zero_waste/config/injection/injection.dart';
 import 'package:flow_zero_waste/config/l10n/l10n.dart';
 import 'package:flow_zero_waste/config/routes/navigation_router.dart';
 import 'package:flow_zero_waste/core/common/presentation/pages/error_page.dart';
+import 'package:flow_zero_waste/core/enums/build_type.dart';
 import 'package:flow_zero_waste/core/services/setup/app_env.dart';
 import 'package:flow_zero_waste/core/services/setup/app_setup.dart';
 import 'package:flow_zero_waste/core/utils/exceptions.dart';
@@ -14,7 +15,10 @@ class App extends StatelessWidget {
   const App._(this.result);
 
   /// Setup the app
-  static Future<void> setup(String flavour) async {
+  static Future<void> setup({
+    required String flavour,
+    BuildType? buildType,
+  }) async {
     var exception = AppSetupException(
       sender: 'MyApp.setup',
       description: 'Unknown error occurred while initializing the app',
@@ -25,9 +29,10 @@ class App extends StatelessWidget {
       await dotenv.load(fileName: 'assets/env/.env');
 
       // set the environment variables
-      AppEnv.setFromMap(
+      AppEnv.setFromEnv(
         env: dotenv.env,
-        postfix: flavour,
+        flavour: flavour,
+        buildType: buildType ?? BuildType.fromFlutter,
       );
     } catch (e) {
       exception = AppSetupException(

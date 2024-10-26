@@ -1,0 +1,6 @@
+flutter_launcher_icons:
+  android: true
+  min_sdk_android: 21
+  image_path: "assets/icons/flow_logo_demonstration.png"
+  adaptive_icon_background: "#91b2ca"
+  adaptive_icon_foreground: "assets/icons/flow_logo_demonstration.png"

@@ -29,22 +29,22 @@ class AppEnv {
 
   /// Sets the environment variables for the app.
   /// This method should be called before the AppEnv instance is used.
-  static void setFromMap({
+  static void setFromEnv({
     required Map<String, String> env,
-    required String postfix,
+    required String flavour,
+    required BuildType buildType,
   }) {
     final errorMessage = StringBuffer();
 
     final variablesNamesRequired = <String>[
-      'apiUrl$postfix',
-      'clientId$postfix',
-      'clientSecret$postfix',
-      'buildType$postfix',
+      'apiUrl_$flavour',
+      'clientId_$flavour',
+      'clientSecret_$flavour',
     ];
 
     final variablesNamesOptional = <String>[
-      'errorHost$postfix',
-      'errorInstrumentationKey$postfix',
+      'errorHost_$flavour',
+      'errorInstrumentationKey_$flavour',
     ];
 
     for (final key in variablesNamesRequired) {
@@ -60,25 +60,23 @@ class AppEnv {
       }
     }
 
-
-
-    if(errorMessage.isNotEmpty) {
+    if (errorMessage.isNotEmpty) {
       throw AppEnvException(
         sender: 'AppEnv.setFromMap',
         description: errorMessage.toString(),
       );
     }
 
-    try{
+    try {
       set(
         apiUrl: env[variablesNamesRequired.first]!,
         clientId: env[variablesNamesRequired[1]]!,
-        clientSecret: env[variablesNamesRequired[2]]!,
+        clientSecret: env[variablesNamesRequired.last]!,
         errorHost: env[variablesNamesOptional.first],
         errorInstrumentationKey: env[variablesNamesOptional.last],
-        buildType: BuildTypes.values.byName(env[variablesNamesRequired.last]!),
+        buildType: buildType,
       );
-    } catch(e) {
+    } catch (e) {
       throw AppEnvException(
         sender: 'AppEnv.setFromMap',
         description: 'Unable to run set function: $e',
@@ -94,7 +92,7 @@ class AppEnv {
     required String clientSecret,
     String? errorHost,
     String? errorInstrumentationKey,
-    required BuildTypes buildType,
+    required BuildType buildType,
   }) {
     _instance = AppEnv._(
       apiUrl: apiUrl,
@@ -127,7 +125,7 @@ class AppEnv {
   final String clientSecret;
 
   /// Build type
-  final BuildTypes buildType;
+  final BuildType buildType;
 
   /// The host for the app.
   final String? errorHost;

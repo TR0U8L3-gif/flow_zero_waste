@@ -15,10 +15,13 @@ class FirebaseOptionsManager {
   static FirebaseOptions? get currentFlavorPlatform {
     switch (appFlavor) {
       case 'development':
+        log('Using FirebaseOptions for development');
         return dev.DefaultFirebaseOptions.currentPlatform;
       case 'demonstration':
+        log('Using FirebaseOptions for demonstration');
         return demo.DefaultFirebaseOptions.currentPlatform;
       case 'production':
+        log('Using FirebaseOptions for production');
         return prod.DefaultFirebaseOptions.currentPlatform;
       default:
         log('FirebaseOptionsManager: No FirebaseOptions found for $appFlavor');
