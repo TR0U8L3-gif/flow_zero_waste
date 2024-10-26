@@ -8,15 +8,10 @@ import 'package:flow_zero_waste/core/utils/exceptions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
-// TODO: remove this
-void main() {
-  MyApp.setup('dev');
-}
-
 /// Core application widget
-class MyApp extends StatelessWidget {
+class App extends StatelessWidget {
   /// Constructor
-  const MyApp._(this.result);
+  const App._(this.result);
 
   /// Setup the app
   static Future<void> setup(String flavour) async {
@@ -44,8 +39,8 @@ class MyApp extends StatelessWidget {
 
     // initialize the app
     AppSetup.init(
-      success: MyApp._(MyAppSuccess()),
-      failure: MyApp._(MyAppFailure(exception)),
+      success: App._(MyAppSuccess()),
+      failure: App._(MyAppFailure(exception)),
     );
   }
 
