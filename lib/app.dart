@@ -1,16 +1,20 @@
 import 'package:flow_zero_waste/config/injection/injection.dart';
 import 'package:flow_zero_waste/config/l10n/l10n.dart';
 import 'package:flow_zero_waste/config/routes/navigation_router.dart';
+import 'package:flow_zero_waste/core/common/data/exceptions.dart';
+import 'package:flow_zero_waste/core/common/presentation/logics/providers/page_provider.dart';
 import 'package:flow_zero_waste/core/common/presentation/pages/error_page.dart';
-import 'package:flow_zero_waste/core/enums/build_type.dart';
+import 'package:flow_zero_waste/core/enums/build_type_enum.dart';
 import 'package:flow_zero_waste/core/extensions/l10n_extension.dart';
 import 'package:flow_zero_waste/core/services/setup/app_env.dart';
 import 'package:flow_zero_waste/core/services/setup/app_setup.dart';
-import 'package:flow_zero_waste/core/utils/exceptions.dart';
 import 'package:flow_zero_waste/src/language/presentation/logics/language_cubit.dart';
+import 'package:flow_zero_waste/src/ui/presentation/logics/text_scale_provider.dart';
+import 'package:flow_zero_waste/src/ui/presentation/logics/theme_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:provider/provider.dart';
 
 /// Core application widget
 class App extends StatelessWidget {
@@ -68,6 +72,15 @@ class App extends StatelessWidget {
       BlocProvider(
         create: (context) =>
             locator<LanguageCubit>()..loadLanguageOrSetDeviceLocale(),
+      ),
+      ChangeNotifierProvider(
+        create: (context) => locator<PageProvider>(),
+      ),
+      ChangeNotifierProvider(
+        create: (context) => locator<ThemeProvider>(),
+      ),
+      ChangeNotifierProvider(
+        create: (context) => locator<TextScaleProvider>(),
       ),
     ];
 

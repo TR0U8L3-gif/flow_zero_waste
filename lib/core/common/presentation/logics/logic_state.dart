@@ -1,6 +1,6 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:flow_zero_waste/core/enums/navigation_type.dart';
-import 'package:flow_zero_waste/core/utils/exceptions.dart';
+import 'package:flow_zero_waste/core/enums/navigation_type_enum.dart';
+import 'package:flow_zero_waste/core/common/data/exceptions.dart';
 import 'package:flutter/widgets.dart';
 
 /// Base state that reduces boilerplate when trying to

@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'dart:typed_data';
 
-import 'package:flow_zero_waste/core/utils/exceptions.dart';
+import 'package:flow_zero_waste/core/common/data/exceptions.dart';
 import 'package:hive/hive.dart';
 
 /// Default value for the compact threshold.

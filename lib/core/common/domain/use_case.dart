@@ -1,4 +1,4 @@
-import 'package:flow_zero_waste/core/utils/response.dart';
+import 'package:flow_zero_waste/core/common/domain/response.dart';
 import 'package:flow_zero_waste/core/utils/typedef.dart';
 import 'package:flutter/foundation.dart';
 

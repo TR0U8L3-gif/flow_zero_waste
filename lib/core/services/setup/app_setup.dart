@@ -2,7 +2,7 @@ import 'dart:async';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flow_zero_waste/config/firebase/firebase.dart';
 import 'package:flow_zero_waste/config/injection/injection.dart';
-import 'package:flow_zero_waste/core/enums/build_type.dart';
+import 'package:flow_zero_waste/core/enums/build_type_enum.dart';
 import 'package:flow_zero_waste/core/services/setup/app_env.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';

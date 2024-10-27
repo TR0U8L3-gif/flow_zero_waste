@@ -1,5 +1,5 @@
-import 'package:flow_zero_waste/core/utils/repository.dart';
-import 'package:flow_zero_waste/core/utils/response.dart';
+import 'package:flow_zero_waste/core/common/domain/repository.dart';
+import 'package:flow_zero_waste/core/common/domain/response.dart';
 import 'package:flow_zero_waste/core/utils/typedef.dart';
 import 'package:flow_zero_waste/src/language/data/datasources/language_local_data_sorce.dart';
 import 'package:flow_zero_waste/src/language/domain/repositories/language_repository.dart';

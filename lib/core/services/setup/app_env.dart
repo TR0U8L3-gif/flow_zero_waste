@@ -1,5 +1,5 @@
-import 'package:flow_zero_waste/core/enums/build_type.dart';
-import 'package:flow_zero_waste/core/utils/exceptions.dart';
+import 'package:flow_zero_waste/core/enums/build_type_enum.dart';
+import 'package:flow_zero_waste/core/common/data/exceptions.dart';
 import 'package:flutter/material.dart';
 
 /// AppEnv is a class that holds the environment variables for the app.
