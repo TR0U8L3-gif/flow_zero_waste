@@ -39,7 +39,8 @@ import '../../src/language/domain/usecases/get_language_from_local_storage.dart'
     as _i2;
 import '../../src/language/domain/usecases/save_language_to_local_storage.dart'
     as _i665;
-import '../../src/language/presentation/logics/language_cubit.dart' as _i460;
+import '../../src/language/presentation/logics/language_provider.dart'
+    as _i1069;
 import '../../src/ui/presentation/logics/text_scale_provider.dart' as _i210;
 import '../../src/ui/presentation/logics/theme_provider.dart' as _i88;
 import '../routes/navigation_router.dart' as _i732;
@@ -55,14 +56,14 @@ extension GetItInjectableX on _i174.GetIt {
       environment,
       environmentFilter,
     );
+    gh.factory<_i210.TextScaleProvider>(() => _i210.TextScaleProvider());
+    gh.factory<_i88.ThemeProvider>(() => _i88.ThemeProvider());
     gh.singleton<_i732.NavigationRouter>(() => _i732.NavigationRouter());
     gh.singleton<_i248.PageProvider>(() => _i248.PageProvider());
     gh.singleton<_i681.LanguageStorageHive>(
       () => _i681.LanguageStorageHive(),
       dispose: (i) => i.dispose(),
     );
-    gh.singleton<_i210.TextScaleProvider>(() => _i210.TextScaleProvider());
-    gh.singleton<_i88.ThemeProvider>(() => _i88.ThemeProvider());
     gh.lazySingleton<_i87.LanguageLocalDataSorce>(() =>
         _i380.LanguageLocalDataSorceImpl(
             languageStorageHive: gh<_i681.LanguageStorageHive>()));
@@ -85,7 +86,7 @@ extension GetItInjectableX on _i174.GetIt {
           deviceInfo: gh<_i369.DeviceInfoManager>(),
           parameters: gh<_i31.LoggerManagerParameters>(),
         ));
-    gh.factory<_i460.LanguageCubit>(() => _i460.LanguageCubit(
+    gh.factory<_i1069.LanguageProvider>(() => _i1069.LanguageProvider(
           getLanguageFromStorage: gh<_i2.GetLanguageFromLocalStorage>(),
           saveLanguageToStorage: gh<_i665.SaveLanguageToLocalStorage>(),
         ));

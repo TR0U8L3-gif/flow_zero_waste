@@ -8,11 +8,10 @@ import 'package:flow_zero_waste/core/enums/build_type_enum.dart';
 import 'package:flow_zero_waste/core/extensions/l10n_extension.dart';
 import 'package:flow_zero_waste/core/services/setup/app_env.dart';
 import 'package:flow_zero_waste/core/services/setup/app_setup.dart';
-import 'package:flow_zero_waste/src/language/presentation/logics/language_cubit.dart';
+import 'package:flow_zero_waste/src/language/presentation/logics/language_provider.dart';
 import 'package:flow_zero_waste/src/ui/presentation/logics/text_scale_provider.dart';
 import 'package:flow_zero_waste/src/ui/presentation/logics/theme_provider.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:provider/provider.dart';
 
@@ -69,9 +68,9 @@ class App extends StatelessWidget {
     const localizationsDelegates = L10n.supportedDelegates;
     const supportedLocales = L10n.supportedLocales;
     final providers = [
-      BlocProvider(
+      ChangeNotifierProvider(
         create: (context) =>
-            locator<LanguageCubit>()..loadLanguageOrSetDeviceLocale(),
+            locator<LanguageProvider>()..loadLanguageOrSetDeviceLocale(),
       ),
       ChangeNotifierProvider(
         create: (context) => locator<PageProvider>(),
@@ -88,7 +87,7 @@ class App extends StatelessWidget {
     return MultiProvider(
       providers: providers,
       builder: (context, child) {
-        final languageState = context.watch<LanguageCubit>().state;
+        final languageProvider = context.watch<LanguageProvider>();
         final textScaleProvider = context.watch<TextScaleProvider>();
         final themeProvider = context.watch<ThemeProvider>();
         final pageProvider = context.read<PageProvider>();
@@ -102,7 +101,7 @@ class App extends StatelessWidget {
             title: title,
             theme: themeProvider.themeData,
             supportedLocales: supportedLocales,
-            locale: languageState.currentLanguage,
+            locale: languageProvider.currentLanguage,
             localizationsDelegates: localizationsDelegates,
             home: ErrorPage(
               reportError: true,
@@ -135,7 +134,7 @@ class App extends StatelessWidget {
             title: title,
             theme: themeProvider.themeData,
             supportedLocales: supportedLocales,
-            locale: languageState.currentLanguage,
+            locale: languageProvider.currentLanguage,
             localizationsDelegates: localizationsDelegates,
             routerConfig: locator<NavigationRouter>().config(),
             builder: (context, child) {

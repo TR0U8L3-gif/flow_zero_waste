@@ -4,9 +4,8 @@ import 'package:flow_zero_waste/core/extensions/theme_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
 
-@singleton
-
 /// A provider class to manage the theme of the app.
+@injectable
 class ThemeProvider extends ChangeNotifier {
   Brightness _brightness = Brightness.light;
   Contrast _contrast = Contrast.standard;

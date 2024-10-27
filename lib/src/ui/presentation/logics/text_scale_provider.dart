@@ -6,10 +6,9 @@ const _textScaleFactorDefault = 1.0;
 const _textScaleFactorMinDefault = 0.4;
 const _textScaleFactorMaxDefault = 2.2;
 
-@singleton
 /// A provider class to manage the text scale of the app.
+@injectable
 class TextScaleProvider extends ChangeNotifier {
-
   double _textScaleFactor = _textScaleFactorDefault;
   double _textScaleFactorMin = _textScaleFactorMinDefault;
   double _textScaleFactorMax = _textScaleFactorMaxDefault;
@@ -37,10 +36,10 @@ class TextScaleProvider extends ChangeNotifier {
     var textScale = scale;
     if (scale > _textScaleFactorMax) {
       textScale = _textScaleFactorMax;
-    } 
+    }
     if (scale < _textScaleFactorMin) {
       textScale = _textScaleFactorMin;
-    } 
+    }
     _textScaleFactor = textScale;
     notifyListeners();
   }
