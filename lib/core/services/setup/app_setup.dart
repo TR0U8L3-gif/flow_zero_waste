@@ -84,19 +84,26 @@ class AppSetup {
   static void _onError(LoggerManager logManager) {
     // catch flutter errors
     FlutterError.onError = (details) {
-      logManager.logger.w(
-        LoggerMessage(
-          message: details.toString(),
+      if (details.library == 'rendering library') {
+        logManager.trace(
+          message: 'rendering library: $details',
           problemId: 'flutter_on_error',
-          additionalProperties: {
-            'library': details.library.toString(),
-            // 'diagnosticsNode': details.context.toString(),
-            // 'informationCollector': details.informationCollector.toString(),
-          },
-        ),
-        stackTrace: details.stack,
-        error: details.exception,
-      );
+        );
+      } else {
+        logManager.logger.w(
+          LoggerMessage(
+            message: details.toString(),
+            problemId: 'flutter_on_error',
+            additionalProperties: {
+              'library': details.library.toString(),
+              // 'diagnosticsNode': details.context.toString(),
+              // 'informationCollector': details.informationCollector.toString(),
+            },
+          ),
+          stackTrace: details.stack,
+          error: details.exception,
+        );
+      }
     };
 
     // catch platform dispatcher errors

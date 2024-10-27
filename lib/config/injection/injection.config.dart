@@ -12,6 +12,8 @@ import 'package:get_it/get_it.dart' as _i174;
 import 'package:injectable/injectable.dart' as _i526;
 import 'package:logger_manager/logger_manager.dart' as _i127;
 
+import '../../core/common/presentation/logics/providers/page_provider.dart'
+    as _i248;
 import '../../core/services/device_info/device_info.dart' as _i369;
 import '../../core/services/device_info/device_info_implementation.dart'
     as _i698;
@@ -38,6 +40,8 @@ import '../../src/language/domain/usecases/get_language_from_local_storage.dart'
 import '../../src/language/domain/usecases/save_language_to_local_storage.dart'
     as _i665;
 import '../../src/language/presentation/logics/language_cubit.dart' as _i460;
+import '../../src/ui/presentation/logics/text_scale_provider.dart' as _i210;
+import '../../src/ui/presentation/logics/theme_provider.dart' as _i88;
 import '../routes/navigation_router.dart' as _i732;
 
 extension GetItInjectableX on _i174.GetIt {
@@ -52,10 +56,13 @@ extension GetItInjectableX on _i174.GetIt {
       environmentFilter,
     );
     gh.singleton<_i732.NavigationRouter>(() => _i732.NavigationRouter());
+    gh.singleton<_i248.PageProvider>(() => _i248.PageProvider());
     gh.singleton<_i681.LanguageStorageHive>(
       () => _i681.LanguageStorageHive(),
       dispose: (i) => i.dispose(),
     );
+    gh.singleton<_i210.TextScaleProvider>(() => _i210.TextScaleProvider());
+    gh.singleton<_i88.ThemeProvider>(() => _i88.ThemeProvider());
     gh.lazySingleton<_i87.LanguageLocalDataSorce>(() =>
         _i380.LanguageLocalDataSorceImpl(
             languageStorageHive: gh<_i681.LanguageStorageHive>()));

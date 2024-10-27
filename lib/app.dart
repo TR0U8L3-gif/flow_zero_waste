@@ -77,61 +77,79 @@ class App extends StatelessWidget {
         create: (context) => locator<PageProvider>(),
       ),
       ChangeNotifierProvider(
-        create: (context) => locator<ThemeProvider>(),
+        create: (context) =>
+            locator<ThemeProvider>()..brightnessFromThemeMode(ThemeMode.system),
       ),
       ChangeNotifierProvider(
         create: (context) => locator<TextScaleProvider>(),
       ),
     ];
 
-    if (result is MyAppFailure) {
-      final exception = (result as MyAppFailure).exception;
-      final stackTrace = (result as MyAppFailure).stackTrace;
-      String message;
-
-      if (exception is BaseException) {
-        message = exception.message;
-      } else {
-        message = context.l10n.unknownErrorOccurred;
-      }
-
-      return MultiBlocProvider(
-        providers: providers,
-        child: BlocBuilder<LanguageCubit, LanguageState>(
-          builder: (context, state) {
-            return MaterialApp(
-              title: title,
-              localizationsDelegates: localizationsDelegates,
-              supportedLocales: supportedLocales,
-              locale: state.currentLanguage,
-              home: ErrorPage(
-                reportError: true,
-                data: ErrorPageData(
-                  title: context.l10n.appInitErrorTitle,
-                  message: message,
-                  exception: exception,
-                  stackTrace: stackTrace,
-                ),
-              ),
-            );
-          },
-        ),
-      );
-    }
-
-    return MultiBlocProvider(
+    return MultiProvider(
       providers: providers,
-      child: BlocBuilder<LanguageCubit, LanguageState>(
-        builder: (context, state) {
+      builder: (context, child) {
+        final languageState = context.watch<LanguageCubit>().state;
+        final textScaleProvider = context.watch<TextScaleProvider>();
+        final themeProvider = context.watch<ThemeProvider>();
+        final pageProvider = context.read<PageProvider>();
+
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          pageProvider.updatePageSize(MediaQuery.sizeOf(context));
+        });
+
+        if (result is MyAppFailure) {
+          return MaterialApp(
+            title: title,
+            theme: themeProvider.themeData,
+            supportedLocales: supportedLocales,
+            locale: languageState.currentLanguage,
+            localizationsDelegates: localizationsDelegates,
+            home: ErrorPage(
+              reportError: true,
+              data: ErrorPageData(
+                title: context.l10n.appInitErrorTitle,
+                message: () {
+                  try {
+                    return ((result as MyAppFailure).exception as BaseException)
+                        .message;
+                  } catch (e) {
+                    return context.l10n.unknownErrorOccurred;
+                  }
+                }(),
+                exception: (result as MyAppFailure).exception,
+                stackTrace: (result as MyAppFailure).stackTrace,
+              ),
+            ),
+            builder: (context, child) {
+              final mediaQuery = MediaQuery.of(context);
+              return MediaQuery(
+                data: mediaQuery.copyWith(
+                  textScaler: textScaleProvider.textScaler,
+                ),
+                child: child!,
+              );
+            },
+          );
+        } else {
           return MaterialApp.router(
             title: title,
-            localizationsDelegates: localizationsDelegates,
+            theme: themeProvider.themeData,
             supportedLocales: supportedLocales,
-            locale: state.currentLanguage,
+            locale: languageState.currentLanguage,
+            localizationsDelegates: localizationsDelegates,
             routerConfig: locator<NavigationRouter>().config(),
+            builder: (context, child) {
+              final mediaQuery = MediaQuery.of(context);
+              return MediaQuery(
+                data: mediaQuery.copyWith(
+                  textScaler: textScaleProvider.textScaler,
+                ),
+                child: child!,
+              );
+            },
           );
-        },
-      ),
+        }
+      },
     );
   }
 }

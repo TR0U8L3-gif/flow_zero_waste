@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:flow_zero_waste/config/routes/navigation_router.gr.dart';
 import 'package:flutter/material.dart';
 
 /// temporary route
@@ -38,10 +39,18 @@ class _MyHomePageState extends State<MyHomePage> {
               '$_counter',
               style: Theme.of(context).textTheme.headlineMedium,
             ),
+            const SizedBox(height: 20),
+            ElevatedButton(
+              onPressed: () {
+                context.router.push(const MainRoute());
+              },
+              child: const Text('Go to next page'),
+            ),
           ],
         ),
       ),
       floatingActionButton: FloatingActionButton(
+        heroTag: 'increment',
         onPressed: _incrementCounter,
         tooltip: 'Increment',
         child: const Icon(Icons.add),

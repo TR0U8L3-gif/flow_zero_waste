@@ -156,15 +156,16 @@ class _NavigationPageState extends State<NavigationPage> {
                 AnimatedContainer(
                   duration:
                       const Duration(milliseconds: AppSize.durationExtraSmall),
-                  width: isNavRailExpanded
-                      ? minExtendedWidth
-                      : _calculateWidthFromTitle(
-                          title: biggestItemTitle,
-                          textScaler: widget.textScaler,
-                          labelStyle: closedRailLabelStyle,
-                          iconSize: _iconSizeDefault,
-                          isExpanded: false,
-                        ),
+                  width:
+                      isNavRailExpanded && navBarType == NavBarType.railExtended
+                          ? minExtendedWidth
+                          : _calculateWidthFromTitle(
+                              title: biggestItemTitle,
+                              textScaler: widget.textScaler,
+                              labelStyle: closedRailLabelStyle,
+                              iconSize: _iconSizeDefault,
+                              isExpanded: false,
+                            ),
                   height: double.infinity,
                   alignment: Alignment.center,
                   child: NavigationRail(
@@ -325,8 +326,10 @@ class NavItem {
 
   /// The icon of the navigation item.
   final IconData icon;
+
   /// The title of the navigation item.
   final String title;
+
   /// The tooltip of the navigation item.
   final String? tooltip;
 }

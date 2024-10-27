@@ -9,18 +9,6 @@ const _textScaleFactorMaxDefault = 2.2;
 @singleton
 /// A provider class to manage the text scale of the app.
 class TextScaleProvider extends ChangeNotifier {
-  /// Factory constructor to return the instance of the text scale provider.
-  factory TextScaleProvider() => _instance;
-
-  /// Constructor to initialize the text scale provider.
-  TextScaleProvider._initial([
-    double min = _textScaleFactorMinDefault,
-    double max = _textScaleFactorMaxDefault,
-  ]) {
-    setTextScaleFactorConstraints(min, max);
-  }
-
-  static final TextScaleProvider _instance = TextScaleProvider._initial();
 
   double _textScaleFactor = _textScaleFactorDefault;
   double _textScaleFactorMin = _textScaleFactorMinDefault;
