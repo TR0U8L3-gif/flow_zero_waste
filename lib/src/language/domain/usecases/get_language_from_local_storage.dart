@@ -7,14 +7,14 @@ import 'package:injectable/injectable.dart';
 
 /// Get language from storage use case
 @lazySingleton
-class GetLanguageFromLocalStorage extends UseCase<String, NoParams> {
+class GetLanguageFromLocalStorage extends UseCase<String?, NoParams> {
   ///  Constructor for GetLanguageFromStorage
   GetLanguageFromLocalStorage({required LanguageRepository repository})
       : _repository = repository;
   final LanguageRepository _repository;
 
   @override
-  ResultFuture<Failure, String> call(NoParams params) {
+  ResultFuture<Failure, String?> call(NoParams params) {
     return _repository.getLanguageFromStorage();
   }
 }

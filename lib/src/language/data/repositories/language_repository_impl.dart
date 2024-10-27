@@ -1,4 +1,3 @@
-import 'package:flow_zero_waste/core/constants/language_constant.dart';
 import 'package:flow_zero_waste/core/utils/repository.dart';
 import 'package:flow_zero_waste/core/utils/response.dart';
 import 'package:flow_zero_waste/core/utils/typedef.dart';
@@ -18,7 +17,7 @@ class LanguageRepositoryImpl extends Repository implements LanguageRepository {
   final LanguageLocalDataSorce _languageLocalDataSorce;
 
   @override
-  ResultFuture<Failure, String> getLanguageFromStorage() async {
+  ResultFuture<Failure, String?> getLanguageFromStorage() async {
     try {
       logger.trace(message: 'Getting language code from local storage');
       final languageCode =
@@ -28,14 +27,13 @@ class LanguageRepositoryImpl extends Repository implements LanguageRepository {
         message: 'Received language code from local storage: $languageCode',
       );
 
-      /// if null return default language code
-      return Right<Failure, String>(languageCode ?? kLanguageCodeDefault);
+      return Right(languageCode);
     } catch (e, st) {
       logger.warning(
         message: 'Error getting language code from local storage: $e',
         stackTrace: st,
       );
-      return Left<Failure, String>(Failure(message: e.toString()));
+      return Left(Failure(message: e.toString()));
     }
   }
 
@@ -49,13 +47,13 @@ class LanguageRepositoryImpl extends Repository implements LanguageRepository {
       logger.trace(
         message: 'Language code ($languageCode) saved to local storage',
       );
-      return const Right<Failure, void>(null);
+      return const Right(null);
     } catch (e, st) {
       logger.warning(
         message: 'Error saving language code to local storage: $e',
         stackTrace: st,
       );
-      return Left<Failure, void>(Failure(message: e.toString()));
+      return Left(Failure(message: e.toString()));
     }
   }
 }

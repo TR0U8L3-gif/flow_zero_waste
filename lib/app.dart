@@ -66,7 +66,8 @@ class App extends StatelessWidget {
     const supportedLocales = L10n.supportedLocales;
     final providers = [
       BlocProvider(
-        create: (context) => locator<LanguageCubit>()..loadLanguage(),
+        create: (context) =>
+            locator<LanguageCubit>()..loadLanguageOrSetDeviceLocale(),
       ),
     ];
 
@@ -78,7 +79,7 @@ class App extends StatelessWidget {
       if (exception is BaseException) {
         message = exception.message;
       } else {
-        message =  context.l10n.unknownErrorOccurred;
+        message = context.l10n.unknownErrorOccurred;
       }
 
       return MultiBlocProvider(
@@ -91,8 +92,7 @@ class App extends StatelessWidget {
               supportedLocales: supportedLocales,
               locale: state.currentLanguage,
               home: ErrorPage(
-                // TODO(change): uncomment
-                // reportError: true,
+                reportError: true,
                 data: ErrorPageData(
                   title: context.l10n.appInitErrorTitle,
                   message: message,

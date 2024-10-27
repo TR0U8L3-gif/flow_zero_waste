@@ -7,5 +7,5 @@ abstract class LanguageRepository{
   ResultFuture<Failure, void> saveLanguageToStorage(String languageCode);
 
   /// Get language code from local storage
-  ResultFuture<Failure, String> getLanguageFromStorage();
+  ResultFuture<Failure, String?> getLanguageFromStorage();
 }
