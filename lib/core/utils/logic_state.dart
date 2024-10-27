@@ -10,6 +10,9 @@ import 'package:flutter/widgets.dart';
 /// should use [BuildableLogicState] or [ListenableLogicState] mixins.
 @immutable
 abstract class BaseLogicState {
+  /// Default constructor
+  const BaseLogicState();
+
   /// Whether the state is buildable
   abstract final bool isBuildable;
 

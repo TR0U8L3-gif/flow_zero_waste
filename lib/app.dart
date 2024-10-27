@@ -3,10 +3,13 @@ import 'package:flow_zero_waste/config/l10n/l10n.dart';
 import 'package:flow_zero_waste/config/routes/navigation_router.dart';
 import 'package:flow_zero_waste/core/common/presentation/pages/error_page.dart';
 import 'package:flow_zero_waste/core/enums/build_type.dart';
+import 'package:flow_zero_waste/core/extensions/l10n_extension.dart';
 import 'package:flow_zero_waste/core/services/setup/app_env.dart';
 import 'package:flow_zero_waste/core/services/setup/app_setup.dart';
 import 'package:flow_zero_waste/core/utils/exceptions.dart';
+import 'package:flow_zero_waste/src/language/presentation/logics/language_cubit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 /// Core application widget
@@ -58,9 +61,14 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const title = 'Flow Zero Waste';
+    const title = 'Flow - Zero Waste App';
     const localizationsDelegates = L10n.supportedDelegates;
     const supportedLocales = L10n.supportedLocales;
+    final providers = [
+      BlocProvider(
+        create: (context) => locator<LanguageCubit>()..loadLanguage(),
+      ),
+    ];
 
     if (result is MyAppFailure) {
       final exception = (result as MyAppFailure).exception;
@@ -70,69 +78,48 @@ class App extends StatelessWidget {
       if (exception is BaseException) {
         message = exception.message;
       } else {
-        message = 'Unknown error occurred';
+        message =  context.l10n.unknownErrorOccurred;
       }
 
-      return MaterialApp(
-        title: title,
-        localizationsDelegates: localizationsDelegates,
-        supportedLocales: supportedLocales,
-        // locale: state.currentLanguage,
-        home: ErrorPage(
-          reportError: true,
-          data: ErrorPageData(
-            title: 'context.l10n.errorTitle',
-            message: message,
-            exception: exception,
-            stackTrace: stackTrace,
-          ),
+      return MultiBlocProvider(
+        providers: providers,
+        child: BlocBuilder<LanguageCubit, LanguageState>(
+          builder: (context, state) {
+            return MaterialApp(
+              title: title,
+              localizationsDelegates: localizationsDelegates,
+              supportedLocales: supportedLocales,
+              locale: state.currentLanguage,
+              home: ErrorPage(
+                // TODO(change): uncomment
+                // reportError: true,
+                data: ErrorPageData(
+                  title: context.l10n.appInitErrorTitle,
+                  message: message,
+                  exception: exception,
+                  stackTrace: stackTrace,
+                ),
+              ),
+            );
+          },
         ),
       );
-
-      // return BlocProvider(
-      //   create: (context) => LanguageCubit()..loadLanguage(),
-      //   child: BlocBuilder<LanguageCubit, LanguageState>(
-      //     builder: (context, state) {
-      //       return MaterialApp(
-      //         title: title,
-      //         localizationsDelegates: localizationsDelegates,
-      //         supportedLocales: supportedLocales,
-      //         // locale: state.currentLanguage,
-      //         home: ErrorPage(
-      //           data: ErrorPageData(
-      //             title: "context.l10n.errorTitle",
-      //             message: message,
-      //             exception: exception,
-      //           ),
-      //         ),
-      //       );
-      //     },
-      //   ),
-      // );
     }
 
-    return MaterialApp.router(
-      title: title,
-      localizationsDelegates: localizationsDelegates,
-      supportedLocales: supportedLocales,
-      // locale: state.currentLanguage,
-      routerConfig: locator<NavigationRouter>().config(),
+    return MultiBlocProvider(
+      providers: providers,
+      child: BlocBuilder<LanguageCubit, LanguageState>(
+        builder: (context, state) {
+          return MaterialApp.router(
+            title: title,
+            localizationsDelegates: localizationsDelegates,
+            supportedLocales: supportedLocales,
+            locale: state.currentLanguage,
+            routerConfig: locator<NavigationRouter>().config(),
+          );
+        },
+      ),
     );
-
-    // return BlocProvider(
-    //   create: (context) => locator<LanguageCubit>()..loadLanguage(),
-    //   child: BlocBuilder<LanguageCubit, LanguageState>(
-    //     builder: (context, state) {
-    //       return MaterialApp.router(
-    //         title: title,
-    //         localizationsDelegates: localizationsDelegates,
-    //         supportedLocales: supportedLocales,
-    //         // locale: state.currentLanguage,
-    //         routerConfig: locator<NavigationRouter>().config(),
-    //       );
-    //     },
-    //   ),
-    // );
   }
 }
 

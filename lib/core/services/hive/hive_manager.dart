@@ -27,7 +27,7 @@ abstract class HiveManager<T> {
   bool get isBoxOpen => _isBoxOpen;
 
   /// Returns the key for the box.
-  String _boxKey([String? key]) => '$boxName${key != null ? '_$key' : ''}';
+  String _boxKey(String key) => '${boxName}_$key';
 
   /// Returns the Hive box.
   Future<Box<T>> get _hiveBox async {
@@ -69,19 +69,19 @@ abstract class HiveManager<T> {
   }
 
   /// Reads the value from the box.
-  Future<T?> read(String? key) async {
+  Future<T?> read({required String key}) async {
     final box = await _hiveBox;
     return box.get(_boxKey(key));
   }
 
   /// Writes the value to the box.
-  Future<void> write(String? key, T input) async {
+  Future<void> write(T input, {required String key}) async {
     final box = await _hiveBox;
     return box.put(_boxKey(key), input);
   }
 
   /// Deletes the value from the box.
-  Future<void> delete(String? key) async {
+  Future<void> delete({required String key}) async {
     final box = await _hiveBox;
     return box.delete(_boxKey(key));
   }

@@ -45,7 +45,7 @@ class AppSetup {
         apiUrl: '',
         clientId: '',
         clientSecret: '',
-        // TODO(add): add error host end error instrumentation key
+        // TODO(add): add default error host end error instrumentation key
         errorHost: '',
         errorInstrumentationKey: '',
         buildType: buildType,

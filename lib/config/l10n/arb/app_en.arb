@@ -13,5 +13,7 @@
   },
   "noContent": "No Content",
   "yes": "Yes",
-  "no": "No"
+  "no": "No",
+  "appInitErrorTitle": "App initialization error",
+  "unknownErrorOccurred": "Unknown error occurred"
 }
