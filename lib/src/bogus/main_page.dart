@@ -1,6 +1,7 @@
 // ignore_for_file: avoid_print, use_build_context_synchronously, require_trailing_commas, prefer_single_quotes, always_put_required_named_parameters_first, public_member_api_docs, lines_longer_than_80_chars, prefer_int_literals
 
 import 'package:auto_route/annotations.dart';
+import 'package:flow_zero_waste/config/assets/size/app_size.dart';
 import 'package:flow_zero_waste/core/common/presentation/logics/providers/page_provider.dart';
 import 'package:flow_zero_waste/core/common/presentation/pages/responsive_ui/container_page.dart';
 import 'package:flow_zero_waste/core/common/presentation/pages/responsive_ui/navigation_page.dart';
@@ -71,18 +72,16 @@ class _MainPageState extends State<MainPage> {
     return Scaffold(
       backgroundColor: themeProvider.themeData.colorScheme.surfaceContainerHigh,
       body: SafeArea(
+        top: !pageProvider.navBarType.isBottom,
         child: NavigationPage(
           navItems: navItems,
           selectedIndex: selectedItem,
           onSelectedIndex: changeSelectedIndex,
           textScaler: textScaleProvider.textScaler,
           child: ScaffoldPage(
-            showPaddingTop: context.mediaQuery.padding.top < pageProvider.spacing,
-            showPaddingBottom: !pageProvider.layoutSize.isCompact &&
-                !pageProvider.layoutSize.isMedium,
-            showPaddingLeft: pageProvider.layoutSize.isCompact ||
-                pageProvider.layoutSize.isMedium,
-            showPaddingRight: true,
+            showPaddingTop: !pageProvider.navBarType.isBottom && context.mediaQuery.padding.top < pageProvider.spacing,
+            showPaddingBottom: !pageProvider.navBarType.isBottom && context.mediaQuery.padding.bottom < pageProvider.spacing,
+            showPaddingRight: !pageProvider.navBarType.isBottom && context.mediaQuery.padding.right < pageProvider.spacing,
             containerMinWidth: minColumnWidth,
             spacing: pageProvider.spacing,
             primaryContainer: const WcagPage(title: 'Primary Container'),
@@ -162,14 +161,13 @@ class WcagPage extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        
         title: Text(
           title,
           style: Theme.of(context).textTheme.headlineSmall,
         ),
       ),
       body: Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: const EdgeInsets.symmetric(horizontal: AppSize.s),
         child: Center(
           child: SingleChildScrollView(
             child: Column(

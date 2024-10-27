@@ -1,8 +1,6 @@
 import 'package:flow_zero_waste/config/assets/size/app_size.dart';
 import 'package:flow_zero_waste/core/common/presentation/logics/providers/page_provider.dart';
 import 'package:flow_zero_waste/core/enums/nav_bar_type_enum.dart';
-import 'package:flow_zero_waste/core/enums/page_layout_size.dart';
-import 'package:flow_zero_waste/core/extensions/size_extension.dart';
 import 'package:flow_zero_waste/core/extensions/text_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -41,13 +39,13 @@ class NavigationPage extends StatefulWidget {
   final Widget? child;
 
   /// Determines how to divide compact layout based on percentage.
-  final double compactPercentage;
+  final double? compactPercentage;
 
   /// Determines how to divide medium layout based on percentage.
-  final double mediumPercentage;
+  final double? mediumPercentage;
 
   /// Determines how to divide expanded layout based on percentage.
-  final double expandedPercentage;
+  final double? expandedPercentage;
 
   /// The text scaler.
   final TextScaler? textScaler;
@@ -63,6 +61,7 @@ class _NavigationPageState extends State<NavigationPage> {
   @override
   void initState() {
     biggestItemTitle = _findBiggestItem(widget.navItems);
+
     super.initState();
   }
 
@@ -70,8 +69,7 @@ class _NavigationPageState extends State<NavigationPage> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final page = context.watch<PageProvider>();
-    final navBarType = _calculateNavBarType(page.layoutSize, page.size);
-    final labelStyle = _calculateLabelStyle(navBarType, theme.textTheme);
+    final labelStyle = _calculateLabelStyle(page.navBarType, theme.textTheme);
     final bottomNavBarHeight =
         theme.navigationBarTheme.height ?? AppSize.xxxl72;
     return Scaffold(
@@ -79,7 +77,7 @@ class _NavigationPageState extends State<NavigationPage> {
       body: SizedBox.expand(
         child: Builder(
           builder: (context) {
-            if (navBarType.isBottom) {
+            if (page.navBarType.isBottom) {
               return Column(
                 children: [
                   Expanded(
@@ -124,12 +122,13 @@ class _NavigationPageState extends State<NavigationPage> {
                                   ),
                                 )
                                 .toList(),
-                            indicatorShape: navBarType == NavBarType.bottom
+                            indicatorShape: page.navBarType == NavBarType.bottom
                                 ? const CircleBorder(eccentricity: 0.24)
                                 : null,
-                            labelBehavior: navBarType == NavBarType.bottom
+                            labelBehavior: page.navBarType == NavBarType.bottom
                                 ? NavigationDestinationLabelBehavior.alwaysHide
-                                : (navBarType == NavBarType.bottomSemiExtended
+                                : (page.navBarType ==
+                                        NavBarType.bottomSemiExtended
                                     ? NavigationDestinationLabelBehavior
                                         .onlyShowSelected
                                     : NavigationDestinationLabelBehavior
@@ -156,21 +155,21 @@ class _NavigationPageState extends State<NavigationPage> {
                 AnimatedContainer(
                   duration:
                       const Duration(milliseconds: AppSize.durationExtraSmall),
-                  width:
-                      isNavRailExpanded && navBarType == NavBarType.railExtended
-                          ? minExtendedWidth
-                          : _calculateWidthFromTitle(
-                              title: biggestItemTitle,
-                              textScaler: widget.textScaler,
-                              labelStyle: closedRailLabelStyle,
-                              iconSize: _iconSizeDefault,
-                              isExpanded: false,
-                            ),
+                  width: isNavRailExpanded &&
+                          page.navBarType == NavBarType.railExtended
+                      ? minExtendedWidth
+                      : _calculateWidthFromTitle(
+                          title: biggestItemTitle,
+                          textScaler: widget.textScaler,
+                          labelStyle: closedRailLabelStyle,
+                          iconSize: _iconSizeDefault,
+                          isExpanded: false,
+                        ),
                   height: double.infinity,
                   alignment: Alignment.center,
                   child: NavigationRail(
                     extended: isNavRailExpanded &&
-                        navBarType == NavBarType.railExtended,
+                        page.navBarType == NavBarType.railExtended,
                     backgroundColor: Colors.transparent,
                     selectedIndex: widget.selectedIndex,
                     onDestinationSelected: widget.onSelectedIndex,
@@ -182,7 +181,7 @@ class _NavigationPageState extends State<NavigationPage> {
                             label: Text(
                               navItem.title,
                               style: isNavRailExpanded &&
-                                      navBarType == NavBarType.railExtended
+                                      page.navBarType == NavBarType.railExtended
                                   ? labelStyle
                                   : closedRailLabelStyle,
                               overflow: TextOverflow.fade,
@@ -192,14 +191,14 @@ class _NavigationPageState extends State<NavigationPage> {
                         )
                         .toList(),
                     labelType: isNavRailExpanded &&
-                            navBarType == NavBarType.railExtended
+                            page.navBarType == NavBarType.railExtended
                         ? null
                         : NavigationRailLabelType.selected,
                     leading: SizedBox(
                       width: 0,
                       height: (page.spacing / 3).roundToDouble(),
                     ),
-                    trailing: navBarType == NavBarType.railExtended
+                    trailing: page.navBarType == NavBarType.railExtended
                         ? Expanded(
                             child: Container(
                               alignment: Alignment.bottomCenter,
@@ -288,30 +287,6 @@ class _NavigationPageState extends State<NavigationPage> {
         .width;
     final result = width + iconSize + (isExpanded ? _iconContainerSize : 0);
     return result.roundToDouble();
-  }
-
-  NavBarType _calculateNavBarType(PageLayoutSize layoutSize, Size size) {
-    if (layoutSize.isCompact) {
-      if (size.isCompactPercentage(widget.compactPercentage)) {
-        return NavBarType.bottom;
-      } else {
-        return NavBarType.bottomSemiExtended;
-      }
-    } else if (layoutSize.isMedium) {
-      if (size.isMediumPercentage(widget.mediumPercentage)) {
-        return NavBarType.bottomSemiExtended;
-      } else {
-        return NavBarType.bottomExtended;
-      }
-    } else if (layoutSize.isExpanded) {
-      if (size.isExpandedPercentage(widget.expandedPercentage)) {
-        return NavBarType.rail;
-      } else {
-        return NavBarType.railExtended;
-      }
-    } else {
-      return NavBarType.railExtended;
-    }
   }
 }
 
