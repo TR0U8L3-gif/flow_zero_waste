@@ -44,3 +44,13 @@ app.*.map.json
 
 # FVM Version Cache
 .fvm/
+
+# Firebase
+google-services.json
+firebase_options.dart
+
+# keys
+assets/keys/rsa_private_key.pem
+
+# env
+assets/env/.env
