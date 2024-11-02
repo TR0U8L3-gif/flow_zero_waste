@@ -29,5 +29,12 @@
     "lightColor": "gray-800",
     "folderNames": ["models", "model", "entities", "entity",]
   },
+  {
+    "name": "size",
+    "base": "theme",
+    "color": "blue-600",
+    "lightColor": "blue-800",
+    "folderNames": ["size", "sizes"]
+  },
 ]
 }

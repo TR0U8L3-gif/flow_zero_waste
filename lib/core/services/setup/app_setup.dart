@@ -2,7 +2,7 @@ import 'dart:async';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flow_zero_waste/config/firebase/firebase.dart';
 import 'package:flow_zero_waste/config/injection/injection.dart';
-import 'package:flow_zero_waste/core/enums/build_type.dart';
+import 'package:flow_zero_waste/core/enums/build_type_enum.dart';
 import 'package:flow_zero_waste/core/services/setup/app_env.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -45,7 +45,7 @@ class AppSetup {
         apiUrl: '',
         clientId: '',
         clientSecret: '',
-        // TODO(add): add error host end error instrumentation key
+        // TODO(add): add default error host end error instrumentation key
         errorHost: '',
         errorInstrumentationKey: '',
         buildType: buildType,
@@ -84,19 +84,27 @@ class AppSetup {
   static void _onError(LoggerManager logManager) {
     // catch flutter errors
     FlutterError.onError = (details) {
-      logManager.logger.w(
-        LoggerMessage(
-          message: details.toString(),
+      if (details.library == 'rendering library') {
+        logManager.trace(
+          message: 'rendering library: $details',
           problemId: 'flutter_on_error',
-          additionalProperties: {
-            'library': details.library.toString(),
-            // 'diagnosticsNode': details.context.toString(),
-            // 'informationCollector': details.informationCollector.toString(),
-          },
-        ),
-        stackTrace: details.stack,
-        error: details.exception,
-      );
+        );
+      } else {
+        logManager.logger.w(
+          LoggerMessage(
+            message: details.toString(),
+            problemId: 'flutter_on_error',
+            additionalProperties: {
+              'library': details.library.toString(),
+              // 'diagnosticsNode': details.context.toString(),
+              // 'informationCollector': 
+              //       details.informationCollector.toString(),
+            },
+          ),
+          stackTrace: details.stack,
+          error: details.exception,
+        );
+      }
     };
 
     // catch platform dispatcher errors

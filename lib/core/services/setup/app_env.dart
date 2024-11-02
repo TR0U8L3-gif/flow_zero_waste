@@ -1,5 +1,5 @@
-import 'package:flow_zero_waste/core/enums/build_type.dart';
-import 'package:flow_zero_waste/core/utils/exceptions.dart';
+import 'package:flow_zero_waste/core/common/data/exceptions.dart';
+import 'package:flow_zero_waste/core/enums/build_type_enum.dart';
 import 'package:flutter/material.dart';
 
 /// AppEnv is a class that holds the environment variables for the app.
@@ -10,9 +10,10 @@ class AppEnv {
   /// `set` method should be called before the AppEnv instance is used.
   factory AppEnv() {
     return _instance == null
-        ? throw const AppEnvException(
-            sender: 'AppEnv._instance',
-            description: 'not initialized',
+        ? throw AppEnvException(
+            sender: 'instance is empty',
+            description: 'instance check',
+            stackTrace: StackTrace.current,
           )
         : _instance!;
   }
@@ -62,8 +63,9 @@ class AppEnv {
 
     if (errorMessage.isNotEmpty) {
       throw AppEnvException(
-        sender: 'AppEnv.setFromMap',
-        description: errorMessage.toString(),
+        sender: errorMessage.toString(),
+        description: 'set from env',
+        stackTrace: StackTrace.current,
       );
     }
 
@@ -76,10 +78,11 @@ class AppEnv {
         errorInstrumentationKey: env[variablesNamesOptional.last],
         buildType: buildType,
       );
-    } catch (e) {
+    } catch (e, st) {
       throw AppEnvException(
-        sender: 'AppEnv.setFromMap',
-        description: 'Unable to run set function: $e',
+        sender: e.toString(),
+        description: 'set from env',
+        stackTrace: st,
       );
     }
   }

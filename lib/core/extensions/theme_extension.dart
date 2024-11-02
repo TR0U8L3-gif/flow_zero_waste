@@ -9,3 +9,29 @@ extension ThemeExtension on BuildContext {
   /// TextTheme getter
   TextTheme get textTheme => theme.textTheme;
 }
+
+/// BrightnessExtension is a class that extends the Brightness class
+extension BrightnessExtension on Brightness {
+  /// isDark getter
+  bool get isDark {
+    return this == Brightness.dark;
+  }
+
+  /// isLight getter
+  bool get isLight {
+    return this == Brightness.light;
+  }
+}
+
+/// ThemeModeExtension is a class that extends the ThemeMode class
+extension ThemeModeExtension on ThemeMode {
+  /// isDarkMode getter
+  bool get isDarkMode {
+    return this == ThemeMode.dark;
+  }
+
+  /// isLightMode getter
+  bool get isLightMode {
+    return this == ThemeMode.light;
+  }
+}

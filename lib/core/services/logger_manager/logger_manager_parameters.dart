@@ -1,4 +1,4 @@
-import 'package:flow_zero_waste/core/enums/build_type.dart';
+import 'package:flow_zero_waste/core/enums/build_type_enum.dart';
 
 /// LoggerManagerParameters is a class that holds 
 /// the parameters for the logger manager.
