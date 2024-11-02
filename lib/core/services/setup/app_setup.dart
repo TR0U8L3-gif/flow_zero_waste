@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flow_zero_waste/config/firebase/firebase.dart';
 import 'package:flow_zero_waste/config/injection/injection.dart';
+import 'package:flow_zero_waste/core/common/presentation/logics/providers/initialization/initialization_provider.dart';
 import 'package:flow_zero_waste/core/enums/build_type_enum.dart';
 import 'package:flow_zero_waste/core/services/setup/app_env.dart';
 import 'package:flutter/foundation.dart';
@@ -53,7 +54,11 @@ class AppSetup {
     }
 
     // ensure widgets binding is initialized
-    WidgetsFlutterBinding.ensureInitialized();
+    final widgetBinding = WidgetsFlutterBinding.ensureInitialized();
+
+    // preserve the splash screen
+    InitializationStatus().preserve(widgetBinding);
+
 
     // initialize hive
     await Hive.initFlutter();
@@ -97,7 +102,7 @@ class AppSetup {
             additionalProperties: {
               'library': details.library.toString(),
               // 'diagnosticsNode': details.context.toString(),
-              // 'informationCollector': 
+              // 'informationCollector':
               //       details.informationCollector.toString(),
             },
           ),

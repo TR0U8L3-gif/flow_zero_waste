@@ -2,7 +2,8 @@ import 'package:flow_zero_waste/config/injection/injection.dart';
 import 'package:flow_zero_waste/config/l10n/l10n.dart';
 import 'package:flow_zero_waste/config/routes/navigation_router.dart';
 import 'package:flow_zero_waste/core/common/data/exceptions.dart';
-import 'package:flow_zero_waste/core/common/presentation/logics/providers/page_provider.dart';
+import 'package:flow_zero_waste/core/common/presentation/logics/providers/initialization/initialization_provider.dart';
+import 'package:flow_zero_waste/core/common/presentation/logics/providers/responsive_ui/page_provider.dart';
 import 'package:flow_zero_waste/core/common/presentation/pages/error_page.dart';
 import 'package:flow_zero_waste/core/enums/build_type_enum.dart';
 import 'package:flow_zero_waste/core/extensions/l10n_extension.dart';
@@ -62,92 +63,114 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const title = 'Flow - Zero Waste App';
-    const localizationsDelegates = L10n.supportedDelegates;
-    const supportedLocales = L10n.supportedLocales;
+
+    final language = locator<LanguageProvider>();
+    final theme = locator<ThemeProvider>();
+    final textScale = locator<TextScaleProvider>();
+
     final providers = [
       ChangeNotifierProvider(
-        create: (context) =>
-            locator<LanguageProvider>()..loadLanguageOrSetDeviceLocale(),
+        create: (context) => language,
       ),
       ChangeNotifierProvider(
         create: (context) => locator<PageProvider>(),
       ),
       ChangeNotifierProvider(
-        create: (context) =>
-            locator<ThemeProvider>()..loadThemeDetails(),
+        create: (context) => theme,
       ),
       ChangeNotifierProvider(
-        create: (context) => locator<TextScaleProvider>()..loadTextScale(),
+        create: (context) => textScale,
       ),
     ];
 
+    InitializationStatus().initialize([
+      language.loadLanguageOrSetDeviceLocale(),
+      theme.loadThemeDetails(),
+      textScale.loadTextScale(),
+    ]);
+
     return MultiProvider(
       providers: providers,
-      builder: (context, child) {
-        final languageProvider = context.watch<LanguageProvider>();
-        final textScaleProvider = context.watch<TextScaleProvider>();
-        final themeProvider = context.watch<ThemeProvider>();
-        final pageProvider = context.read<PageProvider>();
-
-        WidgetsBinding.instance.addPostFrameCallback((_) {
-          pageProvider.updatePageSize(MediaQuery.sizeOf(context));
-        });
-
-        if (result is MyAppFailure) {
-          return MaterialApp(
-            title: title,
-            theme: themeProvider.themeData,
-            supportedLocales: supportedLocales,
-            locale: languageProvider.currentLanguage,
-            localizationsDelegates: localizationsDelegates,
-            home: ErrorPage(
-              reportError: true,
-              data: ErrorPageData(
-                title: context.l10n.appInitErrorTitle,
-                message: () {
-                  try {
-                    return ((result as MyAppFailure).exception as BaseException)
-                        .message;
-                  } catch (e) {
-                    return context.l10n.unknownErrorOccurred;
-                  }
-                }(),
-                exception: (result as MyAppFailure).exception,
-                stackTrace: (result as MyAppFailure).stackTrace,
-              ),
-            ),
-            builder: (context, child) {
-              final mediaQuery = MediaQuery.of(context);
-              return MediaQuery(
-                data: mediaQuery.copyWith(
-                  textScaler: textScaleProvider.textScaler,
-                ),
-                child: child!,
-              );
-            },
-          );
-        } else {
-          return MaterialApp.router(
-            title: title,
-            theme: themeProvider.themeData,
-            supportedLocales: supportedLocales,
-            locale: languageProvider.currentLanguage,
-            localizationsDelegates: localizationsDelegates,
-            routerConfig: locator<NavigationRouter>().config(),
-            builder: (context, child) {
-              final mediaQuery = MediaQuery.of(context);
-              return MediaQuery(
-                data: mediaQuery.copyWith(
-                  textScaler: textScaleProvider.textScaler,
-                ),
-                child: child!,
-              );
-            },
-          );
-        }
-      },
+      child: _BuildApp(result: result,),
     );
+  }
+}
+
+class _BuildApp extends StatelessWidget {
+  const _BuildApp({
+    required this.result,
+  });
+
+  /// The result of the app setup
+  final MyAppResult result;
+
+  @override
+  Widget build(BuildContext context) {
+    const title = 'Flow - Zero Waste App';
+    const localizationsDelegates = L10n.supportedDelegates;
+    const supportedLocales = L10n.supportedLocales;
+
+    final languageProvider = context.watch<LanguageProvider>();
+    final textScaleProvider = context.watch<TextScaleProvider>();
+    final themeProvider = context.watch<ThemeProvider>();
+    final pageProvider = context.read<PageProvider>();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      pageProvider.updatePageSize(MediaQuery.sizeOf(context));
+    });
+
+    if (result is MyAppFailure) {
+      return MaterialApp(
+        title: title,
+        theme: themeProvider.themeData,
+        supportedLocales: supportedLocales,
+        locale: languageProvider.currentLanguage,
+        localizationsDelegates: localizationsDelegates,
+        home: ErrorPage(
+          reportError: true,
+          data: ErrorPageData(
+            title: context.l10n.appInitErrorTitle,
+            message: () {
+              try {
+                return ((result as MyAppFailure).exception as BaseException)
+                    .message;
+              } catch (e) {
+                return context.l10n.unknownErrorOccurred;
+              }
+            }(),
+            exception: (result as MyAppFailure).exception,
+            stackTrace: (result as MyAppFailure).stackTrace,
+          ),
+        ),
+        builder: (context, child) {
+          final mediaQuery = MediaQuery.of(context);
+          return MediaQuery(
+            data: mediaQuery.copyWith(
+              textScaler: textScaleProvider.textScaler,
+            ),
+            child: child!,
+          );
+        },
+      );
+    } else {
+      return MaterialApp.router(
+        title: title,
+        theme: themeProvider.themeData,
+        supportedLocales: supportedLocales,
+        locale: languageProvider.currentLanguage,
+        localizationsDelegates: localizationsDelegates,
+        routerConfig: locator<NavigationRouter>().config(),
+        builder: (context, child) {
+          final mediaQuery = MediaQuery.of(context);
+          return MediaQuery(
+            data: mediaQuery.copyWith(
+              textScaler: textScaleProvider.textScaler,
+            ),
+            child: child!,
+          );
+        },
+      );
+    }
   }
 }
 

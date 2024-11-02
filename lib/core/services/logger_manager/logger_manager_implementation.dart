@@ -2,24 +2,10 @@ import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flow_zero_waste/core/extensions/string_extension.dart';
 import 'package:flow_zero_waste/core/services/device_info/device_info.dart';
 import 'package:flow_zero_waste/core/services/logger_manager/logger_manager_parameters.dart';
-import 'package:flow_zero_waste/core/services/setup/app_env.dart';
 import 'package:injectable/injectable.dart';
 import 'package:logger/logger.dart';
 import 'package:logger_manager/logger_manager.dart';
 import 'package:package_info_plus/package_info_plus.dart';
-
-/// LoggerManagerParametersFromAppEnv class for the logger manager parameters.
-@Singleton(as: LoggerManagerParameters)
-class LoggerManagerParametersFromAppEnv extends LoggerManagerParameters {
-  /// LoggerManagerParametersFromAppEnv constructor
-  LoggerManagerParametersFromAppEnv()
-      : super(
-          buildType: AppEnv().buildType,
-          errorHost: AppEnv().errorHost,
-          errorInstrumentationKey: AppEnv().errorInstrumentationKey,
-        );
-}
-
 
 /// LoggerManagerImplementation class
 @Singleton(as: LoggerManager)

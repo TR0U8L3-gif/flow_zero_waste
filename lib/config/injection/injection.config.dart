@@ -12,8 +12,8 @@ import 'package:get_it/get_it.dart' as _i174;
 import 'package:injectable/injectable.dart' as _i526;
 import 'package:logger_manager/logger_manager.dart' as _i127;
 
-import '../../core/common/presentation/logics/providers/page_provider.dart'
-    as _i248;
+import '../../core/common/presentation/logics/providers/responsive_ui/page_provider.dart'
+    as _i239;
 import '../../core/services/device_info/device_info.dart' as _i369;
 import '../../core/services/device_info/device_info_implementation.dart'
     as _i698;
@@ -72,7 +72,7 @@ extension GetItInjectableX on _i174.GetIt {
       environmentFilter,
     );
     gh.singleton<_i732.NavigationRouter>(() => _i732.NavigationRouter());
-    gh.singleton<_i248.PageProvider>(() => _i248.PageProvider());
+    gh.singleton<_i239.PageProvider>(() => _i239.PageProvider());
     gh.singleton<_i681.LanguageStorageHive>(
       () => _i681.LanguageStorageHive(),
       dispose: (i) => i.dispose(),
@@ -88,8 +88,6 @@ extension GetItInjectableX on _i174.GetIt {
     gh.singleton<_i87.LanguageLocalDataSorce>(() =>
         _i380.LanguageLocalDataSorceImpl(
             languageStorageHive: gh<_i681.LanguageStorageHive>()));
-    gh.singleton<_i31.LoggerManagerParameters>(
-        () => _i806.LoggerManagerParametersFromAppEnv());
     gh.singleton<_i497.SecureStorageManager>(
         () => _i271.SecureStorageImplementation());
     gh.singleton<_i369.DeviceInfoManager>(
@@ -97,12 +95,14 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i706.LanguageRepository>(() =>
         _i472.LanguageRepositoryImpl(
             languageLocalDataSorce: gh<_i87.LanguageLocalDataSorce>()));
-    gh.lazySingleton<_i665.SaveLanguageToLocalStorage>(() =>
-        _i665.SaveLanguageToLocalStorage(
-            repository: gh<_i706.LanguageRepository>()));
     gh.lazySingleton<_i424.LoadLanguageFromLocalStorage>(() =>
         _i424.LoadLanguageFromLocalStorage(
             repository: gh<_i706.LanguageRepository>()));
+    gh.lazySingleton<_i665.SaveLanguageToLocalStorage>(() =>
+        _i665.SaveLanguageToLocalStorage(
+            repository: gh<_i706.LanguageRepository>()));
+    gh.singleton<_i31.LoggerManagerParameters>(
+        () => _i31.LoggerManagerParametersFromAppEnv());
     gh.singleton<_i961.UiLocalDataSource>(() =>
         _i192.UiLocalDataSourceImpl(uiStorageHive: gh<_i926.UiStorageHive>()));
     gh.lazySingleton<_i957.UiRepository>(() => _i1050.UiRepositoryImpl(
