@@ -2,9 +2,8 @@ import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flow_zero_waste/core/services/device_info/device_info_enum.dart';
 import 'package:flutter/foundation.dart';
 
-@immutable
-
 /// DeviceInfoData class
+@immutable
 class DeviceInfoData {
   /// DeviceInfoData constructor
   const DeviceInfoData({

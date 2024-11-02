@@ -97,7 +97,8 @@ class AppSetup {
             additionalProperties: {
               'library': details.library.toString(),
               // 'diagnosticsNode': details.context.toString(),
-              // 'informationCollector': details.informationCollector.toString(),
+              // 'informationCollector': 
+              //       details.informationCollector.toString(),
             },
           ),
           stackTrace: details.stack,

@@ -26,8 +26,6 @@ class UiLocalDataSourceImpl implements UiLocalDataSource {
   Future<TextScaleDetailsModel?> loadTextScaleDetailsFromStorage() async {
     final data = await _uiStorageHive.read(key: textScaleDetailsKey);
 
-    print('data: $data');
-
     if (data == null) {
       return null;
     }

@@ -131,9 +131,8 @@ class ScaffoldPageProvider extends ChangeNotifier implements PageListener {
     notifyListeners();
   }
 
-  @override
-
   /// Update the page size and notify listeners
+  @override
   void updatePageSize(Size size) {
     if (size == _pageSize) {
       return;
