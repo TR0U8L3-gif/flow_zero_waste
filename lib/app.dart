@@ -1,13 +1,19 @@
 import 'package:flow_zero_waste/config/injection/injection.dart';
 import 'package:flow_zero_waste/config/l10n/l10n.dart';
 import 'package:flow_zero_waste/config/routes/navigation_router.dart';
+import 'package:flow_zero_waste/core/common/data/exceptions.dart';
+import 'package:flow_zero_waste/core/common/presentation/logics/providers/page_provider.dart';
 import 'package:flow_zero_waste/core/common/presentation/pages/error_page.dart';
-import 'package:flow_zero_waste/core/enums/build_type.dart';
+import 'package:flow_zero_waste/core/enums/build_type_enum.dart';
+import 'package:flow_zero_waste/core/extensions/l10n_extension.dart';
 import 'package:flow_zero_waste/core/services/setup/app_env.dart';
 import 'package:flow_zero_waste/core/services/setup/app_setup.dart';
-import 'package:flow_zero_waste/core/utils/exceptions.dart';
+import 'package:flow_zero_waste/src/language/presentation/logics/language_provider.dart';
+import 'package:flow_zero_waste/src/ui/presentation/logics/text_scale_provider.dart';
+import 'package:flow_zero_waste/src/ui/presentation/logics/theme_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:provider/provider.dart';
 
 /// Core application widget
 class App extends StatelessWidget {
@@ -20,11 +26,10 @@ class App extends StatelessWidget {
     BuildType? buildType,
   }) async {
     var exception = const AppSetupException(
-      sender: 'MyApp.setup',
-      description: 'Unknown error occurred while initializing the app',
+      sender: '',
+      description: '',
+      stackTrace: StackTrace.empty,
     );
-
-    var stackTrace = StackTrace.current;
 
     try {
       // get the environment variables
@@ -38,18 +43,17 @@ class App extends StatelessWidget {
       );
     } catch (e, st) {
       exception = AppSetupException(
-        sender: 'MyApp.setup',
-        description: 'Error occurred during setting environment variables'
-            ' ${e.runtimeType}',
+        sender: e.toString(),
+        description: 'load env => set env',
+        stackTrace: st,
       );
-      stackTrace = st;
     }
 
     // initialize the app
     AppSetup.init(
       buildType: buildType ?? BuildType.fromFlutter,
       success: App._(MyAppSuccess()),
-      failure: App._(MyAppFailure(exception, stackTrace)),
+      failure: App._(MyAppFailure(exception, exception.stackTrace)),
     );
   }
 
@@ -58,81 +62,92 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const title = 'Flow Zero Waste';
+    const title = 'Flow - Zero Waste App';
     const localizationsDelegates = L10n.supportedDelegates;
     const supportedLocales = L10n.supportedLocales;
+    final providers = [
+      ChangeNotifierProvider(
+        create: (context) =>
+            locator<LanguageProvider>()..loadLanguageOrSetDeviceLocale(),
+      ),
+      ChangeNotifierProvider(
+        create: (context) => locator<PageProvider>(),
+      ),
+      ChangeNotifierProvider(
+        create: (context) =>
+            locator<ThemeProvider>()..loadThemeDetails(),
+      ),
+      ChangeNotifierProvider(
+        create: (context) => locator<TextScaleProvider>()..loadTextScale(),
+      ),
+    ];
 
-    if (result is MyAppFailure) {
-      final exception = (result as MyAppFailure).exception;
-      final stackTrace = (result as MyAppFailure).stackTrace;
-      String message;
+    return MultiProvider(
+      providers: providers,
+      builder: (context, child) {
+        final languageProvider = context.watch<LanguageProvider>();
+        final textScaleProvider = context.watch<TextScaleProvider>();
+        final themeProvider = context.watch<ThemeProvider>();
+        final pageProvider = context.read<PageProvider>();
 
-      if (exception is BaseException) {
-        message = exception.message;
-      } else {
-        message = 'Unknown error occurred';
-      }
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          pageProvider.updatePageSize(MediaQuery.sizeOf(context));
+        });
 
-      return MaterialApp(
-        title: title,
-        localizationsDelegates: localizationsDelegates,
-        supportedLocales: supportedLocales,
-        // locale: state.currentLanguage,
-        home: ErrorPage(
-          reportError: true,
-          data: ErrorPageData(
-            title: 'context.l10n.errorTitle',
-            message: message,
-            exception: exception,
-            stackTrace: stackTrace,
-          ),
-        ),
-      );
-
-      // return BlocProvider(
-      //   create: (context) => LanguageCubit()..loadLanguage(),
-      //   child: BlocBuilder<LanguageCubit, LanguageState>(
-      //     builder: (context, state) {
-      //       return MaterialApp(
-      //         title: title,
-      //         localizationsDelegates: localizationsDelegates,
-      //         supportedLocales: supportedLocales,
-      //         // locale: state.currentLanguage,
-      //         home: ErrorPage(
-      //           data: ErrorPageData(
-      //             title: "context.l10n.errorTitle",
-      //             message: message,
-      //             exception: exception,
-      //           ),
-      //         ),
-      //       );
-      //     },
-      //   ),
-      // );
-    }
-
-    return MaterialApp.router(
-      title: title,
-      localizationsDelegates: localizationsDelegates,
-      supportedLocales: supportedLocales,
-      // locale: state.currentLanguage,
-      routerConfig: locator<NavigationRouter>().config(),
+        if (result is MyAppFailure) {
+          return MaterialApp(
+            title: title,
+            theme: themeProvider.themeData,
+            supportedLocales: supportedLocales,
+            locale: languageProvider.currentLanguage,
+            localizationsDelegates: localizationsDelegates,
+            home: ErrorPage(
+              reportError: true,
+              data: ErrorPageData(
+                title: context.l10n.appInitErrorTitle,
+                message: () {
+                  try {
+                    return ((result as MyAppFailure).exception as BaseException)
+                        .message;
+                  } catch (e) {
+                    return context.l10n.unknownErrorOccurred;
+                  }
+                }(),
+                exception: (result as MyAppFailure).exception,
+                stackTrace: (result as MyAppFailure).stackTrace,
+              ),
+            ),
+            builder: (context, child) {
+              final mediaQuery = MediaQuery.of(context);
+              return MediaQuery(
+                data: mediaQuery.copyWith(
+                  textScaler: textScaleProvider.textScaler,
+                ),
+                child: child!,
+              );
+            },
+          );
+        } else {
+          return MaterialApp.router(
+            title: title,
+            theme: themeProvider.themeData,
+            supportedLocales: supportedLocales,
+            locale: languageProvider.currentLanguage,
+            localizationsDelegates: localizationsDelegates,
+            routerConfig: locator<NavigationRouter>().config(),
+            builder: (context, child) {
+              final mediaQuery = MediaQuery.of(context);
+              return MediaQuery(
+                data: mediaQuery.copyWith(
+                  textScaler: textScaleProvider.textScaler,
+                ),
+                child: child!,
+              );
+            },
+          );
+        }
+      },
     );
-
-    // return BlocProvider(
-    //   create: (context) => locator<LanguageCubit>()..loadLanguage(),
-    //   child: BlocBuilder<LanguageCubit, LanguageState>(
-    //     builder: (context, state) {
-    //       return MaterialApp.router(
-    //         title: title,
-    //         localizationsDelegates: localizationsDelegates,
-    //         supportedLocales: supportedLocales,
-    //         // locale: state.currentLanguage,
-    //         routerConfig: locator<NavigationRouter>().config(),
-    //       );
-    //     },
-    //   ),
-    // );
   }
 }
 

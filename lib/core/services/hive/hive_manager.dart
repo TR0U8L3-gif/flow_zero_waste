@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'dart:typed_data';
 
-import 'package:flow_zero_waste/core/utils/exceptions.dart';
+import 'package:flow_zero_waste/core/common/data/exceptions.dart';
 import 'package:hive/hive.dart';
 
 /// Default value for the compact threshold.
@@ -27,7 +27,7 @@ abstract class HiveManager<T> {
   bool get isBoxOpen => _isBoxOpen;
 
   /// Returns the key for the box.
-  String _boxKey([String? key]) => '$boxName${key != null ? '_$key' : ''}';
+  String _boxKey(String key) => '${boxName}_$key';
 
   /// Returns the Hive box.
   Future<Box<T>> get _hiveBox async {
@@ -38,11 +38,12 @@ abstract class HiveManager<T> {
         final box = await _openBox();
         _isBoxOpen = true;
         return box;
-      } catch (e) {
+      } catch (e, st) {
         _isBoxOpen = false;
         throw HiveManagerException(
-          sender: 'HiveManager._hiveBox',
-          description: 'Failed to open box: $boxName: $e',
+          sender: e.toString(),
+          description: 'open box',
+          stackTrace: st,
         );
       }
     }
@@ -69,19 +70,19 @@ abstract class HiveManager<T> {
   }
 
   /// Reads the value from the box.
-  Future<T?> read(String? key) async {
+  Future<T?> read({required String key}) async {
     final box = await _hiveBox;
     return box.get(_boxKey(key));
   }
 
   /// Writes the value to the box.
-  Future<void> write(String? key, T input) async {
+  Future<void> write(T input, {required String key}) async {
     final box = await _hiveBox;
     return box.put(_boxKey(key), input);
   }
 
   /// Deletes the value from the box.
-  Future<void> delete(String? key) async {
+  Future<void> delete({required String key}) async {
     final box = await _hiveBox;
     return box.delete(_boxKey(key));
   }
