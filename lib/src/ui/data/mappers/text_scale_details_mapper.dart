@@ -4,7 +4,7 @@ import 'package:flow_zero_waste/src/ui/domain/entities/text_scale_details.dart';
 import 'package:injectable/injectable.dart';
 
 /// Mapper class from [TextScaleDetailsModel] to [TextScaleDetails].
-@lazySingleton
+@singleton
 class TextScaleDetailsMapper
     extends Mapper<TextScaleDetailsModel, TextScaleDetails> {
   @override

@@ -11,6 +11,7 @@
 import 'package:get_it/get_it.dart' as _i174;
 import 'package:injectable/injectable.dart' as _i526;
 import 'package:logger_manager/logger_manager.dart' as _i127;
+import 'package:logger_manager/src/logger_manager.dart' as _i136;
 
 import '../../core/common/presentation/logics/providers/responsive_ui/page_provider.dart'
     as _i239;
@@ -81,10 +82,9 @@ extension GetItInjectableX on _i174.GetIt {
       () => _i926.UiStorageHive(),
       dispose: (i) => i.dispose(),
     );
-    gh.lazySingleton<_i442.TextScaleDetailsMapper>(
+    gh.singleton<_i442.TextScaleDetailsMapper>(
         () => _i442.TextScaleDetailsMapper());
-    gh.lazySingleton<_i494.ThemeDetailsMapper>(
-        () => _i494.ThemeDetailsMapper());
+    gh.singleton<_i494.ThemeDetailsMapper>(() => _i494.ThemeDetailsMapper());
     gh.singleton<_i87.LanguageLocalDataSorce>(() =>
         _i380.LanguageLocalDataSorceImpl(
             languageStorageHive: gh<_i681.LanguageStorageHive>()));
@@ -92,45 +92,47 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i271.SecureStorageImplementation());
     gh.singleton<_i369.DeviceInfoManager>(
         () => _i698.DeviceInfoImplementation());
-    gh.lazySingleton<_i706.LanguageRepository>(() =>
-        _i472.LanguageRepositoryImpl(
-            languageLocalDataSorce: gh<_i87.LanguageLocalDataSorce>()));
-    gh.lazySingleton<_i424.LoadLanguageFromLocalStorage>(() =>
-        _i424.LoadLanguageFromLocalStorage(
-            repository: gh<_i706.LanguageRepository>()));
-    gh.lazySingleton<_i665.SaveLanguageToLocalStorage>(() =>
-        _i665.SaveLanguageToLocalStorage(
-            repository: gh<_i706.LanguageRepository>()));
     gh.singleton<_i31.LoggerManagerParameters>(
         () => _i31.LoggerManagerParametersFromAppEnv());
     gh.singleton<_i961.UiLocalDataSource>(() =>
         _i192.UiLocalDataSourceImpl(uiStorageHive: gh<_i926.UiStorageHive>()));
-    gh.lazySingleton<_i957.UiRepository>(() => _i1050.UiRepositoryImpl(
-          textScaleDetailsMapper: gh<_i442.TextScaleDetailsMapper>(),
-          themeDetailsMapper: gh<_i494.ThemeDetailsMapper>(),
-          uiLocalDataSource: gh<_i961.UiLocalDataSource>(),
-        ));
-    gh.factory<_i1069.LanguageProvider>(() => _i1069.LanguageProvider(
-          getLanguageFromStorage: gh<_i424.LoadLanguageFromLocalStorage>(),
-          saveLanguageToStorage: gh<_i665.SaveLanguageToLocalStorage>(),
-        ));
     gh.singleton<_i127.LoggerManager>(() => _i806.LoggerManagerImplementation(
           deviceInfo: gh<_i369.DeviceInfoManager>(),
           parameters: gh<_i31.LoggerManagerParameters>(),
         ));
-    gh.lazySingleton<_i220.LoadTextScaleFromLocalStorage>(() =>
+    gh.singleton<_i706.LanguageRepository>(() => _i472.LanguageRepositoryImpl(
+          languageLocalDataSorce: gh<_i87.LanguageLocalDataSorce>(),
+          logger: gh<_i136.LoggerManager>(),
+        ));
+    gh.singleton<_i957.UiRepository>(() => _i1050.UiRepositoryImpl(
+          textScaleDetailsMapper: gh<_i442.TextScaleDetailsMapper>(),
+          themeDetailsMapper: gh<_i494.ThemeDetailsMapper>(),
+          uiLocalDataSource: gh<_i961.UiLocalDataSource>(),
+          logger: gh<_i127.LoggerManager>(),
+        ));
+    gh.singleton<_i424.LoadLanguageFromLocalStorage>(() =>
+        _i424.LoadLanguageFromLocalStorage(
+            repository: gh<_i706.LanguageRepository>()));
+    gh.singleton<_i665.SaveLanguageToLocalStorage>(() =>
+        _i665.SaveLanguageToLocalStorage(
+            repository: gh<_i706.LanguageRepository>()));
+    gh.singleton<_i220.LoadTextScaleFromLocalStorage>(() =>
         _i220.LoadTextScaleFromLocalStorage(
             repository: gh<_i957.UiRepository>()));
-    gh.lazySingleton<_i755.LoadThemeFromLocalStorage>(() =>
+    gh.singleton<_i755.LoadThemeFromLocalStorage>(() =>
         _i755.LoadThemeFromLocalStorage(repository: gh<_i957.UiRepository>()));
-    gh.lazySingleton<_i798.SaveTextScaleFromLocalStorage>(() =>
+    gh.singleton<_i798.SaveTextScaleFromLocalStorage>(() =>
         _i798.SaveTextScaleFromLocalStorage(
             repository: gh<_i957.UiRepository>()));
-    gh.lazySingleton<_i161.SaveThemeFromLocalStorage>(() =>
+    gh.singleton<_i161.SaveThemeFromLocalStorage>(() =>
         _i161.SaveThemeFromLocalStorage(repository: gh<_i957.UiRepository>()));
     gh.factory<_i88.ThemeProvider>(() => _i88.ThemeProvider(
           loadThemeFromLocalStorage: gh<_i755.LoadThemeFromLocalStorage>(),
           saveThemeFromLocalStorage: gh<_i161.SaveThemeFromLocalStorage>(),
+        ));
+    gh.factory<_i1069.LanguageProvider>(() => _i1069.LanguageProvider(
+          getLanguageFromStorage: gh<_i424.LoadLanguageFromLocalStorage>(),
+          saveLanguageToStorage: gh<_i665.SaveLanguageToLocalStorage>(),
         ));
     gh.factory<_i210.TextScaleProvider>(() => _i210.TextScaleProvider(
           loadTextScaleFromLocalStorage:

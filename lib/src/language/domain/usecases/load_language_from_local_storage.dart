@@ -5,7 +5,7 @@ import 'package:flow_zero_waste/src/language/domain/repositories/language_reposi
 import 'package:injectable/injectable.dart';
 
 /// Get language from storage use case
-@lazySingleton
+@singleton
 class LoadLanguageFromLocalStorage extends UseCase<String?, NoParams> {
   ///  Constructor for GetLanguageFromStorage
   LoadLanguageFromLocalStorage({required LanguageRepository repository})

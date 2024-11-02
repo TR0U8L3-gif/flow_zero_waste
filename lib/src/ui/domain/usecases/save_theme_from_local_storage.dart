@@ -6,7 +6,7 @@ import 'package:flow_zero_waste/src/ui/domain/repository/ui_repository.dart';
 import 'package:injectable/injectable.dart';
 
 /// Use case to save theme details to local storage.
-@lazySingleton
+@singleton
 class SaveThemeFromLocalStorage
     extends UseCase<void, SaveThemeFromLocalStorageParams> {
   /// Constructor for [SaveThemeFromLocalStorage].
