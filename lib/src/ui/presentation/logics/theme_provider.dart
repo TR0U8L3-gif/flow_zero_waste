@@ -12,7 +12,7 @@ import 'package:injectable/injectable.dart';
 const _timerSaveDuration = 4;
 
 /// A provider class to manage the theme of the app.
-@injectable
+@singleton
 class ThemeProvider extends ChangeNotifier {
   /// Constructor for [ThemeProvider].
   ThemeProvider({

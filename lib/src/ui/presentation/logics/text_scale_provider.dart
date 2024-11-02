@@ -15,7 +15,7 @@ const _textScaleFactorMaxDefault = 2.2;
 const _timerSaveDuration = 5;
 
 /// A provider class to manage the text scale of the app.
-@injectable
+@singleton
 class TextScaleProvider extends ChangeNotifier {
   /// Constructor for [TextScaleProvider].
   TextScaleProvider({

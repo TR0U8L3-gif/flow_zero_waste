@@ -2,7 +2,6 @@ import 'package:flow_zero_waste/config/injection/injection.dart';
 import 'package:flow_zero_waste/config/l10n/l10n.dart';
 import 'package:flow_zero_waste/config/routes/navigation_router.dart';
 import 'package:flow_zero_waste/core/common/data/exceptions.dart';
-import 'package:flow_zero_waste/core/common/presentation/logics/providers/initialization/initialization_provider.dart';
 import 'package:flow_zero_waste/core/common/presentation/logics/providers/responsive_ui/page_provider.dart';
 import 'package:flow_zero_waste/core/common/presentation/pages/error_page.dart';
 import 'package:flow_zero_waste/core/enums/build_type_enum.dart';
@@ -51,10 +50,15 @@ class App extends StatelessWidget {
     }
 
     // initialize the app
-    AppSetup.init(
+    AppSetup.init<void>(
       buildType: buildType ?? BuildType.fromFlutter,
       success: App._(MyAppSuccess()),
       failure: App._(MyAppFailure(exception, exception.stackTrace)),
+      initialize: (initLocator) => [
+        initLocator<LanguageProvider>().loadLanguageOrSetDeviceLocale(),
+        initLocator<ThemeProvider>().loadThemeDetails(),
+        initLocator<TextScaleProvider>().loadTextScale(),
+      ],
     );
   }
 
@@ -63,31 +67,20 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
-    final language = locator<LanguageProvider>();
-    final theme = locator<ThemeProvider>();
-    final textScale = locator<TextScaleProvider>();
-
     final providers = [
       ChangeNotifierProvider(
-        create: (context) => language,
+        create: (context) => locator<LanguageProvider>(),
       ),
       ChangeNotifierProvider(
         create: (context) => locator<PageProvider>(),
       ),
       ChangeNotifierProvider(
-        create: (context) => theme,
+        create: (context) => locator<ThemeProvider>(),
       ),
       ChangeNotifierProvider(
-        create: (context) => textScale,
+        create: (context) => locator<TextScaleProvider>(),
       ),
     ];
-
-    InitializationStatus().initialize([
-      language.loadLanguageOrSetDeviceLocale(),
-      theme.loadThemeDetails(),
-      textScale.loadTextScale(),
-    ]);
 
     return MultiProvider(
       providers: providers,

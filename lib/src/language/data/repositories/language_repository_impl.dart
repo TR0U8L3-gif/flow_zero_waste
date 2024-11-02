@@ -1,11 +1,10 @@
-import 'package:flow_zero_waste/config/injection/injection.dart';
 import 'package:flow_zero_waste/core/common/domain/response.dart';
 import 'package:flow_zero_waste/core/utils/typedef.dart';
 import 'package:flow_zero_waste/src/language/data/datasources/language_local_data_sorce.dart';
 import 'package:flow_zero_waste/src/language/domain/repositories/language_repository.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:injectable/injectable.dart';
-import 'package:logger_manager/src/logger_manager.dart';
+import 'package:logger_manager/logger_manager.dart';
 
 /// Language repository implementation
 @Singleton(as: LanguageRepository)

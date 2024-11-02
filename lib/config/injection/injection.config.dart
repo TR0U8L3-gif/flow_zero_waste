@@ -11,7 +11,6 @@
 import 'package:get_it/get_it.dart' as _i174;
 import 'package:injectable/injectable.dart' as _i526;
 import 'package:logger_manager/logger_manager.dart' as _i127;
-import 'package:logger_manager/src/logger_manager.dart' as _i136;
 
 import '../../core/common/presentation/logics/providers/responsive_ui/page_provider.dart'
     as _i239;
@@ -102,7 +101,7 @@ extension GetItInjectableX on _i174.GetIt {
         ));
     gh.singleton<_i706.LanguageRepository>(() => _i472.LanguageRepositoryImpl(
           languageLocalDataSorce: gh<_i87.LanguageLocalDataSorce>(),
-          logger: gh<_i136.LoggerManager>(),
+          logger: gh<_i127.LoggerManager>(),
         ));
     gh.singleton<_i957.UiRepository>(() => _i1050.UiRepositoryImpl(
           textScaleDetailsMapper: gh<_i442.TextScaleDetailsMapper>(),
@@ -126,15 +125,15 @@ extension GetItInjectableX on _i174.GetIt {
             repository: gh<_i957.UiRepository>()));
     gh.singleton<_i161.SaveThemeFromLocalStorage>(() =>
         _i161.SaveThemeFromLocalStorage(repository: gh<_i957.UiRepository>()));
-    gh.factory<_i88.ThemeProvider>(() => _i88.ThemeProvider(
+    gh.singleton<_i88.ThemeProvider>(() => _i88.ThemeProvider(
           loadThemeFromLocalStorage: gh<_i755.LoadThemeFromLocalStorage>(),
           saveThemeFromLocalStorage: gh<_i161.SaveThemeFromLocalStorage>(),
         ));
-    gh.factory<_i1069.LanguageProvider>(() => _i1069.LanguageProvider(
+    gh.singleton<_i1069.LanguageProvider>(() => _i1069.LanguageProvider(
           getLanguageFromStorage: gh<_i424.LoadLanguageFromLocalStorage>(),
           saveLanguageToStorage: gh<_i665.SaveLanguageToLocalStorage>(),
         ));
-    gh.factory<_i210.TextScaleProvider>(() => _i210.TextScaleProvider(
+    gh.singleton<_i210.TextScaleProvider>(() => _i210.TextScaleProvider(
           loadTextScaleFromLocalStorage:
               gh<_i220.LoadTextScaleFromLocalStorage>(),
           saveTextScaleFromLocalStorage:
