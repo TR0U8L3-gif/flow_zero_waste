@@ -20,9 +20,9 @@ class LoggerManagerParametersFromAppEnv extends LoggerManagerParameters {
         );
 }
 
-@Singleton(as: LoggerManager)
 
 /// LoggerManagerImplementation class
+@Singleton(as: LoggerManager)
 class LoggerManagerImplementation extends LoggerManager {
   /// LoggerManagerImplementation constructor
   LoggerManagerImplementation({

@@ -13,5 +13,7 @@
   },
   "noContent": "Brak Wyników",
   "yes": "Tak",
-  "no": "Nie"
+  "no": "Nie",
+  "appInitErrorTitle": "Błąd inicjalizacji aplikacji",
+  "unknownErrorOccurred": "Wystąpił nieznany błąd"
 }
