@@ -3,23 +3,22 @@ import 'dart:ui';
 import 'package:flow_zero_waste/config/l10n/l10n.dart';
 import 'package:flow_zero_waste/core/common/domain/use_case.dart';
 import 'package:flow_zero_waste/core/constants/language_constant.dart';
-import 'package:flow_zero_waste/src/language/domain/usecases/get_language_from_local_storage.dart';
+import 'package:flow_zero_waste/src/language/domain/usecases/load_language_from_local_storage.dart';
 import 'package:flow_zero_waste/src/language/domain/usecases/save_language_to_local_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:injectable/injectable.dart';
 
-@injectable
-
 /// Language cubit
+@injectable
 class LanguageProvider extends ChangeNotifier {
   /// Default constructor
   LanguageProvider({
-    required GetLanguageFromLocalStorage getLanguageFromStorage,
+    required LoadLanguageFromLocalStorage getLanguageFromStorage,
     required SaveLanguageToLocalStorage saveLanguageToStorage,
-  })  : _getLanguageFromStorage = getLanguageFromStorage,
+  })  : _loadLanguageFromStorage = getLanguageFromStorage,
         _saveLanguageToStorage = saveLanguageToStorage;
 
-  final GetLanguageFromLocalStorage _getLanguageFromStorage;
+  final LoadLanguageFromLocalStorage _loadLanguageFromStorage;
   final SaveLanguageToLocalStorage _saveLanguageToStorage;
 
   var _currentLanguage = const Locale(kLanguageCodeDefault);
@@ -44,7 +43,7 @@ class LanguageProvider extends ChangeNotifier {
 
   /// Load the language from the local storage
   Future<void> loadLanguageOrSetDeviceLocale() async {
-    final result = await _getLanguageFromStorage.call(const NoParams());
+    final result = await _loadLanguageFromStorage.call(const NoParams());
     result.fold(
       (failure) {},
       (languageCode) {

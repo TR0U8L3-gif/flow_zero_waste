@@ -38,11 +38,12 @@ abstract class HiveManager<T> {
         final box = await _openBox();
         _isBoxOpen = true;
         return box;
-      } catch (e) {
+      } catch (e, st) {
         _isBoxOpen = false;
         throw HiveManagerException(
-          sender: 'HiveManager._hiveBox',
-          description: 'Failed to open box: $boxName: $e',
+          sender: e.toString(),
+          description: 'open box',
+          stackTrace: st,
         );
       }
     }

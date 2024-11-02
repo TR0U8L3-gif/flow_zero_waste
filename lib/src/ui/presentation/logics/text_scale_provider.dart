@@ -1,4 +1,10 @@
+import 'dart:async';
+
+import 'package:flow_zero_waste/core/common/domain/use_case.dart';
 import 'package:flow_zero_waste/core/enums/text_enum.dart';
+import 'package:flow_zero_waste/src/ui/domain/entities/text_scale_details.dart';
+import 'package:flow_zero_waste/src/ui/domain/usecases/load_text_scale_from_local_storage.dart';
+import 'package:flow_zero_waste/src/ui/domain/usecases/save_text_scale_from_local_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
 
@@ -6,42 +12,61 @@ const _textScaleFactorDefault = 1.0;
 const _textScaleFactorMinDefault = 0.4;
 const _textScaleFactorMaxDefault = 2.2;
 
+const _timerSaveDuration = 5;
+
 /// A provider class to manage the text scale of the app.
 @injectable
 class TextScaleProvider extends ChangeNotifier {
-  double _textScaleFactor = _textScaleFactorDefault;
-  double _textScaleFactorMin = _textScaleFactorMinDefault;
-  double _textScaleFactorMax = _textScaleFactorMaxDefault;
+  /// Constructor for [TextScaleProvider].
+  TextScaleProvider({
+    required LoadTextScaleFromLocalStorage loadTextScaleFromLocalStorage,
+    required SaveTextScaleFromLocalStorage saveTextScaleFromLocalStorage,
+  })  : _loadTextScaleFromLocalStorage = loadTextScaleFromLocalStorage,
+        _saveTextScaleFromLocalStorage = saveTextScaleFromLocalStorage;
+
+  final LoadTextScaleFromLocalStorage _loadTextScaleFromLocalStorage;
+  final SaveTextScaleFromLocalStorage _saveTextScaleFromLocalStorage;
+
+  Timer? _saveTimer;
+
+  TextScaleDetails _textScaleDetails = const TextScaleDetails(
+    textScaleFactor: _textScaleFactorDefault,
+    textScaleFactorMin: _textScaleFactorMinDefault,
+    textScaleFactorMax: _textScaleFactorMaxDefault,
+  );
 
   /// Getter for the text scale factor.
-  double get textScaleFactor => _textScaleFactor;
+  double get textScaleFactor => _textScaleDetails.textScaleFactor;
 
   /// Getter for the minimum text scale factor.
-  double get textScaleFactorMin => _textScaleFactorMin;
+  double get textScaleFactorMin => _textScaleDetails.textScaleFactorMin;
 
   /// Getter for the maximum text scale factor.
-  double get textScaleFactorMax => _textScaleFactorMax;
+  double get textScaleFactorMax => _textScaleDetails.textScaleFactorMax;
 
   /// Getter for the text scale.
-  TextScale get textScale => TextScale.fromDouble(_textScaleFactor);
+  TextScale get textScale =>
+      TextScale.fromDouble(_textScaleDetails.textScaleFactor);
 
   /// Getter for the text scaler.
-  TextScaler get textScaler => TextScaler.linear(_textScaleFactor).clamp(
-        minScaleFactor: _textScaleFactorMin,
-        maxScaleFactor: _textScaleFactorMax,
+  TextScaler get textScaler =>
+      TextScaler.linear(_textScaleDetails.textScaleFactor).clamp(
+        minScaleFactor: _textScaleDetails.textScaleFactorMin,
+        maxScaleFactor: _textScaleDetails.textScaleFactorMax,
       );
 
   /// Method to set the text scale factor.
   void setTextScaleFactor(double scale) {
     var textScale = scale;
-    if (scale > _textScaleFactorMax) {
-      textScale = _textScaleFactorMax;
+    if (scale > _textScaleDetails.textScaleFactorMax) {
+      textScale = _textScaleDetails.textScaleFactorMax;
     }
-    if (scale < _textScaleFactorMin) {
-      textScale = _textScaleFactorMin;
+    if (scale < _textScaleDetails.textScaleFactorMin) {
+      textScale = _textScaleDetails.textScaleFactorMin;
     }
-    _textScaleFactor = textScale;
+    _textScaleDetails = _textScaleDetails.copyWith(textScaleFactor: textScale);
     notifyListeners();
+    _save();
   }
 
   /// Method to set the text scale factor constraints.
@@ -49,8 +74,50 @@ class TextScaleProvider extends ChangeNotifier {
     if (min <= 0 || max - min < _textScaleFactorDefault) {
       return;
     }
-    _textScaleFactorMin = min;
-    _textScaleFactorMax = max;
+    _textScaleDetails = _textScaleDetails.copyWith(
+      textScaleFactorMin: min,
+      textScaleFactorMax: max,
+    );
     notifyListeners();
+    _save();
   }
+
+  /// Method to load the text scale from local storage.
+  void loadTextScale() {
+    _loadTextScaleFromLocalStorage(const NoParams()).then(
+      (result) => result.fold(
+        (failure) => null,
+        (success) {
+          if (success != null) {
+            _textScaleDetails = success;
+            notifyListeners();
+          }
+        },
+      ),
+    );
+  }
+
+  /// Method to save the text scale to local storage.
+  void saveTextScale() {
+    _saveTextScaleFromLocalStorage(
+      SaveTextScaleFromLocalStorageParams(textScaleDetails: _textScaleDetails),
+    );
+  }
+
+  void _clearTimer() {
+    if (_saveTimer != null) {
+      _saveTimer!.cancel();
+      _saveTimer = null;
+    }
+  }
+
+  
+  void _save() {
+    _clearTimer();
+    _saveTimer = Timer(
+      const Duration(seconds: _timerSaveDuration),
+      saveTextScale,
+    );
+  }
+
 }

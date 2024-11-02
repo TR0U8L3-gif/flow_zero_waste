@@ -1,47 +1,99 @@
+import 'dart:async';
+
 import 'package:flow_zero_waste/config/assets/theme/app_theme.dart';
+import 'package:flow_zero_waste/core/common/domain/use_case.dart';
 import 'package:flow_zero_waste/core/enums/contrast_enum.dart';
-import 'package:flow_zero_waste/core/extensions/theme_extension.dart';
+import 'package:flow_zero_waste/src/ui/domain/entities/theme_details.dart';
+import 'package:flow_zero_waste/src/ui/domain/usecases/load_theme_from_local_storage.dart';
+import 'package:flow_zero_waste/src/ui/domain/usecases/save_theme_from_local_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
+
+const _timerSaveDuration = 4;
 
 /// A provider class to manage the theme of the app.
 @injectable
 class ThemeProvider extends ChangeNotifier {
-  Brightness _brightness = Brightness.light;
-  Contrast _contrast = Contrast.standard;
-  ThemeData _themeData = AppTheme.getThemeData(
-    Contrast.standard,
-    Brightness.light,
+  /// Constructor for [ThemeProvider].
+  ThemeProvider({
+    required LoadThemeFromLocalStorage loadThemeFromLocalStorage,
+    required SaveThemeFromLocalStorage saveThemeFromLocalStorage,
+  })  : _loadThemeFromLocalStorage = loadThemeFromLocalStorage,
+        _saveThemeFromLocalStorage = saveThemeFromLocalStorage;
+
+  final LoadThemeFromLocalStorage _loadThemeFromLocalStorage;
+  final SaveThemeFromLocalStorage _saveThemeFromLocalStorage;
+
+  Timer? _saveTimer;
+
+  ThemeDetails _themeDetails = const ThemeDetails(
+    brightness: Brightness.light,
+    contrast: Contrast.standard,
   );
 
   /// Getter for the brightness.
-  Brightness get brightness => _brightness;
+  Brightness get brightness => _themeDetails.brightness;
 
   /// Getter for the contrast.
-  Contrast get contrast => _contrast;
+  Contrast get contrast => _themeDetails.contrast;
 
   /// Getter for the theme data.
-  ThemeData get themeData => _themeData;
+  ThemeData get themeData => AppTheme.getThemeData(
+        _themeDetails.contrast,
+        _themeDetails.brightness,
+      );
+
+  /// Getter for the theme details.
+  ThemeDetails get themeDetails => _themeDetails;
 
   set brightness(Brightness brightness) {
-    _brightness = brightness;
+    _themeDetails = _themeDetails.copyWith(brightness: brightness);
     notifyListeners();
+    _save();
   }
 
-  /// Method to set the brightness from the theme mode.
-  void brightnessFromThemeMode(ThemeMode themeMode) {
-    _brightness = themeMode.isDarkMode ? Brightness.dark : Brightness.light;
-    notifyListeners();
-  }
-
+  /// Method set the contrast from the contrast enum.
   set contrast(Contrast contrast) {
-    _contrast = contrast;
+    _themeDetails = _themeDetails.copyWith(contrast: contrast);
     notifyListeners();
+    _save();
   }
 
-  @override
-  void notifyListeners() {
-    _themeData = AppTheme.getThemeData(_contrast, _brightness);
-    super.notifyListeners();
+  /// Method to load the theme details.
+  void loadThemeDetails() {
+    _loadThemeFromLocalStorage(const NoParams()).then(
+      (result) => result.fold(
+        (failure) => null,
+        (success) {
+          if (success != null) {
+            _themeDetails = success;
+            notifyListeners();
+          }
+        },
+      ),
+    );
   }
+
+  /// Method to save the theme details.
+  void saveThemeDetails() {
+    _saveThemeFromLocalStorage(
+      SaveThemeFromLocalStorageParams(themeDetails: _themeDetails),
+    );
+  }
+
+  void _clearTimer() {
+    if (_saveTimer != null) {
+      _saveTimer!.cancel();
+      _saveTimer = null;
+    }
+  }
+
+  void _save() {
+    _clearTimer();
+    _saveTimer = Timer(
+      const Duration(seconds: _timerSaveDuration),
+      saveThemeDetails,
+    );
+  }
+
 }

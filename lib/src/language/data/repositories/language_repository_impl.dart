@@ -17,11 +17,11 @@ class LanguageRepositoryImpl extends Repository implements LanguageRepository {
   final LanguageLocalDataSorce _languageLocalDataSorce;
 
   @override
-  ResultFuture<Failure, String?> getLanguageFromStorage() async {
+  ResultFuture<Failure, String?> loadLanguageFromStorage() async {
     try {
       logger.trace(message: 'Getting language code from local storage');
       final languageCode =
-          await _languageLocalDataSorce.getLanguageFromStorage();
+          await _languageLocalDataSorce.loadLanguageFromStorage();
 
       logger.trace(
         message: 'Received language code from local storage: $languageCode',

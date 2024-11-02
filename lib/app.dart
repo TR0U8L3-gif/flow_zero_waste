@@ -26,11 +26,10 @@ class App extends StatelessWidget {
     BuildType? buildType,
   }) async {
     var exception = const AppSetupException(
-      sender: 'MyApp.setup',
-      description: 'Unknown error occurred while initializing the app',
+      sender: '',
+      description: '',
+      stackTrace: StackTrace.empty,
     );
-
-    var stackTrace = StackTrace.current;
 
     try {
       // get the environment variables
@@ -44,18 +43,17 @@ class App extends StatelessWidget {
       );
     } catch (e, st) {
       exception = AppSetupException(
-        sender: 'MyApp.setup',
-        description: 'Error occurred during setting environment variables'
-            ' ${e.runtimeType}',
+        sender: e.toString(),
+        description: 'load env => set env',
+        stackTrace: st,
       );
-      stackTrace = st;
     }
 
     // initialize the app
     AppSetup.init(
       buildType: buildType ?? BuildType.fromFlutter,
       success: App._(MyAppSuccess()),
-      failure: App._(MyAppFailure(exception, stackTrace)),
+      failure: App._(MyAppFailure(exception, exception.stackTrace)),
     );
   }
 
@@ -77,10 +75,10 @@ class App extends StatelessWidget {
       ),
       ChangeNotifierProvider(
         create: (context) =>
-            locator<ThemeProvider>()..brightnessFromThemeMode(ThemeMode.system),
+            locator<ThemeProvider>()..loadThemeDetails(),
       ),
       ChangeNotifierProvider(
-        create: (context) => locator<TextScaleProvider>(),
+        create: (context) => locator<TextScaleProvider>()..loadTextScale(),
       ),
     ];
 

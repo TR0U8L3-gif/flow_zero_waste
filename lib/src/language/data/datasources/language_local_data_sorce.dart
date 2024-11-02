@@ -4,5 +4,5 @@ abstract class LanguageLocalDataSorce {
   Future<void> saveLanguageToStorage(String languageCode);
 
   /// Get language code from local storage
-  Future<String?> getLanguageFromStorage();
+  Future<String?> loadLanguageFromStorage();
 }

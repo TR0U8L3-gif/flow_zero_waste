@@ -1,8 +1,8 @@
 /// Mapper class to map data from one object to another
-abstract class Mapper<Obj1, Obj2> {
-  /// map Obj2 to Obj1
-  Obj1 from(Obj2 object);
+abstract class Mapper<model, entity> {
+  /// map model to entity
+  entity from(model object);
 
-  /// map Obj1 to Obj2
-  Obj2 to(Obj1 object);
+  /// map entity to model
+  model to(entity object);
 }

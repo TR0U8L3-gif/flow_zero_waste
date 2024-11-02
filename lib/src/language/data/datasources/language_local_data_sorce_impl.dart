@@ -6,7 +6,7 @@ import 'package:injectable/injectable.dart';
 const String languageCodeId = 'languageCode';
 
 /// Language local data source implementation
-@LazySingleton(as: LanguageLocalDataSorce)
+@Singleton(as: LanguageLocalDataSorce)
 class LanguageLocalDataSorceImpl implements LanguageLocalDataSorce {
   /// Constructor for LanguageLocalDataSorceImpl
   LanguageLocalDataSorceImpl({
@@ -16,7 +16,7 @@ class LanguageLocalDataSorceImpl implements LanguageLocalDataSorce {
   final LanguageStorageHive _languageStorageHive;
 
   @override
-  Future<String?> getLanguageFromStorage() async {
+  Future<String?> loadLanguageFromStorage() async {
     return _languageStorageHive.read(key: languageCodeId);
   }
 
