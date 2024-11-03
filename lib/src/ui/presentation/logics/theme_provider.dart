@@ -12,7 +12,7 @@ import 'package:injectable/injectable.dart';
 const _timerSaveDuration = 4;
 
 /// A provider class to manage the theme of the app.
-@injectable
+@singleton
 class ThemeProvider extends ChangeNotifier {
   /// Constructor for [ThemeProvider].
   ThemeProvider({
@@ -60,17 +60,17 @@ class ThemeProvider extends ChangeNotifier {
   }
 
   /// Method to load the theme details.
-  void loadThemeDetails() {
-    _loadThemeFromLocalStorage(const NoParams()).then(
-      (result) => result.fold(
-        (failure) => null,
-        (success) {
-          if (success != null) {
-            _themeDetails = success;
-            notifyListeners();
-          }
-        },
-      ),
+  Future<void> loadThemeDetails() async {
+    final result = await _loadThemeFromLocalStorage(const NoParams());
+
+    result.fold(
+      (failure) => null,
+      (success) {
+        if (success != null) {
+          _themeDetails = success;
+          notifyListeners();
+        }
+      },
     );
   }
 
@@ -95,5 +95,4 @@ class ThemeProvider extends ChangeNotifier {
       saveThemeDetails,
     );
   }
-
 }

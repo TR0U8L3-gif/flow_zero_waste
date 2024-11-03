@@ -6,7 +6,7 @@ import 'package:flow_zero_waste/src/ui/domain/repository/ui_repository.dart';
 import 'package:injectable/injectable.dart';
 
 /// Use case to load text scale details from local storage.
-@lazySingleton
+@singleton
 class LoadTextScaleFromLocalStorage
     extends UseCase<TextScaleDetails?, NoParams> {
   /// Constructor for [LoadTextScaleFromLocalStorage].

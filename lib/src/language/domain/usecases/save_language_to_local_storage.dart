@@ -5,7 +5,7 @@ import 'package:flow_zero_waste/src/language/domain/repositories/language_reposi
 import 'package:injectable/injectable.dart';
 
 /// SaveLanguage use case
-@lazySingleton
+@singleton
 class SaveLanguageToLocalStorage
     extends UseCase<void, SaveLanguageToStorageParams> {
   /// Constructor for SaveLanguage

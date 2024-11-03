@@ -1,5 +1,5 @@
 import 'package:flow_zero_waste/config/assets/size/app_size.dart';
-import 'package:flow_zero_waste/core/common/presentation/logics/providers/page_provider.dart';
+import 'package:flow_zero_waste/core/common/presentation/logics/providers/responsive_ui/page_provider.dart';
 import 'package:flow_zero_waste/core/enums/nav_bar_type_enum.dart';
 import 'package:flow_zero_waste/core/extensions/text_extension.dart';
 import 'package:flutter/material.dart';
