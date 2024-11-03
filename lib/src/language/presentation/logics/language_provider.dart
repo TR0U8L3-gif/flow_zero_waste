@@ -8,7 +8,7 @@ import 'package:flow_zero_waste/src/language/domain/usecases/save_language_to_lo
 import 'package:flutter/cupertino.dart';
 import 'package:injectable/injectable.dart';
 
-/// Language cubit
+/// Language provider
 @singleton
 class LanguageProvider extends ChangeNotifier {
   /// Default constructor

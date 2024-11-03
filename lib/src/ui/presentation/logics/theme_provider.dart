@@ -5,7 +5,7 @@ import 'package:flow_zero_waste/core/common/domain/use_case.dart';
 import 'package:flow_zero_waste/core/enums/contrast_enum.dart';
 import 'package:flow_zero_waste/src/ui/domain/entities/theme_details.dart';
 import 'package:flow_zero_waste/src/ui/domain/usecases/load_theme_from_local_storage.dart';
-import 'package:flow_zero_waste/src/ui/domain/usecases/save_theme_from_local_storage.dart';
+import 'package:flow_zero_waste/src/ui/domain/usecases/save_theme_to_local_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
 
@@ -17,12 +17,12 @@ class ThemeProvider extends ChangeNotifier {
   /// Constructor for [ThemeProvider].
   ThemeProvider({
     required LoadThemeFromLocalStorage loadThemeFromLocalStorage,
-    required SaveThemeFromLocalStorage saveThemeFromLocalStorage,
+    required SaveThemeToLocalStorage saveThemeFromLocalStorage,
   })  : _loadThemeFromLocalStorage = loadThemeFromLocalStorage,
         _saveThemeFromLocalStorage = saveThemeFromLocalStorage;
 
   final LoadThemeFromLocalStorage _loadThemeFromLocalStorage;
-  final SaveThemeFromLocalStorage _saveThemeFromLocalStorage;
+  final SaveThemeToLocalStorage _saveThemeFromLocalStorage;
 
   Timer? _saveTimer;
 
@@ -77,7 +77,7 @@ class ThemeProvider extends ChangeNotifier {
   /// Method to save the theme details.
   void saveThemeDetails() {
     _saveThemeFromLocalStorage(
-      SaveThemeFromLocalStorageParams(themeDetails: _themeDetails),
+      SaveThemeFromToStorageParams(themeDetails: _themeDetails),
     );
   }
 
