@@ -64,13 +64,12 @@ class _MainPageState extends State<MainPage> {
 
   @override
   Widget build(BuildContext context) {
-    final themeProvider = context.watch<ThemeProvider>();
     final pageProvider = context.watch<PageProvider>();
     final textScaleProvider = context.watch<TextScaleProvider>();
     const minColumnWidth = 48.0;
 
     return Scaffold(
-      backgroundColor: themeProvider.themeData.colorScheme.surfaceContainerHigh,
+      backgroundColor: context.colorScheme.surfaceContainerHigh,
       body: SafeArea(
         top: !pageProvider.navBarType.isBottom,
         child: NavigationPage(
@@ -79,26 +78,26 @@ class _MainPageState extends State<MainPage> {
           onSelectedIndex: changeSelectedIndex,
           textScaler: textScaleProvider.textScaler,
           child: ScaffoldPage(
-            showPaddingTop: !pageProvider.navBarType.isBottom && context.mediaQuery.padding.top < pageProvider.spacing,
-            showPaddingBottom: !pageProvider.navBarType.isBottom && context.mediaQuery.padding.bottom < pageProvider.spacing,
-            showPaddingRight: !pageProvider.navBarType.isBottom && context.mediaQuery.padding.right < pageProvider.spacing,
+            showPaddingTop: !pageProvider.navBarType.isBottom && context.mediaQuery.padding.top * AppSize.xxxl.fraction < pageProvider.spacing ,
+            showPaddingBottom: !pageProvider.navBarType.isBottom && context.mediaQuery.padding.bottom * AppSize.xxxl.fraction < pageProvider.spacing,
+            showPaddingRight: !pageProvider.navBarType.isBottom && context.mediaQuery.padding.right * AppSize.xxxl.fraction < pageProvider.spacing,
             containerMinWidth: minColumnWidth,
             spacing: pageProvider.spacing,
             primaryContainer: const WcagPage(title: 'Primary Container'),
             secondaryContainer: ContainerPage(
               backgroundColor:
-                  themeProvider.themeData.colorScheme.secondaryContainer,
+                  context.colorScheme.secondaryContainer,
               minimizedWidth: minColumnWidth,
               title: Text(
                 'Secondary Container',
-                style: themeProvider.themeData.textTheme.headlineSmall?.copyWith(
-                  color: themeProvider.themeData.colorScheme.onSecondaryContainer,
+                style: context.textTheme.headlineSmall?.copyWith(
+                  color: context.colorScheme.onSecondaryContainer,
                 ),
               ),
               child: Container(
                 height: double.infinity,
                 width: double.infinity,
-                color: themeProvider.themeData.colorScheme.primaryContainer,
+                color: context.colorScheme.primaryContainer,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
@@ -122,14 +121,14 @@ class _MainPageState extends State<MainPage> {
             ),
             tertiaryContainer: ContainerPage(
                 backgroundColor:
-                    themeProvider.themeData.colorScheme.tertiaryContainer,
+                    context.colorScheme.tertiaryContainer,
                 minimizedWidth: minColumnWidth,
                 title: Text(
                   'Tertiary Container',
                   style:
-                      themeProvider.themeData.textTheme.headlineSmall?.copyWith(
+                      context.textTheme.headlineSmall?.copyWith(
                     color:
-                        themeProvider.themeData.colorScheme.onTertiaryContainer,
+                        context.colorScheme.onTertiaryContainer,
                   ),
                 ),
                 child: const WcagPage(title: 'Tertiary Container')),

@@ -55,16 +55,37 @@ dependencies:
     path: ./packages/logger_manager
   package_info_plus: ^8.1.0
   provider: ^6.1.2
+  shimmer: ^3.0.0
 
 dev_dependencies:
   auto_route_generator: ^9.0.0
   build_runner: ^2.4.13
+  flutter_gen_runner: ^5.8.0
   flutter_launcher_icons: ^0.14.1
   flutter_lints: ^5.0.0
   flutter_test:
     sdk: flutter
   injectable_generator: ^2.6.2
   very_good_analysis: ^6.0.0
+
+flutter_gen:
+  output: lib/config/gen/
+  line_length: 80
+  parse_metadata: false
+
+  integrations:
+    flutter_svg: false
+    flare_flutter: false
+    rive: false
+    lottie: false
+
+  assets:
+    enabled: true
+    outputs:
+      package_parameter_enabled: false
+      style: dot-delimiter
+      class_name: Assets
+    exclude: [ "assets/env/**", "assets/keys/**" ]
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

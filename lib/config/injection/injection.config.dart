@@ -26,9 +26,9 @@ import '../../core/services/secure_storage/secure_storage_implementation.dart'
 import '../../core/services/secure_storage/secure_storage_manager.dart'
     as _i497;
 import '../../src/language/data/datasources/language_local_data_source.dart'
-    as _i87;
+    as _i40;
 import '../../src/language/data/datasources/language_local_data_source_impl.dart'
-    as _i380;
+    as _i690;
 import '../../src/language/data/datasources/language_storage_hive.dart'
     as _i681;
 import '../../src/language/data/repositories/language_repository_impl.dart'
@@ -41,22 +41,39 @@ import '../../src/language/domain/usecases/save_language_to_local_storage.dart'
     as _i665;
 import '../../src/language/presentation/logics/language_provider.dart'
     as _i1069;
-import '../../src/ui/data/datasources/ui_local_data_source.dart' as _i961;
-import '../../src/ui/data/datasources/ui_local_data_source_impl.dart' as _i192;
-import '../../src/ui/data/datasources/ui_storage_hive.dart' as _i926;
+import '../../src/onboarding/data/datasources/onboarding_local_data_source.dart'
+    as _i937;
+import '../../src/onboarding/data/datasources/onboarding_local_data_source_impl.dart'
+    as _i131;
+import '../../src/onboarding/data/datasources/onboarding_storage_hive.dart'
+    as _i296;
+import '../../src/onboarding/data/repositories/onboarding_repository_impl.dart'
+    as _i145;
+import '../../src/onboarding/domain/repositories/onboarding_repository.dart'
+    as _i1072;
+import '../../src/onboarding/domain/usecases/load_onboarding_seen_from_local_storage.dart'
+    as _i692;
+import '../../src/onboarding/domain/usecases/save_onboarding_seen_to_local_storage.dart'
+    as _i845;
+import '../../src/onboarding/presentation/logics/onboarding_provider.dart'
+    as _i491;
+import '../../src/ui/data/datasources/ui_local_data_source.dart' as _i382;
+import '../../src/ui/data/datasources/ui_local_data_source_impl.dart' as _i526;
+import '../../src/ui/data/datasources/ui_storage_hive.dart' as _i475;
 import '../../src/ui/data/mappers/text_scale_details_mapper.dart' as _i442;
 import '../../src/ui/data/mappers/theme_details_mapper.dart' as _i494;
-import '../../src/ui/data/repositories/ui_repository_impl.dart' as _i1050;
-import '../../src/ui/domain/repositories/ui_repository.dart' as _i957;
+import '../../src/ui/data/repositories/ui_repository_impl.dart' as _i533;
+import '../../src/ui/domain/repositories/ui_repository.dart' as _i106;
 import '../../src/ui/domain/usecases/load_text_scale_from_local_storage.dart'
     as _i220;
 import '../../src/ui/domain/usecases/load_theme_from_local_storage.dart'
     as _i755;
 import '../../src/ui/domain/usecases/save_text_scale_to_local_storage.dart'
-    as _i798;
-import '../../src/ui/domain/usecases/save_theme_to_local_storage.dart' as _i161;
+    as _i751;
+import '../../src/ui/domain/usecases/save_theme_to_local_storage.dart' as _i523;
 import '../../src/ui/presentation/logics/text_scale_provider.dart' as _i210;
 import '../../src/ui/presentation/logics/theme_provider.dart' as _i88;
+import '../routes/guards/onboarding_guard.dart' as _i11;
 import '../routes/navigation_router.dart' as _i732;
 
 extension GetItInjectableX on _i174.GetIt {
@@ -70,43 +87,74 @@ extension GetItInjectableX on _i174.GetIt {
       environment,
       environmentFilter,
     );
-    gh.singleton<_i732.NavigationRouter>(() => _i732.NavigationRouter());
     gh.singleton<_i239.PageProvider>(() => _i239.PageProvider());
     gh.singleton<_i681.LanguageStorageHive>(
       () => _i681.LanguageStorageHive(),
       dispose: (i) => i.dispose(),
     );
-    gh.singleton<_i926.UiStorageHive>(
-      () => _i926.UiStorageHive(),
+    gh.singleton<_i296.OnboardingStorageHive>(
+      () => _i296.OnboardingStorageHive(),
+      dispose: (i) => i.dispose(),
+    );
+    gh.singleton<_i475.UiStorageHive>(
+      () => _i475.UiStorageHive(),
       dispose: (i) => i.dispose(),
     );
     gh.singleton<_i442.TextScaleDetailsMapper>(
         () => _i442.TextScaleDetailsMapper());
     gh.singleton<_i494.ThemeDetailsMapper>(() => _i494.ThemeDetailsMapper());
-    gh.singleton<_i87.LanguageLocalDataSource>(() =>
-        _i380.LanguageLocalDataSourceImpl(
-            languageStorageHive: gh<_i681.LanguageStorageHive>()));
     gh.singleton<_i497.SecureStorageManager>(
         () => _i271.SecureStorageImplementation());
     gh.singleton<_i369.DeviceInfoManager>(
         () => _i698.DeviceInfoImplementation());
+    gh.singleton<_i40.LanguageLocalDataSource>(() =>
+        _i690.LanguageLocalDataSourceImpl(
+            languageStorageHive: gh<_i681.LanguageStorageHive>()));
     gh.singleton<_i31.LoggerManagerParameters>(
         () => _i31.LoggerManagerParametersFromAppEnv());
-    gh.singleton<_i961.UiLocalDataSource>(() =>
-        _i192.UiLocalDataSourceImpl(uiStorageHive: gh<_i926.UiStorageHive>()));
+    gh.singleton<_i382.UiLocalDataSource>(() =>
+        _i526.UiLocalDataSourceImpl(uiStorageHive: gh<_i475.UiStorageHive>()));
+    gh.singleton<_i937.OnboardingLocalDataSource>(() =>
+        _i131.OnboardingLocalDataSourceImpl(
+            onboardingStorageHive: gh<_i296.OnboardingStorageHive>()));
     gh.singleton<_i127.LoggerManager>(() => _i806.LoggerManagerImplementation(
           deviceInfo: gh<_i369.DeviceInfoManager>(),
           parameters: gh<_i31.LoggerManagerParameters>(),
         ));
-    gh.singleton<_i706.LanguageRepository>(() => _i472.LanguageRepositoryImpl(
-          languageLocalDataSorce: gh<_i87.LanguageLocalDataSource>(),
-          logger: gh<_i127.LoggerManager>(),
-        ));
-    gh.singleton<_i957.UiRepository>(() => _i1050.UiRepositoryImpl(
+    gh.singleton<_i1072.OnboardingRepository>(
+        () => _i145.OnboardingRepositoryImpl(
+              onboardingLocalDataSorce: gh<_i937.OnboardingLocalDataSource>(),
+              logger: gh<_i127.LoggerManager>(),
+            ));
+    gh.singleton<_i106.UiRepository>(() => _i533.UiRepositoryImpl(
           textScaleDetailsMapper: gh<_i442.TextScaleDetailsMapper>(),
           themeDetailsMapper: gh<_i494.ThemeDetailsMapper>(),
-          uiLocalDataSource: gh<_i961.UiLocalDataSource>(),
+          uiLocalDataSource: gh<_i382.UiLocalDataSource>(),
           logger: gh<_i127.LoggerManager>(),
+        ));
+    gh.singleton<_i692.LoadOnboardingSeenFromLocalStorage>(() =>
+        _i692.LoadOnboardingSeenFromLocalStorage(
+            repository: gh<_i1072.OnboardingRepository>()));
+    gh.singleton<_i845.SaveOnboardingSeenToLocalStorage>(() =>
+        _i845.SaveOnboardingSeenToLocalStorage(
+            repository: gh<_i1072.OnboardingRepository>()));
+    gh.singleton<_i220.LoadTextScaleFromLocalStorage>(() =>
+        _i220.LoadTextScaleFromLocalStorage(
+            repository: gh<_i106.UiRepository>()));
+    gh.singleton<_i755.LoadThemeFromLocalStorage>(() =>
+        _i755.LoadThemeFromLocalStorage(repository: gh<_i106.UiRepository>()));
+    gh.singleton<_i751.SaveTextScaleToLocalStorage>(() =>
+        _i751.SaveTextScaleToLocalStorage(
+            repository: gh<_i106.UiRepository>()));
+    gh.singleton<_i523.SaveThemeToLocalStorage>(() =>
+        _i523.SaveThemeToLocalStorage(repository: gh<_i106.UiRepository>()));
+    gh.singleton<_i706.LanguageRepository>(() => _i472.LanguageRepositoryImpl(
+          languageLocalDataSorce: gh<_i40.LanguageLocalDataSource>(),
+          logger: gh<_i127.LoggerManager>(),
+        ));
+    gh.singleton<_i88.ThemeProvider>(() => _i88.ThemeProvider(
+          loadThemeFromLocalStorage: gh<_i755.LoadThemeFromLocalStorage>(),
+          saveThemeFromLocalStorage: gh<_i523.SaveThemeToLocalStorage>(),
         ));
     gh.singleton<_i424.LoadLanguageFromLocalStorage>(() =>
         _i424.LoadLanguageFromLocalStorage(
@@ -114,30 +162,26 @@ extension GetItInjectableX on _i174.GetIt {
     gh.singleton<_i665.SaveLanguageToLocalStorage>(() =>
         _i665.SaveLanguageToLocalStorage(
             repository: gh<_i706.LanguageRepository>()));
-    gh.singleton<_i220.LoadTextScaleFromLocalStorage>(() =>
-        _i220.LoadTextScaleFromLocalStorage(
-            repository: gh<_i957.UiRepository>()));
-    gh.singleton<_i755.LoadThemeFromLocalStorage>(() =>
-        _i755.LoadThemeFromLocalStorage(repository: gh<_i957.UiRepository>()));
-    gh.singleton<_i798.SaveTextScaleToLocalStorage>(() =>
-        _i798.SaveTextScaleToLocalStorage(
-            repository: gh<_i957.UiRepository>()));
-    gh.singleton<_i161.SaveThemeToLocalStorage>(() =>
-        _i161.SaveThemeToLocalStorage(repository: gh<_i957.UiRepository>()));
-    gh.singleton<_i88.ThemeProvider>(() => _i88.ThemeProvider(
-          loadThemeFromLocalStorage: gh<_i755.LoadThemeFromLocalStorage>(),
-          saveThemeFromLocalStorage: gh<_i161.SaveThemeToLocalStorage>(),
-        ));
-    gh.singleton<_i1069.LanguageProvider>(() => _i1069.LanguageProvider(
-          getLanguageFromStorage: gh<_i424.LoadLanguageFromLocalStorage>(),
-          saveLanguageToStorage: gh<_i665.SaveLanguageToLocalStorage>(),
+    gh.singleton<_i491.OnboardingProvider>(() => _i491.OnboardingProvider(
+          loadOnboardingSeenFromLocalStorage:
+              gh<_i692.LoadOnboardingSeenFromLocalStorage>(),
+          saveOnboardingSeenToLocalStorage:
+              gh<_i845.SaveOnboardingSeenToLocalStorage>(),
         ));
     gh.singleton<_i210.TextScaleProvider>(() => _i210.TextScaleProvider(
           loadTextScaleFromLocalStorage:
               gh<_i220.LoadTextScaleFromLocalStorage>(),
           saveTextScaleFromLocalStorage:
-              gh<_i798.SaveTextScaleToLocalStorage>(),
+              gh<_i751.SaveTextScaleToLocalStorage>(),
         ));
+    gh.lazySingleton<_i11.OnboardingGuard>(() => _i11.OnboardingGuard(
+        onboardingProvider: gh<_i491.OnboardingProvider>()));
+    gh.singleton<_i1069.LanguageProvider>(() => _i1069.LanguageProvider(
+          getLanguageFromStorage: gh<_i424.LoadLanguageFromLocalStorage>(),
+          saveLanguageToStorage: gh<_i665.SaveLanguageToLocalStorage>(),
+        ));
+    gh.singleton<_i732.NavigationRouter>(() =>
+        _i732.NavigationRouter(onboardingGuard: gh<_i11.OnboardingGuard>()));
     return this;
   }
 }

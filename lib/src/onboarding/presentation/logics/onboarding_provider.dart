@@ -30,8 +30,7 @@ class OnboardingProvider extends ChangeNotifier {
 
     _isOnboardingSeen = true;
     notifyListeners();
-    // TODO(merge): Uncomment this line.
-    // _saveOnboardingSeen(_isOnboardingSeen);
+    _saveOnboardingSeen(_isOnboardingSeen);
   }
 
   void _saveOnboardingSeen(bool isOnboardingSeen) {
