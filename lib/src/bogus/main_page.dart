@@ -2,7 +2,7 @@
 
 import 'package:auto_route/annotations.dart';
 import 'package:flow_zero_waste/config/assets/size/app_size.dart';
-import 'package:flow_zero_waste/core/common/presentation/logics/providers/page_provider.dart';
+import 'package:flow_zero_waste/core/common/presentation/logics/providers/responsive_ui/page_provider.dart';
 import 'package:flow_zero_waste/core/common/presentation/pages/responsive_ui/container_page.dart';
 import 'package:flow_zero_waste/core/common/presentation/pages/responsive_ui/navigation_page.dart';
 import 'package:flow_zero_waste/core/common/presentation/pages/responsive_ui/scaffold_page.dart';

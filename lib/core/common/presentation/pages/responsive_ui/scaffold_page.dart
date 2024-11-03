@@ -1,4 +1,4 @@
-import 'package:flow_zero_waste/core/common/presentation/logics/providers/scaffold_page_provider.dart';
+import 'package:flow_zero_waste/core/common/presentation/logics/providers/responsive_ui/scaffold_page_provider.dart';
 import 'package:flow_zero_waste/core/enums/container_enum.dart';
 import 'package:flow_zero_waste/core/extensions/num_extension.dart';
 import 'package:flutter/material.dart';

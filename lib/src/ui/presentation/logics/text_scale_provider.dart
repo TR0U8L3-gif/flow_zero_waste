@@ -15,7 +15,7 @@ const _textScaleFactorMaxDefault = 2.2;
 const _timerSaveDuration = 5;
 
 /// A provider class to manage the text scale of the app.
-@injectable
+@singleton
 class TextScaleProvider extends ChangeNotifier {
   /// Constructor for [TextScaleProvider].
   TextScaleProvider({
@@ -83,17 +83,17 @@ class TextScaleProvider extends ChangeNotifier {
   }
 
   /// Method to load the text scale from local storage.
-  void loadTextScale() {
-    _loadTextScaleFromLocalStorage(const NoParams()).then(
-      (result) => result.fold(
-        (failure) => null,
-        (success) {
-          if (success != null) {
-            _textScaleDetails = success;
-            notifyListeners();
-          }
-        },
-      ),
+  Future<void> loadTextScale() async {
+    final result = await _loadTextScaleFromLocalStorage(const NoParams());
+
+    result.fold(
+      (failure) => null,
+      (success) {
+        if (success != null) {
+          _textScaleDetails = success;
+          notifyListeners();
+        }
+      },
     );
   }
 
@@ -111,7 +111,6 @@ class TextScaleProvider extends ChangeNotifier {
     }
   }
 
-  
   void _save() {
     _clearTimer();
     _saveTimer = Timer(
@@ -119,5 +118,4 @@ class TextScaleProvider extends ChangeNotifier {
       saveTextScale,
     );
   }
-
 }

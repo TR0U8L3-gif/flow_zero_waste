@@ -6,7 +6,7 @@ import 'package:flow_zero_waste/src/ui/domain/repository/ui_repository.dart';
 import 'package:injectable/injectable.dart';
 
 /// Use case to load theme details from local storage.
-@lazySingleton
+@singleton
 class LoadThemeFromLocalStorage extends UseCase<ThemeDetails?, NoParams> {
   /// Constructor for [LoadThemeFromLocalStorage].
   LoadThemeFromLocalStorage({required UiRepository repository})

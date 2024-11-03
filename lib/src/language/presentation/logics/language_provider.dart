@@ -9,7 +9,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:injectable/injectable.dart';
 
 /// Language cubit
-@injectable
+@singleton
 class LanguageProvider extends ChangeNotifier {
   /// Default constructor
   LanguageProvider({

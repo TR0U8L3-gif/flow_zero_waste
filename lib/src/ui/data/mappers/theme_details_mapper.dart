@@ -7,7 +7,7 @@ import 'package:flutter/foundation.dart';
 import 'package:injectable/injectable.dart';
 
 /// Mapper class from [ThemeDetailsModel] to [ThemeDetails].
-@lazySingleton
+@singleton
 class ThemeDetailsMapper implements Mapper<ThemeDetailsModel, ThemeDetails> {
   @override
   ThemeDetails from(ThemeDetailsModel object) {
