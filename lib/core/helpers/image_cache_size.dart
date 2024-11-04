@@ -7,6 +7,8 @@ class ImageCacheSize {
   /// Calculate the image cache size
   static int calculate(BuildContext context, double size) {
     if (!context.mounted) return calculateDefault;
-    return (size * MediaQuery.of(context).devicePixelRatio).round();
+    final result =  (size * MediaQuery.of(context).devicePixelRatio).round();
+    if(result <= 0) return calculateDefault;
+    return result;
   }
 }

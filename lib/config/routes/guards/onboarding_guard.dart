@@ -17,8 +17,6 @@ class OnboardingGuard extends AutoRouteGuard {
     NavigationResolver resolver,
     StackRouter router,
   ) async {
-    await _onboardingProvider.loadOnboardingSeen();
-
     final hasSeenOnboarding = _onboardingProvider.isOnboardingSeen;
 
     if (hasSeenOnboarding ) {

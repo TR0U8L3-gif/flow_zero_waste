@@ -43,18 +43,20 @@ class OnboardingProvider extends ChangeNotifier {
   Future<void> loadOnboardingSeen() async {
     final result =
         await _loadOnboardingSeenFromLocalStorage.call(const NoParams());
+
     result.fold(
       (failure) {
         _isOnboardingSeen = true;
       },
       (isOnboardingSeen) {
-        if(isOnboardingSeen != null) {
+        if (isOnboardingSeen != null) {
           _isOnboardingSeen = isOnboardingSeen;
         } else {
           _isOnboardingSeen = false;
         }
       },
     );
+
     notifyListeners();
   }
 }

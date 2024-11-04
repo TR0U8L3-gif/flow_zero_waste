@@ -36,14 +36,14 @@ class InitializationStatus {
   }
 
   /// Method to initialize the app.
-  void initialize<T>(
+  Future<void> initialize<T>(
     Iterable<Future<T>> futures,
-  ) {
+  ) async {
     if (_instance._state != InitializationState.uninitialized) {
       return;
     }
     _instance._state = InitializationState.initializing;
-    Future.wait(futures).then(
+    await Future.wait(futures).then(
       (_) => remove(),
     );
   }

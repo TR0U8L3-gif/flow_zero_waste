@@ -79,7 +79,7 @@ class AppSetup {
 
     // wait for all dependencies to be ready
     await locator.allReady();
-
+    
     // create logger based on the environment
     final logManager = locator<LoggerManager>()
       ..createLogger(type: AppEnv().buildType.name);
@@ -87,10 +87,11 @@ class AppSetup {
     // catch errors
     _onError(logManager);
 
+    // initialize the app
     if (initialize != null) {
-      InitializationStatus().initialize(initialize(locator));
+      await InitializationStatus().initialize(initialize(locator));
     }
-
+    
     // run application
     runApp(app);
   }
