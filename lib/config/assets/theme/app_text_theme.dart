@@ -114,10 +114,22 @@ class AppTextTheme {
       ),
     );
 
-    final primaryTheme = GoogleFonts.getTextTheme('Roboto', baseTextTheme);
-    final secondaryTheme =
-        GoogleFonts.getTextTheme('Roboto Condensed', baseTextTheme);
-    final tertiaryTheme = GoogleFonts.getTextTheme('Pacifico', baseTextTheme);
+    // final primaryTheme = GoogleFonts.getTextTheme('Roboto', baseTextTheme);
+    // final secondaryTheme =
+    //     GoogleFonts.getTextTheme('Roboto Condensed', baseTextTheme);
+    // final tertiaryTheme = GoogleFonts.getTextTheme('Pacifico', baseTextTheme);
+
+    final primaryTheme = baseTextTheme.apply(
+      fontFamily: 'Roboto',
+    );
+
+    final secondaryTheme = baseTextTheme.apply(
+      fontFamily: 'Roboto Condensed',
+    );
+
+    final tertiaryTheme = baseTextTheme.apply(
+      fontFamily: 'Pacifico',
+    );
 
     final textTheme = baseTextTheme.copyWith(
       // Large text
