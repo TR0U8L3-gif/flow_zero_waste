@@ -1,6 +1,5 @@
 import 'package:flow_zero_waste/core/enums/contrast_enum.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 /// Class to define the text theme of the app
 class AppTextTheme {
@@ -60,14 +59,14 @@ class AppTextTheme {
         height: 1.5,
       ),
       titleMedium: TextStyle(
-        fontWeight: FontWeight.w500,
-        fontSize: 20,
+        fontWeight: FontWeight.w400,
+        fontSize: 18,
         letterSpacing: -0.1,
         height: 1.4,
       ),
       titleSmall: TextStyle(
-        fontWeight: FontWeight.w500,
-        fontSize: 18,
+        fontWeight: FontWeight.w400,
+        fontSize: 16,
         letterSpacing: 0,
         height: 1.3,
       ),
@@ -95,7 +94,7 @@ class AppTextTheme {
       // Label styles are smaller, utilitarian styles, used for 
       //things like the text inside components.
       labelLarge: TextStyle(
-        fontWeight: FontWeight.w500,
+        fontWeight: FontWeight.w600,
         fontSize: 14,
         letterSpacing: 0.1,
         height: 1.25,
@@ -114,17 +113,12 @@ class AppTextTheme {
       ),
     );
 
-    // final primaryTheme = GoogleFonts.getTextTheme('Roboto', baseTextTheme);
-    // final secondaryTheme =
-    //     GoogleFonts.getTextTheme('Roboto Condensed', baseTextTheme);
-    // final tertiaryTheme = GoogleFonts.getTextTheme('Pacifico', baseTextTheme);
-
     final primaryTheme = baseTextTheme.apply(
       fontFamily: 'Roboto',
     );
 
     final secondaryTheme = baseTextTheme.apply(
-      fontFamily: 'Roboto Condensed',
+      fontFamily: 'RobotoCondensed',
     );
 
     final tertiaryTheme = baseTextTheme.apply(
