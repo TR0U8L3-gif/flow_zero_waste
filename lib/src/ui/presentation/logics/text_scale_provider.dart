@@ -4,7 +4,7 @@ import 'package:flow_zero_waste/core/common/domain/use_case.dart';
 import 'package:flow_zero_waste/core/enums/text_enum.dart';
 import 'package:flow_zero_waste/src/ui/domain/entities/text_scale_details.dart';
 import 'package:flow_zero_waste/src/ui/domain/usecases/load_text_scale_from_local_storage.dart';
-import 'package:flow_zero_waste/src/ui/domain/usecases/save_text_scale_from_local_storage.dart';
+import 'package:flow_zero_waste/src/ui/domain/usecases/save_text_scale_to_local_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
 
@@ -20,12 +20,12 @@ class TextScaleProvider extends ChangeNotifier {
   /// Constructor for [TextScaleProvider].
   TextScaleProvider({
     required LoadTextScaleFromLocalStorage loadTextScaleFromLocalStorage,
-    required SaveTextScaleFromLocalStorage saveTextScaleFromLocalStorage,
+    required SaveTextScaleToLocalStorage saveTextScaleFromLocalStorage,
   })  : _loadTextScaleFromLocalStorage = loadTextScaleFromLocalStorage,
         _saveTextScaleFromLocalStorage = saveTextScaleFromLocalStorage;
 
   final LoadTextScaleFromLocalStorage _loadTextScaleFromLocalStorage;
-  final SaveTextScaleFromLocalStorage _saveTextScaleFromLocalStorage;
+  final SaveTextScaleToLocalStorage _saveTextScaleFromLocalStorage;
 
   Timer? _saveTimer;
 
@@ -100,7 +100,7 @@ class TextScaleProvider extends ChangeNotifier {
   /// Method to save the text scale to local storage.
   void saveTextScale() {
     _saveTextScaleFromLocalStorage(
-      SaveTextScaleFromLocalStorageParams(textScaleDetails: _textScaleDetails),
+      SaveTextScaleToLocalStorageParams(textScaleDetails: _textScaleDetails),
     );
   }
 

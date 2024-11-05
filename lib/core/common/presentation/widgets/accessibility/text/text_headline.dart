@@ -26,7 +26,8 @@ class TextHeadline extends StatelessWidget {
     this.semanticsLabel,
     this.textWidthBasis,
     this.textHeightBehavior,
-    this.selectionColor,
+    this.selectionColor, 
+    this.height,
   })  :
         assert(
           textScaler == null || textScaleFactor == null,
@@ -88,6 +89,9 @@ class TextHeadline extends StatelessWidget {
   /// The selection color of the text.
   final Color? selectionColor;
 
+  /// The height of the text in percentage.
+  final double? height;
+
   @override
   Widget build(BuildContext context) {
     return Semantics(
@@ -95,7 +99,9 @@ class TextHeadline extends StatelessWidget {
       header: true,
       child: Text(
         data,
-        style: _styleFromSize(context, textSize),
+        style: _styleFromSize(context, textSize)?.copyWith(
+          height: height,
+        ),
         strutStyle: strutStyle,
         textAlign: textAlign,
         textDirection: textDirection,
