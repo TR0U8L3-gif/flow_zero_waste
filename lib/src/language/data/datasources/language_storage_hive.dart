@@ -4,8 +4,8 @@ import 'package:injectable/injectable.dart';
 /// Hive box name for language storage
 const kLanguageStorageHiveBoxName = 'language';
 
-@singleton
 /// Language storage using Hive
+@singleton
 class LanguageStorageHive extends HiveManager<String> {
   /// Constructor for LanguageStorageHive
   LanguageStorageHive()

@@ -1,6 +1,6 @@
 import 'package:flow_zero_waste/core/common/domain/response.dart';
 import 'package:flow_zero_waste/core/utils/typedef.dart';
-import 'package:flow_zero_waste/src/language/data/datasources/language_local_data_sorce.dart';
+import 'package:flow_zero_waste/src/language/data/datasources/language_local_data_source.dart';
 import 'package:flow_zero_waste/src/language/domain/repositories/language_repository.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:injectable/injectable.dart';
@@ -11,12 +11,12 @@ import 'package:logger_manager/logger_manager.dart';
 class LanguageRepositoryImpl implements LanguageRepository {
   /// Constructor for LanguageRepositoryImpl
   LanguageRepositoryImpl({
-    required LanguageLocalDataSorce languageLocalDataSorce,
+    required LanguageLocalDataSource languageLocalDataSorce,
     required LoggerManager logger,
   })  : _languageLocalDataSorce = languageLocalDataSorce,
         _logger = logger;
 
-  final LanguageLocalDataSorce _languageLocalDataSorce;
+  final LanguageLocalDataSource _languageLocalDataSorce;
   final LoggerManager _logger;
 
   @override
