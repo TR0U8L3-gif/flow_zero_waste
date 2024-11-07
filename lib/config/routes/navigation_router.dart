@@ -31,5 +31,8 @@ class NavigationRouter extends RootStackRouter {
         AutoRoute(
           page: OnboardingRoute.page,
         ),
+        AutoRoute(
+          page: MaterialBuilderRoute.page,
+        ),
       ];
 }
