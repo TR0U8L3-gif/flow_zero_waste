@@ -1,16 +1,16 @@
-# flow_zero_waste
+# Flow - Zero Waste App
 
-A new Flutter project.
 
-## Getting Started
+### Create new feature folder structure:
+```
+mkdir -p data/datasources data/models data/repositories \
+domain/entities domain/repositories domain/usecases \
+presentation/logics presentation/pages presentation/widgets
+```
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+### App Bottom Navigation Pages:
+* Discover
+* Browse
+* Favorites
+* Orders
+* Profile

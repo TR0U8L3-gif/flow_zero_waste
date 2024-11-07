@@ -1,54 +1,137 @@
 {
   "@@locale": "en",
   "helloWorld": "Hello World!",
-  "@helloWorld": {},
+  "@helloWorld": {
+    "description": "Standard greeting message."
+  },
   "language": "Language",
-  "@language": {},
+  "@language": {
+    "description": "Label for selecting or displaying language."
+  },
   "languageCode": "Language code",
-  "@languageCode": {},
+  "@languageCode": {
+    "description": "Label for displaying the language code."
+  },
   "languageName": "{language, select, en{English} pl{Polish} other{Language unknown}}",
   "@languageName": {
-    "description": "A languageName message",
+    "description": "Displays the language name based on the selected language code.",
     "placeholders": {
       "language": {
-        "type": "String"
+        "type": "String",
+        "description": "The language code to select the display name."
       }
     }
   },
   "noContent": "No Content",
-  "@noContent": {},
+  "@noContent": {
+    "description": "Displayed when no content is available."
+  },
   "yes": "Yes",
-  "@yes": {},
+  "@yes": {
+    "description": "Confirmation or affirmative option label."
+  },
   "no": "No",
-  "@no": {},
+  "@no": {
+    "description": "Denial or negative option label."
+  },
   "appInitErrorTitle": "App initialization error",
-  "@appInitErrorTitle": {},
+  "@appInitErrorTitle": {
+    "description": "Title for an application initialization error message."
+  },
   "unknownErrorOccurred": "Unknown error occurred",
-  "@unknownErrorOccurred": {},
+  "@unknownErrorOccurred": {
+    "description": "Displayed when an unknown error has occurred."
+  },
   "skip": "Skip",
-  "@skip": {},
+  "@skip": {
+    "description": "Label for skipping an action or step."
+  },
   "next": "Next",
-  "@next": {},
+  "@next": {
+    "description": "Label for moving to the next step or item."
+  },
   "back": "Back",
-  "@back": {},
+  "@back": {
+    "description": "Label for going back to the previous step or item."
+  },
   "allClear": "All clear",
-  "@allClear": {},
+  "@allClear": {
+    "description": "Displayed when everything is clear or completed."
+  },
   "onboarding_title_display_1": "Zero Waste",
-  "@onboarding_title_display_1": {},
+  "@onboarding_title_display_1": {
+    "description": "Title for onboarding step 1 - theme of 'Zero Waste.'"
+  },
   "onboarding_title_headline_1": "Save food, reduce waste",
-  "@onboarding_title_headline_1": {},
+  "@onboarding_title_headline_1": {
+    "description": "Headline for onboarding step 1, emphasizing food-saving."
+  },
   "onboarding_title_body_1": "Every day, hundreds of kilograms of food are wasted. With us, you can easily save products that would otherwise go to waste.",
-  "@onboarding_title_body_1": {},
+  "@onboarding_title_body_1": {
+    "description": "Body text for onboarding step 1, about saving food from waste."
+  },
   "onboarding_title_display_2": "Contribution",
-  "@onboarding_title_display_2": {},
+  "@onboarding_title_display_2": {
+    "description": "Title for onboarding step 2 - theme of 'Contribution.'"
+  },
   "onboarding_title_headline_2": "Support local businesses and the planet",
-  "@onboarding_title_headline_2": {},
+  "@onboarding_title_headline_2": {
+    "description": "Headline for onboarding step 2, encouraging support for local businesses."
+  },
   "onboarding_title_body_2": "By choosing takeout food, you support small businesses and help protect the environment. Small steps can make a big impact!",
-  "@onboarding_title_body_2": {},
+  "@onboarding_title_body_2": {
+    "description": "Body text for onboarding step 2, about supporting businesses and the environment."
+  },
   "onboarding_title_display_3": "Savings",
-  "@onboarding_title_display_3": {},
+  "@onboarding_title_display_3": {
+    "description": "Title for onboarding step 3 - theme of 'Savings.'"
+  },
   "onboarding_title_headline_3": "Delicious and affordable",
-  "@onboarding_title_headline_3": {},
+  "@onboarding_title_headline_3": {
+    "description": "Headline for onboarding step 3, about tasty and cost-effective choices."
+  },
   "onboarding_title_body_3": "Find food at great prices and reduce waste at the same time. Enjoy tasty deals that help save the planet.",
-  "@onboarding_title_body_3": {}
+  "@onboarding_title_body_3": {
+    "description": "Body text for onboarding step 3, about finding affordable food and reducing waste."
+  },
+  "discoverTooltip": "Discover section with the latest offers",
+  "@discoverTooltip": {
+    "description": "Tooltip text for the 'Discover' section, guiding users to explore new offers."
+  },
+  "browseTooltip": "Browse available categories and products",
+  "@browseTooltip": {
+    "description": "Tooltip text for the 'Browse' section, guiding users to explore categories and products."
+  },
+  "favoritesTooltip": "Favorite products and offers",
+  "@favoritesTooltip": {
+    "description": "Tooltip for 'Favorites,' indicating favorite items and offers."
+  },
+  "ordersTooltip": "View your orders",
+  "@ordersTooltip": {
+    "description": "Tooltip for 'Orders,' to view user’s past orders."
+  },
+  "profileTooltip": "Your profile and settings",
+  "@profileTooltip": {
+    "description": "Tooltip for 'Profile,' to view and edit profile settings."
+  },
+  "discover": "Discover",
+  "@discover": {
+    "description": "Label for the 'Discover' navigation item."
+  },
+  "browse": "Browse",
+  "@browse": {
+    "description": "Label for the 'Browse' navigation item."
+  },
+  "favorites": "Favorites",
+  "@favorites": {
+    "description": "Label for the 'Favorites' navigation item."
+  },
+  "orders": "Orders",
+  "@orders": {
+    "description": "Label for the 'Orders' navigation item."
+  },
+  "profile": "Profile",
+  "@profile": {
+    "description": "Label for the 'Profile' navigation item."
+  }
 }

@@ -20,10 +20,6 @@ class NavigationRouter extends RootStackRouter {
   List<AutoRoute> get routes => [
         AutoRoute(
           page: MyHomeRoute.page,
-          initial: true,
-          guards: [
-            _onboardingGuard,
-          ],
         ),
         AutoRoute(
           page: MainRoute.page,
@@ -33,6 +29,31 @@ class NavigationRouter extends RootStackRouter {
         ),
         AutoRoute(
           page: MaterialBuilderRoute.page,
+        ),
+        AutoRoute(
+          page: AppNavigationRoute.page,
+          initial: true,
+          guards: [
+            _onboardingGuard,
+          ],
+          children: [
+            AutoRoute(
+              page: DiscoverRoute.page,
+              initial: true,
+            ),
+            AutoRoute(
+              page: BrowseRoute.page,
+            ),
+            AutoRoute(
+              page: FavoritesRoute.page,
+            ),
+            AutoRoute(
+              page: OrdersRoute.page,
+            ),
+            AutoRoute(
+              page: ProfileRoute.page,
+            ),
+          ],
         ),
       ];
 }

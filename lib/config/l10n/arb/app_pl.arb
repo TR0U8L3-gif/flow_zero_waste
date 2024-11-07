@@ -1,54 +1,137 @@
 {
   "@@locale": "pl",
   "helloWorld": "Witaj świecie!",
-  "@helloWorld": {},
+  "@helloWorld": {
+    "description": "Standard greeting message."
+  },
   "language": "Język",
-  "@language": {},
+  "@language": {
+    "description": "Label for selecting or displaying language."
+  },
   "languageCode": "Kod języka",
-  "@languageCode": {},
+  "@languageCode": {
+    "description": "Label for displaying the language code."
+  },
   "languageName": "{language, select, en{Angielski} pl{Polski} other{Język nieznany}}",
   "@languageName": {
-    "description": "A languageName message",
+    "description": "Displays the language name based on the selected language code.",
     "placeholders": {
       "language": {
-        "type": "String"
+        "type": "String",
+        "description": "The language code to select the display name."
       }
     }
   },
   "noContent": "Brak Wyników",
-  "@noContent": {},
+  "@noContent": {
+    "description": "Displayed when no content is available."
+  },
   "yes": "Tak",
-  "@yes": {},
+  "@yes": {
+    "description": "Confirmation or affirmative option label."
+  },
   "no": "Nie",
-  "@no": {},
+  "@no": {
+    "description": "Denial or negative option label."
+  },
   "appInitErrorTitle": "Błąd inicjalizacji aplikacji",
-  "@appInitErrorTitle": {},
+  "@appInitErrorTitle": {
+    "description": "Title for an application initialization error message."
+  },
   "unknownErrorOccurred": "Wystąpił nieznany błąd",
-  "@unknownErrorOccurred": {},
+  "@unknownErrorOccurred": {
+    "description": "Displayed when an unknown error has occurred."
+  },
   "skip": "Pomiń",
-  "@skip": {},
+  "@skip": {
+    "description": "Label for skipping an action or step."
+  },
   "next": "Dalej",
-  "@next": {},
+  "@next": {
+    "description": "Label for moving to the next step or item."
+  },
   "back": "Wstecz",
-  "@back": {},
+  "@back": {
+    "description": "Label for going back to the previous step or item."
+  },
   "allClear": "Wszystko jasne",
-  "@allClear": {},
+  "@allClear": {
+    "description": "Displayed when everything is clear or completed."
+  },
   "onboarding_title_display_1": "Ratuj",
-  "@onboarding_title_display_1": {},
+  "@onboarding_title_display_1": {
+    "description": "Title for onboarding step 1 - theme of 'saving.'"
+  },
   "onboarding_title_headline_1": "Ratuj jedzenie, zmniejszaj odpady",
-  "@onboarding_title_headline_1": {},
+  "@onboarding_title_headline_1": {
+    "description": "Headline for onboarding step 1, emphasizing food-saving."
+  },
   "onboarding_title_body_1": "Każdego dnia setki kilogramów jedzenia są marnowane. Z nami możesz w prosty sposób ratować produkty, które w przeciwnym razie trafiłyby do kosza.",
-  "@onboarding_title_body_1": {},
+  "@onboarding_title_body_1": {
+    "description": "Body text for onboarding step 1, about saving food from waste."
+  },
   "onboarding_title_display_2": "Pomagaj",
-  "@onboarding_title_display_2": {},
+  "@onboarding_title_display_2": {
+    "description": "Title for onboarding step 2 - theme of 'helping.'"
+  },
   "onboarding_title_headline_2": "Wspieraj lokalne firmy i planetę",
-  "@onboarding_title_headline_2": {},
+  "@onboarding_title_headline_2": {
+    "description": "Headline for onboarding step 2, encouraging support for local businesses."
+  },
   "onboarding_title_body_2": "Wybierając jedzenie na wynos, wspierasz małe biznesy i przyczyniasz się do ochrony środowiska. Drobne kroki mogą zdziałać wiele!",
-  "@onboarding_title_body_2": {},
+  "@onboarding_title_body_2": {
+    "description": "Body text for onboarding step 2, about supporting businesses and the environment."
+  },
   "onboarding_title_display_3": "Oszczędzaj",
-  "@onboarding_title_display_3": {},
+  "@onboarding_title_display_3": {
+    "description": "Title for onboarding step 3 - theme of 'saving money.'"
+  },
   "onboarding_title_headline_3": "Smacznie i oszczędnie",
-  "@onboarding_title_headline_3": {},
+  "@onboarding_title_headline_3": {
+    "description": "Headline for onboarding step 3, about tasty and cost-effective choices."
+  },
   "onboarding_title_body_3": "Znajdź jedzenie w wyjątkowych cenach i jednocześnie ogranicz marnotrawstwo. Korzystaj z okazji i ciesz się smakiem, który ratuje planetę.",
-  "@onboarding_title_body_3": {}
+  "@onboarding_title_body_3": {
+    "description": "Body text for onboarding step 3, about finding affordable food and reducing waste."
+  },
+  "discoverTooltip": "Odkrywaj sekcję z najnowszymi ofertami",
+  "@discoverTooltip": {
+    "description": "Tooltip text for the 'Discover' section, guiding users to explore new offers."
+  },
+  "browseTooltip": "Przeglądaj dostępne kategorie i produkty",
+  "@browseTooltip": {
+    "description": "Tooltip text for the 'Browse' section, guiding users to explore categories and products."
+  },
+  "favoritesTooltip": "Ulubione produkty i oferty",
+  "@favoritesTooltip": {
+    "description": "Tooltip for 'Favorites,' indicating favorite items and offers."
+  },
+  "ordersTooltip": "Zobacz swoje zamówienia",
+  "@ordersTooltip": {
+    "description": "Tooltip for 'Orders,' to view user’s past orders."
+  },
+  "profileTooltip": "Twój profil i ustawienia",
+  "@profileTooltip": {
+    "description": "Tooltip for 'Profile,' to view and edit profile settings."
+  },
+  "discover": "Odkrywaj",
+  "@discover": {
+    "description": "Label for the 'Discover' navigation item."
+  },
+  "browse": "Przeglądaj",
+  "@browse": {
+    "description": "Label for the 'Browse' navigation item."
+  },
+  "favorites": "Ulubione",
+  "@favorites": {
+    "description": "Label for the 'Favorites' navigation item."
+  },
+  "orders": "Zamówienia",
+  "@orders": {
+    "description": "Label for the 'Orders' navigation item."
+  },
+  "profile": "Profil",
+  "@profile": {
+    "description": "Label for the 'Profile' navigation item."
+  }
 }
