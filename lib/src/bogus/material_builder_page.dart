@@ -7,31 +7,66 @@ import 'package:flutter/material.dart';
 const double _width = 240;
 const double _height = 120;
 
+/// A page that displays multiple themes with different colors.
 @RoutePage()
 class MaterialBuilderPage extends StatefulWidget {
-  const MaterialBuilderPage({Key? key}) : super(key: key);
+  /// Default constructor
+  const MaterialBuilderPage({super.key});
 
   @override
   State<MaterialBuilderPage> createState() => _MaterialBuilderPageState();
 }
 
 class _MaterialBuilderPageState extends State<MaterialBuilderPage> {
-  final ScrollController scrollController1 = ScrollController();
-  final ScrollController scrollController2 = ScrollController();
-  final ScrollController scrollController3 = ScrollController();
-  final ScrollController scrollController4 = ScrollController();
-  final ScrollController scrollController5 = ScrollController();
-  final ScrollController scrollController6 = ScrollController();
+  final ScrollController masterScrollController = ScrollController();
+  final List<ScrollController> scrollControllers = [];
+  bool _isSyncing = false;
+
+  @override
+  void initState() {
+    super.initState();
+
+    // Initialize scroll controllers and add listeners for synchronization
+    for (var i = 0; i < 6; i++) {
+      final controller = ScrollController();
+      controller.addListener(() => _syncScroll(controller));
+      scrollControllers.add(controller);
+    }
+
+    // Add listener to the master controller to sync with other controllers
+    masterScrollController
+        .addListener(() => _syncScroll(masterScrollController));
+  }
 
   @override
   void dispose() {
-    scrollController1.dispose();
-    scrollController2.dispose();
-    scrollController3.dispose();
-    scrollController4.dispose();
-    scrollController5.dispose();
-    scrollController6.dispose();
+    // Dispose all controllers
+    masterScrollController.dispose();
+    for (final controller in scrollControllers) {
+      controller.dispose();
+    }
     super.dispose();
+  }
+
+  // Synchronize scroll offset across all controllers
+  void _syncScroll(ScrollController scrolledController) {
+    if (_isSyncing) return; // Prevent recursive calls
+    _isSyncing = true;
+
+    final offset = scrolledController.offset;
+    for (final controller in scrollControllers) {
+      if (controller != scrolledController && controller.hasClients) {
+        controller.jumpTo(offset);
+      }
+    }
+
+    // Sync master controller if another controller is scrolled
+    if (scrolledController != masterScrollController &&
+        masterScrollController.hasClients) {
+      masterScrollController.jumpTo(offset);
+    }
+
+    _isSyncing = false;
   }
 
   @override
@@ -43,63 +78,18 @@ class _MaterialBuilderPageState extends State<MaterialBuilderPage> {
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: AppSize.m),
               child: Column(
-                children: <Widget>[
-                  Padding(
+                children: List<Widget>.generate(6, (index) {
+                  return Padding(
                     padding: const EdgeInsets.only(top: AppSize.m),
                     child: MaterialThemeWidget(
-                      title: 'Light Standard',
-                      mode: Contrast.standard,
-                      brightness: Brightness.light,
-                      scrollController: scrollController1,
+                      title: index.isEven ? 'Light Theme' : 'Dark Theme',
+                      mode: index.isEven ? Contrast.standard : Contrast.high,
+                      brightness:
+                          index < 3 ? Brightness.light : Brightness.dark,
+                      scrollController: scrollControllers[index],
                     ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(top: AppSize.m),
-                    child: MaterialThemeWidget(
-                      title: 'Light Medium',
-                      mode: Contrast.medium,
-                      brightness: Brightness.light,
-                      scrollController: scrollController2,
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(top: AppSize.m),
-                    child: MaterialThemeWidget(
-                      title: 'Light High',
-                      mode: Contrast.high,
-                      brightness: Brightness.light,
-                      scrollController: scrollController3,
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(top: AppSize.m),
-                    child: MaterialThemeWidget(
-                      title: 'Dark Standard',
-                      mode: Contrast.standard,
-                      brightness: Brightness.dark,
-                      scrollController: scrollController4,
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(top: AppSize.m),
-                    child: MaterialThemeWidget(
-                      title: 'Dark Medium',
-                      mode: Contrast.medium,
-                      brightness: Brightness.dark,
-                      scrollController: scrollController5,
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(top: AppSize.m),
-                    child: MaterialThemeWidget(
-                      title: 'Dark High',
-                      mode: Contrast.high,
-                      brightness: Brightness.dark,
-                      scrollController: scrollController6,
-                    ),
-                  ),
-                  const SizedBox(height: AppSize.xxl),
-                ],
+                  );
+                }),
               ),
             ),
           ),
@@ -109,7 +99,9 @@ class _MaterialBuilderPageState extends State<MaterialBuilderPage> {
   }
 }
 
+/// A widget that displays a theme with multiple colors.
 class MaterialThemeWidget extends StatelessWidget {
+  /// Default constructor
   const MaterialThemeWidget({
     required this.title,
     required this.mode,
@@ -118,9 +110,13 @@ class MaterialThemeWidget extends StatelessWidget {
     super.key,
   });
 
+  /// The title of the theme
   final String title;
+  /// The contrast mode of the theme
   final Contrast mode;
+  /// The brightness of the theme
   final Brightness brightness;
+  /// The scroll controller to sync with other controllers
   final ScrollController? scrollController;
 
   @override
@@ -378,7 +374,9 @@ class MaterialThemeWidget extends StatelessWidget {
   }
 }
 
+/// A widget that displays a colored box with text on top and bottom.
 class MaterialContainerWidget extends StatelessWidget {
+  /// Default constructor
   const MaterialContainerWidget({
     required this.text,
     required this.first,
@@ -389,11 +387,22 @@ class MaterialContainerWidget extends StatelessWidget {
     super.key,
   });
 
+  /// The text to display on the box
   final String text;
+
+  /// First color
   final Color first;
+
+  /// Second color
   final Color second;
+
+  /// The width of the box
   final double width;
+
+  /// The height of the box
   final double height;
+
+  /// The brightness of the box
   final Brightness brightness;
 
   @override
@@ -458,7 +467,9 @@ class MaterialContainerWidget extends StatelessWidget {
   }
 }
 
+/// A widget that displays a colored box with multiple texts.
 class MaterialContainerXWidget extends StatelessWidget {
+  /// Default constructor
   const MaterialContainerXWidget({
     required this.texts,
     required this.colors,
@@ -468,10 +479,19 @@ class MaterialContainerXWidget extends StatelessWidget {
     super.key,
   });
 
+  /// The texts to display on the box
   final List<String> texts;
+
+  /// The colors of the box
   final List<Color> colors;
+
+  /// The width of the box
   final double width;
+
+  /// The height of the box
   final double height;
+
+  /// The brightness of the box
   final Brightness brightness;
 
   @override
