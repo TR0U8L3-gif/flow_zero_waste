@@ -8,17 +8,18 @@
 // coverage:ignore-file
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'package:auto_route/auto_route.dart' as _i4;
+import 'package:auto_route/auto_route.dart' as _i5;
 import 'package:flow_zero_waste/src/bogus/main_page.dart' as _i1;
-import 'package:flow_zero_waste/src/bogus/semi_main.dart' as _i2;
+import 'package:flow_zero_waste/src/bogus/material_builder_page.dart' as _i2;
+import 'package:flow_zero_waste/src/bogus/semi_main.dart' as _i3;
 import 'package:flow_zero_waste/src/onboarding/presentation/pages/onboarding_page.dart'
-    as _i3;
-import 'package:flutter/material.dart' as _i5;
+    as _i4;
+import 'package:flutter/material.dart' as _i6;
 
 /// generated route for
 /// [_i1.MainPage]
-class MainRoute extends _i4.PageRouteInfo<void> {
-  const MainRoute({List<_i4.PageRouteInfo>? children})
+class MainRoute extends _i5.PageRouteInfo<void> {
+  const MainRoute({List<_i5.PageRouteInfo>? children})
       : super(
           MainRoute.name,
           initialChildren: children,
@@ -26,7 +27,7 @@ class MainRoute extends _i4.PageRouteInfo<void> {
 
   static const String name = 'MainRoute';
 
-  static _i4.PageInfo page = _i4.PageInfo(
+  static _i5.PageInfo page = _i5.PageInfo(
     name,
     builder: (data) {
       return const _i1.MainPage();
@@ -35,9 +36,28 @@ class MainRoute extends _i4.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i2.MyHomePage]
-class MyHomeRoute extends _i4.PageRouteInfo<void> {
-  const MyHomeRoute({List<_i4.PageRouteInfo>? children})
+/// [_i2.MaterialBuilderPage]
+class MaterialBuilderRoute extends _i5.PageRouteInfo<void> {
+  const MaterialBuilderRoute({List<_i5.PageRouteInfo>? children})
+      : super(
+          MaterialBuilderRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'MaterialBuilderRoute';
+
+  static _i5.PageInfo page = _i5.PageInfo(
+    name,
+    builder: (data) {
+      return const _i2.MaterialBuilderPage();
+    },
+  );
+}
+
+/// generated route for
+/// [_i3.MyHomePage]
+class MyHomeRoute extends _i5.PageRouteInfo<void> {
+  const MyHomeRoute({List<_i5.PageRouteInfo>? children})
       : super(
           MyHomeRoute.name,
           initialChildren: children,
@@ -45,21 +65,21 @@ class MyHomeRoute extends _i4.PageRouteInfo<void> {
 
   static const String name = 'MyHomeRoute';
 
-  static _i4.PageInfo page = _i4.PageInfo(
+  static _i5.PageInfo page = _i5.PageInfo(
     name,
     builder: (data) {
-      return const _i2.MyHomePage();
+      return const _i3.MyHomePage();
     },
   );
 }
 
 /// generated route for
-/// [_i3.OnboardingPage]
-class OnboardingRoute extends _i4.PageRouteInfo<OnboardingRouteArgs> {
+/// [_i4.OnboardingPage]
+class OnboardingRoute extends _i5.PageRouteInfo<OnboardingRouteArgs> {
   OnboardingRoute({
     required void Function({bool? success}) onResult,
-    _i5.Key? key,
-    List<_i4.PageRouteInfo>? children,
+    _i6.Key? key,
+    List<_i5.PageRouteInfo>? children,
   }) : super(
           OnboardingRoute.name,
           args: OnboardingRouteArgs(
@@ -71,11 +91,11 @@ class OnboardingRoute extends _i4.PageRouteInfo<OnboardingRouteArgs> {
 
   static const String name = 'OnboardingRoute';
 
-  static _i4.PageInfo page = _i4.PageInfo(
+  static _i5.PageInfo page = _i5.PageInfo(
     name,
     builder: (data) {
       final args = data.argsAs<OnboardingRouteArgs>();
-      return _i3.OnboardingPage(
+      return _i4.OnboardingPage(
         onResult: args.onResult,
         key: args.key,
       );
@@ -91,7 +111,7 @@ class OnboardingRouteArgs {
 
   final void Function({bool? success}) onResult;
 
-  final _i5.Key? key;
+  final _i6.Key? key;
 
   @override
   String toString() {

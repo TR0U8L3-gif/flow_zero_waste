@@ -46,6 +46,13 @@ class _MyHomePageState extends State<MyHomePage> {
               },
               child: const Text('Go to next page'),
             ),
+            const SizedBox(height: 20),
+            ElevatedButton(
+              onPressed: () {
+                context.router.push(const MaterialBuilderRoute());
+              },
+              child: const Text('Go to colors page'),
+            ),
           ],
         ),
       ),
