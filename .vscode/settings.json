@@ -52,5 +52,5 @@
       ]
     }
   ],
-  "dart.flutterSdkPath": ".fvm/versions/3.24.3"
+  "dart.flutterSdkPath": ".fvm/versions/3.24.3",
 }
