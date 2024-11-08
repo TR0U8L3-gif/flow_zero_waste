@@ -85,3 +85,23 @@ class LocalStorageException extends BaseException {
     super.stackTrace,
   });
 }
+
+/// Exception thrown when server fails
+class ServerException extends BaseException {
+  /// Server exception constructor
+  const ServerException({
+    required super.sender,
+    required super.description,
+    super.stackTrace,
+  });
+}
+
+/// Exception thrown when token manager fails
+class TokenManagerException extends BaseException {
+  /// TokenManager exception constructor
+  const TokenManagerException({
+    required super.sender,
+    required super.description,
+    super.stackTrace,
+  });
+}
