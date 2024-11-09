@@ -32,6 +32,7 @@ class AuthRepositoryImpl implements AuthRepository {
 
   @override
   ResultFuture<Failure, User?> getCurrentUser() async {
+    _logger.trace(message: 'Getting current user from [local]');
     AuthModel? authModel;
     try {
       authModel = await _authLocalDataSource.getAuth();
@@ -43,14 +44,18 @@ class AuthRepositoryImpl implements AuthRepository {
       );
       return const Left(Failure(message: 'Error while getting current user'));
     }
+    _logger.trace(
+      message: 'Received current user [local]: ${authModel.runtimeType}',
+    );
 
     if (authModel == null) {
       return const Right(null);
     }
 
-    UserModel? userModel;
+    _logger.trace(message: 'Getting current user from [remote]');
 
-    try{
+    UserModel? userModel;
+    try {
       userModel = await _authRemoteDataSource.getCurrentUser();
     } catch (e, st) {
       _logger.warning(
@@ -62,6 +67,10 @@ class AuthRepositoryImpl implements AuthRepository {
 
     final user = _userMapper.from(userModel ?? authModel.user);
 
+    _logger.trace(
+      message: 'Received current user [remote]: ${user.runtimeType}',
+    );
+
     return Right(user);
   }
 
@@ -70,6 +79,8 @@ class AuthRepositoryImpl implements AuthRepository {
     required String email,
     required String password,
   }) async {
+    _logger.trace(message: 'Logging in');
+
     AuthModel? authModel;
     try {
       authModel = await _authRemoteDataSource.login(
@@ -87,7 +98,7 @@ class AuthRepositoryImpl implements AuthRepository {
 
     final user = _userMapper.from(authModel.user);
 
-    try{
+    try {
       await _authLocalDataSource.saveAuth(authModel);
     } catch (e, st) {
       _logger.error(

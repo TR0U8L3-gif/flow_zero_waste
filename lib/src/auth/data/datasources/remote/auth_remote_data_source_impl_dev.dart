@@ -1,4 +1,5 @@
 import 'package:flow_zero_waste/src/auth/data/datasources/remote/auth_remote_data_source.dart';
+import 'package:flow_zero_waste/src/auth/data/datasources/remote/auth_remote_data_source_exceptions.dart';
 import 'package:flow_zero_waste/src/auth/data/models/auth_model.dart';
 import 'package:flow_zero_waste/src/auth/data/models/user_model.dart';
 import 'package:injectable/injectable.dart';
@@ -11,8 +12,14 @@ class AuthRemoteDataSourceImplDev implements AuthRemoteDataSource {
     required String email,
     required String password,
   }) async {
-    if(email != 'rsienkiewicz88@gmail.com' || password != 'password') {
-      throw Exception('Invalid credentials'); 
+    await Future<dynamic>.delayed(const Duration(seconds: 2));
+
+    if (email != 'rsienkiewicz88@gmail.com' || password != 'password') {
+      throw InvalidCredentialsException(
+        error: 'Invalid credentials',
+        action: 'login',
+        stackTrace: StackTrace.current,
+      );
     }
 
     // Przykładowe wartości dla AuthModel przy logowaniu
@@ -36,13 +43,12 @@ class AuthRemoteDataSourceImplDev implements AuthRemoteDataSource {
     required String password,
     required String phoneNumber,
   }) async {
-    // Przykładowa implementacja dla rejestracji (niezwracająca żadnej wartości)
-    print('User registered with name: $name, email: $email, phone: $phoneNumber');
+    await Future<dynamic>.delayed(const Duration(seconds: 4));
   }
 
   @override
   Future<UserModel> getCurrentUser() async {
-    // Przykładowe wartości dla UserModel przy pobieraniu bieżącego użytkownika
+    await Future<dynamic>.delayed(const Duration(seconds: 1));
     return const UserModel(
       id: 'user123',
       name: 'Jan Kowalski',

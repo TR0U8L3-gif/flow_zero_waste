@@ -1,4 +1,6 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:flow_zero_waste/config/injection/injection.dart';
+import 'package:flow_zero_waste/src/auth/presentation/logics/auth_provider.dart';
 import 'package:flutter/material.dart';
 
 @RoutePage()
@@ -42,6 +44,7 @@ class ProfilePage extends StatelessWidget {
                 ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(content: Text('Wyloguj się tapped')),
                 );
+                locator<AuthProvider>().removeUserData();
               },
             ),
           ],

@@ -41,6 +41,7 @@ import '../../src/auth/domain/usecases/login_user.dart' as _i775;
 import '../../src/auth/domain/usecases/logout_user.dart' as _i910;
 import '../../src/auth/domain/usecases/register_user.dart' as _i651;
 import '../../src/auth/presentation/logics/auth_provider.dart' as _i346;
+import '../../src/auth/presentation/logics/cubit/auth_cubit.dart' as _i751;
 import '../../src/language/data/datasources/language_local_data_source.dart'
     as _i40;
 import '../../src/language/data/datasources/language_local_data_source_impl.dart'
@@ -186,6 +187,10 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i910.LogoutUser(repository: gh<_i274.AuthRepository>()));
     gh.singleton<_i651.RegisterUser>(
         () => _i651.RegisterUser(repository: gh<_i274.AuthRepository>()));
+    gh.singleton<_i346.AuthProvider>(() => _i346.AuthProvider(
+          getCurrentUser: gh<_i458.GetCurrentUser>(),
+          logoutUser: gh<_i910.LogoutUser>(),
+        ));
     gh.singleton<_i220.LoadTextScaleFromLocalStorage>(() =>
         _i220.LoadTextScaleFromLocalStorage(
             repository: gh<_i106.UiRepository>()));
@@ -200,6 +205,8 @@ extension GetItInjectableX on _i174.GetIt {
           languageLocalDataSorce: gh<_i40.LanguageLocalDataSource>(),
           logger: gh<_i127.LoggerManager>(),
         ));
+    gh.singleton<_i284.AuthGuard>(
+        () => _i284.AuthGuard(authProvider: gh<_i346.AuthProvider>()));
     gh.singleton<_i88.ThemeProvider>(() => _i88.ThemeProvider(
           loadThemeFromLocalStorage: gh<_i755.LoadThemeFromLocalStorage>(),
           saveThemeFromLocalStorage: gh<_i523.SaveThemeToLocalStorage>(),
@@ -210,12 +217,6 @@ extension GetItInjectableX on _i174.GetIt {
     gh.singleton<_i665.SaveLanguageToLocalStorage>(() =>
         _i665.SaveLanguageToLocalStorage(
             repository: gh<_i706.LanguageRepository>()));
-    gh.singleton<_i346.AuthProvider>(() => _i346.AuthProvider(
-          getCurrentUser: gh<_i458.GetCurrentUser>(),
-          loginUser: gh<_i775.LoginUser>(),
-          logoutUser: gh<_i910.LogoutUser>(),
-          registerUser: gh<_i651.RegisterUser>(),
-        ));
     gh.singleton<_i491.OnboardingProvider>(() => _i491.OnboardingProvider(
           loadOnboardingSeenFromLocalStorage:
               gh<_i692.LoadOnboardingSeenFromLocalStorage>(),
@@ -228,14 +229,17 @@ extension GetItInjectableX on _i174.GetIt {
           saveTextScaleFromLocalStorage:
               gh<_i751.SaveTextScaleToLocalStorage>(),
         ));
+    gh.factory<_i751.AuthCubit>(() => _i751.AuthCubit(
+          login: gh<_i775.LoginUser>(),
+          register: gh<_i651.RegisterUser>(),
+          authProvider: gh<_i346.AuthProvider>(),
+        ));
     gh.lazySingleton<_i11.OnboardingGuard>(() => _i11.OnboardingGuard(
         onboardingProvider: gh<_i491.OnboardingProvider>()));
     gh.singleton<_i1069.LanguageProvider>(() => _i1069.LanguageProvider(
           getLanguageFromStorage: gh<_i424.LoadLanguageFromLocalStorage>(),
           saveLanguageToStorage: gh<_i665.SaveLanguageToLocalStorage>(),
         ));
-    gh.singleton<_i284.AuthGuard>(
-        () => _i284.AuthGuard(authProvider: gh<_i346.AuthProvider>()));
     gh.singleton<_i732.NavigationRouter>(() => _i732.NavigationRouter(
           onboardingGuard: gh<_i11.OnboardingGuard>(),
           auth: gh<_i284.AuthGuard>(),

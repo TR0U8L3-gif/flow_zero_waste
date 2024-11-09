@@ -7,14 +7,14 @@ import 'package:injectable/injectable.dart';
 
 /// Get current user use case
 @singleton
-class GetCurrentUser extends UseCase<User?,NoParams> {
+class GetCurrentUser extends UseCase<User?, NoParams> {
   /// Get current user use case constructor
-  GetCurrentUser({required AuthRepository repository}) : _repository = repository;
+  GetCurrentUser({required AuthRepository repository})
+      : _repository = repository;
   final AuthRepository _repository;
 
   @override
   ResultFuture<Failure, User?> call(NoParams params) {
     return _repository.getCurrentUser();
   }
-  
 }

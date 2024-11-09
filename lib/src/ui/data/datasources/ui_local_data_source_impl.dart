@@ -33,9 +33,9 @@ class UiLocalDataSourceImpl implements UiLocalDataSource {
       final dataMap = json.decode(data) as Map<String, dynamic>;
       return TextScaleDetailsModel.fromJson(dataMap);
     } catch (e, st) {
-      throw LocalStorageException(
-        sender: e.toString(),
-        description: 'decode string to map => fromJson',
+      throw CacheException(
+        error: e,
+        action: 'decode data then perform fromJson',
         stackTrace: st,
       );
     }
@@ -51,9 +51,9 @@ class UiLocalDataSourceImpl implements UiLocalDataSource {
       final dataMap = json.decode(data) as Map<String, dynamic>;
       return ThemeDetailsModel.fromJson(dataMap);
     } catch (e, st) {
-      throw LocalStorageException(
-        sender: e.toString(),
-        description: 'decode string to map => fromJson',
+      throw CacheException(
+        error: e,
+        action: 'decode data then perform  fromJson',
         stackTrace: st,
       );
     }
@@ -67,9 +67,9 @@ class UiLocalDataSourceImpl implements UiLocalDataSource {
       final data = json.encode(textScale.toJson());
       await _uiStorageHive.write(data, key: textScaleDetailsKey);
     } catch (e, st) {
-      throw LocalStorageException(
-        sender: e.toString(),
-        description: 'encode map to string => write',
+      throw CacheException(
+        error: e,
+        action: 'encode data then write',
         stackTrace: st,
       );
     }
@@ -83,9 +83,9 @@ class UiLocalDataSourceImpl implements UiLocalDataSource {
       final data = json.encode(themeDetails.toJson());
       return _uiStorageHive.write(data, key: themeDetailsKey);
     } catch (e, st) {
-      throw LocalStorageException(
-        sender: e.toString(),
-        description: 'encode map to string => write',
+      throw CacheException(
+        error: e,
+        action: 'encode data then write',
         stackTrace: st,
       );
     }

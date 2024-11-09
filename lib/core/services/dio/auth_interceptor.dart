@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:flow_zero_waste/core/constants/secure_storage_constatnts.dart';
+import 'package:flow_zero_waste/core/constants/secure_storage_constants.dart';
 import 'package:flow_zero_waste/core/services/secure_storage/secure_storage.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
@@ -13,7 +13,9 @@ class AuthInterceptor extends Interceptor {
 
   @override
   Future<void> onRequest(
-      RequestOptions options, RequestInterceptorHandler handler) async {
+    RequestOptions options,
+    RequestInterceptorHandler handler,
+  ) async {
     // Pobierz access token z bezpiecznego magazynu
     final accessToken = await _storage.read(key: accessTokenKey);
     if (accessToken != null) {
@@ -60,8 +62,10 @@ class AuthInterceptor extends Interceptor {
     final refreshToken = await _storage.read(key: refreshTokenKey);
     if (refreshToken == null) throw Exception('No refresh token found');
 
-    final response = await _dio.post<Map<String, dynamic>>('/auth/refresh',
-        data: {'refreshToken': refreshToken});
+    final response = await _dio.post<Map<String, dynamic>>(
+      '/auth/refresh',
+      data: {'refreshToken': refreshToken},
+    );
 
     if (response.statusCode == 200) {
       final newAccessToken = response.data!['accessToken'] as String;

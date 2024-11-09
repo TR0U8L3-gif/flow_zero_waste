@@ -1,6 +1,7 @@
 import 'dart:convert';
 
-import 'package:flow_zero_waste/core/constants/secure_storage_constatnts.dart';
+import 'package:flow_zero_waste/core/common/data/exceptions.dart';
+import 'package:flow_zero_waste/core/constants/secure_storage_constants.dart';
 import 'package:flow_zero_waste/core/services/secure_storage/secure_storage.dart';
 import 'package:flow_zero_waste/src/auth/data/datasources/local/auth_local_data_source.dart';
 import 'package:flow_zero_waste/src/auth/data/models/auth_model.dart';
@@ -33,8 +34,12 @@ class AuthLocalDataSourceImpl implements AuthLocalDataSource {
         refreshToken: refreshToken,
         accessToken: accessToken,
       );
-    } catch (e) {
-      rethrow;
+    } catch (e, st) {
+      throw CacheException(
+        error: e,
+        action: 'get auth',
+        stackTrace: st,
+      );
     }
   }
 
@@ -48,11 +53,14 @@ class AuthLocalDataSourceImpl implements AuthLocalDataSource {
   @override
   Future<void> saveAuth(AuthModel auth) async {
     String userData;
-
     try {
       userData = json.encode(auth.user.toJson());
     } catch (e) {
-      rethrow;
+      throw CacheException(
+        error: e,
+        action: 'save auth',
+        stackTrace: StackTrace.current,
+      );
     }
 
     await _secureStorage.write(key: refreshTokenKey, value: auth.refreshToken);

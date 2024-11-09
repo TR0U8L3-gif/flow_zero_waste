@@ -6,8 +6,7 @@ import 'package:flow_zero_waste/core/common/presentation/logics/providers/respon
 import 'package:flow_zero_waste/core/common/presentation/pages/error_page.dart';
 import 'package:flow_zero_waste/core/enums/build_type_enum.dart';
 import 'package:flow_zero_waste/core/extensions/l10n_extension.dart';
-import 'package:flow_zero_waste/core/services/setup/app_env.dart';
-import 'package:flow_zero_waste/core/services/setup/app_setup.dart';
+import 'package:flow_zero_waste/core/services/setup/setup.dart';
 import 'package:flow_zero_waste/src/auth/presentation/logics/auth_provider.dart';
 import 'package:flow_zero_waste/src/language/presentation/logics/language_provider.dart';
 import 'package:flow_zero_waste/src/onboarding/presentation/logics/onboarding_provider.dart';
@@ -28,8 +27,8 @@ class App extends StatelessWidget {
     BuildType? buildType,
   }) async {
     var exception = const AppSetupException(
-      sender: '',
-      description: '',
+      error: 'unknown error',
+      action: 'app setup',
       stackTrace: StackTrace.empty,
     );
 
@@ -45,8 +44,8 @@ class App extends StatelessWidget {
       );
     } catch (e, st) {
       exception = AppSetupException(
-        sender: e.toString(),
-        description: 'load env => set env',
+        error: e,
+        action: 'load and set env',
         stackTrace: st,
       );
     }
@@ -156,7 +155,9 @@ class _BuildApp extends StatelessWidget {
         supportedLocales: supportedLocales,
         locale: languageProvider.currentLanguage,
         localizationsDelegates: localizationsDelegates,
-        routerConfig: locator<NavigationRouter>().config(),
+        routerConfig: locator<NavigationRouter>().config(
+          reevaluateListenable: locator<AuthProvider>(),
+        ),
         builder: (context, child) {
           final mediaQuery = MediaQuery.of(context);
           return MediaQuery(

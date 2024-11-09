@@ -7,9 +7,10 @@ import 'package:injectable/injectable.dart';
 @singleton
 class AuthGuard extends AutoRouteGuard {
   /// Default constructor
-  AuthGuard({required AuthProvider authProvider}) : _authProvider = authProvider;
+  AuthGuard({required AuthProvider authProvider})
+      : _authProvider = authProvider;
 
-  final AuthProvider _authProvider; 
+  final AuthProvider _authProvider;
 
   @override
   void onNavigation(NavigationResolver resolver, StackRouter router) {

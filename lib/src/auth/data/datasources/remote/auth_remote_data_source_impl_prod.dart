@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:flow_zero_waste/core/common/data/response_model.dart';
 import 'package:flow_zero_waste/core/services/dio/auth_interceptor.dart';
 import 'package:flow_zero_waste/src/auth/data/datasources/remote/auth_remote_data_source.dart';
+import 'package:flow_zero_waste/src/auth/data/datasources/remote/auth_remote_data_source_exceptions.dart';
 import 'package:flow_zero_waste/src/auth/data/models/auth_model.dart';
 import 'package:flow_zero_waste/src/auth/data/models/user_model.dart';
 import 'package:injectable/injectable.dart';
@@ -31,12 +32,16 @@ class AuthRemoteDataSourceImplProd implements AuthRemoteDataSource {
 
       final data = ResponseModel<AuthModel>.fromJson(response.data!).result;
 
-      if(data == null) {
-        throw Exception('Login failed: No data');
+      if (data == null) {
+        throw InvalidCredentialsException(
+          error: 'Invalid credentials',
+          action: 'login',
+          stackTrace: StackTrace.current,
+        );
       }
 
       return data;
-    }  catch (e){
+    } catch (e) {
       rethrow;
     }
   }
@@ -58,7 +63,7 @@ class AuthRemoteDataSourceImplProd implements AuthRemoteDataSource {
           'phoneNumber': phoneNumber,
         },
       );
-    }  catch (e) {
+    } catch (e) {
       rethrow;
     }
   }

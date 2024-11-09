@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'dart:typed_data';
 
-import 'package:flow_zero_waste/core/common/data/exceptions.dart';
+import 'package:flow_zero_waste/core/services/hive/hive_exception.dart';
 import 'package:hive/hive.dart';
 
 /// Default value for the compact threshold.
@@ -41,8 +41,8 @@ abstract class HiveManager<T> {
       } catch (e, st) {
         _isBoxOpen = false;
         throw HiveManagerException(
-          sender: e.toString(),
-          description: 'open box',
+          error: e,
+          action: 'open box',
           stackTrace: st,
         );
       }
