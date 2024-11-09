@@ -138,7 +138,11 @@
   "@appName": {
     "description": "Nazwa aplikacji wyświetlana na ekranie startowym"
   },
-  "welcomeMessage": "Zaloguj się lub zarejestruj, aby kontynuować",
+  "appNameSlogan": " zero waste app",
+  "@appNameSlogan": {
+    "description": "Slogan aplikacji wyświetlany na ekranie startowym"
+  },
+  "welcomeMessage": "Jedz pyszne jedzenie i ratuj planete!!!",
   "@welcomeMessage": {
     "description": "Tekst zachęcający użytkownika do zalogowania się lub rejestracji"
   },

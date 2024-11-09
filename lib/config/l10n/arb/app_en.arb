@@ -138,7 +138,11 @@
   "@appName": {
     "description": "App name displayed on the welcome screen"
   },
-  "welcomeMessage": "Sign in or register to continue",
+  "appNameSlogan": " zero waste app",
+  "@appNameSlogan": {
+    "description": "App slogan displayed on the welcome screen"
+  },
+  "welcomeMessage": "Eat delicious food and save the planet!!!",
   "@welcomeMessage": {
     "description": "Text encouraging the user to sign in or register"
   },

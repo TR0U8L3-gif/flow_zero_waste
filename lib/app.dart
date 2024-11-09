@@ -8,6 +8,7 @@ import 'package:flow_zero_waste/core/enums/build_type_enum.dart';
 import 'package:flow_zero_waste/core/extensions/l10n_extension.dart';
 import 'package:flow_zero_waste/core/services/setup/app_env.dart';
 import 'package:flow_zero_waste/core/services/setup/app_setup.dart';
+import 'package:flow_zero_waste/src/auth/presentation/logics/auth_provider.dart';
 import 'package:flow_zero_waste/src/language/presentation/logics/language_provider.dart';
 import 'package:flow_zero_waste/src/onboarding/presentation/logics/onboarding_provider.dart';
 import 'package:flow_zero_waste/src/ui/presentation/logics/text_scale_provider.dart';
@@ -60,6 +61,7 @@ class App extends StatelessWidget {
         initLocator<ThemeProvider>().loadThemeDetails(),
         initLocator<TextScaleProvider>().loadTextScale(),
         initLocator<OnboardingProvider>().loadOnboardingSeen(),
+        initLocator<AuthProvider>().fetchUserData(),
       ],
     );
   }

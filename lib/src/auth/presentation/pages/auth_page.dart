@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flow_zero_waste/config/assets/size/app_size.dart';
+import 'package:flow_zero_waste/config/routes/navigation_router.gr.dart';
 import 'package:flow_zero_waste/core/common/presentation/logics/providers/responsive_ui/page_provider.dart';
 import 'package:flow_zero_waste/core/extensions/l10n_extension.dart';
 import 'package:flow_zero_waste/core/extensions/theme_extension.dart';
@@ -17,47 +18,65 @@ class AuthPage extends StatelessWidget {
     final page = context.read<PageProvider>();
     return Scaffold(
       body: SafeArea(
-        child: SingleChildScrollView(
-          child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: page.spacing),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const SizedBox(height: AppSize.xxl),
+        child: Align(
+          child: SingleChildScrollView(
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: page.spacing),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const SizedBox(height: AppSize.xxl),
 
-                // App name display
-                Text(
-                  context.l10n.appName,
-                  style: context.textTheme.displayLarge,
-                ),
+                  // App name display
+                  Text(
+                    context.l10n.appName,
+                    style: context.textTheme.displayLarge?.copyWith(
+                      height: 1,
+                    ),
+                  ),
 
-                const SizedBox(height: AppSize.s),
+                  const SizedBox(height: AppSize.s),
 
-                // Welcome message
-                Text(
-                  context.l10n.welcomeMessage,
-                  textAlign: TextAlign.center,
-                  style: context.textTheme.bodyLarge,
-                ),
+                  Text(
+                    context.l10n.appNameSlogan,
+                    style: context.textTheme.headlineMedium?.copyWith(
+                      height: 1,
+                    ),
+                  ),
 
-                const SizedBox(height: AppSize.xxl),
+                  const SizedBox(height: AppSize.xxxl),
 
-                // Login button
-                ElevatedButton(
-                  onPressed: () => context.router.push(SignInRoute()),
-                  child: Text(context.l10n.loginButton),
-                ),
+                  // Welcome message
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: page.spacing),
+                    child: Text(
+                      context.l10n.welcomeMessage,
+                      textAlign: TextAlign.center,
+                      style: context.textTheme.labelLarge,
+                    ),
+                  ),
 
-                const SizedBox(height: AppSize.m),
+                  const SizedBox(height: AppSize.m),
 
-                // Register button
-                OutlinedButton(
-                  onPressed: () => context.router.push(SignUpRoute()),
-                  child: Text(context.l10n.registerButton),
-                ),
+                  // Login button
+                  ElevatedButton(
+                    onPressed: () => context.router.push(const SignInRoute()),
+                    child: Text(context.l10n.loginButton),
+                  ),
 
-                const SizedBox(height: AppSize.xxl),
-              ],
+                  const SizedBox(height: AppSize.s),
+
+                  // Register button
+                  OutlinedButton(
+                    onPressed: () => context.router.push(const SignUpRoute()),
+                    child: Text(
+                      context.l10n.registerButton,
+                    ),
+                  ),
+
+                  const SizedBox(height: AppSize.xxl),
+                ],
+              ),
             ),
           ),
         ),

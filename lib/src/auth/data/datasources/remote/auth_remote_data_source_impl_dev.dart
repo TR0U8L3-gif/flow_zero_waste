@@ -11,14 +11,18 @@ class AuthRemoteDataSourceImplDev implements AuthRemoteDataSource {
     required String email,
     required String password,
   }) async {
+    if(email != 'rsienkiewicz88@gmail.com' || password != 'password') {
+      throw Exception('Invalid credentials'); 
+    }
+
     // Przykładowe wartości dla AuthModel przy logowaniu
-    const user = UserModel(
-      id: 'user123',
-      name: 'Jan Kowalski',
-      email: 'jan.kowalski@example.com',
-      phoneNumber: '123456789',
+    final user = UserModel(
+      id: '3fc4eb93-6dc0-4b2a-99f3-835b41ffea73',
+      name: 'Radosław Sienkiewicz',
+      email: email,
+      phoneNumber: '798465557',
     );
-    return const AuthModel(
+    return AuthModel(
       user: user,
       accessToken: 'sample_access_token_123',
       refreshToken: 'sample_refresh_token_456',

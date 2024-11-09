@@ -236,8 +236,10 @@ extension GetItInjectableX on _i174.GetIt {
         ));
     gh.singleton<_i284.AuthGuard>(
         () => _i284.AuthGuard(authProvider: gh<_i346.AuthProvider>()));
-    gh.singleton<_i732.NavigationRouter>(() =>
-        _i732.NavigationRouter(onboardingGuard: gh<_i11.OnboardingGuard>()));
+    gh.singleton<_i732.NavigationRouter>(() => _i732.NavigationRouter(
+          onboardingGuard: gh<_i11.OnboardingGuard>(),
+          auth: gh<_i284.AuthGuard>(),
+        ));
     return this;
   }
 }
