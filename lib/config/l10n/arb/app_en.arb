@@ -149,5 +149,57 @@
   "registerButton": "Register",
   "@registerButton": {
     "description": "Label for the register button"
+  },
+  "nameLabel": "Name",
+  "@nameLabel": {
+    "description": "Label for the name input field on SignUpPage"
+  },
+  "nameRequired": "Name is required",
+  "@nameRequired": {
+    "description": "Validation error message shown when the name field is empty on SignUpPage"
+  },
+  "emailLabel": "Email",
+  "@emailLabel": {
+    "description": "Label for the email input field on SignUpPage"
+  },
+  "emailRequired": "Email is required",
+  "@emailRequired": {
+    "description": "Validation error message shown when the email field is empty on SignUpPage"
+  },
+  "invalidEmail": "Please enter a valid email",
+  "@invalidEmail": {
+    "description": "Validation error message for an invalid email format on SignUpPage"
+  },
+  "phoneLabel": "Phone number",
+  "@phoneLabel": {
+    "description": "Label for the phone number input field on SignUpPage"
+  },
+  "phoneRequired": "Phone number is required",
+  "@phoneRequired": {
+    "description": "Validation error message shown when the phone number field is empty on SignUpPage"
+  },
+  "invalidPhone": "Please enter a valid phone number",
+  "@invalidPhone": {
+    "description": "Validation error message for an invalid phone number format on SignUpPage"
+  },
+  "passwordLabel": "Password",
+  "@passwordLabel": {
+    "description": "Label for the password input field on SignUpPage"
+  },
+  "repeatPasswordLabel": "Repeat password",
+  "@repeatPasswordLabel": {
+    "description": "Label for the repeat password input field on SignUpPage"
+  },
+  "passwordRequired": "Password is required",
+  "@passwordRequired": {
+    "description": "Validation error message shown when the password field is empty on SignUpPage"
+  },
+  "passwordTooShort": "Password must be at least 8 characters long",
+  "@passwordTooShort": {
+    "description": "Validation error message shown when the password is too short on SignUpPage"
+  },
+  "passwordsDoNotMatch": "Passwords do not match",
+  "@passwordsDoNotMatch": {
+    "description": "Validation error message shown when the passwords do not match on SignUpPage"
   }
 }

@@ -6,11 +6,12 @@ import 'package:flow_zero_waste/core/extensions/theme_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-/// AuthPage is a StatelessWidget
+/// AuthPage is a StatelessWidget for authentication
 @RoutePage()
 class AuthPage extends StatelessWidget {
   /// AuthPage constructor
   const AuthPage({super.key});
+
   @override
   Widget build(BuildContext context) {
     final page = context.read<PageProvider>();
@@ -23,26 +24,38 @@ class AuthPage extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 const SizedBox(height: AppSize.xxl),
+
+                // App name display
                 Text(
                   context.l10n.appName,
                   style: context.textTheme.displayLarge,
                 ),
+
                 const SizedBox(height: AppSize.s),
+
+                // Welcome message
                 Text(
                   context.l10n.welcomeMessage,
                   textAlign: TextAlign.center,
                   style: context.textTheme.bodyLarge,
                 ),
+
                 const SizedBox(height: AppSize.xxl),
+
+                // Login button
                 ElevatedButton(
                   onPressed: () => context.router.push(SignInRoute()),
                   child: Text(context.l10n.loginButton),
                 ),
+
                 const SizedBox(height: AppSize.m),
+
+                // Register button
                 OutlinedButton(
                   onPressed: () => context.router.push(SignUpRoute()),
                   child: Text(context.l10n.registerButton),
                 ),
+
                 const SizedBox(height: AppSize.xxl),
               ],
             ),

@@ -8,7 +8,7 @@ import 'package:flow_zero_waste/core/enums/text_enum.dart';
 import 'package:flow_zero_waste/core/extensions/l10n_extension.dart';
 import 'package:flow_zero_waste/core/extensions/num_extension.dart';
 import 'package:flow_zero_waste/core/extensions/theme_extension.dart';
-import 'package:flow_zero_waste/core/helpers/image_cache_size.dart';
+import 'package:flow_zero_waste/core/utils/image_cache_size.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 

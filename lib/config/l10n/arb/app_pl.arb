@@ -149,5 +149,57 @@
   "registerButton": "Zarejestruj się",
   "@registerButton": {
     "description": "Etykieta przycisku rejestracji"
+  },
+  "nameLabel": "Imię",
+  "@nameLabel": {
+    "description": "Etykieta dla pola wprowadzania imienia na SignUpPage"
+  },
+  "nameRequired": "Imię jest wymagane",
+  "@nameRequired": {
+    "description": "Komunikat o błędzie walidacji, gdy pole imienia jest puste na SignUpPage"
+  },
+  "emailLabel": "Email",
+  "@emailLabel": {
+    "description": "Etykieta dla pola wprowadzania adresu email na SignUpPage"
+  },
+  "emailRequired": "Email jest wymagany",
+  "@emailRequired": {
+    "description": "Komunikat o błędzie walidacji, gdy pole email jest puste na SignUpPage"
+  },
+  "invalidEmail": "Wprowadź prawidłowy adres email",
+  "@invalidEmail": {
+    "description": "Komunikat o błędzie walidacji dla nieprawidłowego formatu email na SignUpPage"
+  },
+  "phoneLabel": "Numer telefonu",
+  "@phoneLabel": {
+    "description": "Etykieta dla pola wprowadzania numeru telefonu na SignUpPage"
+  },
+  "phoneRequired": "Numer telefonu jest wymagany",
+  "@phoneRequired": {
+    "description": "Komunikat o błędzie walidacji, gdy pole numeru telefonu jest puste na SignUpPage"
+  },
+  "invalidPhone": "Wprowadź prawidłowy numer telefonu",
+  "@invalidPhone": {
+    "description": "Komunikat o błędzie walidacji dla nieprawidłowego formatu numeru telefonu na SignUpPage"
+  },
+  "passwordLabel": "Hasło",
+  "@passwordLabel": {
+    "description": "Etykieta dla pola wprowadzania hasła na SignUpPage"
+  },
+  "repeatPasswordLabel": "Powtórz hasło",
+  "@repeatPasswordLabel": {
+    "description": "Etykieta dla pola ponownego wprowadzania hasła na SignUpPage"
+  },
+  "passwordRequired": "Hasło jest wymagane",
+  "@passwordRequired": {
+    "description": "Komunikat o błędzie walidacji, gdy pole hasła jest puste na SignUpPage"
+  },
+  "passwordTooShort": "Hasło musi mieć co najmniej 8 znaków",
+  "@passwordTooShort": {
+    "description": "Komunikat o błędzie walidacji, gdy hasło jest za krótkie na SignUpPage"
+  },
+  "passwordsDoNotMatch": "Hasła nie są zgodne",
+  "@passwordsDoNotMatch": {
+    "description": "Komunikat o błędzie walidacji, gdy hasła nie są zgodne na SignUpPage"
   }
 }
