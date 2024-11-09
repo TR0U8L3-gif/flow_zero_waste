@@ -133,5 +133,21 @@
   "profile": "Profile",
   "@profile": {
     "description": "Label for the 'Profile' navigation item."
+  },
+  "appName": "flow",
+  "@appName": {
+    "description": "App name displayed on the welcome screen"
+  },
+  "welcomeMessage": "Sign in or register to continue",
+  "@welcomeMessage": {
+    "description": "Text encouraging the user to sign in or register"
+  },
+  "loginButton": "Sign in",
+  "@loginButton": {
+    "description": "Label for the login button"
+  },
+  "registerButton": "Register",
+  "@registerButton": {
+    "description": "Label for the register button"
   }
 }

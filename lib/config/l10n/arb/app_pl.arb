@@ -133,5 +133,21 @@
   "profile": "Profil",
   "@profile": {
     "description": "Label for the 'Profile' navigation item."
+  },
+  "appName": "flow",
+  "@appName": {
+    "description": "Nazwa aplikacji wyświetlana na ekranie startowym"
+  },
+  "welcomeMessage": "Zaloguj się lub zarejestruj, aby kontynuować",
+  "@welcomeMessage": {
+    "description": "Tekst zachęcający użytkownika do zalogowania się lub rejestracji"
+  },
+  "loginButton": "Zaloguj się",
+  "@loginButton": {
+    "description": "Etykieta przycisku logowania"
+  },
+  "registerButton": "Zarejestruj się",
+  "@registerButton": {
+    "description": "Etykieta przycisku rejestracji"
   }
 }

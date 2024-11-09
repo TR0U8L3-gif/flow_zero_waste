@@ -1,7 +1,7 @@
 import 'package:flow_zero_waste/core/common/domain/response.dart';
 import 'package:flow_zero_waste/core/utils/typedef.dart';
-import 'package:flow_zero_waste/src/auth/data/datasources/auth_local_data_source.dart';
-import 'package:flow_zero_waste/src/auth/data/datasources/auth_remote_data_source.dart';
+import 'package:flow_zero_waste/src/auth/data/datasources/local/auth_local_data_source.dart';
+import 'package:flow_zero_waste/src/auth/data/datasources/remote/auth_remote_data_source.dart';
 import 'package:flow_zero_waste/src/auth/data/mappers/user_mapper.dart';
 import 'package:flow_zero_waste/src/auth/data/models/auth_model.dart';
 import 'package:flow_zero_waste/src/auth/data/models/user_model.dart';
@@ -12,7 +12,7 @@ import 'package:injectable/injectable.dart';
 import 'package:logger_manager/logger_manager.dart';
 
 /// Auth repository implementation
-@singleton
+@Singleton(as: AuthRepository)
 class AuthRepositoryImpl implements AuthRepository {
   /// Auth repository constructor
   const AuthRepositoryImpl({

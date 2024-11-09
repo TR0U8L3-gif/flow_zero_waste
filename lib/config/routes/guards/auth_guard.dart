@@ -1,21 +1,24 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:flow_zero_waste/config/routes/navigation_router.gr.dart';
+import 'package:flow_zero_waste/src/auth/presentation/logics/auth_provider.dart';
+import 'package:injectable/injectable.dart';
 
-
+/// Guard that checks if the user is authenticated
+@singleton
 class AuthGuard extends AutoRouteGuard {
-  final AuthService authService; // Dependency injection of an AuthService
+  /// Default constructor
+  AuthGuard({required AuthProvider authProvider}) : _authProvider = authProvider;
 
-  AuthGuard(this.authService);
+  final AuthProvider _authProvider; 
 
   @override
   void onNavigation(NavigationResolver resolver, StackRouter router) {
-    if (authService.isLoggedIn) {
+    if (_authProvider.isLoggedIn) {
       resolver.next();
     } else {
-      // If the user is not logged in, replace the route with the Login page
-      router.pushAndPopUntil(
-        LoginRoute(), // Replace with your Login route
-        predicate: (_) => false, // Remove all previous routes
-      );
+      router.replaceAll([
+        const AuthNavigationRoute(),
+      ]);
     }
   }
 }

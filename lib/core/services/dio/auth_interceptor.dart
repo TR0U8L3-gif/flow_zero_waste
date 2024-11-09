@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:flow_zero_waste/core/constants/secure_storage_constatnts.dart';
 import 'package:flow_zero_waste/core/services/secure_storage/secure_storage.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
@@ -14,7 +15,7 @@ class AuthInterceptor extends Interceptor {
   Future<void> onRequest(
       RequestOptions options, RequestInterceptorHandler handler) async {
     // Pobierz access token z bezpiecznego magazynu
-    final accessToken = await _storage.read(key: 'access_token');
+    final accessToken = await _storage.read(key: accessTokenKey);
     if (accessToken != null) {
       options.headers['Authorization'] = 'Bearer $accessToken';
     }
@@ -33,7 +34,7 @@ class AuthInterceptor extends Interceptor {
 
         // Po odświeżeniu tokenu ponów oryginalne żądanie
         final retryOptions = err.requestOptions;
-        final newAccessToken = await _storage.read(key: 'access_token');
+        final newAccessToken = await _storage.read(key: accessTokenKey);
         if (newAccessToken != null) {
           retryOptions.headers['Authorization'] = 'Bearer $newAccessToken';
         }
@@ -48,7 +49,7 @@ class AuthInterceptor extends Interceptor {
         );
         return handler.resolve(response); // Zwróć odpowiedź
       } catch (e) {
-        // Jeśli odświeżenie się nie powiodło, przekieruj do logowania 
+        // Jeśli odświeżenie się nie powiodło, przekieruj do logowania
         return handler.reject(err);
       }
     }
@@ -56,7 +57,7 @@ class AuthInterceptor extends Interceptor {
   }
 
   Future<void> _refreshToken() async {
-    final refreshToken = await _storage.read(key: 'refresh_token');
+    final refreshToken = await _storage.read(key: refreshTokenKey);
     if (refreshToken == null) throw Exception('No refresh token found');
 
     final response = await _dio.post<Map<String, dynamic>>('/auth/refresh',
@@ -65,8 +66,8 @@ class AuthInterceptor extends Interceptor {
     if (response.statusCode == 200) {
       final newAccessToken = response.data!['accessToken'] as String;
       final newRefreshToken = response.data!['refreshToken'] as String;
-      await _storage.write(key: 'access_token', value: newAccessToken);
-      await _storage.write(key: 'refresh_token', value: newRefreshToken);
+      await _storage.write(key: accessTokenKey, value: newAccessToken);
+      await _storage.write(key: refreshTokenKey, value: newRefreshToken);
     } else {
       throw Exception('Failed to refresh token');
     }
