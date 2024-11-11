@@ -45,7 +45,7 @@ class _OnboardingPageState extends State<OnboardingPage>
   @override
   Widget build(BuildContext context) {
     final page = context.watch<PageProvider>();
-    final cropPage = page.layoutSize >= PageLayoutSize.medium;
+    final cropPage = page.layoutSize >= PageLayoutSize.expanded;
     return PopScope(
       canPop: false,
       child: Scaffold(
@@ -70,6 +70,10 @@ class _OnboardingPageState extends State<OnboardingPage>
                 child: Center(
                   child: Column(
                     children: [
+                      if (page.layoutSize <= PageLayoutSize.expanded)
+                        const SizedBox(
+                          height: kButtonHeightDefault,
+                        ),
                       Expanded(
                         child: TabBarView(
                           controller: _tabController,
@@ -149,12 +153,17 @@ class _OnboardingPageState extends State<OnboardingPage>
           ),
         ),
         floatingActionButton: Padding(
-          padding: const EdgeInsets.all(AppSize.s),
-          child: TextButton(
-            onPressed: () => widget.onResult(success: true),
-            child: Text(
-              context.l10n.skip,
-              style: context.textTheme.labelSmall,
+          padding: EdgeInsets.symmetric(
+            vertical: page.layoutSize.isCompact ? 0 : page.spacing,
+          ),
+          child: SizedBox(
+            height: kButtonHeightDefault,
+            child: TextButton(
+              onPressed: () => widget.onResult(success: true),
+              child: Text(
+                context.l10n.skip,
+                style: context.textTheme.labelSmall,
+              ),
             ),
           ),
         ),

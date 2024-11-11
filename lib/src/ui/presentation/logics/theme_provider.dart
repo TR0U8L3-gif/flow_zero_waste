@@ -7,6 +7,7 @@ import 'package:flow_zero_waste/src/ui/domain/entities/theme_details.dart';
 import 'package:flow_zero_waste/src/ui/domain/usecases/load_theme_from_local_storage.dart';
 import 'package:flow_zero_waste/src/ui/domain/usecases/save_theme_to_local_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:injectable/injectable.dart';
 
 const _timerSaveDuration = 4;
@@ -62,16 +63,29 @@ class ThemeProvider extends ChangeNotifier {
   /// Method to load the theme details.
   Future<void> loadThemeDetails() async {
     final result = await _loadThemeFromLocalStorage(const NoParams());
+    final brightness =
+        SchedulerBinding.instance.platformDispatcher.platformBrightness;
 
     result.fold(
-      (failure) => null,
+      (failure) {
+        _themeDetails = ThemeDetails(
+          brightness: brightness,
+          contrast: Contrast.standard,
+        );
+      },
       (success) {
         if (success != null) {
           _themeDetails = success;
-          notifyListeners();
+        } else {
+          _themeDetails = ThemeDetails(
+          brightness: brightness,
+          contrast: Contrast.standard,
+        );
         }
       },
     );
+
+    notifyListeners();
   }
 
   /// Method to save the theme details.

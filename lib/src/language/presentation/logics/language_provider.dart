@@ -45,7 +45,15 @@ class LanguageProvider extends ChangeNotifier {
   Future<void> loadLanguageOrSetDeviceLocale() async {
     final result = await _loadLanguageFromStorage.call(const NoParams());
     result.fold(
-      (failure) {},
+      (failure) {
+        final newLanguage = L10n.isSupportedLanguageCode(
+          PlatformDispatcher.instance.locale.languageCode,
+        );
+
+        if (newLanguage != null) {
+          _updateLanguage(newLanguage);
+        }
+      },
       (languageCode) {
         // if language code is null, set the device locale
         // otherwise set the language code from the local storage

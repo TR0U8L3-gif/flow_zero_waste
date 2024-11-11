@@ -1,3 +1,4 @@
+import 'package:flow_zero_waste/config/assets/size/app_size.dart';
 import 'package:flow_zero_waste/core/extensions/l10n_extension.dart';
 import 'package:flow_zero_waste/core/extensions/theme_extension.dart';
 import 'package:flutter/material.dart';
@@ -41,15 +42,20 @@ class OnboardingFooter extends StatelessWidget {
           Flexible(
             child: back != null
                 ? Align(
-                  child: OutlinedButton(
+                    child: OutlinedButton(
                       // heroTag: 'onboarding_back',
+                      style: OutlinedButton.styleFrom(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: AppSize.s,
+                        ),
+                      ),
                       onPressed: back?.call,
                       child: Text(
                         context.l10n.back,
                         style: context.textTheme.labelLarge,
                       ),
                     ),
-                )
+                  )
                 : const SizedBox.expand(),
           ),
           Flexible(
@@ -59,18 +65,18 @@ class OnboardingFooter extends StatelessWidget {
           Flexible(
             child: next != null
                 ? Align(
-                  child: OutlinedButton(
+                    child: OutlinedButton(
                       // heroTag: 'onboarding_next',
+
                       onPressed: next?.call,
                       child: Text(
                         context.l10n.next,
                         style: context.textTheme.labelLarge,
                       ),
                     ),
-                )
+                  )
                 : const SizedBox.expand(),
           ),
-
         ],
       ),
     );

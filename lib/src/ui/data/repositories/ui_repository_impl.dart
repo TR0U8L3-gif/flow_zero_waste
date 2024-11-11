@@ -13,7 +13,7 @@ import 'package:logger_manager/logger_manager.dart';
 
 /// UI repository implementation
 @Singleton(as: UiRepository)
-class UiRepositoryImpl  implements UiRepository {
+class UiRepositoryImpl implements UiRepository {
   /// Ui repository constructor
   UiRepositoryImpl({
     required TextScaleDetailsMapper textScaleDetailsMapper,
@@ -54,7 +54,7 @@ class UiRepositoryImpl  implements UiRepository {
           _textScaleDetailsMapper.from(textScaleDetailsModel);
 
       return Right(textScaleDetails);
-    } on LocalStorageException catch (e) {
+    } on CacheException catch (e) {
       _logger.warning(
         message: e.message,
         error: e,
@@ -92,7 +92,7 @@ class UiRepositoryImpl  implements UiRepository {
       final themeDetails = _themeDetailsMapper.from(themeDetailsModel);
 
       return Right(themeDetails);
-    } on LocalStorageException catch (e) {
+    } on CacheException catch (e) {
       _logger.warning(
         message: e.message,
         error: e,
@@ -124,7 +124,7 @@ class UiRepositoryImpl  implements UiRepository {
       _logger.trace(message: 'Text scale details saved to local storage');
 
       return const Right(null);
-    } on LocalStorageException catch (e) {
+    } on CacheException catch (e) {
       _logger.warning(
         message: e.message,
         error: e,
@@ -155,7 +155,7 @@ class UiRepositoryImpl  implements UiRepository {
       _logger.trace(message: 'Theme details saved to local storage');
 
       return const Right(null);
-    } on LocalStorageException catch (e) {
+    } on CacheException catch (e) {
       _logger.warning(
         message: e.message,
         error: e,
