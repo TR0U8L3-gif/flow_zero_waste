@@ -20,6 +20,7 @@ class AuthGuard extends AutoRouteGuard {
       router.replaceAll([
         const AuthNavigationRoute(),
       ]);
+      resolver.next(false);
     }
   }
 }

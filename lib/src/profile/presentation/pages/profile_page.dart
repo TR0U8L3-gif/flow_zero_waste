@@ -42,9 +42,6 @@ class ProfilePage extends StatelessWidget {
               icon: Icons.exit_to_app,
               title: "Wyloguj się",
               onTap: () {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(content: Text('Wyloguj się tapped')),
-                );
                 locator<AuthProvider>().removeUserData();
               },
             ),
