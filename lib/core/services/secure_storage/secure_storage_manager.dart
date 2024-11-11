@@ -1,7 +1,7 @@
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 /// SecureStorageManager is a class that manages the secure storage for the app.
-abstract class SecureStorageManager {
+class SecureStorageManager {
 
   /// Account name for the secure storage
   static const accountName = 'flutter_secure_storage_new_service';

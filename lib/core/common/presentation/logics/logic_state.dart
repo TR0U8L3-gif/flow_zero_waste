@@ -18,6 +18,9 @@ abstract class BaseLogicState {
 
   /// Whether the state is listenable
   abstract final bool isListenable;
+
+  /// Whether the state is navigatable
+  abstract final bool isNavigatable;
 }
 
 /// Mark state as buildable
@@ -28,6 +31,8 @@ mixin BuildableLogicState on BaseLogicState {
   bool get isBuildable => true;
   @override
   bool get isListenable => false;
+  @override
+  bool get isNavigatable => false;
 }
 
 /// Mark state as listenable
@@ -38,113 +43,122 @@ mixin ListenableLogicState on BaseLogicState {
   bool get isBuildable => false;
   @override
   bool get isListenable => true;
+  @override
+  bool get isNavigatable => false;
 }
 
-/// This enforces fields on ArthurStateNavigatable mixin.
-abstract class BaseNavigatableLogicState {
+/// Navigation action
+sealed class NavigationAction {
+  /// Default constructor
+  const NavigationAction({
+    required this.type,
+  });
+
   /// Navigation type
-  abstract final NavigationType type;
+  final NavigationType type;
+}
+
+/// Navigation action null
+/// represents maybePop and back
+class NavigationActionNull extends NavigationAction {
+  /// Default constructor
+  const NavigationActionNull({
+    required super.type,
+  });
+}
+
+/// Navigation action single route
+/// represents push, replace, and navigate
+class NavigationActionSingleRoute extends NavigationAction {
+  /// Default constructor
+  const NavigationActionSingleRoute({
+    required super.type,
+    required this.route,
+  });
 
   /// Navigation route
-  ///
-  /// leave `null` for maybePop and back
-  /// pass `List<PageRouteInfo<dynamic>>` for pushAll and replaceAll
-  /// set to `PageRouteInfo<dynamic>` for push, replace, and navigate
-  abstract final Object? route;
+  final PageRouteInfo<dynamic> route;
+}
+
+/// Navigation action multiple routes
+/// represents pushAll and replaceAll
+class NavigationActionMultipleRoutes extends NavigationAction {
+  /// Default constructor
+  const NavigationActionMultipleRoutes({
+    required super.type,
+    required this.routes,
+  });
+
+  /// Navigation routes
+  final List<PageRouteInfo<dynamic>> routes;
 }
 
 /// Mark state as listenable
 ///
 /// This works with BlocConsumer's `listenWhen` and `buildWhen` parameters.
 /// This specialized mixin handles generic navigation
-mixin NavigatableLogicState on BaseLogicState
-    implements BaseNavigatableLogicState {
+mixin NavigatableLogicState<T extends NavigationAction> on BaseLogicState {
+  /// Navigation action
+  abstract final T action;
+
   @override
   bool get isBuildable => false;
   @override
   bool get isListenable => true;
+  @override
+  bool get isNavigatable => true;
 
   /// navigate to the specified route
   Future<dynamic> navigate(BuildContext context) async {
-    const sender = 'NavigatableLogicState.navigate';
-    const descriptionNavigationType = 'Invalid navigation type';
-    const descriptionRoute = 'Invalid route parameter';
+    const error = 'Invalid navigation type';
 
-    switch (type.input) {
-      case NavigationInput.none:
-        if (route == null) {
-          switch (type) {
-            case NavigationType.back:
-              return context.router.back();
-            case NavigationType.maybePop:
-              return context.router.maybePop();
-            default:
-              throw NavigateException(
-                sender: sender,
-                description: descriptionNavigationType,
-                navigationType: type.toString(),
-                routeRuntimeType: 'null',
-              );
-          }
-        } else {
-          throw NavigateException(
-            sender: sender,
-            description: '$descriptionRoute, proper route type should be null',
-            navigationType: type.toString(),
-            routeRuntimeType: route.runtimeType.toString(),
-          );
+    switch (action) {
+      case NavigationActionNull():
+        final navigation = action as NavigationActionNull;
+        switch (navigation.type) {
+          case NavigationType.back:
+            return context.router.back();
+          case NavigationType.maybePop:
+            return context.router.maybePop();
+          default:
+            throw NavigateException(
+              error: error,
+              action: 'navigate',
+              navigationType: navigation.type.name,
+              routeRuntimeType: 'null',
+            );
         }
-      case NavigationInput.route:
-        if (route != null && route is PageRouteInfo<dynamic>) {
-          switch (type) {
-            case NavigationType.push:
-              return context.router.push(route! as PageRouteInfo<dynamic>);
-            case NavigationType.replace:
-              return context.router.replace(route! as PageRouteInfo<dynamic>);
-            case NavigationType.navigate:
-              return context.router.navigate(route! as PageRouteInfo<dynamic>);
-            default:
-              throw NavigateException(
-                sender: sender,
-                description: descriptionNavigationType,
-                navigationType: type.toString(),
-                routeRuntimeType: 'PageRouteInfo<dynamic>',
-              );
-          }
-        } else {
-          throw NavigateException(
-            sender: sender,
-            description: '$descriptionRoute, proper route type should be '
-                'PageRouteInfo<dynamic>',
-            navigationType: type.toString(),
-            routeRuntimeType: route.runtimeType.toString(),
-          );
+      case NavigationActionSingleRoute():
+        final navigation = action as NavigationActionSingleRoute;
+        switch (navigation.type) {
+          case NavigationType.push:
+            return context.router.push(navigation.route);
+          case NavigationType.replace:
+            return context.router.replace(navigation.route);
+          case NavigationType.navigate:
+            return context.router.navigate(navigation.route);
+          default:
+            throw NavigateException(
+              error: error,
+              action: 'navigate',
+              navigationType: navigation.type.name,
+              routeRuntimeType: 'PageRouteInfo<dynamic>',
+            );
         }
-      case NavigationInput.list:
-        if (route != null && route is List<PageRouteInfo<dynamic>>) {
-          switch (type) {
-            case NavigationType.pushAll:
-              return context.router
-                  .pushAll(route! as List<PageRouteInfo<dynamic>>);
-            case NavigationType.replaceAll:
-              return context.router
-                  .replaceAll(route! as List<PageRouteInfo<dynamic>>);
-            default:
-              throw NavigateException(
-                sender: sender,
-                description: descriptionNavigationType,
-                navigationType: type.toString(),
-                routeRuntimeType: 'List<PageRouteInfo<dynamic>>',
-              );
-          }
-        } else {
-          throw NavigateException(
-            sender: sender,
-            description: '$descriptionRoute, proper route type should be '
-                'List<PageRouteInfo<dynamic>>',
-            navigationType: type.toString(),
-            routeRuntimeType: route.runtimeType.toString(),
-          );
+      case NavigationActionMultipleRoutes():
+        final navigation = action as NavigationActionMultipleRoutes;
+        switch (navigation.type) {
+          case NavigationType.pushAll:
+            return context.router.pushAll(navigation.routes);
+          case NavigationType.replaceAll:
+            return context.router.replaceAll(navigation.routes);
+          default:
+            throw NavigateException(
+              error: error,
+              action: 'navigate',
+              navigationType: navigation.type.name,
+              routeRuntimeType: 'List<PageRouteInfo<dynamic>>',
+            );
         }
     }
   }

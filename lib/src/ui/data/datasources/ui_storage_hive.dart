@@ -1,4 +1,4 @@
-import 'package:flow_zero_waste/core/services/hive/hive_manager.dart';
+ import 'package:flow_zero_waste/core/services/hive/hive_manager.dart';
 import 'package:injectable/injectable.dart';
 
 /// Hive box name for ui storage

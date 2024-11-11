@@ -2,44 +2,34 @@
 abstract class BaseException implements Exception {
   /// App exception constructor
   const BaseException({
-    required this.sender,
-    required this.description,
+    required this.error,
+    required this.action,
     this.stackTrace,
   });
 
-  /// Exception description
+  /// Exception performed action
   /// Write what happened in short phrases
-  /// Example: 'instance check => get data => decode as map => fromJson' 
-  final String description;
+  /// Example: 'instance check => get data => decode as map => fromJson'
+  final String action;
 
-  /// Exception sender
+  /// Exception error data
   /// Pass Exception toString value or describe the sender
   /// Example: '(Class.method): overall description'
-  final String sender;
+  final Object error;
 
   /// Exception stack trace
   final StackTrace? stackTrace;
 
   /// Exception message
-  String get message => '($description) $sender';
-}
-
-/// Exception thrown when app setup fails
-class AppSetupException extends BaseException {
-  /// AppSetup exception constructor
-  const AppSetupException({
-    required super.sender,
-    required super.description,
-    super.stackTrace,
-  });
+  String get message => '($action) => $error';
 }
 
 /// Exception thrown when navigation fails
 class NavigateException extends BaseException {
   /// Navigate exception constructor
   const NavigateException({
-    required super.sender,
-    required super.description,
+    required super.error,
+    required super.action,
     required this.navigationType,
     required this.routeRuntimeType,
     super.stackTrace,
@@ -53,35 +43,25 @@ class NavigateException extends BaseException {
 
   @override
   String get message =>
-      '$sender: ($navigationType, $routeRuntimeType) $description ';
-}
-
-/// Exception thrown when app environment fails
-class AppEnvException extends BaseException {
-  /// AppEnv exception constructor
-  const AppEnvException({
-    required super.sender,
-    required super.description,
-    super.stackTrace,
-  });
-}
-
-/// Exception thrown when hive manager fails
-class HiveManagerException extends BaseException {
-  /// HiveManager exception constructor
-  const HiveManagerException({
-    required super.sender,
-    required super.description,
-    super.stackTrace,
-  });
+      '($action [$navigationType, $routeRuntimeType $action]) => $error';
 }
 
 /// Exception thrown when local storage fails
-class LocalStorageException extends BaseException {
+class CacheException extends BaseException {
   /// LocalStorage exception constructor
-  const LocalStorageException({
-    required super.sender,
-    required super.description,
+  const CacheException({
+    required super.error,
+    required super.action,
+    super.stackTrace,
+  });
+}
+
+/// Exception thrown when server fails
+class ServerException extends BaseException {
+  /// Server exception constructor
+  const ServerException({
+    required super.error,
+    required super.action,
     super.stackTrace,
   });
 }

@@ -1,5 +1,5 @@
-import 'package:flow_zero_waste/core/common/data/exceptions.dart';
 import 'package:flow_zero_waste/core/enums/build_type_enum.dart';
+import 'package:flow_zero_waste/core/services/setup/app_exceptions.dart';
 import 'package:flutter/material.dart';
 
 /// AppEnv is a class that holds the environment variables for the app.
@@ -11,8 +11,8 @@ class AppEnv {
   factory AppEnv() {
     return _instance == null
         ? throw AppEnvException(
-            sender: 'instance is empty',
-            description: 'instance check',
+            error: 'Instance is empty',
+            action: 'grt instance',
             stackTrace: StackTrace.current,
           )
         : _instance!;
@@ -63,8 +63,8 @@ class AppEnv {
 
     if (errorMessage.isNotEmpty) {
       throw AppEnvException(
-        sender: errorMessage.toString(),
-        description: 'set from env',
+        error: errorMessage.toString(),
+        action: 'set data from env',
         stackTrace: StackTrace.current,
       );
     }
@@ -80,8 +80,8 @@ class AppEnv {
       );
     } catch (e, st) {
       throw AppEnvException(
-        sender: e.toString(),
-        description: 'set from env',
+        error: e,
+        action: 'set data from env',
         stackTrace: st,
       );
     }

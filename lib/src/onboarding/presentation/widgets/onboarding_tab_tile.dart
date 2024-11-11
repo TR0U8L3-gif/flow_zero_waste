@@ -1,6 +1,7 @@
 import 'package:flow_zero_waste/config/assets/size/app_size.dart';
 import 'package:flow_zero_waste/core/common/presentation/logics/providers/responsive_ui/page_provider.dart';
 import 'package:flow_zero_waste/core/common/presentation/widgets/accessibility/semantic_texts.dart';
+import 'package:flow_zero_waste/core/common/presentation/widgets/styled/scrollbar_styled.dart';
 import 'package:flow_zero_waste/core/common/presentation/widgets/shimmer/shimmer_rectangle.dart';
 import 'package:flow_zero_waste/core/common/presentation/widgets/text_outline.dart';
 import 'package:flow_zero_waste/core/enums/page_layout_size.dart';
@@ -8,7 +9,7 @@ import 'package:flow_zero_waste/core/enums/text_enum.dart';
 import 'package:flow_zero_waste/core/extensions/l10n_extension.dart';
 import 'package:flow_zero_waste/core/extensions/num_extension.dart';
 import 'package:flow_zero_waste/core/extensions/theme_extension.dart';
-import 'package:flow_zero_waste/core/helpers/image_cache_size.dart';
+import 'package:flow_zero_waste/core/helpers/calculations/image_cache_size.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -54,16 +55,7 @@ class OnboardingTabTile extends StatelessWidget {
 
     final controller = ScrollController();
 
-    return RawScrollbar(
-      thumbVisibility: true,
-      controller: controller,
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.all(Radius.circular(AppSize.s)),
-      ),
-      padding: const EdgeInsets.symmetric(
-        horizontal: AppSize.s2,
-        vertical: AppSize.s,
-      ),
+    return ScrollbarStyled(
       child: ClipRRect(
         borderRadius: BorderRadius.circular(page.spacing),
         child: Align(

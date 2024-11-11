@@ -75,7 +75,7 @@ class AppSetup {
     );
 
     // configure service locator dependencies
-    configureDependencies();
+    configureDependencies(buildType);
 
     // wait for all dependencies to be ready
     await locator.allReady();
