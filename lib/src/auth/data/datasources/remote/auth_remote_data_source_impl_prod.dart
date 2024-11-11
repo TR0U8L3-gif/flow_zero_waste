@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:flow_zero_waste/config/injection/injection.dart';
 import 'package:flow_zero_waste/core/common/data/response_model.dart';
 import 'package:flow_zero_waste/core/services/dio/auth_interceptor.dart';
 import 'package:flow_zero_waste/src/auth/data/datasources/remote/auth_remote_data_source.dart';
@@ -8,7 +9,7 @@ import 'package:flow_zero_waste/src/auth/data/models/user_model.dart';
 import 'package:injectable/injectable.dart';
 
 /// Production implementation of AuthRemoteDataSource.
-@Singleton(as: AuthRemoteDataSource, env: [Environment.prod])
+@Singleton(as: AuthRemoteDataSource, env: [Env.production])
 class AuthRemoteDataSourceImplProd implements AuthRemoteDataSource {
   /// Default constructor.
   AuthRemoteDataSourceImplProd() : _dio = Dio() {

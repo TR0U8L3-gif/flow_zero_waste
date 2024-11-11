@@ -1,3 +1,4 @@
+import 'package:flow_zero_waste/config/injection/injection.dart';
 import 'package:flow_zero_waste/src/auth/data/datasources/remote/auth_remote_data_source.dart';
 import 'package:flow_zero_waste/src/auth/data/datasources/remote/auth_remote_data_source_exceptions.dart';
 import 'package:flow_zero_waste/src/auth/data/models/auth_model.dart';
@@ -5,7 +6,7 @@ import 'package:flow_zero_waste/src/auth/data/models/user_model.dart';
 import 'package:injectable/injectable.dart';
 
 /// Dev implementation of AuthRemoteDataSource that returns sample data.
-@Singleton(as: AuthRemoteDataSource, env: [Environment.dev])
+@Singleton(as: AuthRemoteDataSource, env: [Env.development])
 class AuthRemoteDataSourceImplDev implements AuthRemoteDataSource {
   @override
   Future<AuthModel> login({

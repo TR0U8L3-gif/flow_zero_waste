@@ -6,6 +6,15 @@ import 'package:injectable/injectable.dart';
 /// GetIt instance
 final locator = GetIt.instance;
 
+/// Environment development
+const development = Env.development;
+
+/// Environment demonstration
+const demonstration = Env.demonstration;
+
+/// Environment production
+const production = Env.production;
+
 @InjectableInit(
   initializerName: 'init', // default
   preferRelativeImports: true, // default
@@ -20,10 +29,22 @@ void configureDependencies(BuildType buildType) => locator.init(
 String? _getEnvironment(BuildType buildType) {
   switch (buildType) {
     case BuildType.debug:
-      return Environment.dev;
+      return Env.development;
     case BuildType.profile:
-      return Environment.test;
+      return Env.demonstration;
     case BuildType.release:
-      return Environment.prod;
+      return Env.production;
   }
+}
+
+/// Environment
+class Env {
+  /// Development environment
+  static const development = 'development';
+
+  /// Demonstration environment
+  static const demonstration = 'demonstration';
+
+  /// Production environment
+  static const production = 'production';
 }

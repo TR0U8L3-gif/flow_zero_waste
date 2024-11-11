@@ -27,12 +27,12 @@ import '../../src/auth/data/datasources/local/auth_local_data_source_impl.dart'
     as _i489;
 import '../../src/auth/data/datasources/remote/auth_remote_data_source.dart'
     as _i794;
+import '../../src/auth/data/datasources/remote/auth_remote_data_source_impl_demo.dart'
+    as _i234;
 import '../../src/auth/data/datasources/remote/auth_remote_data_source_impl_dev.dart'
     as _i338;
 import '../../src/auth/data/datasources/remote/auth_remote_data_source_impl_prod.dart'
     as _i643;
-import '../../src/auth/data/datasources/remote/auth_remote_data_source_impl_test.dart'
-    as _i620;
 import '../../src/auth/data/mappers/user_mapper.dart' as _i674;
 import '../../src/auth/data/repositories/auth_repository_impl.dart' as _i105;
 import '../../src/auth/domain/repositories/auth_repository.dart' as _i274;
@@ -94,9 +94,9 @@ import '../routes/guards/auth_guard.dart' as _i284;
 import '../routes/guards/onboarding_guard.dart' as _i11;
 import '../routes/navigation_router.dart' as _i732;
 
-const String _test = 'test';
-const String _dev = 'dev';
-const String _prod = 'prod';
+const String _development = 'development';
+const String _demonstration = 'demonstration';
+const String _production = 'production';
 
 extension GetItInjectableX on _i174.GetIt {
 // initializes the registration of main-scope dependencies inside of GetIt
@@ -126,10 +126,6 @@ extension GetItInjectableX on _i174.GetIt {
     gh.singleton<_i442.TextScaleDetailsMapper>(
         () => _i442.TextScaleDetailsMapper());
     gh.singleton<_i494.ThemeDetailsMapper>(() => _i494.ThemeDetailsMapper());
-    gh.singleton<_i794.AuthRemoteDataSource>(
-      () => _i620.AuthRemoteDataSourceImplProd(),
-      registerFor: {_test},
-    );
     gh.singleton<_i369.DeviceInfoManager>(
         () => _i698.DeviceInfoImplementation());
     gh.singleton<_i40.LanguageLocalDataSource>(() =>
@@ -139,15 +135,19 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i31.LoggerManagerParametersFromAppEnv());
     gh.singleton<_i382.UiLocalDataSource>(() =>
         _i526.UiLocalDataSourceImpl(uiStorageHive: gh<_i475.UiStorageHive>()));
-    gh.singleton<_i794.AuthRemoteDataSource>(
-      () => _i338.AuthRemoteDataSourceImplDev(),
-      registerFor: {_dev},
-    );
     gh.singleton<_i689.AuthLocalDataSource>(
         () => _i489.AuthLocalDataSourceImpl());
     gh.singleton<_i794.AuthRemoteDataSource>(
+      () => _i338.AuthRemoteDataSourceImplDev(),
+      registerFor: {_development},
+    );
+    gh.singleton<_i794.AuthRemoteDataSource>(
+      () => _i234.AuthRemoteDataSourceImplDemo(),
+      registerFor: {_demonstration},
+    );
+    gh.singleton<_i794.AuthRemoteDataSource>(
       () => _i643.AuthRemoteDataSourceImplProd(),
-      registerFor: {_prod},
+      registerFor: {_production},
     );
     gh.singleton<_i937.OnboardingLocalDataSource>(() =>
         _i131.OnboardingLocalDataSourceImpl(
