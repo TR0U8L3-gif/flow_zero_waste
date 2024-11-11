@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flow_zero_waste/config/injection/injection.dart';
 import 'package:flow_zero_waste/src/auth/presentation/logics/auth_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 @RoutePage()
 class ProfilePage extends StatelessWidget {
@@ -55,11 +56,10 @@ class ProfilePage extends StatelessWidget {
 }
 
 class ProfileHeader extends StatelessWidget {
-  final String userName = "Jan Kowalski";
-  final String email = "jan.kowalski@example.com";
-
   @override
   Widget build(BuildContext context) {
+    final userName = context.watch<AuthProvider>().user?.name ?? 'null';
+    final email = context.watch<AuthProvider>().user?.email ?? 'null';
     return Row(
       children: [
         CircleAvatar(

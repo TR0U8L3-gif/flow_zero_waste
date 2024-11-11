@@ -83,6 +83,9 @@ class App extends StatelessWidget {
       ChangeNotifierProvider(
         create: (context) => locator<TextScaleProvider>(),
       ),
+      ChangeNotifierProvider(
+        create: (context) => locator<AuthProvider>(),
+      ),
     ];
 
     return MultiProvider(

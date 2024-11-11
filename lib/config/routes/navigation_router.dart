@@ -24,28 +24,13 @@ class NavigationRouter extends RootStackRouter {
   @override
   List<AutoRoute> get routes => [
         AutoRoute(
-          page: AuthNavigationRoute.page,
-          children: [
-            AutoRoute(
-              page: AuthRoute.page,
-              initial: true,
-            ),
-            AutoRoute(
-              page: SignInRoute.page,
-            ),
-            AutoRoute(
-              page: SignUpRoute.page,
-            ),
-          ],
-        ),
-        AutoRoute(
           page: AppNavigationRoute.page,
           initial: true,
           guards: [_onboardingGuard, _auth],
           children: [
             AutoRoute(
-              page: DiscoverRoute.page,
               initial: true,
+              page: DiscoverRoute.page,
             ),
             AutoRoute(
               page: BrowseRoute.page,
@@ -58,6 +43,21 @@ class NavigationRouter extends RootStackRouter {
             ),
             AutoRoute(
               page: ProfileRoute.page,
+            ),
+          ],
+        ),
+        AutoRoute(
+          page: AuthNavigationRoute.page,
+          children: [
+            AutoRoute(
+              page: AuthRoute.page,
+              initial: true,
+            ),
+            AutoRoute(
+              page: SignInRoute.page,
+            ),
+            AutoRoute(
+              page: SignUpRoute.page,
             ),
           ],
         ),

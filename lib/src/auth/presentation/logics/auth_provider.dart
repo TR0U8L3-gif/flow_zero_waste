@@ -49,9 +49,9 @@ class AuthProvider extends ChangeNotifier {
   }
 
   /// Remove user data
-  Future<void> removeUserData() async {
-    await _logoutUser(const NoParams());
+  void removeUserData() {
     _user = null;
     notifyListeners();
+    _logoutUser(const NoParams());
   }
 }
