@@ -45,7 +45,7 @@ class _OnboardingPageState extends State<OnboardingPage>
   @override
   Widget build(BuildContext context) {
     final page = context.watch<PageProvider>();
-    final cropPage = page.layoutSize >= PageLayoutSize.medium;
+    final cropPage = page.layoutSize >= PageLayoutSize.expanded;
     return PopScope(
       canPop: false,
       child: Scaffold(

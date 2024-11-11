@@ -2,6 +2,8 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flow_zero_waste/config/assets/size/app_size.dart';
 import 'package:flow_zero_waste/core/common/presentation/logics/logic_state.dart';
 import 'package:flow_zero_waste/core/common/presentation/logics/providers/responsive_ui/page_provider.dart';
+import 'package:flow_zero_waste/core/common/presentation/widgets/styled/app_bar_styled.dart';
+import 'package:flow_zero_waste/core/common/presentation/widgets/styled/scrollbar_styled.dart';
 import 'package:flow_zero_waste/core/extensions/l10n_extension.dart';
 import 'package:flow_zero_waste/core/extensions/theme_extension.dart';
 import 'package:flow_zero_waste/core/helpers/validators/email_validator.dart';
@@ -67,122 +69,128 @@ class _SignUpPageState extends State<SignUpPage> {
         }
       },
       child: Scaffold(
-        appBar: AppBar(
+        appBar: AppBarStyled(
           title: Text(context.l10n.registerButton),
         ),
-        body: Align(
-          child: SingleChildScrollView(
-            child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: page.spacing),
-              child: Form(
-                key: _formKey,
-                child: Column(
-                  children: [
-                    const SizedBox(height: AppSize.l),
-                    TextFormField(
-                      controller: _nameController,
-                      decoration: InputDecoration(
-                        labelText: context.l10n.nameLabel,
-                        border: const OutlineInputBorder(),
-                        icon: const Icon(Icons.person),
-                      ),
-                      validator: (value) =>
-                          value!.isEmpty ? context.l10n.nameRequired : null,
-                    ),
-                    const SizedBox(height: AppSize.l),
-                    TextFormField(
-                      controller: _emailController,
-                      decoration: InputDecoration(
-                        labelText: context.l10n.emailLabel,
-                        border: const OutlineInputBorder(),
-                        icon: const Icon(Icons.email),
-                      ),
-                      validator: (value) => emailValidator(
-                        value,
-                        emailIsRequired: context.l10n.emailRequired,
-                        emailNotValid: context.l10n.invalidEmail,
-                      ),
-                      keyboardType: TextInputType.emailAddress,
-                    ),
-                    const SizedBox(height: AppSize.l),
-                    TextFormField(
-                      controller: _phoneController,
-                      decoration: InputDecoration(
-                        labelText: context.l10n.phoneLabel,
-                        border: const OutlineInputBorder(),
-                        icon: const Icon(Icons.phone),
-                      ),
-                      validator: (value) => phoneValidator(
-                        value,
-                        phoneIsRequired: context.l10n.phoneRequired,
-                        phoneNotValid: context.l10n.invalidPhone,
-                      ),
-                      keyboardType: TextInputType.phone,
-                    ),
-                    const SizedBox(height: AppSize.l),
-                    TextFormField(
-                      controller: _passwordController,
-                      decoration: InputDecoration(
-                        labelText: context.l10n.passwordLabel,
-                        border: const OutlineInputBorder(),
-                        icon: const Icon(Icons.lock),
-                      ),
-                      obscureText: true,
-                      validator: (value) => passwordValidator(
-                        value,
-                        passwordIsRequired: context.l10n.passwordRequired,
-                        passwordNotValid: context.l10n.passwordTooShort,
-                      ),
-                    ),
-                    const SizedBox(height: AppSize.l),
-                    TextFormField(
-                      controller: _repeatPasswordController,
-                      decoration: InputDecoration(
-                        labelText: context.l10n.repeatPasswordLabel,
-                        border: const OutlineInputBorder(),
-                        icon: const Icon(Icons.lock),
-                      ),
-                      obscureText: true,
-                      validator: (value) {
-                        if (value != _passwordController.text) {
-                          return context.l10n.passwordsDoNotMatch;
-                        }
-                        return null;
-                      },
-                    ),
-                    const SizedBox(height: AppSize.l),
-                    BlocBuilder<AuthCubit, AuthState>(
-                      bloc: authCubit,
-                      builder: (context, state) {
-                        return ElevatedButton(
-                          onPressed: () {
-                            if (state is AuthLoading) return;
-                            if (_formKey.currentState!.validate()) {
-                              if (FocusScope.of(context).hasFocus) {
-                                FocusScope.of(context).unfocus();
-                              }
-                              authCubit.register(
-                                name: _nameController.text,
-                                email: _emailController.text,
-                                password: _passwordController.text,
-                                phoneNumber: _phoneController.text,
-                              );
+        body: ScrollbarStyled(
+          child: Align(
+            child: SingleChildScrollView(
+              child: SizedBox(
+                width: AppSize.layoutCompact.max,
+                child: Padding(
+                  padding: EdgeInsets.symmetric(horizontal: page.spacing),
+                  child: Form(
+                    key: _formKey,
+                    child: Column(
+                      children: [
+                        const SizedBox(height: AppSize.l),
+                        TextFormField(
+                          controller: _nameController,
+                          decoration: InputDecoration(
+                            labelText: context.l10n.nameLabel,
+                            border: const OutlineInputBorder(),
+                            icon: const Icon(Icons.person),
+                          ),
+                          validator: (value) =>
+                              value!.isEmpty ? context.l10n.nameRequired : null,
+                        ),
+                        const SizedBox(height: AppSize.l),
+                        TextFormField(
+                          controller: _emailController,
+                          decoration: InputDecoration(
+                            labelText: context.l10n.emailLabel,
+                            border: const OutlineInputBorder(),
+                            icon: const Icon(Icons.email),
+                          ),
+                          validator: (value) => emailValidator(
+                            value,
+                            emailIsRequired: context.l10n.emailRequired,
+                            emailNotValid: context.l10n.invalidEmail,
+                          ),
+                          keyboardType: TextInputType.emailAddress,
+                        ),
+                        const SizedBox(height: AppSize.l),
+                        TextFormField(
+                          controller: _phoneController,
+                          decoration: InputDecoration(
+                            labelText: context.l10n.phoneLabel,
+                            border: const OutlineInputBorder(),
+                            icon: const Icon(Icons.phone),
+                          ),
+                          validator: (value) => phoneValidator(
+                            value,
+                            phoneIsRequired: context.l10n.phoneRequired,
+                            phoneNotValid: context.l10n.invalidPhone,
+                          ),
+                          keyboardType: TextInputType.phone,
+                        ),
+                        const SizedBox(height: AppSize.l),
+                        TextFormField(
+                          controller: _passwordController,
+                          decoration: InputDecoration(
+                            labelText: context.l10n.passwordLabel,
+                            border: const OutlineInputBorder(),
+                            icon: const Icon(Icons.lock),
+                          ),
+                          obscureText: true,
+                          validator: (value) => passwordValidator(
+                            value,
+                            passwordIsRequired: context.l10n.passwordRequired,
+                            passwordNotValid: context.l10n.passwordTooShort,
+                          ),
+                        ),
+                        const SizedBox(height: AppSize.l),
+                        TextFormField(
+                          controller: _repeatPasswordController,
+                          decoration: InputDecoration(
+                            labelText: context.l10n.repeatPasswordLabel,
+                            border: const OutlineInputBorder(),
+                            icon: const Icon(Icons.lock),
+                          ),
+                          obscureText: true,
+                          validator: (value) {
+                            if (value != _passwordController.text) {
+                              return context.l10n.passwordsDoNotMatch;
                             }
+                            return null;
                           },
-                          child: state is AuthLoading
-                              ? const SizedBox(
-                                  height: AppSize.m,
-                                  width: AppSize.m,
-                                  child: CircularProgressIndicator(
-                                    strokeCap: StrokeCap.round,
-                                    strokeWidth: AppSize.s2,
-                                  ),
-                                )
-                              : Text(context.l10n.loginButton),
-                        );
-                      },
+                        ),
+                        const SizedBox(height: AppSize.l),
+                        BlocBuilder<AuthCubit, AuthState>(
+                          bloc: authCubit,
+                          builder: (context, state) {
+                            return ElevatedButton(
+                              onPressed: () {
+                                if (state is AuthLoading) return;
+                                if (_formKey.currentState!.validate()) {
+                                  if (FocusScope.of(context).hasFocus) {
+                                    FocusScope.of(context).unfocus();
+                                  }
+                                  authCubit.register(
+                                    name: _nameController.text,
+                                    email: _emailController.text,
+                                    password: _passwordController.text,
+                                    phoneNumber: _phoneController.text,
+                                  );
+                                }
+                              },
+                              child: state is AuthLoading
+                                  ? const SizedBox(
+                                      height: AppSize.m,
+                                      width: AppSize.m,
+                                      child: CircularProgressIndicator(
+                                        strokeCap: StrokeCap.round,
+                                        strokeWidth: AppSize.s2,
+                                      ),
+                                    )
+                                  : Text(context.l10n.loginButton),
+                            );
+                          },
+                        ),
+                        const SizedBox(height: AppSize.l),
+                      ],
                     ),
-                  ],
+                  ),
                 ),
               ),
             ),

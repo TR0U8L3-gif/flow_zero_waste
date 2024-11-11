@@ -1,4 +1,5 @@
 import 'package:flow_zero_waste/config/injection/injection.dart';
+import 'package:flow_zero_waste/core/common/presentation/widgets/styled/app_bar_styled.dart';
 import 'package:flow_zero_waste/core/extensions/theme_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:logger_manager/logger_manager.dart';
@@ -35,7 +36,7 @@ class _ErrorPageState extends State<ErrorPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
+      appBar: AppBarStyled(
         title: Text(
           widget.data.title,
           style: context.textTheme.headlineMedium,
