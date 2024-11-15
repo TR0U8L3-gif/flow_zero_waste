@@ -35,6 +35,9 @@ class PageProvider extends ChangeNotifier implements PageListener {
   @override
   PageLayoutSize get layoutSize => _layoutSize;
 
+  double get spacingHalf => calculateSpacing(_layoutSize) / 2;
+  double get spacingDouble => calculateSpacing(_layoutSize) * 2;
+
   @override
   bool get isSecondaryContainerAccessible =>
       calculateSecondaryContainerAccessibility(numberOfContainers);

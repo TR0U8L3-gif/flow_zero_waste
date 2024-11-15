@@ -1,8 +1,8 @@
 import 'package:flow_zero_waste/config/assets/size/app_size.dart';
 import 'package:flow_zero_waste/core/common/presentation/logics/providers/responsive_ui/page_provider.dart';
 import 'package:flow_zero_waste/core/common/presentation/widgets/accessibility/semantic_texts.dart';
-import 'package:flow_zero_waste/core/common/presentation/widgets/styled/scrollbar_styled.dart';
 import 'package:flow_zero_waste/core/common/presentation/widgets/shimmer/shimmer_rectangle.dart';
+import 'package:flow_zero_waste/core/common/presentation/widgets/styled/scrollbar_styled.dart';
 import 'package:flow_zero_waste/core/common/presentation/widgets/text_outline.dart';
 import 'package:flow_zero_waste/core/enums/page_layout_size.dart';
 import 'package:flow_zero_waste/core/enums/text_enum.dart';
@@ -148,8 +148,7 @@ class _Image extends StatelessWidget {
                       }
                       return SizedBox.expand(
                         child: ShimmerRectangle(
-                          borderRadius: page.spacing,
-                          opacity: 0.4,
+                          borderRadius: BorderRadius.circular(page.spacing),
                           backgroundColor: context.colorScheme.primaryContainer,
                         ),
                       );
@@ -202,8 +201,8 @@ class _Image extends StatelessWidget {
                     bottom: page.spacing,
                   ),
                   child: TextOutline(
-                    text: imageTitle,
-                    textStyle: context.textTheme.displayLarge?.copyWith(
+                    imageTitle,
+                    style: context.textTheme.displayLarge?.copyWith(
                       color: context.colorScheme.surface,
                       height: 1.56,
                     ),

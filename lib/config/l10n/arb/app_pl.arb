@@ -205,5 +205,13 @@
   "passwordsDoNotMatch": "Hasła nie są zgodne",
   "@passwordsDoNotMatch": {
     "description": "Komunikat o błędzie walidacji, gdy hasła nie są zgodne na SignUpPage"
+  },
+  "location_selectLocation": "Wybierz swoją lokalizację",
+  "@location_selectLocation": {
+    "description": "Etykieta dla wyboru lokalizacji"
+  },
+  "change" : "Zmień",
+  "@change": {
+    "description": "Etykieta dla przycisku zmiany"
   }
 }

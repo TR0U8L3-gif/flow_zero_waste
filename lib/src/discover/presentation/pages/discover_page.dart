@@ -1,78 +1,80 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:flow_zero_waste/core/common/presentation/logics/providers/responsive_ui/page_provider.dart';
+import 'package:flow_zero_waste/core/common/presentation/widgets/components/location_section.dart';
+import 'package:flow_zero_waste/core/common/presentation/widgets/components/nav_bar.dart';
+import 'package:flow_zero_waste/core/extensions/l10n_extension.dart';
+import 'package:flow_zero_waste/src/discover/presentation/widgets/banner_section.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
+/// Page for discovering new offers, shops and more
 @RoutePage()
-class DiscoverPage extends StatelessWidget {
+class DiscoverPage extends StatelessWidget implements AutoRouteWrapper {
+  /// Default constructor
+  const DiscoverPage({super.key});
+
   @override
   Widget build(BuildContext context) {
+    final page = context.watch<PageProvider>();
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Odkrywaj'),
-        backgroundColor: Colors.green,
+      appBar: NavBar(
+        text: context.l10n.discover,
       ),
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            LocationSelector(),
-            PromotionSection(),
-            NearbyOffersSection(),
-            RecommendedSection(),
-            CategoryListSection(),
-            PopularShopsSection(),
+            Padding(
+              padding: EdgeInsets.symmetric(
+                horizontal: page.spacing,
+                vertical: page.spacingHalf,
+              ),
+              child: LocationSection(
+                localization: null,
+                // localization: "Stanisława Moniuszki 1, 31-530 Kraków",
+                onLocationChange: () {},
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: page.spacing),
+              child: BannersSection(
+                banners: [
+                  BanerData(
+                    title: 'Baner 2',
+                    imageUrl: 'https://picsum.photos/301/201',
+                  ),
+                  BanerData(
+                    title: 'Baner 3',
+                    imageUrl: 'https://picsum.photos/302/202',
+                  ),
+                  BanerData(
+                    title: 'Baner 4',
+                    imageUrl: 'https://picsum.photos/303/203',
+                  ),
+                  BanerData(
+                    title: 'Baner 5',
+                    imageUrl: 'https://picsum.photos/304/204',
+                  ),
+                  BanerData(
+                    title: 'Baner 1',
+                    imageUrl: null,
+                  ),
+                ],
+              ),
+            ),
+            // OffersSection(),
+            // CategoriesSection(),
+            // RecommendedShopsSection(),
           ],
         ),
       ),
     );
   }
-}
 
-// Widget wyboru lokalizacji
-class LocationSelector extends StatelessWidget {
   @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.all(16.0),
-      child: Row(
-        children: [
-          Icon(Icons.location_on, color: Colors.green),
-          SizedBox(width: 8),
-          Text("Wybierz lokalizację", style: TextStyle(fontSize: 18)),
-          Spacer(),
-          TextButton(
-            onPressed: () {},
-            child: Text("Zmień"),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-// Sekcja promocyjna (Bannery)
-class PromotionSection extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      height: 150,
-      child: ListView.builder(
-        scrollDirection: Axis.horizontal,
-        itemCount: 5, // przykładowa liczba banerów
-        itemBuilder: (context, index) {
-          return Container(
-            margin: EdgeInsets.all(8.0),
-            width: 300,
-            decoration: BoxDecoration(
-              color: Colors.lightGreen,
-              borderRadius: BorderRadius.circular(10),
-            ),
-            child: Center(
-              child: Text("Promocja ${index + 1}", style: TextStyle(fontSize: 20, color: Colors.white)),
-            ),
-          );
-        },
-      ),
-    );
+  Widget wrappedRoute(BuildContext context) {
+    // TODO: implement wrappedRoute
+    return this;
   }
 }
 
@@ -240,7 +242,8 @@ class Section extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(title, style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+          Text(title,
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
           SizedBox(height: 8),
           child,
         ],

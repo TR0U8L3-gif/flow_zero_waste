@@ -205,5 +205,13 @@
   "passwordsDoNotMatch": "Passwords do not match",
   "@passwordsDoNotMatch": {
     "description": "Validation error message shown when the passwords do not match on SignUpPage"
+  },
+  "location_selectLocation": "Select your location",
+  "@location_selectLocation": {
+    "description": "Label for selecting a location"
+  },
+  "change" : "Change",
+  "@change": {
+    "description": "Label for changing a setting"
   }
 }
