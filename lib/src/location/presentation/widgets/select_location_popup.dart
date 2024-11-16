@@ -1,10 +1,12 @@
 import 'package:flow_zero_waste/config/assets/size/app_size.dart';
+import 'package:flow_zero_waste/config/injection/injection.dart';
 import 'package:flow_zero_waste/core/common/presentation/logics/providers/responsive_ui/page_provider.dart';
 import 'package:flow_zero_waste/core/common/presentation/widgets/styled/scrollbar_styled.dart';
 import 'package:flow_zero_waste/core/enums/page_layout_size.dart';
 import 'package:flow_zero_waste/core/extensions/build_context_extension.dart';
 import 'package:flow_zero_waste/core/extensions/num_extension.dart';
 import 'package:flow_zero_waste/core/extensions/theme_extension.dart';
+import 'package:flow_zero_waste/src/location/presentation/logics/location_provider.dart';
 import 'package:flow_zero_waste/src/location/presentation/logics/location_select_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -97,8 +99,10 @@ class _SelectLocation extends StatelessWidget {
   Widget build(BuildContext context) {
     final mapController = MapController();
     final page = context.watch<PageProvider>();
+    final locationData = locator<LocationProvider>().locationData;
     return BlocProvider(
-      create: (context) => LocationSelectCubit(),
+      create: (context) => LocationSelectCubit()
+        ..initialize(locationData),
       child: BlocConsumer<LocationSelectCubit, LocationSelectState>(
         listener: (context, state) {
           if (!state.isListenable) return;
@@ -116,7 +120,8 @@ class _SelectLocation extends StatelessWidget {
             final lat = state.locationData.latitude;
             final lng = state.locationData.longitude;
             final zoom = state.zoom;
-            final distance = state.distance;
+            final address = state.locationData.address;
+            final distance = state.locationData.distance;
             return Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
@@ -126,6 +131,12 @@ class _SelectLocation extends StatelessWidget {
                   style: Theme.of(context).textTheme.titleMedium,
                   textAlign: TextAlign.center,
                 ),
+                if (address != null)
+                  Text(
+                    address,
+                    style: Theme.of(context).textTheme.titleSmall,
+                    textAlign: TextAlign.center,
+                  ),
                 SizedBox(height: page.spacing),
                 // Map placeholder
                 AspectRatio(
@@ -220,8 +231,8 @@ class _SelectLocation extends StatelessWidget {
                 // Apply button
                 ElevatedButton(
                   onPressed: () {
-                    // Implement apply functionality
-                    Navigator.of(context).pop(); // Close the popup
+                    locator<LocationProvider>().saveLocationData(state.locationData);
+                    Navigator.of(context).pop(); 
                   },
                   child: const Text('Zastosuj'),
                 ),

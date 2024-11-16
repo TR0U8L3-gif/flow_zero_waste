@@ -49,17 +49,15 @@ final class LocationSelectIdle extends LocationSelectState
     with BuildableLogicState{
   /// Default constructor
   const LocationSelectIdle({
-    required this.distance,
     required this.locationData,
     required this.zoom,
   });
 
-  final double distance;
   final LocationData locationData;
   final double zoom;
 
   @override
-  List<Object?> get props => [distance, locationData];
+  List<Object?> get props => [locationData];
 }
 
 /// State for location select

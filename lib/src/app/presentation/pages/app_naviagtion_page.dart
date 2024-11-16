@@ -1,24 +1,25 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:flow_zero_waste/config/injection/injection.dart';
 import 'package:flow_zero_waste/config/routes/navigation_router.gr.dart';
 import 'package:flow_zero_waste/core/common/presentation/pages/responsive_ui/navigation_page.dart';
 import 'package:flow_zero_waste/core/enums/app_navigation_item_enum.dart';
 import 'package:flow_zero_waste/core/extensions/l10n_extension.dart';
+import 'package:flow_zero_waste/src/location/presentation/logics/location_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 /// App Navigation Page
 @RoutePage()
-class AppNavigationPage extends StatelessWidget {
+class AppNavigationPage extends StatelessWidget implements AutoRouteWrapper {
   /// Default constructor
   const AppNavigationPage({super.key});
-
 
   @override
   Widget build(BuildContext context) {
     return AutoTabsRouter(
       homeIndex: 0,
       routes: [
-        for (final item in AppNavigationItem.values)
-          _routesFromItem(item),
+        for (final item in AppNavigationItem.values) _routesFromItem(item),
       ],
       transitionBuilder: (context, child, animation) => FadeTransition(
         opacity: animation,
@@ -115,5 +116,13 @@ class AppNavigationPage extends StatelessWidget {
       case AppNavigationItem.profile:
         return Icons.person;
     }
+  }
+
+  @override
+  Widget wrappedRoute(BuildContext context) {
+    return ChangeNotifierProvider(
+      create: (context) => locator<LocationProvider>(),
+      child: this,
+    );
   }
 }

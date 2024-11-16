@@ -1,5 +1,7 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:flow_zero_waste/config/injection/injection.dart';
 import 'package:flow_zero_waste/core/common/presentation/logics/providers/responsive_ui/page_provider.dart';
+import 'package:flow_zero_waste/src/location/presentation/logics/location_provider.dart';
 import 'package:flow_zero_waste/src/location/presentation/widgets/location_section.dart';
 import 'package:flow_zero_waste/core/common/presentation/widgets/components/nav_bar.dart';
 import 'package:flow_zero_waste/core/extensions/l10n_extension.dart';
@@ -34,7 +36,8 @@ class DiscoverPage extends StatelessWidget implements AutoRouteWrapper {
                 vertical: page.spacingHalf,
               ),
               child: LocationSection(
-                localization: 'Stanisława Moniuszki 1, 31-530 Kraków',
+                localization:
+                    context.watch<LocationProvider>().locationData?.address,
                 onLocationChange: () =>
                     SelectLocationPopup.showBottomSheet<void>(context),
               ),
