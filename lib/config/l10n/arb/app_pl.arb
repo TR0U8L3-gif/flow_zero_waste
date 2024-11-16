@@ -58,40 +58,40 @@
   "@allClear": {
     "description": "Displayed when everything is clear or completed."
   },
-  "onboarding_title_display_1": "Ratuj",
-  "@onboarding_title_display_1": {
+  "onboardingTitleDisplay1": "Ratuj",
+  "@onboardingTitleDisplay1": {
     "description": "Title for onboarding step 1 - theme of 'saving.'"
   },
-  "onboarding_title_headline_1": "Ratuj jedzenie, zmniejszaj odpady",
-  "@onboarding_title_headline_1": {
+  "onboardingTitleHeadline1": "Ratuj jedzenie, zmniejszaj odpady",
+  "@onboardingTitleHeadline1": {
     "description": "Headline for onboarding step 1, emphasizing food-saving."
   },
-  "onboarding_title_body_1": "Każdego dnia setki kilogramów jedzenia są marnowane. Z nami możesz w prosty sposób ratować produkty, które w przeciwnym razie trafiłyby do kosza.",
-  "@onboarding_title_body_1": {
+  "onboardingTitleBody1": "Każdego dnia setki kilogramów jedzenia są marnowane. Z nami możesz w prosty sposób ratować produkty, które w przeciwnym razie trafiłyby do kosza.",
+  "@onboardingTitleBody1": {
     "description": "Body text for onboarding step 1, about saving food from waste."
   },
-  "onboarding_title_display_2": "Pomagaj",
-  "@onboarding_title_display_2": {
+  "onboardingTitleDisplay2": "Pomagaj",
+  "@onboardingTitleDisplay2": {
     "description": "Title for onboarding step 2 - theme of 'helping.'"
   },
-  "onboarding_title_headline_2": "Wspieraj lokalne firmy i planetę",
-  "@onboarding_title_headline_2": {
+  "onboardingTitleHeadline2": "Wspieraj lokalne firmy i planetę",
+  "@onboardingTitleHeadline2": {
     "description": "Headline for onboarding step 2, encouraging support for local businesses."
   },
-  "onboarding_title_body_2": "Wybierając jedzenie na wynos, wspierasz małe biznesy i przyczyniasz się do ochrony środowiska. Drobne kroki mogą zdziałać wiele!",
-  "@onboarding_title_body_2": {
+  "onboardingTitleBody2": "Wybierając jedzenie na wynos, wspierasz małe biznesy i przyczyniasz się do ochrony środowiska. Drobne kroki mogą zdziałać wiele!",
+  "@onboardingTitleBody2": {
     "description": "Body text for onboarding step 2, about supporting businesses and the environment."
   },
-  "onboarding_title_display_3": "Oszczędzaj",
-  "@onboarding_title_display_3": {
+  "onboardingTitleDisplay3": "Oszczędzaj",
+  "@onboardingTitleDisplay3": {
     "description": "Title for onboarding step 3 - theme of 'saving money.'"
   },
-  "onboarding_title_headline_3": "Smacznie i oszczędnie",
-  "@onboarding_title_headline_3": {
+  "onboardingTitleHeadline3": "Smacznie i oszczędnie",
+  "@onboardingTitleHeadline3": {
     "description": "Headline for onboarding step 3, about tasty and cost-effective choices."
   },
-  "onboarding_title_body_3": "Znajdź jedzenie w wyjątkowych cenach i jednocześnie ogranicz marnotrawstwo. Korzystaj z okazji i ciesz się smakiem, który ratuje planetę.",
-  "@onboarding_title_body_3": {
+  "onboardingTitleBody3": "Znajdź jedzenie w wyjątkowych cenach i jednocześnie ogranicz marnotrawstwo. Korzystaj z okazji i ciesz się smakiem, który ratuje planetę.",
+  "@onboardingTitleBody3": {
     "description": "Body text for onboarding step 3, about finding affordable food and reducing waste."
   },
   "discoverTooltip": "Odkrywaj sekcję z najnowszymi ofertami",
@@ -206,20 +206,38 @@
   "@passwordsDoNotMatch": {
     "description": "Komunikat o błędzie walidacji, gdy hasła nie są zgodne na SignUpPage"
   },
-  "location_selectLocation": "Wybierz swoją lokalizację",
-  "@location_selectLocation": {
+  "locationSelectLocation": "Wybierz swoją lokalizację",
+  "@locationSelectLocation": {
     "description": "Etykieta dla wyboru lokalizacji"
   },
-  "change" : "Zmień",
+  "change": "Zmień",
   "@change": {
     "description": "Etykieta dla przycisku zmiany"
   },
-  "offers_nearby": "Oferty w okolicy",
-  "@offers_nearby": {
+  "offersNearby": "Świerze oferty w okolicy",
+  "@offersNearby": {
     "description": "Tytuł sekcji z ofertami."
+  },
+  "newOffers": "{count, plural,  one{oferta} other{ofert}}",
+  "@newOffers": {
+      "description": "liczy ile jest nowych ofert",
+      "placeholders": {
+          "count": {
+            "type": "int",
+            "example": "1" 
+          }
+      }
   },
   "available": "Dostępne",
   "@available": {
     "description": "Wyrażenie informujące, że coś jest dostępne"
+  },
+  "categoriesTitle": "Kategorie",
+  "@categoriesTitle": {
+    "description": "Tytuł sekcji przedstawiającej kategorie"
+  },
+  "recommendedShops": "Polecane sklepy",
+  "@recommendedShops": {
+    "description": "Tekst wyświetlany jako nagłówek lub tytuł dla sekcji z polecanymi sklepami"
   }
 }

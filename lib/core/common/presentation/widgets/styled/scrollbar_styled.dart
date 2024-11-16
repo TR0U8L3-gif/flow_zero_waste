@@ -18,6 +18,9 @@ class ScrollbarStyled extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    if(controller == null) {
+      return child ?? const SizedBox.shrink();
+    }
     return RawScrollbar(
       thumbVisibility: true,
       controller: controller,

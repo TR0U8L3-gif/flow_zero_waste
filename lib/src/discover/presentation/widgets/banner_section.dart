@@ -17,11 +17,14 @@ class BannersSection extends StatelessWidget {
   /// Default constructor
   const BannersSection({
     required this.banners,
+    this.onBannerTap,
     super.key,
   });
 
   /// Banners
   final List<BannerData>? banners;
+  /// Callback for banner tap
+  final void Function(String bannerTitle)? onBannerTap;
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +51,7 @@ class BannersSection extends StatelessWidget {
                 height: _bannerSectionHeight,
                 decoration: BoxDecoration(
                   borderRadius: borderRadius,
-                  color: Theme.of(context).colorScheme.primaryContainer,
+                  color: context.colorScheme.primaryContainer,
                 ),
                 child: ShimmerRectangle(
                   borderRadius: borderRadius,
@@ -56,11 +59,14 @@ class BannersSection extends StatelessWidget {
               );
             } else {
               final banner = banners![index];
-              return BannerCard(
-                bannerData: banner,
-                borderRadius: borderRadius,
-                height: _bannerSectionHeight,
-                width: _bannerCardWidth,
+              return GestureDetector(
+                onTap: () => onBannerTap?.call(banner.title),
+                child: BannerCard(
+                  bannerData: banner,
+                  borderRadius: borderRadius,
+                  height: _bannerSectionHeight,
+                  width: _bannerCardWidth,
+                ),
               );
             }
           },

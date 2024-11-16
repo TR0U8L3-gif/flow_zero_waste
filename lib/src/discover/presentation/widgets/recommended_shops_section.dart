@@ -9,33 +9,33 @@ import 'package:flow_zero_waste/core/helpers/images/image_builders.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-const _offersItemsEmpty = 4;
+const _shopsItemsEmpty = 4;
 
-/// offers section
-class OffersSection extends StatelessWidget {
+/// shops section
+class RecommendedShopsSection extends StatelessWidget {
   /// Default constructor
-  const OffersSection({
-    required this.offers,
+  const RecommendedShopsSection({
+    required this.shops,
     super.key,
-    this.onOfferTap,
-    this.onOfferLikeTap,
+    this.onShopTap,
+    this.onShopLikeTap,
   });
 
-  /// offers
-  final List<OfferData>? offers;
+  /// shops
+  final List<ShopData>? shops;
 
-  /// Callback for offer tap
-  final void Function(String offerId)? onOfferTap;
+  /// Callback for shop tap
+  final void Function(String shopId)? onShopTap;
 
-  /// Callback for offer like tap
-  final void Function(String offerId)? onOfferLikeTap;
+  /// Callback for shop like tap
+  final void Function(String shopId)? onShopLikeTap;
 
   @override
   Widget build(BuildContext context) {
     final page = context.watch<PageProvider>();
     final borderRadius = BorderRadius.circular(page.spacing);
 
-    if (offers != null && offers!.isEmpty) {
+    if (shops != null && shops!.isEmpty) {
       return const SizedBox.shrink();
     }
 
@@ -48,7 +48,7 @@ class OffersSection extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             Text(
-              context.l10n.offersNearby,
+              context.l10n.recommendedShops,
               style: context.textTheme.headlineSmall,
             ),
             SizedBox(height: page.spacing),
@@ -56,7 +56,7 @@ class OffersSection extends StatelessWidget {
               shrinkWrap: true,
               primary: false,
               physics: const NeverScrollableScrollPhysics(),
-              itemCount: offers?.length ?? _offersItemsEmpty,
+              itemCount: shops?.length ?? _shopsItemsEmpty,
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount:
                     page.layoutSize >= PageLayoutSize.expanded ? 2 : 1,
@@ -65,7 +65,7 @@ class OffersSection extends StatelessWidget {
                 mainAxisSpacing: page.spacing,
               ),
               itemBuilder: (context, index) {
-                if (offers == null) {
+                if (shops == null) {
                   return Container(
                     width: double.infinity,
                     height: double.infinity,
@@ -78,14 +78,14 @@ class OffersSection extends StatelessWidget {
                     ),
                   );
                 } else {
-                  final offer = offers![index];
+                  final shop = shops![index];
                   return GestureDetector(
-                    onTap: () => onOfferTap?.call(offer.id),
-                    child: OfferCard(
-                      offerData: offer,
+                    onTap: () => onShopTap?.call(shop.id),
+                    child: ShopCard(
+                      shopData: shop,
                       height: double.infinity,
                       borderRadius: borderRadius,
-                      onOfferLikeTap: onOfferLikeTap,
+                      onShopLikeTap: onShopLikeTap,
                     ),
                   );
                 }
@@ -98,28 +98,28 @@ class OffersSection extends StatelessWidget {
   }
 }
 
-/// Offer card
-class OfferCard extends StatelessWidget {
+/// shop card
+class ShopCard extends StatelessWidget {
   /// Default constructor
-  const OfferCard({
-    required this.offerData,
+  const ShopCard({
+    required this.shopData,
     required this.height,
     required this.borderRadius,
-    this.onOfferLikeTap,
+    this.onShopLikeTap,
     super.key,
   });
 
-  /// Offer data
-  final OfferData offerData;
+  /// shop data
+  final ShopData shopData;
 
-  /// Offer height
+  /// shop height
   final double height;
 
-  /// Offer border radius
+  /// shop border radius
   final BorderRadius borderRadius;
 
-  /// Callback for offer like tap
-  final void Function(String offerId)? onOfferLikeTap;
+  /// Callback for shop like tap
+  final void Function(String shopId)? onShopLikeTap;
 
   @override
   Widget build(BuildContext context) {
@@ -138,7 +138,7 @@ class OfferCard extends StatelessWidget {
               child: Stack(
                 children: [
                   Image.network(
-                    offerData.imageUrl,
+                    shopData.imageUrl,
                     width: double.infinity,
                     height: double.infinity,
                     fit: BoxFit.cover,
@@ -154,7 +154,7 @@ class OfferCard extends StatelessWidget {
                         horizontal: page.spacing,
                       ),
                       child: TextOutline(
-                        offerData.title,
+                        shopData.title,
                         style: context.textTheme.titleLarge,
                         maxLines: 2,
                         strokeWidth: 1.8,
@@ -163,52 +163,23 @@ class OfferCard extends StatelessWidget {
                     ),
                   ),
                   Align(
-                    alignment: Alignment.topCenter,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Padding(
-                          padding: EdgeInsets.symmetric(
-                            horizontal: page.spacingHalf,
-                            vertical: page.spacingHalf,
-                          ),
-                          child: Container(
-                            decoration: BoxDecoration(
-                              color: context.colorScheme.tertiaryContainer,
-                              borderRadius: BorderRadius.circular(page.spacing),
-                            ),
-                            padding: EdgeInsets.symmetric(
-                              horizontal: page.spacingHalf,
-                              vertical: page.spacingQuarter,
-                            ),
-                            child: Text(
-                              '+${offerData.newOffers} '
-                              '${context.l10n.newOffers(offerData.newOffers)}',
-                              style: context.textTheme.bodyMedium?.copyWith(
-                                color: context.colorScheme.onTertiaryContainer,
-                              ),
-                            ),
-                          ),
+                    alignment: Alignment.topRight,
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: context.colorScheme.primaryContainer,
+                        borderRadius: BorderRadius.only(
+                          bottomLeft: Radius.circular(page.spacing),
                         ),
-                        Container(
-                          decoration: BoxDecoration(
-                            color: context.colorScheme.primaryContainer,
-                            borderRadius: BorderRadius.only(
-                              bottomLeft: Radius.circular(page.spacing),
-                            ),
-                          ),
-                          child: IconButton(
-                            icon: Icon(
-                              offerData.isLiked
-                                  ? Icons.favorite
-                                  : Icons.favorite_border,
-                              color: context.colorScheme.onPrimaryContainer,
-                            ),
-                            onPressed: () => onOfferLikeTap?.call(offerData.id),
-                          ),
+                      ),
+                      child: IconButton(
+                        icon: Icon(
+                          shopData.isLiked
+                              ? Icons.favorite
+                              : Icons.favorite_border,
+                          color: context.colorScheme.onPrimaryContainer,
                         ),
-                      ],
+                        onPressed: () => onShopLikeTap?.call(shopData.id),
+                      ),
                     ),
                   ),
                 ],
@@ -230,22 +201,22 @@ class OfferCard extends StatelessWidget {
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           Text(
-                            offerData.description,
+                            shopData.description,
                             style: context.textTheme.bodyLarge,
                             overflow: TextOverflow.ellipsis,
                             maxLines: 1,
                           ),
                           Text(
-                            offerData.localization,
+                            shopData.localization,
                             style: context.textTheme.bodyMedium,
                             overflow: TextOverflow.ellipsis,
                             maxLines: 1,
                           ),
                           Text(
                             '${context.l10n.available}: '
-                            '${offerData.startDate.ddMM} | '
-                            '${offerData.startDate.HHmm} - '
-                            '${offerData.endDate.HHmm}',
+                            '${shopData.startDate.ddMM} | '
+                            '${shopData.startDate.HHmm} - '
+                            '${shopData.endDate.HHmm}',
                             style: context.textTheme.bodyMedium,
                             overflow: TextOverflow.ellipsis,
                             maxLines: 1,
@@ -253,24 +224,6 @@ class OfferCard extends StatelessWidget {
                         ],
                       ),
                     ),
-                  ),
-                  SizedBox(width: page.spacing),
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Icon(
-                        Icons.location_searching_rounded,
-                        color: context.colorScheme.onPrimaryContainer,
-                      ),
-                      SizedBox(height: page.spacingHalf),
-                      Text(
-                        '${(offerData.distance / 1000).toStringAsFixed(1)} km',
-                        style: context.textTheme.bodyLarge?.copyWith(
-                          color: context.colorScheme.onPrimaryContainer,
-                        ),
-                      ),
-                    ],
                   ),
                 ],
               ),
@@ -282,49 +235,41 @@ class OfferCard extends StatelessWidget {
   }
 }
 
-/// Data class to hold the offer information.
-class OfferData {
-  /// Creates an offer data object.
-  OfferData({
+/// Data class to hold the shop information.
+class ShopData {
+  /// Creates an shop data object.
+  ShopData({
     required this.id,
     required this.title,
-    required this.distance,
     required this.localization,
     required this.startDate,
     required this.endDate,
     required this.description,
     required this.imageUrl,
     required this.isLiked,
-    required this.newOffers,
   });
 
-  /// Offer id
+  /// shop id
   final String id;
 
-  /// Offer image URL
+  /// shop image URL
   final String imageUrl;
 
-  /// Offer title
+  /// shop title
   final String title;
 
-  /// Offer description
+  /// shop description
   final String description;
 
-  /// Offer localization
+  /// shop localization
   final String localization;
 
-  /// Offer distance
-  final double distance;
-
-  /// Offer start date
+  /// shop start date
   final DateTime startDate;
 
-  /// Offer end date
+  /// shop end date
   final DateTime endDate;
 
-  /// Offer is liked
+  /// shop is liked
   final bool isLiked;
-
-  /// number of new offers
-  final int newOffers;
 }

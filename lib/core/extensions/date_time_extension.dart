@@ -11,9 +11,15 @@ extension DateTimeExtension on DateTime {
   }
 
   /// Get date 
-  /// in format yyyy-MM-dd
+  /// in format dd.MM.yyyy
   String get ddMMyyyy {
     return DateFormat('dd.MM.yyyy').format(this);
+  }
+
+   /// Get date 
+  /// in format dd.MM
+  String get ddMM {
+    return DateFormat('dd.MM').format(this);
   }
 
   /// Get time

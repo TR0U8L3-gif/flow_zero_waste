@@ -1,10 +1,13 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flow_zero_waste/core/common/presentation/logics/providers/responsive_ui/page_provider.dart';
-import 'package:flow_zero_waste/core/common/presentation/widgets/components/location_section.dart';
+import 'package:flow_zero_waste/src/location/presentation/widgets/location_section.dart';
 import 'package:flow_zero_waste/core/common/presentation/widgets/components/nav_bar.dart';
 import 'package:flow_zero_waste/core/extensions/l10n_extension.dart';
 import 'package:flow_zero_waste/src/discover/presentation/widgets/banner_section.dart';
+import 'package:flow_zero_waste/src/discover/presentation/widgets/categories_section.dart';
 import 'package:flow_zero_waste/src/discover/presentation/widgets/offers_section.dart';
+import 'package:flow_zero_waste/src/discover/presentation/widgets/recommended_shops_section.dart';
+import 'package:flow_zero_waste/src/location/presentation/widgets/select_location_popup.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -31,19 +34,21 @@ class DiscoverPage extends StatelessWidget implements AutoRouteWrapper {
                 vertical: page.spacingHalf,
               ),
               child: LocationSection(
-                // localization: null,
-                localization: "Stanisława Moniuszki 1, 31-530 Kraków",
-                onLocationChange: () {},
+                localization: 'Stanisława Moniuszki 1, 31-530 Kraków',
+                onLocationChange: () =>
+                    SelectLocationPopup.showBottomSheet<void>(context),
               ),
             ),
             Padding(
               padding: EdgeInsets.symmetric(
-                  horizontal: page.spacing, vertical: page.spacing),
+                horizontal: page.spacing,
+                vertical: page.spacing,
+              ),
               child: BannersSection(
+                onBannerTap: debugPrint,
                 banners: [
                   BannerData(
                     title: 'Baner 1',
-                    imageUrl: null,
                   ),
                   BannerData(
                     title: 'Baner 2',
@@ -72,68 +77,222 @@ class DiscoverPage extends StatelessWidget implements AutoRouteWrapper {
                 vertical: page.spacing,
               ),
               child: OffersSection(
+                onOfferLikeTap: (id) => debugPrint('Liked offer with id: $id'),
+                onOfferTap: debugPrint,
                 offers: [
                   OfferData(
-                    id: 'sdfghjk',
+                    id: '5675767-234234-345',
                     title: 'Offers 1',
-                    description: 'najlepsza Offerta 1',
+                    description: 'najlepsza Oferta 1',
                     distance: 1200,
-                    localization: 'Kraków generala maczka',
+                    localization: 'Kraków generała maczka',
                     imageUrl: 'https://picsum.photos/307/207',
                     startDate: DateTime.now(),
-                    endDate: DateTime.now().add(Duration(hours: 5)),
+                    endDate: DateTime.now().add(const Duration(hours: 5)),
                     isLiked: false,
+                    newOffers: 15,
                   ),
                   OfferData(
-                    id: 'sdfghjk',
+                    id: '909-234234-345',
                     title: 'Offers 2',
-                    description: 'najlepsza Offerta 2',
+                    description: 'najlepsza oferta 2',
                     distance: 200,
                     localization:
-                        'Kraków generala maczka PRZY ULICY CIASNEJ OSIEM JEST SUERPANCKO',
+                        'Kraków generała maczka PRZY ULICY CIASNEJ OSIEM JEST',
                     imageUrl: 'https://picsum.photos/308/208',
                     startDate: DateTime.now(),
-                    endDate: DateTime.now().add(Duration(hours: 4)),
+                    endDate: DateTime.now().add(const Duration(hours: 4)),
                     isLiked: false,
+                    newOffers: 11,
                   ),
                   OfferData(
-                    id: 'sdfghjk',
+                    id: '789878-234234-345',
                     title: 'Offers 3',
-                    description: 'najlepsza Offerta 3',
+                    description: 'najlepsza oferta 3',
                     distance: 12000,
-                    localization: 'Kraków generala maczka',
+                    localization: 'Kraków generała maczka',
                     imageUrl: 'https://picsum.photos/309/209',
                     startDate: DateTime.now(),
-                    endDate: DateTime.now().add(Duration(hours: 3)),
+                    endDate: DateTime.now().add(const Duration(hours: 3)),
                     isLiked: true,
+                    newOffers: 1,
                   ),
                   OfferData(
-                    id: 'sdfghjk',
+                    id: '456-076-23',
                     title: 'Offers 4',
-                    description: 'najlepsza Offerta 4',
+                    description: 'najlepsza oferta 4',
                     distance: 100,
-                    localization: 'Kraków generala maczka',
+                    localization: 'Kraków generała maczka',
                     imageUrl: 'https://picsum.photos/310/210',
-                    endDate: DateTime.now().add(Duration(hours: 2)),
-                    startDate: DateTime.now().subtract(Duration(hours: 2)),
+                    endDate: DateTime.now().add(const Duration(hours: 2)),
+                    startDate:
+                        DateTime.now().subtract(const Duration(hours: 2)),
                     isLiked: true,
+                    newOffers: 2,
                   ),
                   OfferData(
-                    id: 'sdfghjk',
+                    id: '45-876-324',
                     title: 'Offers 5',
                     distance: 812000,
                     description: 'Opis oferty 5 ble ble',
-                    localization: 'Kraków generala maczka',
+                    localization: 'Kraków generała maczka',
                     imageUrl: 'https://picsum.photos/311/211',
-                    startDate: DateTime.now().subtract(Duration(hours: 4)),
-                    endDate: DateTime.now().add(Duration(hours: 1)),
+                    startDate:
+                        DateTime.now().subtract(const Duration(hours: 4)),
+                    endDate: DateTime.now().add(const Duration(hours: 1)),
+                    isLiked: false,
+                    newOffers: 5,
+                  ),
+                ],
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.symmetric(
+                horizontal: page.spacing,
+                vertical: page.spacing,
+              ),
+              child: CategoriesSection(
+                onCategoryTap: print,
+                categories: [
+                  CategoryData(
+                    title: 'Fruits',
+                    imageUrl: 'https://picsum.photos/128',
+                  ),
+                  CategoryData(
+                    title: 'Vegetables',
+                    imageUrl: 'https://picsum.photos/124',
+                  ),
+                  CategoryData(title: 'Meat'),
+                  CategoryData(title: 'Fish'),
+                  CategoryData(title: 'Chips'),
+                ],
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.symmetric(
+                horizontal: page.spacing,
+                vertical: page.spacing,
+              ),
+              child: RecommendedShopsSection(
+                shops: [
+                  ShopData(
+                    id: '1',
+                    title: 'Green Grocers',
+                    localization: 'Downtown, NY',
+                    startDate:
+                        DateTime.now().subtract(const Duration(hours: 6)),
+                    endDate: DateTime.now().add(const Duration(hours: 4)),
+                    description:
+                        'A local grocery store offering fresh organic produce.',
+                    imageUrl: 'https://picsum.photos/300',
+                    isLiked: true,
+                  ),
+                  ShopData(
+                    id: '2',
+                    title: 'Eco Boutique',
+                    localization: 'Greenwich, London',
+                    startDate:
+                        DateTime.now().subtract(const Duration(hours: 12)),
+                    endDate: DateTime.now().add(const Duration(hours: 6)),
+                    description: 'Eco-friendly clothing and accessories.',
+                    imageUrl: 'https://picsum.photos/301',
+                    isLiked: false,
+                  ),
+                  ShopData(
+                    id: '3',
+                    title: 'Farm Fresh Market',
+                    localization: 'San Francisco, CA',
+                    startDate:
+                        DateTime.now().subtract(const Duration(hours: 8)),
+                    endDate: DateTime.now().add(const Duration(hours: 2)),
+                    description: 'Farm-to-table organic market.',
+                    imageUrl: 'https://picsum.photos/302',
+                    isLiked: false,
+                  ),
+                  ShopData(
+                    id: '4',
+                    title: 'Sustainable Living Store',
+                    localization: 'Berlin, Germany',
+                    startDate:
+                        DateTime.now().subtract(const Duration(hours: 10)),
+                    endDate: DateTime.now().add(const Duration(hours: 5)),
+                    description:
+                        'Products to help you live a more sustainable lifestyle.',
+                    imageUrl: 'https://picsum.photos/303',
+                    isLiked: true,
+                  ),
+                  ShopData(
+                    id: '5',
+                    title: 'Nature’s Basket',
+                    localization: 'Toronto, Canada',
+                    startDate:
+                        DateTime.now().subtract(const Duration(hours: 7)),
+                    endDate: DateTime.now().add(const Duration(hours: 3)),
+                    description: 'A variety of eco-friendly and organic goods.',
+                    imageUrl: 'https://picsum.photos/304',
+                    isLiked: false,
+                  ),
+                  ShopData(
+                    id: '6',
+                    title: 'Zero Waste Market',
+                    localization: 'Paris, France',
+                    startDate:
+                        DateTime.now().subtract(const Duration(hours: 9)),
+                    endDate: DateTime.now().add(const Duration(hours: 6)),
+                    description:
+                        'Zero waste products and tips for a greener life.',
+                    imageUrl: 'https://picsum.photos/305',
+                    isLiked: false,
+                  ),
+                  ShopData(
+                    id: '7',
+                    title: 'The Vegan Hub',
+                    localization: 'Austin, TX',
+                    startDate:
+                        DateTime.now().subtract(const Duration(hours: 4)),
+                    endDate: DateTime.now().add(const Duration(hours: 8)),
+                    description:
+                        'A store dedicated to vegan and cruelty-free products.',
+                    imageUrl: 'https://picsum.photos/306',
+                    isLiked: true,
+                  ),
+                  ShopData(
+                    id: '8',
+                    title: 'Green Supply Co.',
+                    localization: 'Tokyo, Japan',
+                    startDate:
+                        DateTime.now().subtract(const Duration(hours: 5)),
+                    endDate: DateTime.now().add(const Duration(hours: 7)),
+                    description: 'Eco-friendly household and personal items.',
+                    imageUrl: 'https://picsum.photos/307',
+                    isLiked: true,
+                  ),
+                  ShopData(
+                    id: '9',
+                    title: 'Organic Bliss',
+                    localization: 'Sydney, Australia',
+                    startDate:
+                        DateTime.now().subtract(const Duration(hours: 6)),
+                    endDate: DateTime.now().add(const Duration(hours: 4)),
+                    description:
+                        'Pure organic products for your health and home.',
+                    imageUrl: 'https://picsum.photos/308',
+                    isLiked: false,
+                  ),
+                  ShopData(
+                    id: '10',
+                    title: 'Earthly Goods',
+                    localization: 'Cape Town, South Africa',
+                    startDate:
+                        DateTime.now().subtract(const Duration(hours: 7)),
+                    endDate: DateTime.now().add(const Duration(hours: 5)),
+                    description: 'Sustainable goods for everyday living.',
+                    imageUrl: 'https://picsum.photos/309',
                     isLiked: false,
                   ),
                 ],
               ),
             ),
-            // CategoriesSection(),
-            // RecommendedShopsSection(),
           ],
         ),
       ),
@@ -142,181 +301,6 @@ class DiscoverPage extends StatelessWidget implements AutoRouteWrapper {
 
   @override
   Widget wrappedRoute(BuildContext context) {
-    // TODO: implement wrappedRoute
     return this;
-  }
-}
-
-// Oferty w Twojej Okolicy
-class NearbyOffersSection extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Section(
-      title: "Oferty w Twojej Okolicy",
-      child: ListView.builder(
-        shrinkWrap: true,
-        physics: NeverScrollableScrollPhysics(),
-        itemCount: 5,
-        itemBuilder: (context, index) {
-          return OfferTile(
-            title: "Oferta lokalna ${index + 1}",
-            description: "Opis oferty lokalnej",
-            distance: "${index + 1} km",
-          );
-        },
-      ),
-    );
-  }
-}
-
-// Sekcja Polecane
-class RecommendedSection extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Section(
-      title: "Polecane",
-      child: ListView.builder(
-        shrinkWrap: true,
-        physics: NeverScrollableScrollPhysics(),
-        itemCount: 5,
-        itemBuilder: (context, index) {
-          return OfferTile(
-            title: "Polecana Oferta ${index + 1}",
-            description: "Opis polecanej oferty",
-          );
-        },
-      ),
-    );
-  }
-}
-
-// Lista Popularnych Kategorii
-class CategoryListSection extends StatelessWidget {
-  final categories = ["Żywność", "AGD", "Książki", "Odzież", "Elektronika"];
-
-  @override
-  Widget build(BuildContext context) {
-    return Section(
-      title: "Popularne Kategorie",
-      child: Container(
-        height: 100,
-        child: ListView.builder(
-          scrollDirection: Axis.horizontal,
-          itemCount: categories.length,
-          itemBuilder: (context, index) {
-            return CategoryTile(category: categories[index]);
-          },
-        ),
-      ),
-    );
-  }
-}
-
-// Popularne Sklepy
-class PopularShopsSection extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Section(
-      title: "Popularne Sklepy",
-      child: ListView.builder(
-        shrinkWrap: true,
-        physics: NeverScrollableScrollPhysics(),
-        itemCount: 5,
-        itemBuilder: (context, index) {
-          return ShopTile(
-            name: "Sklep ${index + 1}",
-            rating: 4.5,
-          );
-        },
-      ),
-    );
-  }
-}
-
-// Komponenty dla różnych elementów sekcji
-class OfferTile extends StatelessWidget {
-  final String title;
-  final String description;
-  final String? distance;
-
-  OfferTile({required this.title, required this.description, this.distance});
-
-  @override
-  Widget build(BuildContext context) {
-    return ListTile(
-      title: Text(title),
-      subtitle: Text(description),
-      trailing: distance != null ? Text(distance!) : null,
-    );
-  }
-}
-
-class CategoryTile extends StatelessWidget {
-  final String category;
-
-  CategoryTile({required this.category});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: 100,
-      margin: EdgeInsets.all(8.0),
-      decoration: BoxDecoration(
-        color: Colors.greenAccent,
-        borderRadius: BorderRadius.circular(10),
-      ),
-      child: Center(
-        child: Text(
-          category,
-          style: TextStyle(color: Colors.white, fontSize: 16),
-          textAlign: TextAlign.center,
-        ),
-      ),
-    );
-  }
-}
-
-class ShopTile extends StatelessWidget {
-  final String name;
-  final double rating;
-
-  ShopTile({required this.name, required this.rating});
-
-  @override
-  Widget build(BuildContext context) {
-    return ListTile(
-      title: Text(name),
-      subtitle: Row(
-        children: [
-          Icon(Icons.star, color: Colors.amber, size: 16),
-          SizedBox(width: 4),
-          Text(rating.toString()),
-        ],
-      ),
-    );
-  }
-}
-
-// Sekcja nagłówkowa do użycia w każdym komponencie
-class Section extends StatelessWidget {
-  final String title;
-  final Widget child;
-
-  Section({required this.title, required this.child});
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(title,
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-          SizedBox(height: 8),
-          child,
-        ],
-      ),
-    );
   }
 }

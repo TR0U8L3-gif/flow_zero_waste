@@ -26,7 +26,7 @@ class LocationSection extends StatelessWidget {
     final page = context.watch<PageProvider>();
 
     return ClipRRect(
-      borderRadius: BorderRadius.circular(page.spacing),
+      borderRadius: BorderRadius.circular(page.spacingDouble),
       child: ColoredBox(
         color: context.colorScheme.secondaryContainer,
         child: Padding(
@@ -42,12 +42,14 @@ class LocationSection extends StatelessWidget {
               ),
               SizedBox(width: page.spacingHalf),
               Expanded(
-                child: SingleChildScrollView(
-                  scrollDirection: Axis.horizontal,
-                  child: Text(
-                    localization ?? translations.location_selectLocation,
-                    style: Theme.of(context).textTheme.titleMedium,
-                    maxLines: 1,
+                child: Align(
+                  child: SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: Text(
+                      localization ?? translations.locationSelectLocation,
+                      style: Theme.of(context).textTheme.titleMedium,
+                      maxLines: 1,
+                    ),
                   ),
                 ),
               ),
