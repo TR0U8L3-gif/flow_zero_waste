@@ -213,5 +213,13 @@
   "change" : "Zmień",
   "@change": {
     "description": "Etykieta dla przycisku zmiany"
+  },
+  "offers_nearby": "Oferty w okolicy",
+  "@offers_nearby": {
+    "description": "Tytuł sekcji z ofertami."
+  },
+  "available": "Dostępne",
+  "@available": {
+    "description": "Wyrażenie informujące, że coś jest dostępne"
   }
 }

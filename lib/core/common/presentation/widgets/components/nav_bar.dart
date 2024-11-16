@@ -17,7 +17,7 @@ class NavBar extends StatelessWidget implements PreferredSizeWidget {
     return AppBarStyled(
       title: Text(
         text,
-        style: Theme.of(context).textTheme.titleLarge,
+        style: Theme.of(context).textTheme.headlineSmall,
       ),
     );
   }

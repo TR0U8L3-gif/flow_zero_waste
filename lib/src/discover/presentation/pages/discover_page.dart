@@ -4,6 +4,7 @@ import 'package:flow_zero_waste/core/common/presentation/widgets/components/loca
 import 'package:flow_zero_waste/core/common/presentation/widgets/components/nav_bar.dart';
 import 'package:flow_zero_waste/core/extensions/l10n_extension.dart';
 import 'package:flow_zero_waste/src/discover/presentation/widgets/banner_section.dart';
+import 'package:flow_zero_waste/src/discover/presentation/widgets/offers_section.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -30,15 +31,20 @@ class DiscoverPage extends StatelessWidget implements AutoRouteWrapper {
                 vertical: page.spacingHalf,
               ),
               child: LocationSection(
-                localization: null,
-                // localization: "Stanisława Moniuszki 1, 31-530 Kraków",
+                // localization: null,
+                localization: "Stanisława Moniuszki 1, 31-530 Kraków",
                 onLocationChange: () {},
               ),
             ),
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: page.spacing),
+              padding: EdgeInsets.symmetric(
+                  horizontal: page.spacing, vertical: page.spacing),
               child: BannersSection(
                 banners: [
+                  BanerData(
+                    title: 'Baner 1',
+                    imageUrl: null,
+                  ),
                   BanerData(
                     title: 'Baner 2',
                     imageUrl: 'https://picsum.photos/301/201',
@@ -55,14 +61,75 @@ class DiscoverPage extends StatelessWidget implements AutoRouteWrapper {
                     title: 'Baner 5',
                     imageUrl: 'https://picsum.photos/304/204',
                   ),
-                  BanerData(
-                    title: 'Baner 1',
-                    imageUrl: null,
+                ],
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.symmetric(
+                horizontal: page.spacing,
+                vertical: page.spacing,
+              ),
+              child: OffersSection(
+                offers: [
+                  OfferData(
+                    id: 'sdfghjk',
+                    title: 'Offers 1',
+                    description: 'najlepsza Offerta 1',
+                    distance: 1200,
+                    localization: 'Kraków generala maczka',
+                    imageUrl: 'https://picsum.photos/307/207',
+                    startDate: DateTime.now(),
+                    endDate: DateTime.now().add(Duration(hours: 5)),
+                    isLiked: false,
+                  ),
+                  OfferData(
+                    id: 'sdfghjk',
+                    title: 'Offers 2',
+                    description: 'najlepsza Offerta 2',
+                    distance: 200,
+                    localization:
+                        'Kraków generala maczka PRZY ULICY CIASNEJ OSIEM JEST SUERPANCKO',
+                    imageUrl: 'https://picsum.photos/308/208',
+                    startDate: DateTime.now(),
+                    endDate: DateTime.now().add(Duration(hours: 4)),
+                    isLiked: false,
+                  ),
+                  OfferData(
+                    id: 'sdfghjk',
+                    title: 'Offers 3',
+                    description: 'najlepsza Offerta 3',
+                    distance: 12000,
+                    localization: 'Kraków generala maczka',
+                    imageUrl: 'https://picsum.photos/309/209',
+                    startDate: DateTime.now(),
+                    endDate: DateTime.now().add(Duration(hours: 3)),
+                    isLiked: true,
+                  ),
+                  OfferData(
+                    id: 'sdfghjk',
+                    title: 'Offers 4',
+                    description: 'najlepsza Offerta 4',
+                    distance: 100,
+                    localization: 'Kraków generala maczka',
+                    imageUrl: 'https://picsum.photos/310/210',
+                    endDate: DateTime.now().add(Duration(hours: 2)),
+                    startDate: DateTime.now().subtract(Duration(hours: 2)),
+                    isLiked: true,
+                  ),
+                  OfferData(
+                    id: 'sdfghjk',
+                    title: 'Offers 5',
+                    distance: 812000,
+                    description: 'Opis oferty 5 ble ble',
+                    localization: 'Kraków generala maczka',
+                    imageUrl: 'https://picsum.photos/311/211',
+                    startDate: DateTime.now().subtract(Duration(hours: 4)),
+                    endDate: DateTime.now().add(Duration(hours: 1)),
+                    isLiked: false,
                   ),
                 ],
               ),
             ),
-            // OffersSection(),
             // CategoriesSection(),
             // RecommendedShopsSection(),
           ],

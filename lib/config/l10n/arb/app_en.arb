@@ -213,5 +213,13 @@
   "change" : "Change",
   "@change": {
     "description": "Label for changing a setting"
+  },
+  "offers_nearby": "Offers nearby",
+  "@offers_nearby": {
+    "description": "Title of the offers section."
+  },
+  "available": "Available",
+  "@available": {
+    "description": "Phrase indicating that something is available"
   }
 }
