@@ -41,23 +41,25 @@ class DiscoverPage extends StatelessWidget implements AutoRouteWrapper {
                   horizontal: page.spacing, vertical: page.spacing),
               child: BannersSection(
                 banners: [
-                  BanerData(
+                  BannerData(
                     title: 'Baner 1',
                     imageUrl: null,
                   ),
-                  BanerData(
+                  BannerData(
                     title: 'Baner 2',
+                    description: 'Opis banera 2',
                     imageUrl: 'https://picsum.photos/301/201',
                   ),
-                  BanerData(
-                    title: 'Baner 3',
+                  BannerData(
+                    title: 'Baner 3 tutaj długi opis',
                     imageUrl: 'https://picsum.photos/302/202',
                   ),
-                  BanerData(
+                  BannerData(
                     title: 'Baner 4',
+                    description: 'bardzo długi opis bannera oj tak coś tam coś',
                     imageUrl: 'https://picsum.photos/303/203',
                   ),
-                  BanerData(
+                  BannerData(
                     title: 'Baner 5',
                     imageUrl: 'https://picsum.photos/304/204',
                   ),

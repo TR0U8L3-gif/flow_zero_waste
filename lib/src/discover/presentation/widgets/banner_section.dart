@@ -9,7 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 const _bannerSectionHeight = 128.0;
-const _bannerCardWidth = 224.0;
+const _bannerCardWidth = 256.0;
 const _bannerItemsEmpty = 4;
 
 /// Banners section
@@ -21,7 +21,7 @@ class BannersSection extends StatelessWidget {
   });
 
   /// Banners
-  final List<BanerData>? banners;
+  final List<BannerData>? banners;
 
   @override
   Widget build(BuildContext context) {
@@ -57,8 +57,7 @@ class BannersSection extends StatelessWidget {
             } else {
               final banner = banners![index];
               return BannerCard(
-                title: banner.title,
-                imageUrl: banner.imageUrl,
+                bannerData: banner,
                 borderRadius: borderRadius,
                 height: _bannerSectionHeight,
                 width: _bannerCardWidth,
@@ -75,11 +74,10 @@ class BannersSection extends StatelessWidget {
 class BannerCard extends StatelessWidget {
   /// Default constructor
   const BannerCard({
-    required this.title,
+    required this.bannerData,
     required this.height,
     required this.width,
     required this.borderRadius,
-    this.imageUrl,
     super.key,
   });
 
@@ -89,11 +87,8 @@ class BannerCard extends StatelessWidget {
   /// Banner width
   final double width;
 
-  /// Banner title
-  final String title;
-
   /// Image url
-  final String? imageUrl;
+  final BannerData bannerData;
 
   /// Error builder
   final BorderRadius borderRadius;
@@ -118,16 +113,16 @@ class BannerCard extends StatelessWidget {
         ),
         child: Stack(
           children: [
-            if (imageUrl != null)
+            if (bannerData.imageUrl != null)
               SizedBox.expand(
                 child: Image.network(
-                  imageUrl!,
+                  bannerData.imageUrl!,
                   fit: BoxFit.cover,
-                  errorBuilder: errorBuilder,
                   cacheWidth: ImageCacheSize.calculate(
                     context,
                     _bannerCardWidth,
                   ),
+                  errorBuilder: errorBuilder,
                   loadingBuilder: loadingBuilder,
                   frameBuilder: frameBuilder,
                 ),
@@ -135,13 +130,30 @@ class BannerCard extends StatelessWidget {
             Align(
               alignment: Alignment.bottomLeft,
               child: Padding(
-                padding: const EdgeInsets.only(left: AppSize.s),
-                child: TextOutline(
-                  title,
-                  style: context.textTheme.headlineSmall,
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                  strokeWidth: AppSize.s2,
+                padding: const EdgeInsets.only(
+                  left: AppSize.s,
+                  bottom: AppSize.s,
+                ),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    TextOutline(
+                      bannerData.title,
+                      style: context.textTheme.titleLarge,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      strokeWidth: AppSize.s2,
+                    ),
+                    if (bannerData.description != null)
+                      TextOutline(
+                        bannerData.description!,
+                        style: context.textTheme.bodyMedium,
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                        strokeWidth: AppSize.s2,
+                      ),
+                  ],
                 ),
               ),
             ),
@@ -153,12 +165,19 @@ class BannerCard extends StatelessWidget {
 }
 
 /// Baner data class to hold title and image url
-class BanerData {
+class BannerData {
   /// Default constructor
-  BanerData({required this.title, this.imageUrl});
+  BannerData({
+    required this.title,
+    this.description,
+    this.imageUrl,
+  });
 
   /// Title
   final String title;
+
+  /// Description
+  final String? description;
 
   /// Image url
   final String? imageUrl;

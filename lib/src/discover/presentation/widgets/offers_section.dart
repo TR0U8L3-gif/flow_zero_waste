@@ -1,17 +1,16 @@
-import 'package:flow_zero_waste/app.dart';
-import 'package:flow_zero_waste/config/assets/size/app_size.dart';
 import 'package:flow_zero_waste/core/common/presentation/logics/providers/responsive_ui/page_provider.dart';
-import 'package:flow_zero_waste/core/common/presentation/pages/responsive_ui/scaffold_page.dart';
 import 'package:flow_zero_waste/core/common/presentation/widgets/shimmer/shimmer_rectangle.dart';
 import 'package:flow_zero_waste/core/common/presentation/widgets/text_outline.dart';
+import 'package:flow_zero_waste/core/enums/page_layout_size.dart';
 import 'package:flow_zero_waste/core/extensions/date_time_extension.dart';
 import 'package:flow_zero_waste/core/extensions/l10n_extension.dart';
-import 'package:flow_zero_waste/core/extensions/num_extension.dart';
 import 'package:flow_zero_waste/core/extensions/theme_extension.dart';
+import 'package:flow_zero_waste/core/helpers/calculations/image_cache_size.dart';
+import 'package:flow_zero_waste/core/helpers/images/image_builders.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-const _offersCardHeight = 216.0;
+const _offersCardHeight = 128.0;
 const _offersItemsEmpty = 4;
 
 /// offers section
@@ -55,18 +54,23 @@ class OffersSection extends StatelessWidget {
               style: context.textTheme.headlineSmall,
             ),
             SizedBox(height: page.spacing),
-            ListView.separated(
+            GridView.builder(
               shrinkWrap: true,
               primary: false,
               physics: const NeverScrollableScrollPhysics(),
               itemCount: offers?.length ?? _offersItemsEmpty,
-              separatorBuilder: (context, index) =>
-                  SizedBox(height: page.spacing),
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount:
+                    page.layoutSize >= PageLayoutSize.expanded ? 2 : 1,
+                childAspectRatio: 2,
+                crossAxisSpacing: page.spacing,
+                mainAxisSpacing: page.spacing,
+              ),
               itemBuilder: (context, index) {
                 if (offers == null) {
                   return Container(
                     width: double.infinity,
-                    height: _offersCardHeight,
+                    height: double.infinity,
                     decoration: BoxDecoration(
                       borderRadius: borderRadius,
                       color: Theme.of(context).colorScheme.primaryContainer,
@@ -79,7 +83,7 @@ class OffersSection extends StatelessWidget {
                   final offer = offers![index];
                   return OfferCard(
                     offerData: offer,
-                    height: _offersCardHeight,
+                    height: double.infinity,
                     borderRadius: borderRadius,
                     onOfferTap: onOfferTap,
                     onOfferLikeTap: onOfferLikeTap,
@@ -136,9 +140,7 @@ class OfferCard extends StatelessWidget {
           ),
           child: Column(
             children: [
-              SizedBox(
-                width: double.infinity,
-                height: height * 0.6,
+              Expanded(
                 child: Stack(
                   children: [
                     Image.network(
@@ -146,6 +148,9 @@ class OfferCard extends StatelessWidget {
                       width: double.infinity,
                       height: double.infinity,
                       fit: BoxFit.cover,
+                      errorBuilder: errorBuilder,
+                      loadingBuilder: loadingBuilder,
+                      frameBuilder: frameBuilder,
                     ),
                     Align(
                       alignment: Alignment.bottomLeft,
@@ -185,66 +190,65 @@ class OfferCard extends StatelessWidget {
                   ],
                 ),
               ),
-              Expanded(
-                child: Padding(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: page.spacing,
-                  ),
-                  child: Row(
-                    children: [
-                      Expanded(
-                        child: Padding(
-                          padding: EdgeInsets.symmetric(
-                            vertical: page.spacingHalf,
-                          ),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              Text(
-                                offerData.description,
-                                style: context.textTheme.bodyLarge,
-                                overflow: TextOverflow.ellipsis,
-                                maxLines: 1,
-                              ),
-                              Text(
-                                offerData.localization,
-                                style: context.textTheme.bodyMedium,
-                                overflow: TextOverflow.ellipsis,
-                                maxLines: 1,
-                              ),
-                              Text(
-                                '${context.l10n.available}: '
-                                '${offerData.startDate.ddMMyyyy} | '
-                                '${offerData.startDate.HHmm} - '
-                                '${offerData.endDate.HHmm}',
-                                style: context.textTheme.bodyMedium,
-                                overflow: TextOverflow.ellipsis,
-                                maxLines: 1,
-                              ),
-                            ],
-                          ),
+              Padding(
+                padding: EdgeInsets.symmetric(
+                  horizontal: page.spacing,
+                ),
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(
+                          vertical: page.spacingHalf,
+                        ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Text(
+                              offerData.description,
+                              style: context.textTheme.bodyLarge,
+                              overflow: TextOverflow.ellipsis,
+                              maxLines: 1,
+                            ),
+                            Text(
+                              offerData.localization,
+                              style: context.textTheme.bodyMedium,
+                              overflow: TextOverflow.ellipsis,
+                              maxLines: 1,
+                            ),
+                            Text(
+                              '${context.l10n.available}: '
+                              '${offerData.startDate.ddMMyyyy} | '
+                              '${offerData.startDate.HHmm} - '
+                              '${offerData.endDate.HHmm}',
+                              style: context.textTheme.bodyMedium,
+                              overflow: TextOverflow.ellipsis,
+                              maxLines: 1,
+                            ),
+                          ],
                         ),
                       ),
-                      SizedBox(width: page.spacing),
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Icon(
-                            Icons.location_searching_rounded,
+                    ),
+                    SizedBox(width: page.spacing),
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Icon(
+                          Icons.location_searching_rounded,
+                          color: context.colorScheme.onPrimaryContainer,
+                        ),
+                        SizedBox(height: page.spacingHalf),
+                        Text(
+                          '${(offerData.distance / 1000).toStringAsFixed(1)} km',
+                          style: context.textTheme.bodyLarge?.copyWith(
                             color: context.colorScheme.onPrimaryContainer,
                           ),
-                          SizedBox(height: page.spacingHalf),
-                          Text(
-                            '${(offerData.distance / 1000).toStringAsFixed(1)} km',
-                            style: context.textTheme.bodyLarge?.copyWith(
-                              color: context.colorScheme.onPrimaryContainer,
-                            ),
-                          ),
-                        ],
-                      )
-                    ],
-                  ),
+                        ),
+                      ],
+                    )
+                  ],
                 ),
               ),
             ],
