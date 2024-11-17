@@ -175,11 +175,11 @@ class _OnboardingPageState extends State<OnboardingPage>
   String _getDisplayText(int index) {
     switch (index) {
       case 0:
-        return context.l10n.onboarding_title_display_1;
+        return context.l10n.onboardingTitleDisplay1;
       case 1:
-        return context.l10n.onboarding_title_display_2;
+        return context.l10n.onboardingTitleDisplay2;
       case 2:
-        return context.l10n.onboarding_title_display_3;
+        return context.l10n.onboardingTitleDisplay3;
       default:
         return '';
     }
@@ -188,11 +188,11 @@ class _OnboardingPageState extends State<OnboardingPage>
   String _getHeadlineText(int index) {
     switch (index) {
       case 0:
-        return context.l10n.onboarding_title_headline_1;
+        return context.l10n.onboardingTitleHeadline1;
       case 1:
-        return context.l10n.onboarding_title_headline_2;
+        return context.l10n.onboardingTitleHeadline2;
       case 2:
-        return context.l10n.onboarding_title_headline_3;
+        return context.l10n.onboardingTitleHeadline3;
       default:
         return '';
     }
@@ -201,11 +201,11 @@ class _OnboardingPageState extends State<OnboardingPage>
   String _getBodyText(int index) {
     switch (index) {
       case 0:
-        return context.l10n.onboarding_title_body_1;
+        return context.l10n.onboardingTitleBody1;
       case 1:
-        return context.l10n.onboarding_title_body_2;
+        return context.l10n.onboardingTitleBody2;
       case 2:
-        return context.l10n.onboarding_title_body_3;
+        return context.l10n.onboardingTitleBody3;
       default:
         return '';
     }

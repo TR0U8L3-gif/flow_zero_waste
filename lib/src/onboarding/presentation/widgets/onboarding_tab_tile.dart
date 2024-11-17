@@ -2,7 +2,6 @@ import 'package:flow_zero_waste/config/assets/size/app_size.dart';
 import 'package:flow_zero_waste/core/common/presentation/logics/providers/responsive_ui/page_provider.dart';
 import 'package:flow_zero_waste/core/common/presentation/widgets/accessibility/semantic_texts.dart';
 import 'package:flow_zero_waste/core/common/presentation/widgets/styled/scrollbar_styled.dart';
-import 'package:flow_zero_waste/core/common/presentation/widgets/shimmer/shimmer_rectangle.dart';
 import 'package:flow_zero_waste/core/common/presentation/widgets/text_outline.dart';
 import 'package:flow_zero_waste/core/enums/page_layout_size.dart';
 import 'package:flow_zero_waste/core/enums/text_enum.dart';
@@ -10,6 +9,7 @@ import 'package:flow_zero_waste/core/extensions/l10n_extension.dart';
 import 'package:flow_zero_waste/core/extensions/num_extension.dart';
 import 'package:flow_zero_waste/core/extensions/theme_extension.dart';
 import 'package:flow_zero_waste/core/helpers/calculations/image_cache_size.dart';
+import 'package:flow_zero_waste/core/helpers/images/image_builders.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -136,36 +136,13 @@ class _Image extends StatelessWidget {
                     excludeFromSemantics: true,
                     imageUrl!,
                     fit: BoxFit.cover,
-                    errorBuilder: (context, error, stackTrace) =>
-                        const SizedBox.expand(),
                     cacheWidth: ImageCacheSize.calculate(
                       context,
                       page.size.width,
                     ),
-                    loadingBuilder: (context, child, loadingProgress) {
-                      if (loadingProgress == null) {
-                        return child;
-                      }
-                      return SizedBox.expand(
-                        child: ShimmerRectangle(
-                          borderRadius: page.spacing,
-                          opacity: 0.4,
-                          backgroundColor: context.colorScheme.primaryContainer,
-                        ),
-                      );
-                    },
-                    frameBuilder:
-                        (context, child, frame, wasSynchronouslyLoaded) {
-                      if (wasSynchronouslyLoaded) {
-                        return child;
-                      }
-                      return AnimatedOpacity(
-                        duration:
-                            const Duration(milliseconds: AppSize.durationSmall),
-                        opacity: frame == null ? 0 : 1,
-                        child: child,
-                      );
-                    },
+                    errorBuilder: errorBuilder,
+                  loadingBuilder: loadingBuilder,
+                  frameBuilder: frameBuilder,
                   ),
                 )
               else if (imageAsset != null)
@@ -202,8 +179,8 @@ class _Image extends StatelessWidget {
                     bottom: page.spacing,
                   ),
                   child: TextOutline(
-                    text: imageTitle,
-                    textStyle: context.textTheme.displayLarge?.copyWith(
+                    imageTitle,
+                    style: context.textTheme.displayLarge?.copyWith(
                       color: context.colorScheme.surface,
                       height: 1.56,
                     ),

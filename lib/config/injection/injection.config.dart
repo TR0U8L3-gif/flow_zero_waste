@@ -58,6 +58,9 @@ import '../../src/language/domain/usecases/save_language_to_local_storage.dart'
     as _i665;
 import '../../src/language/presentation/logics/language_provider.dart'
     as _i1069;
+import '../../src/location/data/datasources/location_hive_storage.dart'
+    as _i727;
+import '../../src/location/presentation/logics/location_provider.dart' as _i257;
 import '../../src/onboarding/data/datasources/onboarding_local_data_source.dart'
     as _i937;
 import '../../src/onboarding/data/datasources/onboarding_local_data_source_impl.dart'
@@ -113,6 +116,10 @@ extension GetItInjectableX on _i174.GetIt {
     gh.singleton<_i674.UserMapper>(() => _i674.UserMapper());
     gh.singleton<_i681.LanguageStorageHive>(
       () => _i681.LanguageStorageHive(),
+      dispose: (i) => i.dispose(),
+    );
+    gh.singleton<_i727.LocationStorageHive>(
+      () => _i727.LocationStorageHive(),
       dispose: (i) => i.dispose(),
     );
     gh.singleton<_i296.OnboardingStorageHive>(
@@ -187,6 +194,10 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i910.LogoutUser(repository: gh<_i274.AuthRepository>()));
     gh.singleton<_i651.RegisterUser>(
         () => _i651.RegisterUser(repository: gh<_i274.AuthRepository>()));
+    gh.singleton<_i257.LocationProvider>(() => _i257.LocationProvider(
+          loggerManager: gh<_i127.LoggerManager>(),
+          locationStorageHive: gh<_i727.LocationStorageHive>(),
+        ));
     gh.singleton<_i346.AuthProvider>(() => _i346.AuthProvider(
           getCurrentUser: gh<_i458.GetCurrentUser>(),
           logoutUser: gh<_i910.LogoutUser>(),
