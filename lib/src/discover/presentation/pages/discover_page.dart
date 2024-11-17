@@ -1,14 +1,13 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:flow_zero_waste/config/injection/injection.dart';
 import 'package:flow_zero_waste/core/common/presentation/logics/providers/responsive_ui/page_provider.dart';
-import 'package:flow_zero_waste/src/location/presentation/logics/location_provider.dart';
-import 'package:flow_zero_waste/src/location/presentation/widgets/location_section.dart';
 import 'package:flow_zero_waste/core/common/presentation/widgets/components/nav_bar.dart';
 import 'package:flow_zero_waste/core/extensions/l10n_extension.dart';
 import 'package:flow_zero_waste/src/discover/presentation/widgets/banner_section.dart';
 import 'package:flow_zero_waste/src/discover/presentation/widgets/categories_section.dart';
 import 'package:flow_zero_waste/src/discover/presentation/widgets/offers_section.dart';
 import 'package:flow_zero_waste/src/discover/presentation/widgets/recommended_shops_section.dart';
+import 'package:flow_zero_waste/src/location/presentation/logics/location_provider.dart';
+import 'package:flow_zero_waste/src/location/presentation/widgets/location_section.dart';
 import 'package:flow_zero_waste/src/location/presentation/widgets/select_location_popup.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -51,25 +50,34 @@ class DiscoverPage extends StatelessWidget implements AutoRouteWrapper {
                 onBannerTap: debugPrint,
                 banners: [
                   BannerData(
-                    title: 'Baner 1',
+                    title: 'Fresh Deals',
+                    description:
+                        'Discover fresh and sustainable food at amazing prices!',
+                    imageUrl: 'https://picsum.photos/600/300?image=1',
                   ),
                   BannerData(
-                    title: 'Baner 2',
-                    description: 'Opis banera 2',
-                    imageUrl: 'https://picsum.photos/301/201',
+                    title: 'Eco Pantry',
+                    description:
+                        'Zero waste pantry essentials for your green lifestyle.',
+                    imageUrl: 'https://picsum.photos/600/300?image=2',
                   ),
                   BannerData(
-                    title: 'Baner 3 tutaj długi opis',
-                    imageUrl: 'https://picsum.photos/302/202',
+                    title: 'Organic Treats',
+                    description:
+                        'Indulge in delicious organic and eco-friendly snacks.',
+                    imageUrl: 'https://picsum.photos/600/300?image=3',
                   ),
                   BannerData(
-                    title: 'Baner 4',
-                    description: 'bardzo długi opis bannera oj tak coś tam coś',
-                    imageUrl: 'https://picsum.photos/303/203',
+                    title: 'Sustainable Living',
+                    description:
+                        'Products that support your commitment to the environment.',
+                    imageUrl: 'https://picsum.photos/600/300?image=4',
                   ),
                   BannerData(
-                    title: 'Baner 5',
-                    imageUrl: 'https://picsum.photos/304/204',
+                    title: 'Local Favorites',
+                    description:
+                        'Explore the best zero waste options from local producers.',
+                    imageUrl: 'https://picsum.photos/600/300?image=5',
                   ),
                 ],
               ),
@@ -84,67 +92,69 @@ class DiscoverPage extends StatelessWidget implements AutoRouteWrapper {
                 onOfferTap: debugPrint,
                 offers: [
                   OfferData(
-                    id: '5675767-234234-345',
-                    title: 'Offers 1',
-                    description: 'najlepsza Oferta 1',
+                    id: 'offer1',
+                    title: 'Eco Pantry',
                     distance: 1200,
-                    localization: 'Kraków generała maczka',
-                    imageUrl: 'https://picsum.photos/307/207',
-                    startDate: DateTime.now(),
-                    endDate: DateTime.now().add(const Duration(hours: 5)),
+                    localization: 'Lipowa Street, Białystok',
+                    startDate: DateTime.now().copyWith(hour: 9, minute: 15),
+                    endDate: DateTime.now().copyWith(hour: 19, minute: 30),
+                    description:
+                        'Discover a wide range of zero waste food products at Eco Pantry.',
+                    imageUrl: 'https://picsum.photos/401/201',
                     isLiked: false,
-                    newOffers: 15,
+                    newOffers: 5,
                   ),
                   OfferData(
-                    id: '909-234234-345',
-                    title: 'Offers 2',
-                    description: 'najlepsza oferta 2',
-                    distance: 200,
-                    localization:
-                        'Kraków generała maczka PRZY ULICY CIASNEJ OSIEM JEST',
-                    imageUrl: 'https://picsum.photos/308/208',
-                    startDate: DateTime.now(),
-                    endDate: DateTime.now().add(const Duration(hours: 4)),
-                    isLiked: false,
-                    newOffers: 11,
-                  ),
-                  OfferData(
-                    id: '789878-234234-345',
-                    title: 'Offers 3',
-                    description: 'najlepsza oferta 3',
-                    distance: 12000,
-                    localization: 'Kraków generała maczka',
-                    imageUrl: 'https://picsum.photos/309/209',
-                    startDate: DateTime.now(),
-                    endDate: DateTime.now().add(const Duration(hours: 3)),
+                    id: 'offer2',
+                    title: 'Zero Waste Market',
+                    distance: 2500,
+                    localization: 'Rynek Kościuszki, Białystok',
+                    startDate: DateTime.now().copyWith(hour: 8, minute: 30),
+                    endDate: DateTime.now().copyWith(hour: 19, minute: 30),
+                    description:
+                        'Your destination for unpackaged and sustainable groceries.',
+                    imageUrl: 'https://picsum.photos/402/202',
                     isLiked: true,
-                    newOffers: 1,
+                    newOffers: 3,
                   ),
                   OfferData(
-                    id: '456-076-23',
-                    title: 'Offers 4',
-                    description: 'najlepsza oferta 4',
-                    distance: 100,
-                    localization: 'Kraków generała maczka',
-                    imageUrl: 'https://picsum.photos/310/210',
-                    endDate: DateTime.now().add(const Duration(hours: 2)),
-                    startDate:
-                        DateTime.now().subtract(const Duration(hours: 2)),
+                    id: 'offer3',
+                    title: 'Green Groceries Hub',
+                    distance: 800,
+                    localization: 'Piłsudskiego Avenue, Białystok',
+                    startDate: DateTime.now().copyWith(hour: 9, minute: 45),
+                    endDate: DateTime.now().copyWith(hour: 19, minute: 30),
+                    description:
+                        'Fresh produce and pantry staples without wasteful packaging.',
+                    imageUrl: 'https://picsum.photos/403/203',
+                    isLiked: false,
+                    newOffers: 7,
+                  ),
+                  OfferData(
+                    id: 'offer4',
+                    title: 'Sustainable Bites',
+                    distance: 3000,
+                    localization: 'Sienkiewicza Street, Białystok',
+                    startDate: DateTime.now().copyWith(hour: 8, minute: 0),
+                    endDate: DateTime.now().copyWith(hour: 19, minute: 30),
+                    description:
+                        'Tasty snacks and meals that care for the environment.',
+                    imageUrl: 'https://picsum.photos/404/204',
                     isLiked: true,
                     newOffers: 2,
                   ),
                   OfferData(
-                    id: '45-876-324',
-                    title: 'Offers 5',
-                    distance: 812000,
-                    description: 'Opis oferty 5 ble ble',
-                    localization: 'Kraków generała maczka',
-                    imageUrl: 'https://picsum.photos/311/211',
-                    startDate:
-                        DateTime.now().subtract(const Duration(hours: 4)),
-                    endDate: DateTime.now().add(const Duration(hours: 1)),
+                    id: 'offer5',
+                    title: 'Refill & Feast',
+                    distance: 1800,
+                    localization: 'Zwierzyniecka Street, Białystok',
+                    startDate: DateTime.now().copyWith(hour: 9, minute: 30),
+                    endDate: DateTime.now().copyWith(hour: 19, minute: 30),
+                    description:
+                        'Refill your pantry and feast sustainably with zero waste options.',
+                    imageUrl: 'https://picsum.photos/405/205',
                     isLiked: false,
-                    newOffers: 5,
+                    newOffers: 9,
                   ),
                 ],
               ),
@@ -159,15 +169,24 @@ class DiscoverPage extends StatelessWidget implements AutoRouteWrapper {
                 categories: [
                   CategoryData(
                     title: 'Fruits',
-                    imageUrl: 'https://picsum.photos/128',
+                    imageUrl: 'https://picsum.photos/124/64',
                   ),
                   CategoryData(
                     title: 'Vegetables',
-                    imageUrl: 'https://picsum.photos/124',
+                    imageUrl: 'https://picsum.photos/125/65',
                   ),
-                  CategoryData(title: 'Meat'),
-                  CategoryData(title: 'Fish'),
-                  CategoryData(title: 'Chips'),
+                  CategoryData(
+                    title: 'Meat',
+                    imageUrl: 'https://picsum.photos/126/66',
+                  ),
+                  CategoryData(
+                    title: 'Fish',
+                    imageUrl: 'https://picsum.photos/127/67',
+                  ),
+                  CategoryData(
+                    title: 'Chips',
+                    imageUrl: 'https://picsum.photos/128/68',
+                  ),
                 ],
               ),
             ),

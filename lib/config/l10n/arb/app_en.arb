@@ -239,5 +239,21 @@
   "recommendedShops": "Recommended shops",
   "@recommendedShops": {
     "description": "Text displayed as a header or title for the recommended shops section"
+  },
+  "checkAvailabilityInYourArea": "Check what's available in your area",
+  "@checkAvailabilityInYourArea": {
+    "description": "Button or link allowing the user to check available options in their location"
+  },
+  "selectDistance": "Select distance",
+  "@selectDistance": {
+    "description": "Label for a selection field allowing the user to specify the maximum distance"
+  },
+  "useMyCurrentLocation": "Use my current location",
+  "@useMyCurrentLocation": {
+    "description": "Button allowing the application to access the user's current location"
+  },
+  "apply": "Apply",
+  "@apply": {
+    "description": "Button confirming the user's choice and applying the selected settings"
   }
 }

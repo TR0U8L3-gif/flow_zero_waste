@@ -239,5 +239,21 @@
   "recommendedShops": "Polecane sklepy",
   "@recommendedShops": {
     "description": "Tekst wyświetlany jako nagłówek lub tytuł dla sekcji z polecanymi sklepami"
+  },
+  "checkAvailabilityInYourArea": "Sprawdź, co jest dostępne w Twojej okolicy",
+  "@checkAvailabilityInYourArea": {
+    "description": "Przycisk lub link umożliwiający użytkownikowi sprawdzenie dostępnych opcji w jego lokalizacji"
+  },
+  "selectDistance": "Wybierz odległość",
+  "@selectDistance": {
+    "description": "Etykieta pola wyboru, pozwalająca użytkownikowi określić maksymalną odległość"
+  },
+  "useMyCurrentLocation": "Użyj mojej obecnej lokalizacji",
+  "@useMyCurrentLocation": {
+    "description": "Przycisk pozwalający aplikacji na dostęp do bieżącej lokalizacji użytkownika"
+  },
+  "apply": "Zastosuj",
+  "@apply": {
+    "description": "Przycisk potwierdzający wybór użytkownika i stosujący wybrane ustawienia"
   }
 }

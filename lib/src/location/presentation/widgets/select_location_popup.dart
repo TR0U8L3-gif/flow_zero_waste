@@ -4,6 +4,7 @@ import 'package:flow_zero_waste/core/common/presentation/logics/providers/respon
 import 'package:flow_zero_waste/core/common/presentation/widgets/styled/scrollbar_styled.dart';
 import 'package:flow_zero_waste/core/enums/page_layout_size.dart';
 import 'package:flow_zero_waste/core/extensions/build_context_extension.dart';
+import 'package:flow_zero_waste/core/extensions/l10n_extension.dart';
 import 'package:flow_zero_waste/core/extensions/num_extension.dart';
 import 'package:flow_zero_waste/core/extensions/theme_extension.dart';
 import 'package:flow_zero_waste/src/location/presentation/logics/location_provider.dart';
@@ -127,7 +128,7 @@ class _SelectLocation extends StatelessWidget {
               children: [
                 // Title
                 Text(
-                  'Sprawdź co jest dostępne w Twojej okolicy',
+                  context.l10n.checkAvailabilityInYourArea,
                   style: Theme.of(context).textTheme.titleMedium,
                   textAlign: TextAlign.center,
                 ),
@@ -206,7 +207,7 @@ class _SelectLocation extends StatelessWidget {
                 Column(
                   children: [
                     Text(
-                      'Wybierz odległość',
+                      context.l10n.selectDistance,
                       style: Theme.of(context).textTheme.bodyLarge,
                     ),
                     Slider(
@@ -225,7 +226,7 @@ class _SelectLocation extends StatelessWidget {
                 TextButton.icon(
                   onPressed: cubit.findMyLocation,
                   icon: const Icon(Icons.my_location_rounded),
-                  label: const Text('Użyj mojej obecnej lokalizacji'),
+                  label: Text(context.l10n.useMyCurrentLocation),
                 ),
                 const SizedBox(height: AppSize.s),
                 // Apply button
@@ -234,7 +235,7 @@ class _SelectLocation extends StatelessWidget {
                     locator<LocationProvider>().saveLocationData(state.locationData);
                     Navigator.of(context).pop(); 
                   },
-                  child: const Text('Zastosuj'),
+                  child: Text(context.l10n.apply),
                 ),
                 const SizedBox(
                   height: AppSize.xl,
