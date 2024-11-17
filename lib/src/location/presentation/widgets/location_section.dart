@@ -38,7 +38,7 @@ class LocationSection extends StatelessWidget {
             children: [
               Icon(
                 Icons.location_on,
-                color: context.colorScheme.primary,
+                color: context.colorScheme.onSecondaryContainer,
               ),
               SizedBox(width: page.spacingHalf),
               Expanded(
@@ -47,7 +47,9 @@ class LocationSection extends StatelessWidget {
                     scrollDirection: Axis.horizontal,
                     child: Text(
                       localization ?? translations.locationSelectLocation,
-                      style: Theme.of(context).textTheme.titleMedium,
+                      style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                        color: context.colorScheme.onSecondaryContainer,
+                      ),
                       maxLines: 1,
                     ),
                   ),
@@ -56,7 +58,12 @@ class LocationSection extends StatelessWidget {
               SizedBox(width: page.spacingHalf),
               TextButton(
                 onPressed: onLocationChange,
-                child: Text(translations.change),
+                child: Text(
+                  translations.change,
+                  style: context.textTheme.bodyMedium?.copyWith(
+                    color: context.colorScheme.onSecondaryContainer,
+                  ),
+                ),
               ),
             ],
           ),

@@ -229,6 +229,8 @@ class _NavigationPageState extends State<NavigationPage> {
                     child: Padding(
                       padding: EdgeInsets.only(
                         right: page.spacing,
+                        top: page.spacing,
+                        bottom: page.spacing,
                       ),
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(

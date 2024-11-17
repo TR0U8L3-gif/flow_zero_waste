@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flow_zero_waste/config/assets/size/app_size.dart';
 import 'package:flow_zero_waste/core/common/presentation/logics/logic_state.dart';
 import 'package:flow_zero_waste/core/common/presentation/logics/providers/responsive_ui/page_provider.dart';
+import 'package:flow_zero_waste/core/common/presentation/widgets/components/nav_bar.dart';
 import 'package:flow_zero_waste/core/common/presentation/widgets/styled/app_bar_styled.dart';
 import 'package:flow_zero_waste/core/common/presentation/widgets/styled/scrollbar_styled.dart';
 import 'package:flow_zero_waste/core/extensions/l10n_extension.dart';
@@ -69,8 +70,8 @@ class _SignUpPageState extends State<SignUpPage> {
         }
       },
       child: Scaffold(
-        appBar: AppBarStyled(
-          title: Text(context.l10n.registerButton),
+        appBar: NavBar(
+          title: context.l10n.registerButton,
         ),
         body: ScrollbarStyled(
           child: Align(

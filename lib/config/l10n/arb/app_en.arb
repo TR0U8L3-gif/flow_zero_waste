@@ -210,7 +210,7 @@
   "@locationSelectLocation": {
     "description": "Label for selecting a location"
   },
-  "change" : "Change",
+  "change": "Change",
   "@change": {
     "description": "Label for changing a setting"
   },
@@ -220,13 +220,13 @@
   },
   "newOffers": "{count, plural, other{offers} one{offer}}",
   "@newOffers": {
-      "description": "count new offers",
-      "placeholders": {
-          "count": {
-            "type": "int",
-            "example": "1" 
-          }
+    "description": "count new offers",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "1"
       }
+    }
   },
   "available": "Available",
   "@available": {
@@ -255,5 +255,113 @@
   "apply": "Apply",
   "@apply": {
     "description": "Button confirming the user's choice and applying the selected settings"
+  },
+  "profileSettings": "Settings",
+  "@profileSettings": {
+    "description": "Profile menu option allowing access to user settings"
+  },
+  "profileCommunity": "Community",
+  "@profileCommunity": {
+    "description": "Profile menu option leading to the community section"
+  },
+  "profileSupport": "Support",
+  "@profileSupport": {
+    "description": "Profile menu option providing access to user support"
+  },
+  "profileEditProfile": "Edit Profile",
+  "@profileEditProfile": {
+    "description": "Profile menu option allowing the user to edit their profile information"
+  },
+  "profileNotifications": "Notifications",
+  "@profileNotifications": {
+    "description": "Profile menu option leading to notification settings"
+  },
+  "profileVouchers": "Vouchers",
+  "@profileVouchers": {
+    "description": "Profile menu option providing access to the user's list of vouchers"
+  },
+  "profileBlog": "Blog",
+  "@profileBlog": {
+    "description": "Profile menu option leading to the blog section"
+  },
+  "profileRegisterLocal": "Register your venue",
+  "@profileRegisterLocal": {
+    "description": "Profile menu option allowing users to register their own venue"
+  },
+  "profileRecommendPlace": "Recommend a place",
+  "@profileRecommendPlace": {
+    "description": "Profile menu option allowing the user to recommend a place"
+  },
+  "profileHelp": "Order help",
+  "@profileHelp": {
+    "description": "Profile menu option offering help with the user's orders"
+  },
+  "profileHowItWorks": "How it works",
+  "@profileHowItWorks": {
+    "description": "Profile menu option explaining how the application works"
+  },
+  "profileLegal": "Legal",
+  "@profileLegal": {
+    "description": "Profile menu option leading to legal information"
+  },
+  "profileChangeLanguage": "Change language",
+  "@profileChangeLanguage": {
+    "description": "Option allowing the user to change the application's language"
+  },
+  "profileCustomizeTheme": "Customize theme",
+  "@profileCustomizeTheme": {
+    "description": "Option allowing the user to customize the application's visual theme"
+  },
+  "profileLogOut": "Log out",
+  "@profileLogOut": {
+    "description": "Option allowing the user to log out of the application"
+  },
+  "profileAvoidedCO2Emissions": "Avoided CO2e emissions",
+  "@profileAvoidedCO2Emissions": {
+    "description": "Section or element displaying the amount of CO2e emissions that were avoided"
+  },
+  "profileMoneySaved": "Money saved",
+  "@profileMoneySaved": {
+    "description": "Section or element displaying the total amount of money saved"
+  },
+  "profileOrderCount": "Order count",
+  "@profileOrderCount": {
+    "description": "Section or element displaying the total number of orders made by the user"
+  },
+  "profilePointsCollected": "Points collected",
+  "@profilePointsCollected": {
+    "description": "Section or element displaying the number of points collected by the user"
+  },
+  "profileTreesPlanted": "Trees planted",
+  "@profileTreesPlanted": {
+    "description": "Section or element displaying the number of trees planted by or with the user's help"
+  },
+  "themeCurrentTextScaleFactor": "Current text scale factor",
+  "@themeCurrentTextScaleFactor": {
+    "description": "Describes the current level of text scaling in the application"
+  },
+  "themeDisplayStylesDescription": "Display styles are reserved for short, important text or numerals. They work best on large screens.",
+  "@themeDisplayStylesDescription": {
+    "description": "Explanation of display styles used in the application"
+  },
+  "themeHeadlinesDescription": "Headlines are best-suited for short, high-emphasis text on smaller screens.",
+  "@themeHeadlinesDescription": {
+    "description": "Explanation of headline styles used in the application"
+  },
+  "themeTitlesDescription": "Titles are smaller than headline styles, and should be used for medium-emphasis text that remains relatively short.",
+  "@themeTitlesDescription": {
+    "description": "Explanation of title styles used in the application"
+  },
+  "themeBodyStylesDescription": "Body styles are used for longer passages of text in your app.",
+  "@themeBodyStylesDescription": {
+    "description": "Explanation of body styles used in the application"
+  },
+  "themeLabelStylesDescription": "Label styles are smaller, utilitarian styles, used for things like the text inside components.",
+  "@themeLabelStylesDescription": {
+    "description": "Explanation of label styles used in the application"
+  },
+  "profileLicenses": "Licenses",
+  "@profileLicenses": {
+    "description": "Profile menu option leading to license information"
   }
 }

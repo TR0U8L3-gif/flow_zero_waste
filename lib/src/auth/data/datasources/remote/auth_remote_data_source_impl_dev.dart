@@ -5,6 +5,13 @@ import 'package:flow_zero_waste/src/auth/data/models/auth_model.dart';
 import 'package:flow_zero_waste/src/auth/data/models/user_model.dart';
 import 'package:injectable/injectable.dart';
 
+const kUserModel = UserModel(
+      id: '3fc4eb93-6dc0-4b2a-99f3-835b41ffea73',
+      name: 'Radosław Sienkiewicz',
+      email: 'rsienkiewicz88@gmail.com',
+      phoneNumber: '798465557',
+    );
+
 /// Dev implementation of AuthRemoteDataSource that returns sample data.
 @Singleton(as: AuthRemoteDataSource, env: [Env.development])
 class AuthRemoteDataSourceImplDev implements AuthRemoteDataSource {
@@ -24,14 +31,8 @@ class AuthRemoteDataSourceImplDev implements AuthRemoteDataSource {
     }
 
     // Przykładowe wartości dla AuthModel przy logowaniu
-    final user = UserModel(
-      id: '3fc4eb93-6dc0-4b2a-99f3-835b41ffea73',
-      name: 'Radosław Sienkiewicz',
-      email: email,
-      phoneNumber: '798465557',
-    );
-    return AuthModel(
-      user: user,
+    return const AuthModel(
+      user: kUserModel,
       accessToken: 'sample_access_token_123',
       refreshToken: 'sample_refresh_token_456',
     );
@@ -50,11 +51,6 @@ class AuthRemoteDataSourceImplDev implements AuthRemoteDataSource {
   @override
   Future<UserModel> getCurrentUser() async {
     await Future<dynamic>.delayed(const Duration(seconds: 1));
-    return const UserModel(
-      id: 'user123',
-      name: 'Jan Kowalski',
-      email: 'jan.kowalski@example.com',
-      phoneNumber: '123456789',
-    );
+    return kUserModel;
   }
 }

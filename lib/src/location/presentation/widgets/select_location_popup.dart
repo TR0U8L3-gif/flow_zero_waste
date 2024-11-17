@@ -1,5 +1,4 @@
 import 'package:flow_zero_waste/config/assets/size/app_size.dart';
-import 'package:flow_zero_waste/config/injection/injection.dart';
 import 'package:flow_zero_waste/core/common/presentation/logics/providers/responsive_ui/page_provider.dart';
 import 'package:flow_zero_waste/core/common/presentation/widgets/styled/scrollbar_styled.dart';
 import 'package:flow_zero_waste/core/enums/page_layout_size.dart';
@@ -7,7 +6,7 @@ import 'package:flow_zero_waste/core/extensions/build_context_extension.dart';
 import 'package:flow_zero_waste/core/extensions/l10n_extension.dart';
 import 'package:flow_zero_waste/core/extensions/num_extension.dart';
 import 'package:flow_zero_waste/core/extensions/theme_extension.dart';
-import 'package:flow_zero_waste/src/location/presentation/logics/location_provider.dart';
+import 'package:flow_zero_waste/src/location/domain/entities/location_data.dart';
 import 'package:flow_zero_waste/src/location/presentation/logics/location_select_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -19,17 +18,35 @@ const _heightSpacePercentage = 0.32;
 
 /// Popup for selecting location
 class SelectLocationPopup extends StatelessWidget {
-  const SelectLocationPopup._({super.key});
+  const SelectLocationPopup._({
+    super.key,
+    this.initialLocationData,
+    this.onLocationSelected,
+  });
 
   /// Show widget in bottom sheet
-  static Future<T?> showBottomSheet<T>(BuildContext context, {Key? key}) async {
+  static Future<T?> showBottomSheet<T>(
+    BuildContext context, {
+    Key? key,
+    LocationData? initialLocationData,
+    void Function(LocationData? data)? onLocationSelected,
+  }) async {
     return showModalBottomSheet(
       context: context,
       isScrollControlled: true,
       backgroundColor: Colors.transparent,
-      builder: (context) => SelectLocationPopup._(key: key),
+      builder: (context) => SelectLocationPopup._(
+        key: key,
+        initialLocationData: initialLocationData,
+        onLocationSelected: onLocationSelected,
+      ),
     );
   }
+
+  /// Initial location data
+  final LocationData? initialLocationData;
+  /// Callback for location selected
+  final void Function(LocationData? data)? onLocationSelected;
 
   @override
   Widget build(BuildContext context) {
@@ -77,7 +94,10 @@ class SelectLocationPopup extends StatelessWidget {
                           child: Align(
                             child: SingleChildScrollView(
                               controller: controller,
-                              child: const _SelectLocation(),
+                              child: _SelectLocation(
+                                initialLocationData,
+                                onLocationSelected,
+                              ),
                             ),
                           ),
                         ),
@@ -95,15 +115,18 @@ class SelectLocationPopup extends StatelessWidget {
 }
 
 class _SelectLocation extends StatelessWidget {
-  const _SelectLocation();
+  const _SelectLocation(this.initialLocationData, this.onLocationSelected);
+
+  final LocationData? initialLocationData;
+  final void Function(LocationData? data)? onLocationSelected;
+
   @override
   Widget build(BuildContext context) {
     final mapController = MapController();
     final page = context.watch<PageProvider>();
-    final locationData = locator<LocationProvider>().locationData;
     return BlocProvider(
-      create: (context) => LocationSelectCubit()
-        ..initialize(locationData),
+      create: (context) =>
+          LocationSelectCubit()..initialize(initialLocationData),
       child: BlocConsumer<LocationSelectCubit, LocationSelectState>(
         listener: (context, state) {
           if (!state.isListenable) return;
@@ -155,7 +178,9 @@ class _SelectLocation extends StatelessWidget {
                               initialCenter: LatLng(lat, lng),
                               initialZoom: zoom,
                               interactionOptions: const InteractionOptions(
-                                flags: InteractiveFlag.drag,
+                                flags: InteractiveFlag.drag 
+                                | InteractiveFlag.pinchZoom
+                                | InteractiveFlag.doubleTapZoom,
                               ),
                               backgroundColor: context.colorScheme.secondary,
                               onPointerUp: (point, position) =>
@@ -232,8 +257,8 @@ class _SelectLocation extends StatelessWidget {
                 // Apply button
                 ElevatedButton(
                   onPressed: () {
-                    locator<LocationProvider>().saveLocationData(state.locationData);
-                    Navigator.of(context).pop(); 
+                    onLocationSelected?.call(state.locationData);
+                    Navigator.of(context).pop();
                   },
                   child: Text(context.l10n.apply),
                 ),

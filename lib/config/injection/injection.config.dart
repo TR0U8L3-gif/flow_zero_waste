@@ -194,7 +194,7 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i910.LogoutUser(repository: gh<_i274.AuthRepository>()));
     gh.singleton<_i651.RegisterUser>(
         () => _i651.RegisterUser(repository: gh<_i274.AuthRepository>()));
-    gh.singleton<_i257.LocationProvider>(() => _i257.LocationProvider(
+    gh.factory<_i257.LocationProvider>(() => _i257.LocationProvider(
           loggerManager: gh<_i127.LoggerManager>(),
           locationStorageHive: gh<_i727.LocationStorageHive>(),
         ));
