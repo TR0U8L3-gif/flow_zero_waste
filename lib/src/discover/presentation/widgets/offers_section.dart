@@ -261,13 +261,13 @@ class OfferCard extends StatelessWidget {
                     children: [
                       Icon(
                         Icons.location_searching_rounded,
-                        color: context.colorScheme.onPrimaryContainer,
+                        color: context.colorScheme.primary,
                       ),
                       SizedBox(height: page.spacingHalf),
                       Text(
                         '${(offerData.distance / 1000).toStringAsFixed(1)} km',
                         style: context.textTheme.bodyLarge?.copyWith(
-                          color: context.colorScheme.onPrimaryContainer,
+                          color: context.colorScheme.primary,
                         ),
                       ),
                     ],

@@ -9,8 +9,8 @@ import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
 
 const _textScaleFactorDefault = 1.0;
-const _textScaleFactorMinDefault = 0.4;
-const _textScaleFactorMaxDefault = 2.2;
+const _textScaleFactorMinDefault = 0.6;
+const _textScaleFactorMaxDefault = 1.6;
 
 const _timerSaveDuration = 5;
 

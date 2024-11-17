@@ -20,10 +20,11 @@ class DiscoverPage extends StatelessWidget implements AutoRouteWrapper {
 
   @override
   Widget build(BuildContext context) {
+    final location = context.watch<LocationProvider>();
     final page = context.watch<PageProvider>();
     return Scaffold(
       appBar: NavBar(
-        text: context.l10n.discover,
+        title: context.l10n.discover,
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -35,10 +36,13 @@ class DiscoverPage extends StatelessWidget implements AutoRouteWrapper {
                 vertical: page.spacingHalf,
               ),
               child: LocationSection(
-                localization:
-                    context.watch<LocationProvider>().locationData?.address,
+                localization: location.locationData?.address,
                 onLocationChange: () =>
-                    SelectLocationPopup.showBottomSheet<void>(context),
+                    SelectLocationPopup.showBottomSheet<void>(
+                  context,
+                  initialLocationData: location.locationData,
+                  onLocationSelected: location.saveLocationData,
+                ),
               ),
             ),
             Padding(

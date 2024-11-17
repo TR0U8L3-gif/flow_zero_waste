@@ -220,13 +220,13 @@
   },
   "newOffers": "{count, plural,  one{oferta} other{ofert}}",
   "@newOffers": {
-      "description": "liczy ile jest nowych ofert",
-      "placeholders": {
-          "count": {
-            "type": "int",
-            "example": "1" 
-          }
+    "description": "liczy ile jest nowych ofert",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "1"
       }
+    }
   },
   "available": "Dostępne",
   "@available": {
@@ -255,5 +255,109 @@
   "apply": "Zastosuj",
   "@apply": {
     "description": "Przycisk potwierdzający wybór użytkownika i stosujący wybrane ustawienia"
+  },
+  "profileSettings": "Ustawienia",
+  "@profileSettings": {
+    "description": "Opcja menu profilu, umożliwiająca dostęp do ustawień użytkownika"
+  },
+  "profileCommunity": "Społeczność",
+  "@profileCommunity": {
+    "description": "Opcja menu profilu, prowadząca do sekcji społeczności"
+  },
+  "profileSupport": "Wsparcie",
+  "@profileSupport": {
+    "description": "Opcja menu profilu, umożliwiająca dostęp do wsparcia użytkownika"
+  },
+  "profileEditProfile": "Edytuj Profil",
+  "@profileEditProfile": {
+    "description": "Opcja menu profilu, pozwalająca edytować dane użytkownika"
+  },
+  "profileNotifications": "Powiadomienia",
+  "@profileNotifications": {
+    "description": "Opcja menu profilu, prowadząca do ustawień powiadomień"
+  },
+  "profileVouchers": "Vouchery",
+  "@profileVouchers": {
+    "description": "Opcja menu profilu, umożliwiająca dostęp do listy voucherów użytkownika"
+  },
+  "profileBlog": "Blog",
+  "@profileBlog": {
+    "description": "Opcja menu profilu, prowadząca do sekcji bloga"
+  },
+  "profileRegisterLocal": "Zarejestruj swój lokal",
+  "@profileRegisterLocal": {
+    "description": "Opcja menu profilu, umożliwiająca zarejestrowanie własnego lokalu"
+  },
+  "profileRecommendPlace": "Poleć miejsce",
+  "@profileRecommendPlace": {
+    "description": "Opcja menu profilu, pozwalająca użytkownikowi polecić miejsce"
+  },
+  "profileHelp": "Pomoc z zamówieniem",
+  "@profileHelp": {
+    "description": "Opcja menu profilu, oferująca pomoc z zamówieniami użytkownika"
+  },
+  "profileHowItWorks": "Jak to działa",
+  "@profileHowItWorks": {
+    "description": "Opcja menu profilu, wyjaśniająca działanie aplikacji"
+  },
+  "profileLegal": "Kwestie prawne",
+  "@profileLegal": {
+    "description": "Opcja menu profilu, prowadząca do informacji prawnych"
+  },
+  "profileChangeLanguage": "Zmień język",
+  "@profileChangeLanguage": {
+    "description": "Opcja umożliwiająca użytkownikowi zmianę języka aplikacji"
+  },
+  "profileCustomizeTheme": "Dostosuj motyw",
+  "@profileCustomizeTheme": {
+    "description": "Opcja umożliwiająca użytkownikowi dostosowanie motywu wizualnego aplikacji"
+  },
+  "profileLogOut": "Wyloguj",
+  "@profileLogOut": {
+    "description": "Opcja umożliwiająca użytkownikowi wylogowanie się z aplikacji"
+  },
+  "profileAvoidedCO2Emissions": "Uniknięte emisje CO2e",
+  "@profileAvoidedCO2Emissions": {
+    "description": "Sekcja lub element wyświetlający ilość emisji CO2e, które udało się uniknąć"
+  },
+  "profileMoneySaved": "Zaoszczędzone pieniądze",
+  "@profileMoneySaved": {
+    "description": "Sekcja lub element wyświetlający sumę zaoszczędzonych pieniędzy"
+  },
+  "profileOrderCount": "Ilość zamówień",
+  "@profileOrderCount": {
+    "description": "Sekcja lub element wyświetlający liczbę zamówień użytkownika"
+  },
+  "profilePointsCollected": "Zebrane punkty",
+  "@profilePointsCollected": {
+    "description": "Sekcja lub element wyświetlający liczbę punktów zebranych przez użytkownika"
+  },
+  "profileTreesPlanted": "Posadzone drzewa",
+  "@profileTreesPlanted": {
+    "description": "Sekcja lub element wyświetlający liczbę drzew posadzonych przez użytkownika lub z jego pomocą"
+  },
+  "themeCurrentTextScaleFactor": "Bieżący współczynnik skalowania tekstu",
+  "@themeCurrentTextScaleFactor": {
+    "description": "Opisuje aktualny poziom skalowania tekstu w aplikacji"
+  },
+  "themeDisplayStylesDescription": "Style wyświetlania są zarezerwowane dla krótkich, ważnych tekstów lub cyfr. Najlepiej sprawdzają się na dużych ekranach.",
+  "@themeDisplayStylesDescription": {
+    "description": "Wyjaśnienie stylów wyświetlania używanych w aplikacji"
+  },
+  "themeHeadlinesDescription": "Nagłówki najlepiej nadają się do krótkich, wyróżnionych tekstów na mniejszych ekranach.",
+  "@themeHeadlinesDescription": {
+    "description": "Wyjaśnienie stylów nagłówków używanych w aplikacji"
+  },
+  "themeTitlesDescription": "Tytuły są mniejsze od nagłówków i powinny być używane dla tekstów o średnim wyróżnieniu, które pozostają stosunkowo krótkie.",
+  "@themeTitlesDescription": {
+    "description": "Wyjaśnienie stylów tytułów używanych w aplikacji"
+  },
+  "themeBodyStylesDescription": "Style główne są używane dla dłuższych fragmentów tekstu w aplikacji.",
+  "@themeBodyStylesDescription": {
+    "description": "Wyjaśnienie stylów głównych tekstów używanych w aplikacji"
+  },
+  "themeLabelStylesDescription": "Style etykiet są mniejsze, użytkowe i stosowane w takich miejscach jak tekst wewnątrz komponentów.",
+  "@themeLabelStylesDescription": {
+    "description": "Wyjaśnienie stylów etykiet używanych w aplikacji"
   }
 }

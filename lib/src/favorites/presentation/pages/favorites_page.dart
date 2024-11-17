@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:flow_zero_waste/core/common/presentation/widgets/components/nav_bar.dart';
 import 'package:flutter/material.dart';
 
 @RoutePage()
@@ -14,9 +15,8 @@ class FavoritesPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Ulubione'),
-        backgroundColor: Colors.green,
+      appBar: NavBar(
+        title: 'Ulubione',
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),

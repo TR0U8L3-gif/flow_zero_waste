@@ -4,6 +4,8 @@ import 'package:flow_zero_waste/config/routes/navigation_router.gr.dart';
 import 'package:flow_zero_waste/core/common/presentation/pages/responsive_ui/navigation_page.dart';
 import 'package:flow_zero_waste/core/enums/app_navigation_item_enum.dart';
 import 'package:flow_zero_waste/core/extensions/l10n_extension.dart';
+import 'package:flow_zero_waste/core/extensions/theme_extension.dart';
+import 'package:flow_zero_waste/src/discover/presentation/widgets/banner_section.dart';
 import 'package:flow_zero_waste/src/location/presentation/logics/location_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -16,31 +18,34 @@ class AppNavigationPage extends StatelessWidget implements AutoRouteWrapper {
 
   @override
   Widget build(BuildContext context) {
-    return AutoTabsRouter(
-      homeIndex: 0,
-      routes: [
-        for (final item in AppNavigationItem.values) _routesFromItem(item),
-      ],
-      transitionBuilder: (context, child, animation) => FadeTransition(
-        opacity: animation,
-        child: child,
-      ),
-      builder: (context, child) {
-        final tabsRouter = AutoTabsRouter.of(context);
-        return NavigationPage(
-          navItems: [
-            for (final item in AppNavigationItem.values)
-              NavItem(
-                icon: _iconFromItem(context, item),
-                title: _titleFromItem(context, item),
-                tooltip: _tooltipFromItem(context, item),
-              ),
-          ],
-          selectedIndex: tabsRouter.activeIndex,
-          onSelectedIndex: tabsRouter.setActiveIndex,
+    return Scaffold(
+      backgroundColor: context.colorScheme.surfaceContainer,
+      body: AutoTabsRouter(
+        homeIndex: 0,
+        routes: [
+          for (final item in AppNavigationItem.values) _routesFromItem(item),
+        ],
+        transitionBuilder: (context, child, animation) => FadeTransition(
+          opacity: animation,
           child: child,
-        );
-      },
+        ),
+        builder: (context, child) {
+          final tabsRouter = AutoTabsRouter.of(context);
+          return NavigationPage(
+            navItems: [
+              for (final item in AppNavigationItem.values)
+                NavItem(
+                  icon: _iconFromItem(context, item),
+                  title: _titleFromItem(context, item),
+                  tooltip: _tooltipFromItem(context, item),
+                ),
+            ],
+            selectedIndex: tabsRouter.activeIndex,
+            onSelectedIndex: tabsRouter.setActiveIndex,
+            child: child,
+          );
+        },
+      ),
     );
   }
 

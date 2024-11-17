@@ -37,7 +37,7 @@ class LocationSelectCubit extends Cubit<LocationSelectState> {
   Timer? _localizationAddressDebounce;
 
   /// Initialize
-  void initialize(LocationData? locationData) async {
+  Future<void> initialize(LocationData? locationData) async {
     emit(const LocationSelectLoading());
     if (locationData != null) {
       if (locationData.address != null) {

@@ -42,7 +42,16 @@ class NavigationRouter extends RootStackRouter {
               page: OrdersRoute.page,
             ),
             AutoRoute(
-              page: ProfileRoute.page,
+              page: ProfileNavigationRoute.page,
+              children: [
+                AutoRoute(
+                  page: ProfileRoute.page,
+                  initial: true,
+                ),
+                AutoRoute(
+                  page: ThemeChangeRoute.page,
+                ),
+              ],
             ),
           ],
         ),

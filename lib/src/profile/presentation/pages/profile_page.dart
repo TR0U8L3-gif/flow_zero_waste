@@ -1,50 +1,78 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:flow_zero_waste/config/injection/injection.dart';
+import 'package:flow_zero_waste/config/routes/navigation_router.gr.dart';
+import 'package:flow_zero_waste/core/common/presentation/logics/providers/responsive_ui/page_provider.dart';
+import 'package:flow_zero_waste/core/common/presentation/widgets/components/nav_bar.dart';
+import 'package:flow_zero_waste/core/extensions/l10n_extension.dart';
 import 'package:flow_zero_waste/src/auth/presentation/logics/auth_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 @RoutePage()
 class ProfilePage extends StatelessWidget {
+  const ProfilePage({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
+    final translations = context.l10n;
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Profil'),
-        backgroundColor: Colors.green,
+      appBar: NavBar(
+        title: translations.profile,
       ),
-      body: Padding(
+      body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            ProfileHeader(),
-            SizedBox(height: 20),
+            const ProfileHeader(),
+            const SizedBox(height: 16),
+            const Align(child: ProfileStats()),
+            const SizedBox(height: 24),
+            SectionTitle(title: translations.profileSettings),
             ProfileOption(
               icon: Icons.edit,
-              title: "Edytuj Profil",
-              onTap: () {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(content: Text('Edytuj Profil tapped')),
-                );
-              },
+              title: translations.profileEditProfile,
             ),
             ProfileOption(
-              icon: Icons.settings,
-              title: "Ustawienia",
-              onTap: () {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(content: Text('Ustawienia tapped')),
-                );
-              },
+              icon: Icons.language_outlined,
+              title: translations.profileChangeLanguage,
             ),
             ProfileOption(
-              icon: Icons.exit_to_app,
-              title: "Wyloguj się",
-              onTap: () {
-                locator<AuthProvider>().removeUserData();
-              },
+              icon: Icons.gesture_sharp,
+              title: translations.profileCustomizeTheme,
+              onTap: () => context.router.push(const ThemeChangeRoute()),
             ),
+            ProfileOption(
+              icon: Icons.card_giftcard,
+              title: translations.profileVouchers,
+            ),
+            ProfileOption(
+              icon: Icons.notifications,
+              title: translations.profileNotifications,
+            ),
+            ProfileOption(
+              icon: Icons.logout,
+              title: translations.profileLogOut,
+              onTap: () => context.read<AuthProvider>().removeUserData(),
+            ),
+            const SizedBox(height: 24),
+            SectionTitle(title: translations.profileCommunity),
+            ProfileOption(
+              icon: Icons.article,
+              title: translations.profileBlog,
+            ),
+            ProfileOption(
+              icon: Icons.store,
+              title: translations.profileRegisterLocal,
+            ),
+            ProfileOption(
+              icon: Icons.recommend,
+              title: translations.profileRecommendPlace,
+            ),
+            const SizedBox(height: 24),
+            SectionTitle(title: translations.profileSupport),
+            ProfileOption(icon: Icons.help, title: translations.profileHelp,),
+            ProfileOption(icon: Icons.info, title: translations.profileHowItWorks,),
+            ProfileOption(icon: Icons.gavel, title: translations.profileLegal,),
           ],
         ),
       ),
@@ -53,31 +81,35 @@ class ProfilePage extends StatelessWidget {
 }
 
 class ProfileHeader extends StatelessWidget {
+  const ProfileHeader({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
-    final userName = context.watch<AuthProvider>().user?.name ?? 'null';
-    final email = context.watch<AuthProvider>().user?.email ?? 'null';
+    final userName = context.watch<AuthProvider>().user?.name ?? '';
+    final email = context.watch<AuthProvider>().user?.email ?? '';
+
     return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
       children: [
         CircleAvatar(
           radius: 40,
-          backgroundColor: Colors.green,
+          backgroundColor: Theme.of(context).colorScheme.primary,
           child: Text(
-            userName[0],
-            style: TextStyle(fontSize: 30, color: Colors.white),
+            userName.isNotEmpty ? userName[0].toUpperCase() : '?',
+            style: const TextStyle(fontSize: 30, color: Colors.white),
           ),
         ),
-        SizedBox(width: 20),
+        const SizedBox(width: 20),
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
               userName,
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              style: Theme.of(context).textTheme.titleLarge,
             ),
             Text(
               email,
-              style: TextStyle(color: Colors.grey[700]),
+              style: Theme.of(context).textTheme.bodyMedium,
             ),
           ],
         ),
@@ -86,21 +118,150 @@ class ProfileHeader extends StatelessWidget {
   }
 }
 
-class ProfileOption extends StatelessWidget {
-  final IconData icon;
-  final String title;
-  final VoidCallback onTap;
+class ProfileStats extends StatelessWidget {
+  const ProfileStats({Key? key}) : super(key: key);
 
-  ProfileOption({required this.icon, required this.title, required this.onTap});
+  @override
+  Widget build(BuildContext context) {
+    final translations = context.l10n;
+    final page = context.watch<PageProvider>();
+    return Wrap(
+      alignment: WrapAlignment.spaceEvenly,
+      direction: Axis.horizontal,
+      children: [
+        SizedBox(width: page.spacing),
+        StatRow(
+          title: translations.profileAvoidedCO2Emissions,
+          value: '25 kg',
+          icon: Icons.cloud_outlined,
+        ),
+        SizedBox(width: page.spacing),
+        StatRow(
+          title: translations.profileMoneySaved,
+          value: '200 zł',
+          icon: Icons.attach_money,
+        ),
+        SizedBox(width: page.spacing),
+        StatRow(
+          title: translations.profileOrderCount,
+          value: '15',
+          icon: Icons.shopping_cart_outlined,
+        ),
+        SizedBox(width: page.spacing),
+        StatRow(
+          title: translations.profilePointsCollected,
+          value: '1200',
+          icon: Icons.star_outline,
+        ),
+        SizedBox(width: page.spacing),
+        StatRow(
+          title: translations.profileTreesPlanted,
+          value: '3',
+          icon: Icons.park_outlined,
+        ),
+        SizedBox(width: page.spacing),
+      ],
+    );
+  }
+}
+
+class StatRow extends StatelessWidget {
+  final String title;
+  final String value;
+  final IconData? icon;
+
+  const StatRow({
+    Key? key,
+    required this.title,
+    required this.value,
+    this.icon,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Card(
-      margin: EdgeInsets.symmetric(vertical: 8.0),
+      margin: const EdgeInsets.symmetric(vertical: 8.0),
+      elevation: 2,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(12.0),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 12.0, horizontal: 16.0),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            if (icon != null)
+              Icon(
+                icon,
+                size: 32.0,
+                color: Theme.of(context).colorScheme.primary,
+              ),
+            if (icon != null) const SizedBox(width: 16.0),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  title,
+                  style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                        fontWeight: FontWeight.w500,
+                      ),
+                ),
+                const SizedBox(height: 4.0),
+                Text(
+                  value,
+                  style: Theme.of(context).textTheme.titleMedium!.copyWith(
+                        fontWeight: FontWeight.bold,
+                        color: Theme.of(context).colorScheme.primary,
+                      ),
+                ),
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class SectionTitle extends StatelessWidget {
+  final String title;
+
+  const SectionTitle({Key? key, required this.title}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 8.0),
+      child: Text(
+        title,
+        style: Theme.of(context).textTheme.titleMedium!.copyWith(
+              fontWeight: FontWeight.bold,
+            ),
+      ),
+    );
+  }
+}
+
+class ProfileOption extends StatelessWidget {
+  final IconData icon;
+  final String title;
+  final void Function()? onTap;
+
+  const ProfileOption(
+      {Key? key, required this.icon, required this.title, this.onTap})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      margin: const EdgeInsets.symmetric(vertical: 8.0),
       child: ListTile(
-        leading: Icon(icon, color: Colors.green),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(12.0),
+        ),
+        leading: Icon(icon, color: Theme.of(context).colorScheme.primary),
         title: Text(title),
-        trailing: Icon(Icons.arrow_forward_ios),
+        trailing: const Icon(Icons.arrow_forward_ios),
         onTap: onTap,
       ),
     );
