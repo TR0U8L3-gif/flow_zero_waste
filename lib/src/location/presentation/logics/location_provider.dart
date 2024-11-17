@@ -9,14 +9,16 @@ import 'package:logger_manager/logger_manager.dart';
 const _key = 'locationData';
 
 /// Provider for location data
-@singleton
+@injectable
 class LocationProvider extends ChangeNotifier {
   /// Default constructor
   LocationProvider({
     required LoggerManager loggerManager,
     required LocationStorageHive locationStorageHive,
   })  : _loggerManager = loggerManager,
-        _locationStorageHive = locationStorageHive;
+        _locationStorageHive = locationStorageHive {
+    loadLocationData();
+  }
 
   final LoggerManager _loggerManager;
   final LocationStorageHive _locationStorageHive;
@@ -50,7 +52,10 @@ class LocationProvider extends ChangeNotifier {
   }
 
   /// Save location data
-  void saveLocationData(LocationData locationData) {
+  void saveLocationData(LocationData? locationData) {
+    if (locationData == null) {
+      return;
+    }
     _locationData = locationData;
     notifyListeners();
     _loggerManager.trace(message: 'Saving location data: $locationData');

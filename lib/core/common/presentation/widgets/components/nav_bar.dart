@@ -4,18 +4,18 @@ import 'package:flutter/material.dart';
 class NavBar extends StatelessWidget implements PreferredSizeWidget {
   /// Default constructor
   const NavBar({
-    required this.text,
+    required this.title,
     super.key,
   });
 
-  /// Text
-  final String text;
+  /// Title
+  final String title;
 
   @override
   Widget build(BuildContext context) {
     return AppBar(
       title: Text(
-        text,
+        title,
         style: Theme.of(context).textTheme.headlineSmall,
       ),
     );
