@@ -5,7 +5,6 @@ import 'package:flow_zero_waste/core/common/presentation/pages/responsive_ui/nav
 import 'package:flow_zero_waste/core/enums/app_navigation_item_enum.dart';
 import 'package:flow_zero_waste/core/extensions/l10n_extension.dart';
 import 'package:flow_zero_waste/core/extensions/theme_extension.dart';
-import 'package:flow_zero_waste/src/discover/presentation/widgets/banner_section.dart';
 import 'package:flow_zero_waste/src/location/presentation/logics/location_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';

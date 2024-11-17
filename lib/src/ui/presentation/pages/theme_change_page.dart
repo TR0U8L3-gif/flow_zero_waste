@@ -1,5 +1,5 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:flow_zero_waste/config/assets/size/app_size.dart';
+import 'package:flow_zero_waste/core/common/presentation/logics/providers/responsive_ui/page_provider.dart';
 import 'package:flow_zero_waste/core/common/presentation/widgets/accessibility/text/text_headline.dart';
 import 'package:flow_zero_waste/core/common/presentation/widgets/components/nav_bar.dart';
 import 'package:flow_zero_waste/core/enums/contrast_enum.dart';
@@ -30,6 +30,7 @@ class ThemeChangePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final translations = context.l10n;
+    final page = context.watch<PageProvider>();
     final themeProvider = context.read<ThemeProvider>();
     final textScaleProvider = context.watch<TextScaleProvider>();
     return Scaffold(
@@ -37,14 +38,14 @@ class ThemeChangePage extends StatelessWidget {
         title: context.l10n.profileCustomizeTheme,
       ),
       body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: AppSize.s),
+        padding: EdgeInsets.symmetric(horizontal: page.spacing),
         child: Center(
           child: SingleChildScrollView(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                const SizedBox(height: 120),
+                const SizedBox(height: 36),
                 Align(
                   child: Text(
                     '${translations.themeCurrentTextScaleFactor} '
@@ -57,8 +58,7 @@ class ThemeChangePage extends StatelessWidget {
                     style: Theme.of(context).textTheme.headlineMedium,
                   ),
                 ),
-                const SizedBox(height: 120),
-                const SizedBox(height: 48),
+                const SizedBox(height: 12),
                 Text(
                   'displayLarge',
                   style: Theme.of(context).textTheme.displayLarge,
@@ -180,10 +180,10 @@ class ThemeChangePage extends StatelessWidget {
               children: [
                 const SizedBox(width: 32),
                 FloatingActionButton(
-                  heroTag: 'increment_text_scale',
-                  onPressed: () => _changeCounter(context, 0.1),
-                  tooltip: 'Increment',
-                  child: const Icon(Icons.text_increase_rounded),
+                  heroTag: 'decrement_text_scale',
+                  onPressed: () => _changeCounter(context, -0.1),
+                  tooltip: 'Decrement',
+                  child: const Icon(Icons.text_decrease_rounded),
                 ),
                 const SizedBox(width: 10),
                 FloatingActionButton(
@@ -199,10 +199,10 @@ class ThemeChangePage extends StatelessWidget {
                 ),
                 const SizedBox(width: 10),
                 FloatingActionButton(
-                  heroTag: 'decrement_text_scale',
-                  onPressed: () => _changeCounter(context, -0.1),
-                  tooltip: 'Decrement',
-                  child: const Icon(Icons.text_decrease_rounded),
+                  heroTag: 'increment_text_scale',
+                  onPressed: () => _changeCounter(context, 0.1),
+                  tooltip: 'Increment',
+                  child: const Icon(Icons.text_increase_rounded),
                 ),
                 const SizedBox(width: 10),
               ],

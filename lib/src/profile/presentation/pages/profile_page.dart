@@ -35,6 +35,7 @@ class ProfilePage extends StatelessWidget {
             ProfileOption(
               icon: Icons.language_outlined,
               title: translations.profileChangeLanguage,
+              onTap: () => context.router.push(const LanguageRoute()),
             ),
             ProfileOption(
               icon: Icons.gesture_sharp,
@@ -70,9 +71,18 @@ class ProfilePage extends StatelessWidget {
             ),
             const SizedBox(height: 24),
             SectionTitle(title: translations.profileSupport),
-            ProfileOption(icon: Icons.help, title: translations.profileHelp,),
-            ProfileOption(icon: Icons.info, title: translations.profileHowItWorks,),
-            ProfileOption(icon: Icons.gavel, title: translations.profileLegal,),
+            ProfileOption(
+              icon: Icons.help,
+              title: translations.profileHelp,
+            ),
+            ProfileOption(
+              icon: Icons.info,
+              title: translations.profileHowItWorks,
+            ),
+            ProfileOption(
+              icon: Icons.gavel,
+              title: translations.profileLegal,
+            ),
           ],
         ),
       ),
@@ -126,40 +136,33 @@ class ProfileStats extends StatelessWidget {
     final translations = context.l10n;
     final page = context.watch<PageProvider>();
     return Wrap(
-      alignment: WrapAlignment.spaceEvenly,
-      direction: Axis.horizontal,
+      alignment: WrapAlignment.center,
       children: [
-        SizedBox(width: page.spacing),
         StatRow(
           title: translations.profileAvoidedCO2Emissions,
-          value: '25 kg',
+          value: '25 ppmv',
           icon: Icons.cloud_outlined,
         ),
-        SizedBox(width: page.spacing),
         StatRow(
           title: translations.profileMoneySaved,
           value: '200 zł',
           icon: Icons.attach_money,
         ),
-        SizedBox(width: page.spacing),
         StatRow(
           title: translations.profileOrderCount,
           value: '15',
           icon: Icons.shopping_cart_outlined,
         ),
-        SizedBox(width: page.spacing),
         StatRow(
           title: translations.profilePointsCollected,
           value: '1200',
           icon: Icons.star_outline,
         ),
-        SizedBox(width: page.spacing),
         StatRow(
           title: translations.profileTreesPlanted,
           value: '3',
           icon: Icons.park_outlined,
         ),
-        SizedBox(width: page.spacing),
       ],
     );
   }
@@ -179,44 +182,47 @@ class StatRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      margin: const EdgeInsets.symmetric(vertical: 8.0),
-      elevation: 2,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(12.0),
-      ),
-      child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 12.0, horizontal: 16.0),
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            if (icon != null)
-              Icon(
-                icon,
-                size: 32.0,
-                color: Theme.of(context).colorScheme.primary,
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 8.0),
+      child: Card(
+        margin: const EdgeInsets.symmetric(vertical: 8.0),
+        elevation: 2,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(12.0),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 12.0, horizontal: 16.0),
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              if (icon != null)
+                Icon(
+                  icon,
+                  size: 32.0,
+                  color: Theme.of(context).colorScheme.primary,
+                ),
+              if (icon != null) const SizedBox(width: 16.0),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    title,
+                    style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                          fontWeight: FontWeight.w500,
+                        ),
+                  ),
+                  const SizedBox(height: 4.0),
+                  Text(
+                    value,
+                    style: Theme.of(context).textTheme.titleMedium!.copyWith(
+                          fontWeight: FontWeight.bold,
+                          color: Theme.of(context).colorScheme.primary,
+                        ),
+                  ),
+                ],
               ),
-            if (icon != null) const SizedBox(width: 16.0),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  title,
-                  style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                        fontWeight: FontWeight.w500,
-                      ),
-                ),
-                const SizedBox(height: 4.0),
-                Text(
-                  value,
-                  style: Theme.of(context).textTheme.titleMedium!.copyWith(
-                        fontWeight: FontWeight.bold,
-                        color: Theme.of(context).colorScheme.primary,
-                      ),
-                ),
-              ],
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

@@ -51,6 +51,9 @@ class NavigationRouter extends RootStackRouter {
                 AutoRoute(
                   page: ThemeChangeRoute.page,
                 ),
+                AutoRoute(
+                  page: LanguageRoute.page,
+                ),
               ],
             ),
           ],
