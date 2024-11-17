@@ -359,5 +359,9 @@
   "themeLabelStylesDescription": "Label styles are smaller, utilitarian styles, used for things like the text inside components.",
   "@themeLabelStylesDescription": {
     "description": "Explanation of label styles used in the application"
+  },
+  "profileLicenses": "Licenses",
+  "@profileLicenses": {
+    "description": "Profile menu option leading to license information"
   }
 }

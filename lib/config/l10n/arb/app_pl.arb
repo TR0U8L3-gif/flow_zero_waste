@@ -359,5 +359,9 @@
   "themeLabelStylesDescription": "Style etykiet są mniejsze, użytkowe i stosowane w takich miejscach jak tekst wewnątrz komponentów.",
   "@themeLabelStylesDescription": {
     "description": "Wyjaśnienie stylów etykiet używanych w aplikacji"
+  },
+  "profileLicenses": "Licencje",
+  "@profileLicenses": {
+    "description": "Opcja menu profilu, prowadząca do informacji o licencjach"
   }
 }
