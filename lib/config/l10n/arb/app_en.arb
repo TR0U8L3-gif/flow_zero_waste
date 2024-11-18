@@ -363,5 +363,29 @@
   "profileLicenses": "Licenses",
   "@profileLicenses": {
     "description": "Profile menu option leading to license information"
+  },
+  "unknownError": "An unknown error occurred",
+  "@unknownError": {
+    "description": "Displayed when an unknown error has occurred."
+  },
+  "invalidCredentials": "Invalid credentials",
+  "@invalidCredentials": {
+    "description": "Authentication failure indicating invalid login credentials"
+  },
+  "userAlreadyExist": "User already exists",
+  "@userAlreadyExist": {
+    "description": "Authentication failure indicating an attempt to register a user that already exists"
+  },
+  "logoutFailed": "Unable to log out current user",
+  "@logoutFailed": {
+    "description": "Authentication failure indicating a problem logging out the current user"
+  },
+  "currentUserNotFound": "Current user not found",
+  "@currentUserNotFound": {
+    "description": "Authentication failure indicating that the current user is not found in the system"
+  },
+  "unexpectedError": "Something went wrong, we're fixing it",
+  "@unexpectedError": {
+    "description": "Message displayed when an unexpected error occurs"
   }
 }

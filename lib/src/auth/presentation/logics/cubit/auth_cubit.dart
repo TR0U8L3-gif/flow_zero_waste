@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flow_zero_waste/config/routes/navigation_router.gr.dart';
+import 'package:flow_zero_waste/core/common/domain/response.dart';
 import 'package:flow_zero_waste/core/common/presentation/logics/logic_state.dart';
 import 'package:flow_zero_waste/core/enums/navigation_type_enum.dart';
 import 'package:flow_zero_waste/src/auth/domain/usecases/login_user.dart';
@@ -43,7 +44,7 @@ class AuthCubit extends Cubit<AuthState> {
 
     result.fold(
       (failure) {
-        emit(AuthError(message: failure.message ?? 'Error while logging in'));
+        emit(AuthError(failure: failure));
       },
       (user) {
         _authProvider.updateUserData(user);
@@ -73,7 +74,7 @@ class AuthCubit extends Cubit<AuthState> {
 
     result.fold(
       (failure) {
-        emit(AuthError(message: failure.message ?? 'Error while registering'));
+        emit(AuthError(failure: failure));
       },
       (_) {
         emit(AuthRegistered());

@@ -363,5 +363,29 @@
   "profileLicenses": "Licencje",
   "@profileLicenses": {
     "description": "Opcja menu profilu, prowadząca do informacji o licencjach"
+  },
+  "unknownError": "Wystąpił nieznany błąd",
+  "@unknownError": {
+    "description": "Komunikat o błędzie, który nie jest zdefiniowany"
+  },
+  "invalidCredentials": "Nieprawidłowe dane uwierzytelniające",
+  "@invalidCredentials": {
+    "description": "Błąd uwierzytelniania wskazujący na podanie nieprawidłowych danych logowania"
+  },
+  "userAlreadyExist": "Użytkownik już istnieje",
+  "@userAlreadyExist": {
+    "description": "Błąd uwierzytelniania wskazujący na próbę rejestracji użytkownika, który już istnieje"
+  },
+  "logoutFailed": "Nie udało się wylogować bieżącego użytkownika",
+  "@logoutFailed": {
+    "description": "Błąd uwierzytelniania wskazujący na problem z wylogowaniem bieżącego użytkownika"
+  },
+  "currentUserNotFound": "Nie znaleziono bieżącego użytkownika",
+  "@currentUserNotFound": {
+    "description": "Błąd uwierzytelniania wskazujący na brak bieżącego użytkownika w systemie"
+  },
+  "unexpectedError": "Coś poszło nie tak, już to naprawiamy",
+  "@unexpectedError": {
+    "description": "Komunikat wyświetlany w przypadku nieoczekiwanego błędu"
   }
 }

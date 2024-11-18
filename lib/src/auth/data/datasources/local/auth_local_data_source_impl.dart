@@ -45,9 +45,17 @@ class AuthLocalDataSourceImpl implements AuthLocalDataSource {
 
   @override
   Future<void> logout() async {
-    await _secureStorage.delete(key: refreshTokenKey);
-    await _secureStorage.delete(key: accessTokenKey);
-    await _secureStorage.delete(key: _userKey);
+    try {
+      await _secureStorage.delete(key: refreshTokenKey);
+      await _secureStorage.delete(key: accessTokenKey);
+      await _secureStorage.delete(key: _userKey);
+    } catch (e, st) {
+      throw CacheException(
+        error: e,
+        action: 'logout',
+        stackTrace: st,
+      );
+    }
   }
 
   @override

@@ -4,11 +4,7 @@ import 'package:flutter/foundation.dart';
 @immutable
 abstract class Response {
   /// Constructor for Response
-  const Response({this.message, this.data})
-      : assert(
-          message != null || data != null,
-          'Either message or data must be provided',
-        );
+  const Response({this.message, this.data});
 
   /// Readable message for the response
   final String? message;
@@ -30,11 +26,11 @@ abstract class Response {
 /// Success response
 class Success extends Response {
   /// Constructor for Success
-  const Success({required super.message, super.data});
+  const Success({super.message, super.data});
 }
 
 /// Failure response
 class Failure extends Response {
   /// Constructor for Failure
-  const Failure({required super.message, super.data});
+  const Failure({super.message, super.data});
 }

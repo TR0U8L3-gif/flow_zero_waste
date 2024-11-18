@@ -41,11 +41,11 @@ final class AuthLoggedIn extends AuthState with NavigatableLogicState {
 /// Auth error state
 final class AuthError extends AuthState with ListenableLogicState {
   /// Auth error constructor
-  const AuthError({required this.message});
+  const AuthError({required this.failure});
   
-  /// Error message
-  final String message;
+  /// Failure
+  final Failure failure;
 
   @override
-  List<Object?> get props => [runtimeType, message];
+  List<Object?> get props => [runtimeType, failure];
 }
