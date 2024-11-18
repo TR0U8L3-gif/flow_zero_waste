@@ -66,8 +66,6 @@ class OnboardingFooter extends StatelessWidget {
             child: next != null
                 ? Align(
                     child: OutlinedButton(
-                      // heroTag: 'onboarding_next',
-
                       onPressed: next?.call,
                       child: Text(
                         context.l10n.next,

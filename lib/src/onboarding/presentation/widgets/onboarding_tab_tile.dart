@@ -56,16 +56,16 @@ class OnboardingTabTile extends StatelessWidget {
     final controller = ScrollController();
 
     return ScrollbarStyled(
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(page.spacing),
-        child: Align(
-          child: SingleChildScrollView(
-            controller: controller,
-            child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: page.spacing),
+      controller: controller,
+      child: Padding(
+        padding: EdgeInsets.symmetric(horizontal: page.spacing),
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(page.spacing),
+          child: Align(
+            child: SingleChildScrollView(
+              controller: controller,
               child: Column(
                 children: [
-                  SizedBox(height: cropPage ? page.spacing : AppSize.xxxl),
                   if (containImage)
                     _Image(
                       imageTitle: imageTitle ?? '',
@@ -75,7 +75,8 @@ class OnboardingTabTile extends StatelessWidget {
                   if (containImage) const SizedBox(height: AppSize.l),
                   Padding(
                     padding: EdgeInsets.symmetric(vertical: page.spacing),
-                    child: _Text(headline: headline, description: description),
+                    child:
+                        _Text(headline: headline, description: description),
                   ),
                   if (last != null) const SizedBox(height: AppSize.l),
                   if (last != null)
@@ -122,7 +123,7 @@ class _Image extends StatelessWidget {
     final page = context.read<PageProvider>();
     final isMediumOrLess = page.layoutSize <= PageLayoutSize.medium;
     return AspectRatio(
-      aspectRatio: isMediumOrLess ? 1.24 : 2.48,
+      aspectRatio: isMediumOrLess ? 1.48 : 2.24,
       child: ClipRRect(
         borderRadius: BorderRadius.circular(page.spacing),
         child: Container(
@@ -141,8 +142,8 @@ class _Image extends StatelessWidget {
                       page.size.width,
                     ),
                     errorBuilder: errorBuilder,
-                  loadingBuilder: loadingBuilder,
-                  frameBuilder: frameBuilder,
+                    loadingBuilder: loadingBuilder,
+                    frameBuilder: frameBuilder,
                   ),
                 )
               else if (imageAsset != null)
