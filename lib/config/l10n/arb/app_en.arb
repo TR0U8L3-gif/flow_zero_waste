@@ -387,5 +387,9 @@
   "unexpectedError": "Something went wrong, we're fixing it",
   "@unexpectedError": {
     "description": "Message displayed when an unexpected error occurs"
+  },
+  "kickoff": "Kickoff",
+  "@kickoff": {
+    "description": "Application User Guide"
   }
 }

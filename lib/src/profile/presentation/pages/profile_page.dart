@@ -66,6 +66,21 @@ class ProfilePage extends StatelessWidget {
             const SizedBox(height: 24),
             SectionTitle(title: translations.profileCommunity),
             ProfileOption(
+              icon: Icons.book_outlined,
+              title: translations.kickoff,
+              onTap: () => context.router.push(
+                OnboardingRoute(
+                  onResult: ({success}) => context.router.navigate(
+                    const AppNavigationRoute(
+                      children: [
+                        ProfileRoute(),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            ProfileOption(
               icon: Icons.article,
               title: translations.profileBlog,
               onTap: () =>

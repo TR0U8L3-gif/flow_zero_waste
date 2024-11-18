@@ -387,5 +387,9 @@
   "unexpectedError": "Coś poszło nie tak, już to naprawiamy",
   "@unexpectedError": {
     "description": "Komunikat wyświetlany w przypadku nieoczekiwanego błędu"
+  },
+  "kickoff": "Wprowadzenie",
+  "@kickoff": {
+    "description": "Przewodnik użytkownika po aplikacji"
   }
 }
