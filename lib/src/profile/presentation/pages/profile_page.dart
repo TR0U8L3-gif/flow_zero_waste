@@ -1,9 +1,7 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:flow_zero_waste/config/assets/color/app_colors.dart';
 import 'package:flow_zero_waste/config/gen/assets.gen.dart';
 import 'package:flow_zero_waste/config/injection/injection.dart';
 import 'package:flow_zero_waste/config/routes/navigation_router.gr.dart';
-import 'package:flow_zero_waste/core/common/presentation/logics/providers/responsive_ui/page_provider.dart';
 import 'package:flow_zero_waste/core/common/presentation/widgets/components/nav_bar.dart';
 import 'package:flow_zero_waste/core/extensions/l10n_extension.dart';
 import 'package:flow_zero_waste/core/extensions/theme_extension.dart';
@@ -33,7 +31,7 @@ class ProfilePage extends StatelessWidget {
           children: [
             const ProfileHeader(),
             const SizedBox(height: 16),
-            const Align(child: ProfileStats()),
+            const Align(child: ProfileBadges()),
             const SizedBox(height: 24),
             SectionTitle(title: translations.profileSettings),
             ProfileOption(
@@ -187,13 +185,12 @@ class ProfileHeader extends StatelessWidget {
   }
 }
 
-class ProfileStats extends StatelessWidget {
-  const ProfileStats({Key? key}) : super(key: key);
+class ProfileBadges extends StatelessWidget {
+  const ProfileBadges({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final translations = context.l10n;
-    final page = context.watch<PageProvider>();
     return Wrap(
       alignment: WrapAlignment.center,
       children: [
