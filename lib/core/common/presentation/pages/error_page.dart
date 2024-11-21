@@ -1,5 +1,5 @@
 import 'package:flow_zero_waste/config/injection/injection.dart';
-import 'package:flow_zero_waste/core/common/presentation/widgets/styled/app_bar_styled.dart';
+import 'package:flow_zero_waste/core/common/presentation/widgets/components/app_bar_styled.dart';
 import 'package:flow_zero_waste/core/extensions/theme_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:logger_manager/logger_manager.dart';
@@ -20,7 +20,6 @@ class ErrorPage extends StatefulWidget {
 }
 
 class _ErrorPageState extends State<ErrorPage> {
-
   @override
   void initState() {
     super.initState();
@@ -37,10 +36,7 @@ class _ErrorPageState extends State<ErrorPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBarStyled(
-        title: Text(
-          widget.data.title,
-          style: context.textTheme.headlineMedium,
-        ),
+        title: widget.data.title,
       ),
       body: Center(
         child: Column(

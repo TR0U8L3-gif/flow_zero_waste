@@ -23,8 +23,6 @@ class ProfileCubit extends Cubit<ProfileState> {
   final GetProfileStats _getProfileStats;
   ProfileIdle? _lastIdleState;
 
-  int _retryRequestCount = 0;
-
   /// Load profile stats
   Future<void> loadProfileStats() async {
     emit(
@@ -36,13 +34,6 @@ class ProfileCubit extends Cubit<ProfileState> {
     result.fold(
       (failure) {
         emit(ProfileError(failure: failure));
-        if(_retryRequestCount < _maxRetryCount) {
-          _retryRequestCount++;
-          loadProfileStats();
-          return;
-        } {
-          _retryRequestCount = 0;
-        }
       },
       emitIdle,
     );

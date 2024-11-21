@@ -1,5 +1,5 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:flow_zero_waste/core/common/presentation/widgets/components/nav_bar.dart';
+import 'package:flow_zero_waste/core/common/presentation/widgets/components/app_bar_styled.dart';
 import 'package:flutter/material.dart';
 
 @RoutePage()
@@ -30,7 +30,7 @@ class OrdersPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: NavBar(
+      appBar: AppBarStyled(
         title: 'Zamówienia',
       ),
       body: Padding(

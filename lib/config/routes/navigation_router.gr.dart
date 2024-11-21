@@ -311,7 +311,7 @@ class ProfileNavigationRoute extends _i18.PageRouteInfo<void> {
   static _i18.PageInfo page = _i18.PageInfo(
     name,
     builder: (data) {
-      return const _i13.ProfileNavigationPage();
+      return _i18.WrappedRoute(child: const _i13.ProfileNavigationPage());
     },
   );
 }

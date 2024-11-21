@@ -391,5 +391,9 @@
   "kickoff": "Kickoff",
   "@kickoff": {
     "description": "Application User Guide"
+  },
+  "failedToGetProfileStats": "Failed to retrieve profile statistics",
+  "@failedToGetProfileStats": {
+    "description": "Error message displayed when user profile statistics cannot be retrieved"
   }
 }

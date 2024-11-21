@@ -34,7 +34,7 @@ class ProfileRepositoryImpl implements ProfileRepository {
       return Right(profileStats);
     } on FailedToGetProfileStatsException catch (e, st) {
       _logger.warning(
-        message: 'Unable to get profile stats',
+        message: 'FailedToGetProfileStatsException Unable to get profile stats',
         error: e.error,
         stackTrace: st,
       );

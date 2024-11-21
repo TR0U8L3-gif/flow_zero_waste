@@ -5,6 +5,17 @@ sealed class ProfileState extends BaseLogicState with EquatableMixin {
   const ProfileState();
 }
 
+/// Profile stats state
+abstract class ProfileStatsState extends  ProfileState{
+  /// Default constructor
+  const ProfileStatsState({
+    required this.profileStats,
+  });
+
+  /// Profile stats
+  final ProfileStats profileStats;
+}
+
 /// Profile initial
 final class ProfileInitial extends ProfileState
     with BuildableLogicState, ListenableLogicState {
@@ -16,14 +27,11 @@ final class ProfileInitial extends ProfileState
 ///
 /// if value is null it means value loaded with error
 /// if value is not null it means value loaded successfully
-final class ProfileIdle extends ProfileState with BuildableLogicState {
+final class ProfileIdle extends ProfileStatsState with BuildableLogicState {
   /// Default constructor
   ProfileIdle({
-    required this.profileStats,
+    required super.profileStats,
   });
-
-  /// Profile stats
-  final ProfileStats profileStats;
 
   @override
   List<Object?> get props => [profileStats];
@@ -33,14 +41,11 @@ final class ProfileIdle extends ProfileState with BuildableLogicState {
 ///
 /// if value is null it means value is loading
 /// if value is not null it means value is preloaded
-final class ProfileLoading extends ProfileState with BuildableLogicState{
+final class ProfileLoading extends ProfileStatsState with BuildableLogicState{
   /// Default constructor
   ProfileLoading({
-    required this.profileStats,
+    required super.profileStats,
   });
-
-  /// Profile stats
-  final ProfileStats profileStats;
 
   @override
   List<Object?> get props => [profileStats];

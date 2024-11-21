@@ -2,8 +2,8 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flow_zero_waste/config/assets/size/app_size.dart';
 import 'package:flow_zero_waste/config/l10n/l10n.dart';
 import 'package:flow_zero_waste/core/common/presentation/logics/providers/responsive_ui/page_provider.dart';
-import 'package:flow_zero_waste/core/common/presentation/widgets/components/nav_bar.dart';
-import 'package:flow_zero_waste/core/common/presentation/widgets/styled/scrollbar_styled.dart';
+import 'package:flow_zero_waste/core/common/presentation/widgets/components/app_bar_styled.dart';
+import 'package:flow_zero_waste/core/common/presentation/widgets/components/scrollbar_styled.dart';
 import 'package:flow_zero_waste/core/extensions/l10n_extension.dart';
 import 'package:flow_zero_waste/core/extensions/theme_extension.dart';
 import 'package:flow_zero_waste/src/discover/presentation/widgets/banner_section.dart';
@@ -25,7 +25,7 @@ class LanguagePage extends StatelessWidget {
     final currentLanguage = languageProvider.currentLanguage;
 
     return Scaffold(
-      appBar: NavBar(title: translations.profileChangeLanguage),
+      appBar: AppBarStyled(title: translations.profileChangeLanguage),
       body: ScrollbarStyled(
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: page.spacing),
@@ -36,7 +36,7 @@ class LanguagePage extends StatelessWidget {
               itemBuilder: (context, index) {
                 final locale = L10n.supportedLocales[index];
                 final isSelected = locale == currentLanguage;
-                      
+
                 return Padding(
                   padding: EdgeInsets.only(bottom: page.spacing),
                   child: Align(
@@ -56,8 +56,8 @@ class LanguagePage extends StatelessWidget {
                                 color: Theme.of(context).colorScheme.primary,
                               )
                             : null,
-                        onTap: () =>
-                          languageProvider.changeLanguage(locale.languageCode),
+                        onTap: () => languageProvider
+                            .changeLanguage(locale.languageCode),
                       ),
                     ),
                   ),

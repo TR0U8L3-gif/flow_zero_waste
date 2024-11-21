@@ -1,7 +1,7 @@
 import 'package:flow_zero_waste/config/assets/size/app_size.dart';
 import 'package:flow_zero_waste/core/common/presentation/logics/providers/responsive_ui/page_provider.dart';
 import 'package:flow_zero_waste/core/common/presentation/widgets/accessibility/semantic_texts.dart';
-import 'package:flow_zero_waste/core/common/presentation/widgets/styled/scrollbar_styled.dart';
+import 'package:flow_zero_waste/core/common/presentation/widgets/components/scrollbar_styled.dart';
 import 'package:flow_zero_waste/core/common/presentation/widgets/text_outline.dart';
 import 'package:flow_zero_waste/core/enums/page_layout_size.dart';
 import 'package:flow_zero_waste/core/enums/text_enum.dart';

@@ -391,5 +391,9 @@
   "kickoff": "Wprowadzenie",
   "@kickoff": {
     "description": "Przewodnik użytkownika po aplikacji"
+  },
+  "failedToGetProfileStats": "Nie udało się pobrać statystyk profilu",
+  "@failedToGetProfileStats": {
+    "description": "Komunikat błędu wyświetlany, gdy statystyki profilu użytkownika nie mogą zostać pobrane"
   }
 }
