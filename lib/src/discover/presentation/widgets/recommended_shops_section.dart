@@ -58,7 +58,7 @@ class RecommendedShopsSection extends StatelessWidget {
               itemCount: shops?.length ?? _shopsItemsEmpty,
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount:
-                    page.layoutSize >= PageLayoutSize.expanded ? 2 : 1,
+                    page.layoutSize >= PageLayoutSize.medium ? 2 : 1,
                 childAspectRatio: 2,
                 crossAxisSpacing: page.spacing,
                 mainAxisSpacing: page.spacing,

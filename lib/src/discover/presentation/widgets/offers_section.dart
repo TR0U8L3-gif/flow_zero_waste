@@ -58,7 +58,7 @@ class OffersSection extends StatelessWidget {
               itemCount: offers?.length ?? _offersItemsEmpty,
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount:
-                    page.layoutSize >= PageLayoutSize.expanded ? 2 : 1,
+                    page.layoutSize >= PageLayoutSize.medium ? 2 : 1,
                 childAspectRatio: 2,
                 crossAxisSpacing: page.spacing,
                 mainAxisSpacing: page.spacing,
