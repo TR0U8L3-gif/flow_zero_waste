@@ -2,13 +2,13 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flow_zero_waste/config/assets/size/app_size.dart';
 import 'package:flow_zero_waste/core/common/presentation/logics/logic_state.dart';
 import 'package:flow_zero_waste/core/common/presentation/logics/providers/responsive_ui/page_provider.dart';
-import 'package:flow_zero_waste/core/common/presentation/widgets/components/nav_bar.dart';
-import 'package:flow_zero_waste/core/common/presentation/widgets/styled/app_bar_styled.dart';
-import 'package:flow_zero_waste/core/common/presentation/widgets/styled/scrollbar_styled.dart';
+import 'package:flow_zero_waste/core/common/presentation/widgets/components/app_bar_styled.dart';
+import 'package:flow_zero_waste/core/common/presentation/widgets/components/scrollbar_styled.dart';
 import 'package:flow_zero_waste/core/extensions/l10n_extension.dart';
 import 'package:flow_zero_waste/core/extensions/theme_extension.dart';
 import 'package:flow_zero_waste/core/helpers/validators/email_validator.dart';
 import 'package:flow_zero_waste/core/helpers/validators/password_validator.dart';
+import 'package:flow_zero_waste/src/auth/domain/responses/auth_response.dart';
 import 'package:flow_zero_waste/src/auth/presentation/logics/cubit/auth_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -50,21 +50,43 @@ class _SignInPageState extends State<SignInPage> {
           return;
         }
 
-        if (state is AuthError) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text(
-                state.message,
-                style: context.textTheme.bodyMedium
-                    ?.copyWith(color: context.colorScheme.error),
-              ),
-              backgroundColor: context.colorScheme.errorContainer,
-            ),
-          );
+        if (state is! AuthError) return;
+
+        String errorMessage;
+
+        if (state.failure is AuthFailure) {
+          switch (state.failure.runtimeType) {
+            case InvalidCredentialsAuthFailure:
+              errorMessage = context.l10n.invalidCredentials;
+            case UserAlreadyExistAuthFailure:
+              errorMessage = context.l10n.userAlreadyExist;
+            case LogoutFailedAuthFailure:
+              errorMessage = context.l10n.logoutFailed;
+            case CurrentUserNotFoundAuthFailure:
+              errorMessage = context.l10n.currentUserNotFound;
+            case UnexpectedAuthFailure:
+              errorMessage = context.l10n.unexpectedError;
+            default:
+              errorMessage = context.l10n.unknownError;
+              break;
+          }
+        } else {
+          errorMessage = state.failure.message ?? context.l10n.unknownError;
         }
+
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(
+              errorMessage,
+              style: context.textTheme.bodyMedium
+                  ?.copyWith(color: context.colorScheme.onErrorContainer),
+            ),
+            backgroundColor: context.colorScheme.errorContainer,
+          ),
+        );
       },
       child: Scaffold(
-        appBar: NavBar(
+        appBar: AppBarStyled(
           title: context.l10n.loginButton,
         ),
         body: ScrollbarStyled(

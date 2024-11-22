@@ -363,5 +363,73 @@
   "profileLicenses": "Licenses",
   "@profileLicenses": {
     "description": "Profile menu option leading to license information"
+  },
+  "unknownError": "An unknown error occurred",
+  "@unknownError": {
+    "description": "Displayed when an unknown error has occurred."
+  },
+  "invalidCredentials": "Invalid credentials",
+  "@invalidCredentials": {
+    "description": "Authentication failure indicating invalid login credentials"
+  },
+  "userAlreadyExist": "User already exists",
+  "@userAlreadyExist": {
+    "description": "Authentication failure indicating an attempt to register a user that already exists"
+  },
+  "logoutFailed": "Unable to log out current user",
+  "@logoutFailed": {
+    "description": "Authentication failure indicating a problem logging out the current user"
+  },
+  "currentUserNotFound": "Current user not found",
+  "@currentUserNotFound": {
+    "description": "Authentication failure indicating that the current user is not found in the system"
+  },
+  "unexpectedError": "Something went wrong, we're fixing it",
+  "@unexpectedError": {
+    "description": "Message displayed when an unexpected error occurs"
+  },
+  "kickoff": "Kickoff",
+  "@kickoff": {
+    "description": "Application User Guide"
+  },
+  "failedToGetProfileStats": "Failed to retrieve profile statistics",
+  "@failedToGetProfileStats": {
+    "description": "Error message displayed when user profile statistics cannot be retrieved"
+  },
+  "changeUserData": "Change user data",
+  "@changeUserData": {
+    "description": "Button or option to edit user data"
+  },
+  "saveChanges": "Save changes",
+  "@saveChanges": {
+    "description": "Button to save the changes made"
+  },
+  "changePassword": "Change password",
+  "@changePassword": {
+    "description": "Button or option to allow the user to change their password"
+  },
+  "currentPasswordLabel": "Current password",
+  "@currentPasswordLabel": {
+    "description": "Label for the text field to enter the user's current password"
+  },
+  "passwordChangeSuccess": "Password changed successfully",
+  "@passwordChangeSuccess": {
+    "description": "Message displayed when the user's password is successfully changed"
+  },
+  "userDataChangeSuccess": "User data changed successfully",
+  "@userDataChangeSuccess": {
+    "description": "Message displayed when the user's data is successfully changed"
+  },
+  "passwordChangeFailure": "Failed to change password, please try again later",
+  "@passwordChangeFailure": {
+    "description": "Message displayed when the user's password change fails"
+  },
+  "userDataChangeFailure": "Failed to change user data, please try again later",
+  "@userDataChangeFailure": {
+    "description": "Message displayed when the user's data change fails"
+  },
+  "operationSuccessful": "Operation completed successfully",
+  "@operationSuccessful": {
+    "description": "Message displayed when an operation is successfully completed"
   }
 }

@@ -1,40 +1,58 @@
+import 'dart:convert';
+
 import 'package:flow_zero_waste/config/injection/injection.dart';
+import 'package:flow_zero_waste/core/services/hive/hive_manager.dart';
+import 'package:flow_zero_waste/src/auth/data/datasources/auth_data_source_exceptions.dart';
 import 'package:flow_zero_waste/src/auth/data/datasources/remote/auth_remote_data_source.dart';
-import 'package:flow_zero_waste/src/auth/data/datasources/remote/auth_remote_data_source_exceptions.dart';
 import 'package:flow_zero_waste/src/auth/data/models/auth_model.dart';
 import 'package:flow_zero_waste/src/auth/data/models/user_model.dart';
 import 'package:injectable/injectable.dart';
+import 'package:uuid/uuid.dart';
 
-const kUserModel = UserModel(
-      id: '3fc4eb93-6dc0-4b2a-99f3-835b41ffea73',
-      name: 'Radosław Sienkiewicz',
-      email: 'rsienkiewicz88@gmail.com',
-      phoneNumber: '798465557',
-    );
+const _userKey = 'userAuth';
+const _currentUserKey = 'userAuthCurrent';
+const _userBoxName = 'userAuthBox';
+const _currentUserBoxName = 'currentUserAuthBox';
 
 /// Dev implementation of AuthRemoteDataSource that returns sample data.
 @Singleton(as: AuthRemoteDataSource, env: [Env.development])
 class AuthRemoteDataSourceImplDev implements AuthRemoteDataSource {
+  final UserAuthHiveStorage _dbAuth =
+      UserAuthHiveStorage(boxName: _userBoxName);
+  final CurrentUserAuthHiveStorage _dbUser =
+      CurrentUserAuthHiveStorage(boxName: _currentUserBoxName);
   @override
   Future<AuthModel> login({
     required String email,
     required String password,
   }) async {
-    await Future<dynamic>.delayed(const Duration(seconds: 2));
+    final allUsers = await _dbAuth.readAll();
 
-    if (email != 'rsienkiewicz88@gmail.com' || password != 'password') {
-      throw InvalidCredentialsException(
-        error: 'Invalid credentials',
-        action: 'login',
-        stackTrace: StackTrace.current,
-      );
+    for (final user in allUsers) {
+      final userDecoded = json.decode(user) as Map<String, dynamic>;
+      UserModel? userModel;
+      try {
+        userModel = UserModel.fromJson(userDecoded);
+      } catch (e) {
+        userModel = null;
+        continue;
+      }
+      final checkEmail = userModel.email == email;
+      final checkPassword = userDecoded['password'] == password;
+      if (checkEmail && checkPassword) {
+        await _dbUser.write(user, key: _currentUserKey);
+        return AuthModel(
+          user: userModel,
+          accessToken: 'sample_access_token_123',
+          refreshToken: 'sample_refresh_token_456',
+        );
+      }
     }
 
-    // Przykładowe wartości dla AuthModel przy logowaniu
-    return const AuthModel(
-      user: kUserModel,
-      accessToken: 'sample_access_token_123',
-      refreshToken: 'sample_refresh_token_456',
+    throw InvalidCredentialsException(
+      error: 'Invalid credentials',
+      action: 'login',
+      stackTrace: StackTrace.current,
     );
   }
 
@@ -45,12 +63,67 @@ class AuthRemoteDataSourceImplDev implements AuthRemoteDataSource {
     required String password,
     required String phoneNumber,
   }) async {
-    await Future<dynamic>.delayed(const Duration(seconds: 4));
+    final id = const Uuid().v4();
+    final userRegistered = {
+      'id': id,
+      'name': name,
+      'email': email,
+      'password': password,
+      'phoneNumber': phoneNumber,
+    };
+    final jsonData = json.encode(userRegistered);
+    final allUsers = await _dbAuth.readAll();
+    for (final user in allUsers) {
+      final userDecoded = json.decode(user) as Map<String, dynamic>;
+      if (userDecoded['email'] == email) {
+        throw UserAlreadyExistException(
+          error: 'Email already in use',
+          action: 'register',
+          stackTrace: StackTrace.current,
+        );
+      }
+    }
+    await _dbAuth.write(jsonData, key: '$_userKey$id');
   }
 
   @override
   Future<UserModel> getCurrentUser() async {
-    await Future<dynamic>.delayed(const Duration(seconds: 1));
-    return kUserModel;
+    try {
+      final jsonData = await _dbUser.read(key: _currentUserKey);
+      final userData = json.decode(jsonData!) as Map<String, dynamic>;
+      final userModel = UserModel.fromJson(userData);
+      return userModel;
+    } catch (e, st) {
+      throw CurrentUserNotFoundException(
+        error: e,
+        action: 'getCurrentUser',
+        stackTrace: st,
+      );
+    }
   }
+
+  @override
+  Future<void> logout() async {
+    try {
+    await _dbUser.delete(key: _currentUserKey);
+    } catch (e, st) {
+      throw LogoutFailedException(
+        error: e,
+        action: 'logout',
+        stackTrace: st,
+      );
+    }
+  }
+}
+
+// ignore: public_member_api_docs
+class UserAuthHiveStorage extends HiveManager<String> {
+  // ignore: public_member_api_docs
+  UserAuthHiveStorage({required super.boxName});
+}
+
+// ignore: public_member_api_docs
+class CurrentUserAuthHiveStorage extends HiveManager<String> {
+  // ignore: public_member_api_docs
+  CurrentUserAuthHiveStorage({required super.boxName});
 }

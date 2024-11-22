@@ -93,6 +93,13 @@ abstract class HiveManager<T> {
     final values = box.keys;
     return box.deleteAll(values);
   }
+
+  /// Returns all data from the box.
+  Future<List<T>> readAll() async {
+    final box = await _hiveBox;
+    return box.values.toList();
+  }
+
 }
 
 /// HiveSecureManager is a class that manages the Hive box

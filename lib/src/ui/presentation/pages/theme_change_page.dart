@@ -1,7 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flow_zero_waste/core/common/presentation/logics/providers/responsive_ui/page_provider.dart';
 import 'package:flow_zero_waste/core/common/presentation/widgets/accessibility/text/text_headline.dart';
-import 'package:flow_zero_waste/core/common/presentation/widgets/components/nav_bar.dart';
+import 'package:flow_zero_waste/core/common/presentation/widgets/components/app_bar_styled.dart';
 import 'package:flow_zero_waste/core/enums/contrast_enum.dart';
 import 'package:flow_zero_waste/core/enums/text_enum.dart';
 import 'package:flow_zero_waste/core/extensions/l10n_extension.dart';
@@ -34,7 +34,7 @@ class ThemeChangePage extends StatelessWidget {
     final themeProvider = context.read<ThemeProvider>();
     final textScaleProvider = context.watch<TextScaleProvider>();
     return Scaffold(
-      appBar: NavBar(
+      appBar: AppBarStyled(
         title: context.l10n.profileCustomizeTheme,
       ),
       body: Padding(

@@ -1,6 +1,6 @@
 import 'package:flow_zero_waste/config/assets/size/app_size.dart';
 import 'package:flow_zero_waste/core/common/presentation/logics/providers/responsive_ui/page_provider.dart';
-import 'package:flow_zero_waste/core/common/presentation/widgets/styled/scrollbar_styled.dart';
+import 'package:flow_zero_waste/core/common/presentation/widgets/components/scrollbar_styled.dart';
 import 'package:flow_zero_waste/core/enums/page_layout_size.dart';
 import 'package:flow_zero_waste/core/extensions/build_context_extension.dart';
 import 'package:flow_zero_waste/core/extensions/l10n_extension.dart';

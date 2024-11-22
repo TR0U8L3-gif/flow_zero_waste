@@ -3,7 +3,7 @@ import 'package:flow_zero_waste/config/injection/injection.dart';
 import 'package:flow_zero_waste/core/common/data/response_model.dart';
 import 'package:flow_zero_waste/core/services/dio/auth_interceptor.dart';
 import 'package:flow_zero_waste/src/auth/data/datasources/remote/auth_remote_data_source.dart';
-import 'package:flow_zero_waste/src/auth/data/datasources/remote/auth_remote_data_source_exceptions.dart';
+import 'package:flow_zero_waste/src/auth/data/datasources/auth_data_source_exceptions.dart';
 import 'package:flow_zero_waste/src/auth/data/models/auth_model.dart';
 import 'package:flow_zero_waste/src/auth/data/models/user_model.dart';
 import 'package:injectable/injectable.dart';
@@ -83,5 +83,10 @@ class AuthRemoteDataSourceImplProd implements AuthRemoteDataSource {
     } catch (e) {
       rethrow;
     }
+  }
+
+  @override
+  Future<void> logout() async {
+    return;
   }
 }

@@ -1,6 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flow_zero_waste/core/common/presentation/logics/providers/responsive_ui/page_provider.dart';
-import 'package:flow_zero_waste/core/common/presentation/widgets/components/nav_bar.dart';
+import 'package:flow_zero_waste/core/common/presentation/widgets/components/app_bar_styled.dart';
 import 'package:flow_zero_waste/core/extensions/l10n_extension.dart';
 import 'package:flow_zero_waste/src/discover/presentation/widgets/banner_section.dart';
 import 'package:flow_zero_waste/src/discover/presentation/widgets/categories_section.dart';
@@ -23,7 +23,7 @@ class DiscoverPage extends StatelessWidget implements AutoRouteWrapper {
     final location = context.watch<LocationProvider>();
     final page = context.watch<PageProvider>();
     return Scaffold(
-      appBar: NavBar(
+      appBar: AppBarStyled(
         title: context.l10n.discover,
       ),
       body: SingleChildScrollView(
