@@ -13,3 +13,19 @@ String? emailValidator(
   }
   return null;
 }
+
+/// Validator to check if the email is valid or not ignoring the empty value
+String? emailValidatorWithoutEmptyCheck(
+  String? value, {
+  String? emailNotValid,
+}) {
+  const emailPattern = r'^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$';
+  final regex = RegExp(emailPattern);
+  if (value == null || value.isEmpty) {
+    return null;
+  }
+  if (!regex.hasMatch(value)) {
+    return emailNotValid ?? 'Please enter a valid email';
+  }
+  return null;
+}

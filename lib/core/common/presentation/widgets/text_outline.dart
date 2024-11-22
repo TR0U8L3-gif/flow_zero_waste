@@ -13,6 +13,7 @@ class TextOutline extends StatelessWidget {
     this.style,
     this.maxLines,
     this.overflow,
+    this.textAlign,
     super.key,
   });
 
@@ -34,6 +35,9 @@ class TextOutline extends StatelessWidget {
   /// Text overflow
   final TextOverflow? overflow;
 
+  /// Text align
+  final TextAlign? textAlign;
+
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -50,12 +54,14 @@ class TextOutline extends StatelessWidget {
           ),
           maxLines: maxLines,
           overflow: overflow,
+          textAlign: textAlign ?? TextAlign.start,
         ),
         Text(
           text,
           style: style,
           maxLines: maxLines,
           overflow: overflow,
+          textAlign: textAlign ?? TextAlign.start,
         ),
       ],
     );

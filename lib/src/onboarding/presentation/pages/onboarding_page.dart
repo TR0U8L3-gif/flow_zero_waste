@@ -71,25 +71,43 @@ class _OnboardingPageState extends State<OnboardingPage>
                   child: Column(
                     children: [
                       if (page.layoutSize <= PageLayoutSize.expanded)
-                        const SizedBox(
-                          height: kButtonHeightDefault,
+                        Padding(
+                          padding: EdgeInsets.symmetric(
+                            vertical: page.layoutSize.isCompact ||
+                                    page.layoutSize.isExpanded
+                                ? 0
+                                : page.spacing,
+                          ),
+                          child: const SizedBox(
+                            height: kButtonHeightDefault,
+                          ),
+                        )
+                      else
+                        SizedBox(
+                          height: page.spacing,
                         ),
                       Expanded(
-                        child: TabBarView(
-                          controller: _tabController,
-                          children: [
-                            for (var i = 0; i < tabLength; i++)
-                              OnboardingTabTile(
-                                cropPage: cropPage,
-                                imageAsset: _getImageAssetUrl(i),
-                                imageTitle: _getDisplayText(i),
-                                headline: _getHeadlineText(i),
-                                description: _getBodyText(i),
-                                last: i == tabLength - 1
-                                    ? () => widget.onResult(success: true)
-                                    : null,
-                              ),
-                          ],
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(page.spacing),
+                            topRight: Radius.circular(page.spacing),
+                          ),
+                          child: TabBarView(
+                            controller: _tabController,
+                            children: [
+                              for (var i = 0; i < tabLength; i++)
+                                OnboardingTabTile(
+                                  cropPage: cropPage,
+                                  imageAsset: _getImageAssetUrl(i),
+                                  imageTitle: _getDisplayText(i),
+                                  headline: _getHeadlineText(i),
+                                  description: _getBodyText(i),
+                                  last: i == tabLength - 1
+                                      ? () => widget.onResult(success: true)
+                                      : null,
+                                ),
+                            ],
+                          ),
                         ),
                       ),
                       Padding(

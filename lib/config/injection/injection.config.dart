@@ -77,6 +77,21 @@ import '../../src/onboarding/domain/usecases/save_onboarding_seen_to_local_stora
     as _i845;
 import '../../src/onboarding/presentation/logics/onboarding_provider.dart'
     as _i491;
+import '../../src/profile/data/datasources/remote/profile_remote_data_source.dart'
+    as _i659;
+import '../../src/profile/data/datasources/remote/profile_remote_data_source_impl.dart'
+    as _i375;
+import '../../src/profile/data/mappers/profile_stats_mapper.dart' as _i1006;
+import '../../src/profile/data/repositories/profile_repository_impl.dart'
+    as _i823;
+import '../../src/profile/domain/repositories/profile_repository.dart' as _i95;
+import '../../src/profile/domain/usecases/get_profile_stats.dart' as _i374;
+import '../../src/profile/domain/usecases/update_profile_data.dart' as _i451;
+import '../../src/profile/domain/usecases/update_profile_password.dart'
+    as _i815;
+import '../../src/profile/presentation/logics/profile_edit_cubit.dart' as _i480;
+import '../../src/profile/presentation/logics/profile_stats_cubit.dart'
+    as _i627;
 import '../../src/ui/data/datasources/ui_local_data_source.dart' as _i382;
 import '../../src/ui/data/datasources/ui_local_data_source_impl.dart' as _i526;
 import '../../src/ui/data/datasources/ui_storage_hive.dart' as _i475;
@@ -126,6 +141,7 @@ extension GetItInjectableX on _i174.GetIt {
       () => _i296.OnboardingStorageHive(),
       dispose: (i) => i.dispose(),
     );
+    gh.singleton<_i1006.ProfileStatsMapper>(() => _i1006.ProfileStatsMapper());
     gh.singleton<_i475.UiStorageHive>(
       () => _i475.UiStorageHive(),
       dispose: (i) => i.dispose(),
@@ -234,6 +250,14 @@ extension GetItInjectableX on _i174.GetIt {
           saveOnboardingSeenToLocalStorage:
               gh<_i845.SaveOnboardingSeenToLocalStorage>(),
         ));
+    gh.singleton<_i659.ProfileRemoteDataSource>(() =>
+        _i375.ProfileRemoteDataSourceImpl(
+            authProvider: gh<_i346.AuthProvider>()));
+    gh.singleton<_i95.ProfileRepository>(() => _i823.ProfileRepositoryImpl(
+          profileStatsMapper: gh<_i1006.ProfileStatsMapper>(),
+          loggerManager: gh<_i127.LoggerManager>(),
+          profileRemoteDataSource: gh<_i659.ProfileRemoteDataSource>(),
+        ));
     gh.singleton<_i210.TextScaleProvider>(() => _i210.TextScaleProvider(
           loadTextScaleFromLocalStorage:
               gh<_i220.LoadTextScaleFromLocalStorage>(),
@@ -250,6 +274,18 @@ extension GetItInjectableX on _i174.GetIt {
     gh.singleton<_i1069.LanguageProvider>(() => _i1069.LanguageProvider(
           getLanguageFromStorage: gh<_i424.LoadLanguageFromLocalStorage>(),
           saveLanguageToStorage: gh<_i665.SaveLanguageToLocalStorage>(),
+        ));
+    gh.singleton<_i374.GetProfileStats>(
+        () => _i374.GetProfileStats(repository: gh<_i95.ProfileRepository>()));
+    gh.singleton<_i451.UpdateProfileData>(() =>
+        _i451.UpdateProfileData(repository: gh<_i95.ProfileRepository>()));
+    gh.singleton<_i815.UpdateProfilePassword>(() =>
+        _i815.UpdateProfilePassword(repository: gh<_i95.ProfileRepository>()));
+    gh.factory<_i627.ProfileStatsCubit>(() =>
+        _i627.ProfileStatsCubit(getProfileStats: gh<_i374.GetProfileStats>()));
+    gh.factory<_i480.ProfileEditCubit>(() => _i480.ProfileEditCubit(
+          updateProfileData: gh<_i451.UpdateProfileData>(),
+          updateProfilePassword: gh<_i815.UpdateProfilePassword>(),
         ));
     gh.singleton<_i732.NavigationRouter>(() => _i732.NavigationRouter(
           onboardingGuard: gh<_i11.OnboardingGuard>(),

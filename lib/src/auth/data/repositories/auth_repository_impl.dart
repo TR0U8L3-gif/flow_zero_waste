@@ -1,5 +1,7 @@
+import 'package:flow_zero_waste/core/common/data/exceptions.dart';
 import 'package:flow_zero_waste/core/common/domain/response.dart';
 import 'package:flow_zero_waste/core/utils/typedef.dart';
+import 'package:flow_zero_waste/src/auth/data/datasources/auth_data_source_exceptions.dart';
 import 'package:flow_zero_waste/src/auth/data/datasources/local/auth_local_data_source.dart';
 import 'package:flow_zero_waste/src/auth/data/datasources/remote/auth_remote_data_source.dart';
 import 'package:flow_zero_waste/src/auth/data/mappers/user_mapper.dart';
@@ -7,6 +9,7 @@ import 'package:flow_zero_waste/src/auth/data/models/auth_model.dart';
 import 'package:flow_zero_waste/src/auth/data/models/user_model.dart';
 import 'package:flow_zero_waste/src/auth/domain/entities/user.dart';
 import 'package:flow_zero_waste/src/auth/domain/repositories/auth_repository.dart';
+import 'package:flow_zero_waste/src/auth/domain/responses/auth_response.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:injectable/injectable.dart';
 import 'package:logger_manager/logger_manager.dart';
@@ -36,6 +39,13 @@ class AuthRepositoryImpl implements AuthRepository {
     AuthModel? authModel;
     try {
       authModel = await _authLocalDataSource.getAuth();
+    } on CacheException catch  (e, st) {
+      _logger.error(
+        message: 'Error while getting current user',
+        error: e,
+        stackTrace: st,
+      );
+      return const Left(CurrentUserNotFoundAuthFailure());
     } catch (e, st) {
       _logger.error(
         message: 'Error while getting current user',
@@ -65,7 +75,17 @@ class AuthRepositoryImpl implements AuthRepository {
       );
     }
 
-    final user = _userMapper.from(userModel ?? authModel.user);
+    User? user;
+    try {
+      user = _userMapper.from(userModel ?? authModel.user);
+    } catch (e, st) {
+      _logger.error(
+        message: 'Error while mapping user',
+        error: e,
+        stackTrace: st,
+      );
+      return const Left(UnexpectedAuthFailure());
+    }
 
     _logger.trace(
       message: 'Received current user [remote]: ${user.runtimeType}',
@@ -87,6 +107,8 @@ class AuthRepositoryImpl implements AuthRepository {
         email: email,
         password: password,
       );
+    } on InvalidCredentialsException {
+      return const Left(InvalidCredentialsAuthFailure());
     } catch (e, st) {
       _logger.error(
         message: 'Error while logging in',
@@ -113,8 +135,29 @@ class AuthRepositoryImpl implements AuthRepository {
 
   @override
   ResultFuture<Failure, void> logout() async {
+    _logger.trace(message: 'Logging out');
     try {
-      await _authLocalDataSource.logout();
+      await Future.wait(
+        [
+          _authLocalDataSource.logout(),
+          _authRemoteDataSource.logout(),
+        ],
+      );
+      _logger.trace(message: 'Logged out');
+      return const Right(null);
+    } on CacheException catch (e, st) {
+      _logger.error(
+        message: '[CacheException] Error while logging out',
+        error: e,
+        stackTrace: st,
+      );
+      return const Left(LogoutFailedAuthFailure());
+    } on LogoutFailedException catch (e, st) {
+      _logger.error(
+        message: '[LogoutFailedException] Error while logging out',
+        error: e,
+        stackTrace: st,
+      );
       return const Right(null);
     } catch (e, st) {
       _logger.error(
@@ -133,6 +176,7 @@ class AuthRepositoryImpl implements AuthRepository {
     required String password,
     required String phoneNumber,
   }) async {
+    _logger.trace(message: 'Registering user');
     try {
       await _authRemoteDataSource.register(
         name: name,
@@ -140,7 +184,10 @@ class AuthRepositoryImpl implements AuthRepository {
         password: password,
         phoneNumber: phoneNumber,
       );
+      _logger.trace(message: 'User registered');
       return const Right(null);
+    } on UserAlreadyExistException {
+      return const Left(UserAlreadyExistAuthFailure());
     } catch (e, st) {
       _logger.error(
         message: 'Error while registering',

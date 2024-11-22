@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
 /// Navigation bar
-class NavBar extends StatelessWidget implements PreferredSizeWidget {
+class AppBarStyled extends StatelessWidget implements PreferredSizeWidget {
   /// Default constructor
-  const NavBar({
+  const AppBarStyled({
     required this.title,
     super.key,
   });

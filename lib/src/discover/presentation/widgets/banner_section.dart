@@ -23,6 +23,7 @@ class BannersSection extends StatelessWidget {
 
   /// Banners
   final List<BannerData>? banners;
+
   /// Callback for banner tap
   final void Function(String bannerTitle)? onBannerTap;
 
@@ -120,47 +121,73 @@ class BannerCard extends StatelessWidget {
         child: Stack(
           children: [
             if (bannerData.imageUrl != null)
-              SizedBox.expand(
-                child: Image.network(
-                  bannerData.imageUrl!,
-                  fit: BoxFit.cover,
-                  cacheWidth: ImageCacheSize.calculate(
-                    context,
-                    _bannerCardWidth,
+              Opacity(
+                opacity: 0.9,
+                child: SizedBox.expand(
+                  child: Image.network(
+                    bannerData.imageUrl!,
+                    fit: BoxFit.cover,
+                    cacheWidth: ImageCacheSize.calculate(
+                      context,
+                      _bannerCardWidth,
+                    ),
+                    errorBuilder: errorBuilder,
+                    loadingBuilder: loadingBuilder,
+                    frameBuilder: frameBuilder,
                   ),
-                  errorBuilder: errorBuilder,
-                  loadingBuilder: loadingBuilder,
-                  frameBuilder: frameBuilder,
                 ),
               ),
             Align(
               alignment: Alignment.bottomLeft,
-              child: Padding(
-                padding: const EdgeInsets.only(
-                  left: AppSize.s,
-                  bottom: AppSize.s,
-                ),
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    TextOutline(
+              child: Column(
+                // mainAxisSize: MainAxisSize.min,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Container(
+                    decoration: BoxDecoration(
+                      color:
+                          context.colorScheme.primaryContainer.withOpacity(0.6),
+                      borderRadius: const BorderRadius.only(
+                        bottomRight: Radius.circular(AppSize.m),
+                      ),
+                    ),
+                    padding: const EdgeInsets.only(
+                      left: AppSize.s,
+                      right: AppSize.s,
+                    ),
+                    child: TextOutline(
                       bannerData.title,
-                      style: context.textTheme.titleLarge,
+                      style: context.textTheme.titleLarge?.copyWith(
+                        fontWeight: FontWeight.w500,
+                      ),
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
-                      strokeWidth: AppSize.s2,
+                      strokeWidth: 1,
                     ),
-                    if (bannerData.description != null)
-                      TextOutline(
+                  ),
+                  if (bannerData.description != null)
+                    Container(
+                      color:
+                          context.colorScheme.primaryContainer.withOpacity(0.6),
+                      padding: const EdgeInsets.only(
+                        left: AppSize.s,
+                        right: AppSize.s,
+                        bottom: AppSize.s2,
+                      ),
+                      alignment: Alignment.center,
+                      child: TextOutline(
                         bannerData.description!,
-                        style: context.textTheme.bodyMedium,
+                        style: context.textTheme.bodySmall?.copyWith(
+                          fontWeight: FontWeight.w500,
+                        ),
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
-                        strokeWidth: AppSize.s2,
+                        strokeWidth: 0.8,
+                        textAlign: TextAlign.center,
                       ),
-                  ],
-                ),
+                    ),
+                ],
               ),
             ),
           ],

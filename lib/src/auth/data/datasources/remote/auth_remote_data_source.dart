@@ -18,4 +18,7 @@ abstract class AuthRemoteDataSource {
 
   /// Get current user
   Future<UserModel> getCurrentUser();
+
+  /// Logout
+  Future<void> logout();
 }

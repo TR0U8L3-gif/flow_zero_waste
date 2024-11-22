@@ -25,3 +25,19 @@ String? passwordValidatorIsEmpty(
   }
   return null;
 }
+
+/// Password validator function
+/// that checks  if it is at least 8 characters long
+/// ignoring the empty value
+String? passwordValidatorWithoutEmptyCheck(
+  String? value, {
+  String? passwordNotValid,
+}) {
+  if (value == null || value.isEmpty) {
+    return null;
+  } else if (value.length < 8) {
+    return passwordNotValid ?? 'Password must be at least 8 characters long';
+  }
+  return null;
+}
+

@@ -1,5 +1,5 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:flow_zero_waste/core/common/presentation/widgets/components/nav_bar.dart';
+import 'package:flow_zero_waste/core/common/presentation/widgets/components/app_bar_styled.dart';
 import 'package:flutter/material.dart';
 
 @RoutePage()
@@ -15,7 +15,7 @@ class FavoritesPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: NavBar(
+      appBar: AppBarStyled(
         title: 'Ulubione',
       ),
       body: Padding(
@@ -34,7 +34,9 @@ class FavoritesPage extends StatelessWidget {
                     itemName: favoriteItems[index],
                     onRemove: () {
                       ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(content: Text('${favoriteItems[index]} usunięto z ulubionych')),
+                        SnackBar(
+                            content: Text(
+                                '${favoriteItems[index]} usunięto z ulubionych')),
                       );
                     },
                   );
