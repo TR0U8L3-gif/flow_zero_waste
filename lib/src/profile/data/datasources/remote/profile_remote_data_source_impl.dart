@@ -9,7 +9,9 @@ import 'package:flow_zero_waste/src/profile/data/models/profile_stats_model.dart
 import 'package:injectable/injectable.dart';
 
 const _userKey = 'userAuth';
+const _currentUserKey = 'userAuthCurrent';
 const _userBoxName = 'userAuthBox';
+const _currentUserBoxName = 'currentUserAuthBox';
 
 /// Profile remote data source
 @Singleton(as: ProfileRemoteDataSource)
@@ -21,6 +23,8 @@ class ProfileRemoteDataSourceImpl implements ProfileRemoteDataSource {
 
   final UserAuthHiveStorage _dbAuth =
       UserAuthHiveStorage(boxName: _userBoxName);
+  final CurrentUserAuthHiveStorage _dbUser =
+      CurrentUserAuthHiveStorage(boxName: _currentUserBoxName);
   final AuthProvider _authProvider;
 
   @override
@@ -58,7 +62,6 @@ class ProfileRemoteDataSourceImpl implements ProfileRemoteDataSource {
     required String newPassword,
   }) async {
     await Future<void>.delayed(const Duration(seconds: 3));
-
 
     if (_authProvider.user == null) {
       throw FailedToChangePasswordException(
@@ -120,6 +123,7 @@ class ProfileRemoteDataSourceImpl implements ProfileRemoteDataSource {
         if (phoneNumber != null) data = data..['phoneNumber'] = phoneNumber;
         final jsonData = json.encode(data);
         await _dbAuth.write(jsonData, key: '$_userKey$id');
+        await _dbUser.write(jsonData, key: _currentUserKey);
         await _authProvider.fetchUserData();
         return;
       }
