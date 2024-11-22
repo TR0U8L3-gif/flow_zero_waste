@@ -13,3 +13,19 @@ String? phoneValidator(
   }
   return null;
 }
+
+/// Phone number validator ignoring the empty value
+String? phoneValidatorWithoutEmptyCheck(
+  String? value, {
+  String? phoneNotValid,
+}) {
+  const phonePattern = r'^\+?[0-9]{7,15}$';
+  final regex = RegExp(phonePattern);
+  if (value == null || value.isEmpty) {
+    return null;
+  }
+  if (!regex.hasMatch(value)) {
+    return phoneNotValid ?? 'Please enter a valid phone number';
+  }
+  return null;
+}

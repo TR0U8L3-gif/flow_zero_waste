@@ -52,4 +52,71 @@ class ProfileRepositoryImpl implements ProfileRepository {
       );
     }
   }
+
+  @override
+  ResultFuture<Failure, Success> changePassword({
+    required String currentPassword,
+    required String newPassword,
+  }) async {
+    try {
+      await _profileRemoteDataSource.changePassword(
+        currentPassword: currentPassword,
+        newPassword: newPassword,
+      );
+      return const Right(ChangedPasswordSuccess());
+    } on FailedToChangePasswordException catch (e, st) {
+      _logger.error(
+        message: 'FailedToChangePasswordException Unable to change password',
+        error: e.error,
+        stackTrace: st,
+      );
+      return const Left(FailedToChangePasswordFailure());
+    } catch (e, st) {
+      _logger.fatal(
+        message: 'Unable to change password',
+        error: e,
+        stackTrace: st,
+      );
+      return const Left(
+        Failure(
+          message: 'Unable to change password',
+        ),
+      );
+    }
+  }
+
+  @override
+  ResultFuture<Failure, Success> updateProfileData({
+    required String? name,
+    required String? email,
+    required String? phoneNumber,
+  }) async {
+    try {
+      await _profileRemoteDataSource.updateProfileData(
+        name: name,
+        email: email,
+        phoneNumber: phoneNumber,
+      );
+      return const Right(UpdatedProfileDataSuccess());
+    } on FailedToUpdateProfileDataException catch (e, st) {
+      _logger.error(
+        message:
+            'FailedToUpdateProfileDataException Unable to update profile data',
+        error: e.error,
+        stackTrace: st,
+      );
+      return const Left(FailedToUpdateProfileDataFailure());
+    } catch (e, st) {
+      _logger.fatal(
+        message: 'Unable to update profile data',
+        error: e,
+        stackTrace: st,
+      );
+      return const Left(
+        Failure(
+          message: 'Unable to update profile data',
+        ),
+      );
+    }
+  }
 }

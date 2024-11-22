@@ -1,14 +1,14 @@
-part of 'profile_cubit.dart';
+part of 'profile_stats_cubit.dart';
 
 /// Profile state
-sealed class ProfileState extends BaseLogicState with EquatableMixin {
-  const ProfileState();
+sealed class ProfileStatsState extends BaseLogicState with EquatableMixin {
+  const ProfileStatsState();
 }
 
 /// Profile stats state
-abstract class ProfileStatsState extends  ProfileState{
+abstract class ProfileStatisticsState extends ProfileStatsState {
   /// Default constructor
-  const ProfileStatsState({
+  const ProfileStatisticsState({
     required this.profileStats,
   });
 
@@ -17,8 +17,7 @@ abstract class ProfileStatsState extends  ProfileState{
 }
 
 /// Profile initial
-final class ProfileInitial extends ProfileState
-    with BuildableLogicState, ListenableLogicState {
+final class ProfileInitial extends ProfileStatsState with BuildableLogicState {
   @override
   List<Object?> get props => [];
 }
@@ -27,9 +26,10 @@ final class ProfileInitial extends ProfileState
 ///
 /// if value is null it means value loaded with error
 /// if value is not null it means value loaded successfully
-final class ProfileIdle extends ProfileStatsState with BuildableLogicState {
+final class ProfileStatsIdle extends ProfileStatisticsState
+    with BuildableLogicState {
   /// Default constructor
-  ProfileIdle({
+  ProfileStatsIdle({
     required super.profileStats,
   });
 
@@ -41,9 +41,10 @@ final class ProfileIdle extends ProfileStatsState with BuildableLogicState {
 ///
 /// if value is null it means value is loading
 /// if value is not null it means value is preloaded
-final class ProfileLoading extends ProfileStatsState with BuildableLogicState{
+final class ProfileStatsLoading extends ProfileStatisticsState
+    with BuildableLogicState {
   /// Default constructor
-  ProfileLoading({
+  ProfileStatsLoading({
     required super.profileStats,
   });
 
@@ -51,15 +52,16 @@ final class ProfileLoading extends ProfileStatsState with BuildableLogicState{
   List<Object?> get props => [profileStats];
 }
 
-
 /// Profile error
-final class ProfileError extends ProfileState with ListenableLogicState {
+final class ProfileStatsError extends ProfileStatsState
+    with ListenableLogicState {
   /// Default constructor
-  const ProfileError({
+  const ProfileStatsError({
     required this.failure,
   });
+
   /// Failure
-  final Failure failure;  
+  final Failure failure;
   @override
   List<Object?> get props => [failure];
 }

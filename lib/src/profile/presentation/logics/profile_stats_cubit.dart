@@ -7,33 +7,31 @@ import 'package:flow_zero_waste/src/profile/domain/entities/profile_stats.dart';
 import 'package:flow_zero_waste/src/profile/domain/usecases/get_profile_stats.dart';
 import 'package:injectable/injectable.dart';
 
-part 'profile_state.dart';
-
-const _maxRetryCount = 3;
+part 'profile_stats_state.dart';
 
 /// Profile cubit
 @injectable
-class ProfileCubit extends Cubit<ProfileState> {
+class ProfileStatsCubit extends Cubit<ProfileStatsState> {
   /// Default constructor
-  ProfileCubit({
+  ProfileStatsCubit({
     required GetProfileStats getProfileStats,
   })  : _getProfileStats = getProfileStats,
         super(ProfileInitial());
 
   final GetProfileStats _getProfileStats;
-  ProfileIdle? _lastIdleState;
+  ProfileStatsIdle? _lastIdleState;
 
   /// Load profile stats
   Future<void> loadProfileStats() async {
     emit(
-      ProfileLoading(
+      ProfileStatsLoading(
         profileStats: _lastIdleState?.profileStats ?? ProfileStats.empty(),
       ),
     );
     final result = await _getProfileStats.call(const NoParams());
     result.fold(
       (failure) {
-        emit(ProfileError(failure: failure));
+        emit(ProfileStatsError(failure: failure));
       },
       emitIdle,
     );
@@ -41,16 +39,16 @@ class ProfileCubit extends Cubit<ProfileState> {
 
   /// Emit idle state
   void emitIdle(ProfileStats? stats) {
-    if(isClosed) return;
-    
+    if (isClosed) return;
+
     if (stats == null) {
       final state = _lastIdleState ??
-          ProfileIdle(
+          ProfileStatsIdle(
             profileStats: ProfileStats.empty(),
           );
       emit(state);
     } else {
-      final state = ProfileIdle(profileStats: stats);
+      final state = ProfileStatsIdle(profileStats: stats);
       _lastIdleState = state;
       emit(state);
     }

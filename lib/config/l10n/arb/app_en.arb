@@ -395,5 +395,41 @@
   "failedToGetProfileStats": "Failed to retrieve profile statistics",
   "@failedToGetProfileStats": {
     "description": "Error message displayed when user profile statistics cannot be retrieved"
+  },
+  "changeUserData": "Change user data",
+  "@changeUserData": {
+    "description": "Button or option to edit user data"
+  },
+  "saveChanges": "Save changes",
+  "@saveChanges": {
+    "description": "Button to save the changes made"
+  },
+  "changePassword": "Change password",
+  "@changePassword": {
+    "description": "Button or option to allow the user to change their password"
+  },
+  "currentPasswordLabel": "Current password",
+  "@currentPasswordLabel": {
+    "description": "Label for the text field to enter the user's current password"
+  },
+  "passwordChangeSuccess": "Password changed successfully",
+  "@passwordChangeSuccess": {
+    "description": "Message displayed when the user's password is successfully changed"
+  },
+  "userDataChangeSuccess": "User data changed successfully",
+  "@userDataChangeSuccess": {
+    "description": "Message displayed when the user's data is successfully changed"
+  },
+  "passwordChangeFailure": "Failed to change password, please try again later",
+  "@passwordChangeFailure": {
+    "description": "Message displayed when the user's password change fails"
+  },
+  "userDataChangeFailure": "Failed to change user data, please try again later",
+  "@userDataChangeFailure": {
+    "description": "Message displayed when the user's data change fails"
+  },
+  "operationSuccessful": "Operation completed successfully",
+  "@operationSuccessful": {
+    "description": "Message displayed when an operation is successfully completed"
   }
 }

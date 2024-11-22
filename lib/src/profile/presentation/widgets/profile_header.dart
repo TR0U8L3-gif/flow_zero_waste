@@ -20,10 +20,13 @@ class ProfileHeader extends StatelessWidget {
         CircleAvatar(
           radius: 40,
           backgroundColor: context.colorScheme.primary,
-          child: Text(
-            userName.isNotEmpty ? userName[0].toUpperCase() : '?',
-            style: context.textTheme.headlineLarge?.copyWith(
-              color: context.colorScheme.onPrimary,
+          child: Align(
+            alignment: const Alignment(-0.1,-0.1),
+            child: Text(
+              userName.isNotEmpty ? userName[0].toUpperCase() : '?',
+              style: context.textTheme.headlineLarge?.copyWith(
+                color: context.colorScheme.onPrimary,
+              ),
             ),
           ),
         ),

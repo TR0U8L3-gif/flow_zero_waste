@@ -3,7 +3,7 @@ import 'package:flow_zero_waste/core/common/presentation/logics/providers/respon
 import 'package:flow_zero_waste/core/extensions/l10n_extension.dart';
 import 'package:flow_zero_waste/core/extensions/theme_extension.dart';
 import 'package:flow_zero_waste/src/profile/domain/responses/profile_responses.dart';
-import 'package:flow_zero_waste/src/profile/presentation/logics/cubit/profile_cubit.dart';
+import 'package:flow_zero_waste/src/profile/presentation/logics/profile_stats_cubit.dart';
 import 'package:flow_zero_waste/src/profile/presentation/widgets/components/stat_row.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -17,9 +17,9 @@ class ProfileBadges extends StatelessWidget {
   Widget build(BuildContext context) {
     final translations = context.l10n;
     final page = context.watch<PageProvider>();
-    final profileCubit = context.read<ProfileCubit>();
+    final profileCubit = context.read<ProfileStatsCubit>();
 
-    return BlocConsumer<ProfileCubit, ProfileState>(
+    return BlocConsumer<ProfileStatsCubit, ProfileStatsState>(
       bloc: profileCubit,
       listener: (context, state) {
         if (!state.isListenable) return;
@@ -28,7 +28,7 @@ class ProfileBadges extends StatelessWidget {
           (state as NavigatableLogicState).navigate(context);
         }
 
-        if (state is! ProfileError) return;
+        if (state is! ProfileStatsError) return;
 
         var errorMessage = translations.unexpectedError;
 
@@ -62,18 +62,18 @@ class ProfileBadges extends StatelessWidget {
           orderCount = '...';
           pointsCollected = '...';
           treesPlanted = '...';
-        } else if (state is ProfileStatsState) {
+        } else if (state is ProfileStatisticsState) {
           avoidedCO2Emissions =
               state.profileStats.avoidedCO2eEmission?.toString() ??
-                  (state is ProfileLoading ? '...' : null);
+                  (state is ProfileStatsLoading ? '...' : null);
           moneySaved = state.profileStats.savedMoney?.toString() ??
-              (state is ProfileLoading ? '...' : null);
+              (state is ProfileStatsLoading ? '...' : null);
           orderCount = state.profileStats.orderCount?.toStringAsFixed(0) ??
-              (state is ProfileLoading ? '...' : null);
+              (state is ProfileStatsLoading ? '...' : null);
           pointsCollected = state.profileStats.points?.toStringAsFixed(0) ??
-              (state is ProfileLoading ? '...' : null);
+              (state is ProfileStatsLoading ? '...' : null);
           treesPlanted = state.profileStats.plantedTrees?.toStringAsFixed(0) ??
-              (state is ProfileLoading ? '...' : null);
+              (state is ProfileStatsLoading ? '...' : null);
         }
 
         return Padding(

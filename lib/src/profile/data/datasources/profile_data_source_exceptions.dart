@@ -9,3 +9,23 @@ class FailedToGetProfileStatsException extends BaseException {
     super.stackTrace,
   });
 }
+
+/// Failed to update profile data exception
+class FailedToUpdateProfileDataException extends BaseException {
+  /// Default constructor
+  const FailedToUpdateProfileDataException({
+    required super.error,
+    required super.action,
+    super.stackTrace,
+  });
+}
+
+/// Failed to change password exception
+class FailedToChangePasswordException extends BaseException {
+  /// Default constructor
+  const FailedToChangePasswordException({
+    required super.error,
+    required super.action,
+    super.stackTrace,
+  });
+}

@@ -395,5 +395,41 @@
   "failedToGetProfileStats": "Nie udało się pobrać statystyk profilu",
   "@failedToGetProfileStats": {
     "description": "Komunikat błędu wyświetlany, gdy statystyki profilu użytkownika nie mogą zostać pobrane"
+  },
+  "changeUserData": "Zmień dane użytkownika",
+  "@changeUserData": {
+    "description": "Przycisk lub opcja umożliwiająca edycję danych użytkownika"
+  },
+  "saveChanges": "Zapisz zmiany",
+  "@saveChanges": {
+    "description": "Przycisk do zapisania wprowadzonych zmian"
+  },
+  "changePassword": "Zmień hasło",
+  "@changePassword": {
+    "description": "Przycisk lub opcja umożliwiająca zmianę hasła użytkownika"
+  },
+  "currentPasswordLabel": "Obecne hasło",
+  "@currentPasswordLabel": {
+    "description": "Etykieta pola tekstowego na obecne hasło użytkownika"
+  },
+  "passwordChangeSuccess": "Udało się zmienić hasło",
+  "@passwordChangeSuccess": {
+    "description": "Komunikat wyświetlany, gdy hasło użytkownika zostało pomyślnie zmienione"
+  },
+  "userDataChangeSuccess": "Udało się zmienić dane użytkownika",
+  "@userDataChangeSuccess": {
+    "description": "Komunikat wyświetlany, gdy dane użytkownika zostały pomyślnie zmienione"
+  },
+  "passwordChangeFailure": "Nie udało się zmienić hasła, spróbuj ponownie później",
+  "@passwordChangeFailure": {
+    "description": "Komunikat wyświetlany, gdy zmiana hasła użytkownika nie powiodła się"
+  },
+  "userDataChangeFailure": "Nie udało się zmienić danych użytkownika, spróbuj ponownie później",
+  "@userDataChangeFailure": {
+    "description": "Komunikat wyświetlany, gdy zmiana danych użytkownika nie powiodła się"
+  },
+  "operationSuccessful": "Operacja przebiegła pomyślnie",
+  "@operationSuccessful": {
+    "description": "Komunikat wyświetlany, gdy operacja została pomyślnie zakończona"
   }
 }

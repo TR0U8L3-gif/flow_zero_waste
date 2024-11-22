@@ -9,7 +9,7 @@ import 'package:flow_zero_waste/core/extensions/l10n_extension.dart';
 import 'package:flow_zero_waste/core/extensions/theme_extension.dart';
 import 'package:flow_zero_waste/core/services/device_info/device_info_manager.dart';
 import 'package:flow_zero_waste/src/auth/presentation/logics/auth_provider.dart';
-import 'package:flow_zero_waste/src/profile/presentation/logics/cubit/profile_cubit.dart';
+import 'package:flow_zero_waste/src/profile/presentation/logics/profile_stats_cubit.dart';
 import 'package:flow_zero_waste/src/profile/presentation/widgets/components/section_title.dart';
 import 'package:flow_zero_waste/src/profile/presentation/widgets/components/stat_row.dart';
 import 'package:flow_zero_waste/src/profile/presentation/widgets/licenses_widget.dart'
@@ -36,7 +36,7 @@ class ProfilePage extends StatelessWidget {
         title: translations.profile,
       ),
       body: RefreshIndicatorStyled(
-        onRefresh: () => context.read<ProfileCubit>().loadProfileStats(),
+        onRefresh: () => context.read<ProfileStatsCubit>().loadProfileStats(),
         child: SingleChildScrollView(
           padding: EdgeInsets.all(page.spacing),
           child: Column(
@@ -48,16 +48,23 @@ class ProfilePage extends StatelessWidget {
               ProfileOption(
                 icon: Icons.edit,
                 title: translations.profileEditProfile,
+                onTap: () => context.router.push(
+                  const ProfileChangeDataRoute(),
+                ),
               ),
               ProfileOption(
                 icon: Icons.language_outlined,
                 title: translations.profileChangeLanguage,
-                onTap: () => context.router.push(const LanguageRoute()),
+                onTap: () => context.router.push(
+                  const LanguageRoute(),
+                ),
               ),
               ProfileOption(
                 icon: Icons.gesture_sharp,
                 title: translations.profileCustomizeTheme,
-                onTap: () => context.router.push(const ThemeChangeRoute()),
+                onTap: () => context.router.push(
+                  const ThemeChangeRoute(),
+                ),
               ),
               ProfileOption(
                 icon: Icons.card_giftcard,

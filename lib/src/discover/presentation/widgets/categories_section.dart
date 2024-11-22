@@ -152,9 +152,13 @@ class CategoryCard extends StatelessWidget {
                 padding: const EdgeInsets.all(AppSize.s),
                 child: TextOutline(
                   categoryData.title,
-                  style: context.textTheme.titleLarge,
-                  maxLines: 2,
-                  strokeWidth: 1.8,
+                  style: context.textTheme.titleLarge?.copyWith(
+                    fontWeight: FontWeight.w500,
+                    color: context.colorScheme.primary,
+                  ),
+                  strokeColor: context.colorScheme.onPrimary,
+                  maxLines: 1,
+                  strokeWidth: AppSize.s4,
                 ),
               ),
             ),

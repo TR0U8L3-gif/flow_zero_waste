@@ -7,14 +7,14 @@ import 'package:injectable/injectable.dart';
 
 /// Get profile stats use case
 @singleton
-class GetProfileStats extends UseCase<ProfileStats,NoParams> {
+class GetProfileStats extends UseCase<ProfileStats, NoParams> {
   /// Default constructor
-  GetProfileStats({required ProfileRepository repository}) : _repository = repository;
+  GetProfileStats({required ProfileRepository repository})
+      : _repository = repository;
   final ProfileRepository _repository;
 
   @override
   ResultFuture<Failure, ProfileStats> call(NoParams params) {
     return _repository.getProfileStats();
   }
-  
 }

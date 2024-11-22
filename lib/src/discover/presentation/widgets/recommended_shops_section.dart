@@ -1,6 +1,5 @@
 import 'package:flow_zero_waste/core/common/presentation/logics/providers/responsive_ui/page_provider.dart';
 import 'package:flow_zero_waste/core/common/presentation/widgets/shimmer/shimmer_rectangle.dart';
-import 'package:flow_zero_waste/core/common/presentation/widgets/text_outline.dart';
 import 'package:flow_zero_waste/core/enums/page_layout_size.dart';
 import 'package:flow_zero_waste/core/extensions/date_time_extension.dart';
 import 'package:flow_zero_waste/core/extensions/l10n_extension.dart';
@@ -148,17 +147,26 @@ class ShopCard extends StatelessWidget {
                   ),
                   Align(
                     alignment: Alignment.bottomLeft,
-                    child: Padding(
-                      padding: EdgeInsets.symmetric(
-                        vertical: page.spacingHalf,
-                        horizontal: page.spacing,
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: context.colorScheme.surfaceContainer,
+                        borderRadius: BorderRadius.only(
+                          topRight: Radius.circular(page.spacing),
+                        ),
                       ),
-                      child: TextOutline(
-                        shopData.title,
-                        style: context.textTheme.titleLarge,
-                        maxLines: 2,
-                        strokeWidth: 1.8,
-                        overflow: TextOverflow.ellipsis,
+                      child: Padding(
+                        padding: EdgeInsets.only(
+                          right: page.spacing,
+                          left: page.spacing,
+                        ),
+                        child: Text(
+                          shopData.title,
+                          style: context.textTheme.titleLarge?.copyWith(
+                            fontWeight: FontWeight.w500,
+                          ),
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                        ),
                       ),
                     ),
                   ),
