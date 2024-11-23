@@ -39,3 +39,13 @@ class UnableToGetShopDataException extends BaseException {
     super.stackTrace,
   });
 }
+
+/// UnableToLikeShopException
+class UnableToLikeShopException extends BaseException {
+  /// Default constructor
+  UnableToLikeShopException({
+    required super.error,
+    required super.action,
+    super.stackTrace,
+  });
+}

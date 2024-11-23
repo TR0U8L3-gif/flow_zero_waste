@@ -2,7 +2,6 @@ import 'dart:convert';
 
 import 'package:flow_zero_waste/config/injection/injection.dart';
 import 'package:flow_zero_waste/core/common/data/dev/auth_data_base.dart';
-import 'package:flow_zero_waste/core/services/hive/hive_manager.dart';
 import 'package:flow_zero_waste/src/auth/data/datasources/auth_data_source_exceptions.dart';
 import 'package:flow_zero_waste/src/auth/data/datasources/remote/auth_remote_data_source.dart';
 import 'package:flow_zero_waste/src/auth/data/models/auth_model.dart';

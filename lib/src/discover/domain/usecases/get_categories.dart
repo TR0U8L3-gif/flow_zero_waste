@@ -1,8 +1,8 @@
 import 'package:flow_zero_waste/core/common/domain/response.dart';
 import 'package:flow_zero_waste/core/common/domain/use_case.dart';
 import 'package:flow_zero_waste/core/utils/typedef.dart';
+import 'package:flow_zero_waste/src/discover/domain/entities/category.dart';
 import 'package:flow_zero_waste/src/discover/domain/repositories/discover_repository.dart';
-import 'package:flutter/foundation.dart';
 import 'package:injectable/injectable.dart';
 
 /// GetCategories

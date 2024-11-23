@@ -26,8 +26,14 @@ class LocationProvider extends ChangeNotifier {
   /// Location data
   LocationData? _locationData;
 
+  /// Flag for initialization status
+  bool _isInitialized = false;
+
   /// Getter for location data
   LocationData? get locationData => _locationData;
+
+  /// Getter for initialization status
+  bool get isInitialized => _isInitialized;
 
   /// Load location data
   Future<void> loadLocationData() async {
@@ -44,6 +50,7 @@ class LocationProvider extends ChangeNotifier {
         );
       }
       _loggerManager.trace(message: 'Location data loaded: $_locationData');
+      _isInitialized = true;
       notifyListeners();
     } catch (e, st) {
       _loggerManager.error(
@@ -57,6 +64,7 @@ class LocationProvider extends ChangeNotifier {
       return;
     }
     _locationData = locationData;
+    _isInitialized = true;
     notifyListeners();
     _loggerManager.trace(message: 'Saving location data: $locationData');
     final jsonData = <String, dynamic>{

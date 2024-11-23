@@ -1,8 +1,8 @@
 import 'package:flow_zero_waste/core/common/domain/response.dart';
 import 'package:flow_zero_waste/core/common/domain/use_case.dart';
 import 'package:flow_zero_waste/core/utils/typedef.dart';
+import 'package:flow_zero_waste/src/discover/domain/entities/banner.dart';
 import 'package:flow_zero_waste/src/discover/domain/repositories/discover_repository.dart';
-import 'package:flutter/widgets.dart';
 import 'package:injectable/injectable.dart';
 /// GetBanners
 @singleton

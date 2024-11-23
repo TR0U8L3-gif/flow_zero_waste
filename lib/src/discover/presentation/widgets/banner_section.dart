@@ -32,7 +32,7 @@ class BannersSection extends StatelessWidget {
     final page = context.watch<PageProvider>();
     final borderRadius = BorderRadius.circular(page.spacing);
 
-    if (banners != null && banners!.isEmpty) {
+    if (banners == null) {
       return const SizedBox.shrink();
     }
 
@@ -43,10 +43,10 @@ class BannersSection extends StatelessWidget {
         width: double.infinity,
         child: ListView.separated(
           scrollDirection: Axis.horizontal,
-          itemCount: banners?.length ?? _bannerItemsEmpty,
+          itemCount: banners!.isNotEmpty ? banners!.length : _bannerItemsEmpty,
           separatorBuilder: (context, index) => SizedBox(width: page.spacing),
           itemBuilder: (context, index) {
-            if (banners == null) {
+            if (banners!.isEmpty) {
               return Container(
                 width: _bannerCardWidth,
                 height: _bannerSectionHeight,

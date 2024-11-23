@@ -1,9 +1,9 @@
 import 'package:flow_zero_waste/core/common/domain/response.dart';
 import 'package:flow_zero_waste/core/utils/typedef.dart';
+import 'package:flow_zero_waste/src/discover/domain/entities/banner.dart';
+import 'package:flow_zero_waste/src/discover/domain/entities/category.dart';
 import 'package:flow_zero_waste/src/discover/domain/entities/offer.dart';
 import 'package:flow_zero_waste/src/discover/domain/entities/shop.dart';
-import 'package:flutter/foundation.dart';
-import 'package:flutter/widgets.dart';
 
 /// discover repository
 abstract class DiscoverRepository {

@@ -34,7 +34,7 @@ class OffersSection extends StatelessWidget {
     final page = context.watch<PageProvider>();
     final borderRadius = BorderRadius.circular(page.spacing);
 
-    if (offers != null && offers!.isEmpty) {
+    if (offers == null) {
       return const SizedBox.shrink();
     }
 
@@ -55,7 +55,8 @@ class OffersSection extends StatelessWidget {
               shrinkWrap: true,
               primary: false,
               physics: const NeverScrollableScrollPhysics(),
-              itemCount: offers?.length ?? _offersItemsEmpty,
+              itemCount:
+                  offers!.isNotEmpty ? offers?.length : _offersItemsEmpty,
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount:
                     page.layoutSize >= PageLayoutSize.medium ? 2 : 1,
@@ -64,7 +65,7 @@ class OffersSection extends StatelessWidget {
                 mainAxisSpacing: page.spacing,
               ),
               itemBuilder: (context, index) {
-                if (offers == null) {
+                if (offers!.isEmpty) {
                   return Container(
                     width: double.infinity,
                     height: double.infinity,

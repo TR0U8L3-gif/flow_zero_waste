@@ -34,7 +34,7 @@ class RecommendedShopsSection extends StatelessWidget {
     final page = context.watch<PageProvider>();
     final borderRadius = BorderRadius.circular(page.spacing);
 
-    if (shops != null && shops!.isEmpty) {
+    if (shops == null) {
       return const SizedBox.shrink();
     }
 
@@ -55,7 +55,7 @@ class RecommendedShopsSection extends StatelessWidget {
               shrinkWrap: true,
               primary: false,
               physics: const NeverScrollableScrollPhysics(),
-              itemCount: shops?.length ?? _shopsItemsEmpty,
+              itemCount: shops!.isNotEmpty ? shops?.length : _shopsItemsEmpty,
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount:
                     page.layoutSize >= PageLayoutSize.medium ? 2 : 1,
@@ -64,7 +64,7 @@ class RecommendedShopsSection extends StatelessWidget {
                 mainAxisSpacing: page.spacing,
               ),
               itemBuilder: (context, index) {
-                if (shops == null) {
+                if (shops!.isEmpty) {
                   return Container(
                     width: double.infinity,
                     height: double.infinity,

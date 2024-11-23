@@ -431,5 +431,29 @@
   "operationSuccessful": "Operacja przebiegła pomyślnie",
   "@operationSuccessful": {
     "description": "Komunikat wyświetlany, gdy operacja została pomyślnie zakończona"
+  },
+  "unableToGetBannerData": "Nie udało się pobrać danych banera",
+  "@unableToGetBannerData": {
+    "description": "Komunikat wyświetlany, gdy nie można pobrać danych banera"
+  },
+  "unableToGetCategoryData": "Nie udało się pobrać danych kategorii",
+  "@unableToGetCategoryData": {
+    "description": "Komunikat wyświetlany, gdy nie można pobrać danych kategorii"
+  },
+  "unableToGetOfferData": "Nie udało się pobrać danych oferty",
+  "@unableToGetOfferData": {
+    "description": "Komunikat wyświetlany, gdy nie można pobrać danych oferty"
+  },
+  "unableToGetShopData": "Nie udało się pobrać danych sklepu",
+  "@unableToGetShopData": {
+    "description": "Komunikat wyświetlany, gdy nie można pobrać danych sklepu"
+  },
+  "unableToLikeShop": "Nie udało się polubić sklepu",
+  "@unableToLikeShop": {
+    "description": "Komunikat wyświetlany, gdy nie można dodać sklepu do ulubionych"
+  },
+  "chooseLocationBeforeDiscover": "Proszę wybrać lokalizację, aby zobaczyć oferty w pobliżu",
+  "@chooseLocationBeforeDiscover": {
+    "description": "Komunikat proszący użytkownika o wybór lokalizacji przed wyświetleniem ofert w pobliżu"
   }
 }
