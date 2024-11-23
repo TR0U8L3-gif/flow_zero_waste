@@ -10,6 +10,7 @@ import 'package:flow_zero_waste/src/discover/domain/usecases/get_banners.dart';
 import 'package:flow_zero_waste/src/discover/domain/usecases/get_categories.dart';
 import 'package:flow_zero_waste/src/discover/domain/usecases/get_offers.dart';
 import 'package:flow_zero_waste/src/discover/domain/usecases/get_shops.dart';
+import 'package:flow_zero_waste/src/discover/domain/usecases/update_shop_like.dart';
 import 'package:injectable/injectable.dart';
 
 part 'discover_state.dart';
@@ -19,15 +20,19 @@ part 'discover_state.dart';
 class DiscoverCubit extends Cubit<DiscoverState> {
   /// Default constructor
   DiscoverCubit({
+    required UpdateShopLike updateShopLike,
     required GetBanners getBanners,
     required GetCategories getCategories,
     required GetOffers getOffers,
     required GetShops getShops,
-  })  : _getBanners = getBanners,
+  })  : _updateShopLike = updateShopLike,
+        _getBanners = getBanners,
         _getCategories = getCategories,
         _getOffers = getOffers,
         _getShops = getShops,
         super(const DiscoverInitial());
+
+  final UpdateShopLike _updateShopLike;
 
   final GetBanners _getBanners;
   final GetCategories _getCategories;
@@ -162,9 +167,38 @@ class DiscoverCubit extends Cubit<DiscoverState> {
   }
 
   /// like shop
-  void likeShop(String id) {
-    // TODO: implement likeShop
-    throw UnimplementedError();
+  Future<void> likeShop(String id) async {
+    final result = await _updateShopLike.call(UpdateShopLikeParams(shopId: id));
+    result.fold(
+      (failure) {
+        emit(
+          DiscoverError(
+            failure: failure,
+          ),
+        );
+        _emitIdle();
+      },
+      (_) {
+        final updatedShops = _shops.map((shop) {
+          if (shop.id == id) {
+            return shop.copyWith(isLiked: !shop.isLiked);
+          }
+          return shop;
+        }).toList();
+
+        final updatedOffers = _offers.map((offer) {
+          if (offer.shop.id == id) {
+            return offer.copyWith(
+              shop: offer.shop.copyWith(isLiked: !offer.shop.isLiked),
+            );
+          }
+          return offer;
+        }).toList();
+        _offers = updatedOffers;
+        _shops = updatedShops;
+        _emitIdle(shops: updatedShops, offers: updatedOffers);
+      },
+    );
   }
 
   /// clear discover data
@@ -183,10 +217,10 @@ class DiscoverCubit extends Cubit<DiscoverState> {
   }) {
     emit(
       DiscoverIdle(
-        banners: banners ?? _banners,
-        categories: categories ?? _categories,
-        offers: offers ?? _offers,
-        shops: shops ?? _shops,
+        banners: List.from(banners ?? _banners),
+        categories: List.from(categories ?? _categories),
+        offers: List.from(offers ?? _offers),
+        shops: List.from(shops ?? _shops),
       ),
     );
   }

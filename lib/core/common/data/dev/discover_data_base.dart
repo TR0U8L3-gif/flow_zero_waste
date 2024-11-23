@@ -149,37 +149,38 @@ final _shops = <ShopModel>[
 
 final _offers = <OfferModel>[
   OfferModel(
-    id: 'd93e2a5a-6f4d-404c-96d9-60379ae8a172', 
+    id: _shops[0].id, 
     rating: 10, 
     distance: 1800, 
-    newOffers: 9, 
+    newOffers: 1, 
     shop: _shops[0],
   ),
   OfferModel(
-    id: '5f697551-86d7-49f3-bd0b-4f38d88b8436', 
+    id: _shops[2].id, 
     rating: 9.5, 
     distance: 5000, 
-    newOffers: 9, 
+    newOffers: 2, 
     shop: _shops[2],
   ),
   OfferModel(
-    id: 'db84c618-e079-499a-92a7-3e9fd1da61b8', 
+    id: _shops[4].id, 
     rating: 8, 
     distance: 3000, 
-    newOffers: 9, 
+    newOffers: 3, 
     shop: _shops[4],
   ),
   OfferModel(
-    id: '96b5d36f-8c61-4dda-8882-3f9dacb900a0', 
+    id: _shops[6].id, 
     rating: 7.5, 
     distance: 2000, 
-    newOffers: 9, 
+    newOffers: 4, 
     shop: _shops[6],
   ),
 ];
 
 class BannerHiveStorage extends HiveManager<String> {
   BannerHiveStorage({required super.boxName}) {
+    deleteAll();
     _banners.forEach((banner) async {
       await write(json.encode(banner.toJson()) , key: banner.id);
     });
@@ -188,6 +189,7 @@ class BannerHiveStorage extends HiveManager<String> {
 
 class CategoryHiveStorage extends HiveManager<String> {
   CategoryHiveStorage({required super.boxName}) {
+    deleteAll();
     _categories.forEach((category) async {
       await write(json.encode(category.toJson()) , key: category.id);
     });
@@ -196,6 +198,7 @@ class CategoryHiveStorage extends HiveManager<String> {
 
 class OfferHiveStorage extends HiveManager<String> {
   OfferHiveStorage({required super.boxName}) {
+    deleteAll();
     _offers.forEach((offer) async {
       await write(json.encode(offer.toJson()) , key: offer.id);
     });
@@ -204,6 +207,7 @@ class OfferHiveStorage extends HiveManager<String> {
 
 class ShopHiveStorage extends HiveManager<String> {
   ShopHiveStorage({required super.boxName}) {
+    deleteAll();
     _shops.forEach((shop) async {
       await write(json.encode(shop.toJson()) , key: shop.id);
     });

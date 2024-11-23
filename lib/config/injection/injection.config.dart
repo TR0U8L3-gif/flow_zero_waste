@@ -58,6 +58,7 @@ import '../../src/discover/domain/usecases/get_banners.dart' as _i319;
 import '../../src/discover/domain/usecases/get_categories.dart' as _i377;
 import '../../src/discover/domain/usecases/get_offers.dart' as _i472;
 import '../../src/discover/domain/usecases/get_shops.dart' as _i364;
+import '../../src/discover/domain/usecases/update_shop_like.dart' as _i463;
 import '../../src/discover/presentation/logics/cubit/discover_cubit.dart'
     as _i534;
 import '../../src/language/data/datasources/language_local_data_source.dart'
@@ -259,6 +260,8 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i472.GetOffers(repository: gh<_i469.DiscoverRepository>()));
     gh.singleton<_i364.GetShops>(
         () => _i364.GetShops(repository: gh<_i469.DiscoverRepository>()));
+    gh.singleton<_i463.UpdateShopLike>(
+        () => _i463.UpdateShopLike(repository: gh<_i469.DiscoverRepository>()));
     gh.singleton<_i220.LoadTextScaleFromLocalStorage>(() =>
         _i220.LoadTextScaleFromLocalStorage(
             repository: gh<_i106.UiRepository>()));
@@ -285,12 +288,6 @@ extension GetItInjectableX on _i174.GetIt {
     gh.singleton<_i665.SaveLanguageToLocalStorage>(() =>
         _i665.SaveLanguageToLocalStorage(
             repository: gh<_i706.LanguageRepository>()));
-    gh.factory<_i534.DiscoverCubit>(() => _i534.DiscoverCubit(
-          getBanners: gh<_i319.GetBanners>(),
-          getCategories: gh<_i377.GetCategories>(),
-          getOffers: gh<_i472.GetOffers>(),
-          getShops: gh<_i364.GetShops>(),
-        ));
     gh.singleton<_i491.OnboardingProvider>(() => _i491.OnboardingProvider(
           loadOnboardingSeenFromLocalStorage:
               gh<_i692.LoadOnboardingSeenFromLocalStorage>(),
@@ -310,6 +307,13 @@ extension GetItInjectableX on _i174.GetIt {
               gh<_i220.LoadTextScaleFromLocalStorage>(),
           saveTextScaleFromLocalStorage:
               gh<_i751.SaveTextScaleToLocalStorage>(),
+        ));
+    gh.factory<_i534.DiscoverCubit>(() => _i534.DiscoverCubit(
+          updateShopLike: gh<_i463.UpdateShopLike>(),
+          getBanners: gh<_i319.GetBanners>(),
+          getCategories: gh<_i377.GetCategories>(),
+          getOffers: gh<_i472.GetOffers>(),
+          getShops: gh<_i364.GetShops>(),
         ));
     gh.factory<_i751.AuthCubit>(() => _i751.AuthCubit(
           login: gh<_i775.LoginUser>(),

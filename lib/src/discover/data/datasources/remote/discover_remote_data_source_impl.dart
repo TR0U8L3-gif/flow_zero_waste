@@ -110,8 +110,11 @@ class DiscoverRemoteDataSourceImpl implements DiscoverRemoteDataSource {
   Future<void> likeShop(String id) async {
     try {
       final shopData = await _shopdb.read(key: id);
+      print(shopData);
       final shopJson = json.decode(shopData!) as Map<String, dynamic>;
-      final newShopJson = shopJson..['isLiked'] = true;
+      final isLiked = shopJson['isLiked'] as bool? ?? false;
+      final newShopJson = shopJson..['isLiked'] = !isLiked;
+      print(newShopJson);
       await _shopdb.write(json.encode(newShopJson), key: id);
       return;
     } catch (e, st) {
