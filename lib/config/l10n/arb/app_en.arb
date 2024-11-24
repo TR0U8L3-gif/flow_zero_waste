@@ -455,5 +455,9 @@
   "chooseLocationBeforeDiscover": "Please choose a location to see nearby offers",
   "@chooseLocationBeforeDiscover": {
     "description": "Message prompting the user to select a location before showing nearby offers"
+  },
+  "unableToGetFavoritesData": "Failed to fetch favorites data",
+  "@unableToGetFavoritesData": {
+    "description": "Message displayed when the user's favorites data cannot be fetched"
   }
 }

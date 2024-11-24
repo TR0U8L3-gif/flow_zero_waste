@@ -455,5 +455,9 @@
   "chooseLocationBeforeDiscover": "Proszę wybrać lokalizację, aby zobaczyć oferty w pobliżu",
   "@chooseLocationBeforeDiscover": {
     "description": "Komunikat proszący użytkownika o wybór lokalizacji przed wyświetleniem ofert w pobliżu"
+  },
+  "unableToGetFavoritesData": "Nie udało się pobrać ulubionych danych",
+  "@unableToGetFavoritesData": {
+    "description": "Komunikat wyświetlany, gdy nie można pobrać danych ulubionych elementów użytkownika"
   }
 }
