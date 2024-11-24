@@ -34,7 +34,7 @@ class RecommendedShopsSection extends StatelessWidget {
     final page = context.watch<PageProvider>();
     final borderRadius = BorderRadius.circular(page.spacing);
 
-    if (shops != null && shops!.isEmpty) {
+    if (shops == null) {
       return const SizedBox.shrink();
     }
 
@@ -55,16 +55,16 @@ class RecommendedShopsSection extends StatelessWidget {
               shrinkWrap: true,
               primary: false,
               physics: const NeverScrollableScrollPhysics(),
-              itemCount: shops?.length ?? _shopsItemsEmpty,
+              itemCount: shops!.isNotEmpty ? shops?.length : _shopsItemsEmpty,
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount:
-                    page.layoutSize >= PageLayoutSize.expanded ? 2 : 1,
+                    page.layoutSize >= PageLayoutSize.medium ? 2 : 1,
                 childAspectRatio: 2,
                 crossAxisSpacing: page.spacing,
                 mainAxisSpacing: page.spacing,
               ),
               itemBuilder: (context, index) {
-                if (shops == null) {
+                if (shops!.isEmpty) {
                   return Container(
                     width: double.infinity,
                     height: double.infinity,
@@ -174,7 +174,7 @@ class ShopCard extends StatelessWidget {
                     alignment: Alignment.topRight,
                     child: Container(
                       decoration: BoxDecoration(
-                        color: context.colorScheme.primaryContainer,
+                        color: context.colorScheme.tertiaryContainer,
                         borderRadius: BorderRadius.only(
                           bottomLeft: Radius.circular(page.spacing),
                         ),
@@ -184,7 +184,7 @@ class ShopCard extends StatelessWidget {
                           shopData.isLiked
                               ? Icons.favorite
                               : Icons.favorite_border,
-                          color: context.colorScheme.onPrimaryContainer,
+                          color: context.colorScheme.onTertiaryContainer,
                         ),
                         onPressed: () => onShopLikeTap?.call(shopData.id),
                       ),

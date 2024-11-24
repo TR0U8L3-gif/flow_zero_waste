@@ -1,15 +1,22 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:flow_zero_waste/config/injection/injection.dart';
+import 'package:flow_zero_waste/core/common/presentation/logics/logic_state.dart';
 import 'package:flow_zero_waste/core/common/presentation/logics/providers/responsive_ui/page_provider.dart';
 import 'package:flow_zero_waste/core/common/presentation/widgets/components/app_bar_styled.dart';
 import 'package:flow_zero_waste/core/extensions/l10n_extension.dart';
+import 'package:flow_zero_waste/core/extensions/theme_extension.dart';
+import 'package:flow_zero_waste/src/discover/domain/responses/discover_responses.dart';
+import 'package:flow_zero_waste/src/discover/presentation/logics/cubit/discover_cubit.dart';
 import 'package:flow_zero_waste/src/discover/presentation/widgets/banner_section.dart';
 import 'package:flow_zero_waste/src/discover/presentation/widgets/categories_section.dart';
 import 'package:flow_zero_waste/src/discover/presentation/widgets/offers_section.dart';
 import 'package:flow_zero_waste/src/discover/presentation/widgets/recommended_shops_section.dart';
+import 'package:flow_zero_waste/src/language/presentation/logics/language_provider.dart';
 import 'package:flow_zero_waste/src/location/presentation/logics/location_provider.dart';
 import 'package:flow_zero_waste/src/location/presentation/widgets/location_section.dart';
 import 'package:flow_zero_waste/src/location/presentation/widgets/select_location_popup.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
 
 /// Page for discovering new offers, shops and more
@@ -20,313 +27,213 @@ class DiscoverPage extends StatelessWidget implements AutoRouteWrapper {
 
   @override
   Widget build(BuildContext context) {
-    final location = context.watch<LocationProvider>();
-    final page = context.watch<PageProvider>();
-    return Scaffold(
-      appBar: AppBarStyled(
-        title: context.l10n.discover,
-      ),
-      body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Padding(
-              padding: EdgeInsets.symmetric(
-                horizontal: page.spacing,
-                vertical: page.spacingHalf,
+    return Consumer2<LocationProvider, LanguageProvider>(
+      builder: (context, location, language, child) {
+        final page = context.watch<PageProvider>();
+        final discoverCubit = context.read<DiscoverCubit>();
+        if(location.isInitialized){
+          discoverCubit.getDiscoverData(
+            languageCode: language.currentLanguage.languageCode,
+            latitude: location.locationData?.latitude,
+            longitude: location.locationData?.longitude,
+          );
+        }
+        return BlocConsumer<DiscoverCubit, DiscoverState>(
+          bloc: discoverCubit,
+          listener: (context, state) {
+            if (!state.isListenable) return;
+
+            if (state.isNavigatable) {
+              (state as NavigatableLogicState).navigate(context);
+            }
+
+            if (state is DiscoverError) {
+              var errorMessage = context.l10n.unexpectedError;
+
+              if (state.failure is DiscoverFailure) {
+                switch (state.failure.runtimeType) {
+                  case UnableToGetBannerDataFailure:
+                    errorMessage = context.l10n.unableToGetBannerData;
+                  case UnableToGetCategoryDataFailure:
+                    errorMessage = context.l10n.unableToGetCategoryData;
+                  case UnableToGetOfferDataFailure:
+                    errorMessage = context.l10n.unableToGetOfferData;
+                  case UnableToGetShopDataFailure:
+                    errorMessage = context.l10n.unableToGetShopData;
+                  case UnableToLikeShopFailure:
+                    errorMessage = context.l10n.unableToLikeShop;
+                }
+              }
+
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text(
+                    errorMessage,
+                    style: context.textTheme.bodyMedium
+                        ?.copyWith(color: context.colorScheme.onErrorContainer),
+                  ),
+                  backgroundColor: context.colorScheme.errorContainer,
+                ),
+              );
+            }
+          },
+          builder: (context, state) {
+            return Scaffold(
+              appBar: AppBarStyled(
+                title: context.l10n.discover,
               ),
-              child: LocationSection(
-                localization: location.locationData?.address,
-                onLocationChange: () =>
-                    SelectLocationPopup.showBottomSheet<void>(
-                  context,
-                  initialLocationData: location.locationData,
-                  onLocationSelected: location.saveLocationData,
+              body: SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: page.spacing,
+                        vertical: page.spacingHalf,
+                      ),
+                      child: LocationSection(
+                        localization: location.locationData?.address,
+                        onLocationChange: () =>
+                            SelectLocationPopup.showBottomSheet<void>(
+                          context,
+                          initialLocationData: location.locationData,
+                          onLocationSelected: (data) {
+                            location.saveLocationData(data);
+                            discoverCubit.getDiscoverData(
+                              languageCode: context
+                                  .read<LanguageProvider>()
+                                  .currentLanguage
+                                  .languageCode,
+                              latitude: data?.latitude,
+                              longitude: data?.longitude,
+                            );
+                          },
+                        ),
+                      ),
+                    ),
+                    if (state is DiscoverChooseLocation)
+                      Padding(
+                        padding: EdgeInsets.symmetric(
+                          horizontal: page.spacing,
+                          vertical: page.spacing,
+                        ),
+                        child: Container(
+                          width: double.infinity,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(page.spacing),
+                            color: context.colorScheme.surfaceContainer,
+                          ),
+                          padding: EdgeInsets.all(page.spacingDouble),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Icon(
+                                Icons.arrow_upward_rounded,
+                                color: context.colorScheme.secondary,
+                                size: 32,
+                              ),
+                              SizedBox(width: page.spacing),
+                              Text(
+                                context.l10n.chooseLocationBeforeDiscover,
+                                style: context.textTheme.titleLarge,
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    if (state is DiscoverDataState) ...[
+                      Padding(
+                        padding: EdgeInsets.symmetric(
+                          horizontal: page.spacing,
+                          vertical: page.spacing,
+                        ),
+                        child: BannersSection(
+                          onBannerTap: debugPrint,
+                          banners: state.banners.map((e) {
+                            return BannerData(
+                              title: e.title,
+                              description: e.description,
+                              imageUrl: e.imageUrl,
+                            );
+                          }).toList(),
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.symmetric(
+                          horizontal: page.spacing,
+                          vertical: page.spacing,
+                        ),
+                        child: OffersSection(
+                          onOfferTap: debugPrint,
+                          offers: state.offers.map((e) {
+                            return OfferData(
+                              id: e.id,
+                              distance: e.distance,
+                              newOffers: e.newOffers.toInt(),
+                              description: e.shop.description,
+                              imageUrl: e.shop.imageUrl,
+                              startDate: e.shop.startDate,
+                              endDate: e.shop.endDate,
+                              isLiked: e.shop.isLiked,
+                              localization: e.shop.localization,
+                              title: e.shop.name,
+                            );
+                          }).toList(),
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.symmetric(
+                          horizontal: page.spacing,
+                          vertical: page.spacing,
+                        ),
+                        child: CategoriesSection(
+                          onCategoryTap: print,
+                          categories: state.categories.map((e) {
+                            return CategoryData(
+                              title: e.name,
+                              imageUrl: e.imageUrl,
+                            );
+                          }).toList(),
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.symmetric(
+                          horizontal: page.spacing,
+                          vertical: page.spacing,
+                        ),
+                        child: RecommendedShopsSection(
+                          onShopLikeTap: discoverCubit.likeShop,
+                          shops: state.shops.map((e) {
+                            return ShopData(
+                              id: e.id,
+                              title: e.name,
+                              description: e.description,
+                              imageUrl: e.imageUrl,
+                              startDate: e.startDate,
+                              endDate: e.endDate,
+                              isLiked: e.isLiked,
+                              localization: e.localization,
+                            );
+                          }).toList(),
+                        ),
+                      ),
+                    ],
+                  ],
                 ),
               ),
-            ),
-            Padding(
-              padding: EdgeInsets.symmetric(
-                horizontal: page.spacing,
-                vertical: page.spacing,
-              ),
-              child: BannersSection(
-                onBannerTap: debugPrint,
-                banners: [
-                  BannerData(
-                    title: 'Fresh Deals',
-                    description:
-                        'Discover fresh and sustainable food at amazing prices!',
-                    imageUrl: 'https://picsum.photos/600/300?image=1',
-                  ),
-                  BannerData(
-                    title: 'Eco Pantry',
-                    description:
-                        'Zero waste pantry essentials for your green lifestyle.',
-                    imageUrl: 'https://picsum.photos/600/300?image=2',
-                  ),
-                  BannerData(
-                    title: 'Organic Treats',
-                    description:
-                        'Indulge in delicious organic and eco-friendly snacks.',
-                    imageUrl: 'https://picsum.photos/600/300?image=3',
-                  ),
-                  BannerData(
-                    title: 'Sustainable Living',
-                    description:
-                        'Products that support your commitment to the environment.',
-                    imageUrl: 'https://picsum.photos/600/300?image=4',
-                  ),
-                  BannerData(
-                    title: 'Local Favorites',
-                    description:
-                        'Explore the best zero waste options from local producers.',
-                    imageUrl: 'https://picsum.photos/600/300?image=5',
-                  ),
-                ],
-              ),
-            ),
-            Padding(
-              padding: EdgeInsets.symmetric(
-                horizontal: page.spacing,
-                vertical: page.spacing,
-              ),
-              child: OffersSection(
-                onOfferLikeTap: (id) => debugPrint('Liked offer with id: $id'),
-                onOfferTap: debugPrint,
-                offers: [
-                  OfferData(
-                    id: 'offer1',
-                    title: 'Eco Pantry',
-                    distance: 1200,
-                    localization: 'Lipowa Street, Białystok',
-                    startDate: DateTime.now().copyWith(hour: 9, minute: 15),
-                    endDate: DateTime.now().copyWith(hour: 19, minute: 30),
-                    description:
-                        'Discover a wide range of zero waste food products at Eco Pantry.',
-                    imageUrl: 'https://picsum.photos/401/201',
-                    isLiked: false,
-                    newOffers: 5,
-                  ),
-                  OfferData(
-                    id: 'offer2',
-                    title: 'Zero Waste Market',
-                    distance: 2500,
-                    localization: 'Rynek Kościuszki, Białystok',
-                    startDate: DateTime.now().copyWith(hour: 8, minute: 30),
-                    endDate: DateTime.now().copyWith(hour: 19, minute: 30),
-                    description:
-                        'Your destination for unpackaged and sustainable groceries.',
-                    imageUrl: 'https://picsum.photos/402/202',
-                    isLiked: true,
-                    newOffers: 3,
-                  ),
-                  OfferData(
-                    id: 'offer3',
-                    title: 'Green Groceries Hub',
-                    distance: 800,
-                    localization: 'Piłsudskiego Avenue, Białystok',
-                    startDate: DateTime.now().copyWith(hour: 9, minute: 45),
-                    endDate: DateTime.now().copyWith(hour: 19, minute: 30),
-                    description:
-                        'Fresh produce and pantry staples without wasteful packaging.',
-                    imageUrl: 'https://picsum.photos/403/203',
-                    isLiked: false,
-                    newOffers: 7,
-                  ),
-                  OfferData(
-                    id: 'offer4',
-                    title: 'Sustainable Bites',
-                    distance: 3000,
-                    localization: 'Sienkiewicza Street, Białystok',
-                    startDate: DateTime.now().copyWith(hour: 8, minute: 0),
-                    endDate: DateTime.now().copyWith(hour: 19, minute: 30),
-                    description:
-                        'Tasty snacks and meals that care for the environment.',
-                    imageUrl: 'https://picsum.photos/404/204',
-                    isLiked: true,
-                    newOffers: 2,
-                  ),
-                  OfferData(
-                    id: 'offer5',
-                    title: 'Refill & Feast',
-                    distance: 1800,
-                    localization: 'Zwierzyniecka Street, Białystok',
-                    startDate: DateTime.now().copyWith(hour: 9, minute: 30),
-                    endDate: DateTime.now().copyWith(hour: 19, minute: 30),
-                    description:
-                        'Refill your pantry and feast sustainably with zero waste options.',
-                    imageUrl: 'https://picsum.photos/405/205',
-                    isLiked: false,
-                    newOffers: 9,
-                  ),
-                ],
-              ),
-            ),
-            Padding(
-              padding: EdgeInsets.symmetric(
-                horizontal: page.spacing,
-                vertical: page.spacing,
-              ),
-              child: CategoriesSection(
-                onCategoryTap: print,
-                categories: [
-                  CategoryData(
-                    title: 'Fruits',
-                    imageUrl: 'https://picsum.photos/124/64',
-                  ),
-                  CategoryData(
-                    title: 'Vegetables',
-                    imageUrl: 'https://picsum.photos/125/65',
-                  ),
-                  CategoryData(
-                    title: 'Meat',
-                    imageUrl: 'https://picsum.photos/126/66',
-                  ),
-                  CategoryData(
-                    title: 'Fish',
-                    imageUrl: 'https://picsum.photos/127/67',
-                  ),
-                  CategoryData(
-                    title: 'Chips',
-                    imageUrl: 'https://picsum.photos/128/68',
-                  ),
-                ],
-              ),
-            ),
-            Padding(
-              padding: EdgeInsets.symmetric(
-                horizontal: page.spacing,
-                vertical: page.spacing,
-              ),
-              child: RecommendedShopsSection(
-                shops: [
-                  ShopData(
-                    id: '1',
-                    title: 'Green Grocers',
-                    localization: 'Downtown, NY',
-                    startDate:
-                        DateTime.now().subtract(const Duration(hours: 6)),
-                    endDate: DateTime.now().add(const Duration(hours: 4)),
-                    description:
-                        'A local grocery store offering fresh organic produce.',
-                    imageUrl: 'https://picsum.photos/300',
-                    isLiked: true,
-                  ),
-                  ShopData(
-                    id: '2',
-                    title: 'Eco Boutique',
-                    localization: 'Greenwich, London',
-                    startDate:
-                        DateTime.now().subtract(const Duration(hours: 12)),
-                    endDate: DateTime.now().add(const Duration(hours: 6)),
-                    description: 'Eco-friendly clothing and accessories.',
-                    imageUrl: 'https://picsum.photos/301',
-                    isLiked: false,
-                  ),
-                  ShopData(
-                    id: '3',
-                    title: 'Farm Fresh Market',
-                    localization: 'San Francisco, CA',
-                    startDate:
-                        DateTime.now().subtract(const Duration(hours: 8)),
-                    endDate: DateTime.now().add(const Duration(hours: 2)),
-                    description: 'Farm-to-table organic market.',
-                    imageUrl: 'https://picsum.photos/302',
-                    isLiked: false,
-                  ),
-                  ShopData(
-                    id: '4',
-                    title: 'Sustainable Living Store',
-                    localization: 'Berlin, Germany',
-                    startDate:
-                        DateTime.now().subtract(const Duration(hours: 10)),
-                    endDate: DateTime.now().add(const Duration(hours: 5)),
-                    description:
-                        'Products to help you live a more sustainable lifestyle.',
-                    imageUrl: 'https://picsum.photos/303',
-                    isLiked: true,
-                  ),
-                  ShopData(
-                    id: '5',
-                    title: 'Nature’s Basket',
-                    localization: 'Toronto, Canada',
-                    startDate:
-                        DateTime.now().subtract(const Duration(hours: 7)),
-                    endDate: DateTime.now().add(const Duration(hours: 3)),
-                    description: 'A variety of eco-friendly and organic goods.',
-                    imageUrl: 'https://picsum.photos/304',
-                    isLiked: false,
-                  ),
-                  ShopData(
-                    id: '6',
-                    title: 'Zero Waste Market',
-                    localization: 'Paris, France',
-                    startDate:
-                        DateTime.now().subtract(const Duration(hours: 9)),
-                    endDate: DateTime.now().add(const Duration(hours: 6)),
-                    description:
-                        'Zero waste products and tips for a greener life.',
-                    imageUrl: 'https://picsum.photos/305',
-                    isLiked: false,
-                  ),
-                  ShopData(
-                    id: '7',
-                    title: 'The Vegan Hub',
-                    localization: 'Austin, TX',
-                    startDate:
-                        DateTime.now().subtract(const Duration(hours: 4)),
-                    endDate: DateTime.now().add(const Duration(hours: 8)),
-                    description:
-                        'A store dedicated to vegan and cruelty-free products.',
-                    imageUrl: 'https://picsum.photos/306',
-                    isLiked: true,
-                  ),
-                  ShopData(
-                    id: '8',
-                    title: 'Green Supply Co.',
-                    localization: 'Tokyo, Japan',
-                    startDate:
-                        DateTime.now().subtract(const Duration(hours: 5)),
-                    endDate: DateTime.now().add(const Duration(hours: 7)),
-                    description: 'Eco-friendly household and personal items.',
-                    imageUrl: 'https://picsum.photos/307',
-                    isLiked: true,
-                  ),
-                  ShopData(
-                    id: '9',
-                    title: 'Organic Bliss',
-                    localization: 'Sydney, Australia',
-                    startDate:
-                        DateTime.now().subtract(const Duration(hours: 6)),
-                    endDate: DateTime.now().add(const Duration(hours: 4)),
-                    description:
-                        'Pure organic products for your health and home.',
-                    imageUrl: 'https://picsum.photos/308',
-                    isLiked: false,
-                  ),
-                  ShopData(
-                    id: '10',
-                    title: 'Earthly Goods',
-                    localization: 'Cape Town, South Africa',
-                    startDate:
-                        DateTime.now().subtract(const Duration(hours: 7)),
-                    endDate: DateTime.now().add(const Duration(hours: 5)),
-                    description: 'Sustainable goods for everyday living.',
-                    imageUrl: 'https://picsum.photos/309',
-                    isLiked: false,
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
-      ),
+            );
+          },
+        );
+      },
     );
   }
 
   @override
   Widget wrappedRoute(BuildContext context) {
-    return this;
+    return BlocProvider(
+      create: (context) => locator<DiscoverCubit>()..initialize(),
+      child: this,
+    );
   }
 }
