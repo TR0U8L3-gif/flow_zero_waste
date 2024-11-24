@@ -214,7 +214,7 @@
   "@change": {
     "description": "Etykieta dla przycisku zmiany"
   },
-  "offersNearby": "Świerze oferty w okolicy",
+  "offersNearby": "Świeże oferty w okolicy",
   "@offersNearby": {
     "description": "Tytuł sekcji z ofertami."
   },

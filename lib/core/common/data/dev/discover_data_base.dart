@@ -81,7 +81,7 @@ const _banners = <Map<String, dynamic>>[
   {
     'languageCode': 'pl',
     'id': '6f6c81a8-3bf0-48da-bfb4-cff7d6bbbf2a-pl',
-    'title': 'Lokalne Ulubieńce',
+    'title': 'Lokalni Ulubieńcy',
     'description':
         'Odkryj najlepsze opcje zero waste od lokalnych producentów.',
     'imageUrl': 'https://picsum.photos/600/300?image=15',
