@@ -378,8 +378,20 @@ final _offers = <Map<String, dynamic>>[
 ];
 
 class BannerHiveStorage extends HiveManager<String> {
-  BannerHiveStorage({required super.boxName}) {
-    deleteAll();
+  factory BannerHiveStorage() => _instance;
+
+  BannerHiveStorage._({required super.boxName}) {
+    _initialize();
+  }
+
+  static final _instance = BannerHiveStorage._(boxName: bannerBoxName);
+
+  bool isInitialized = false;
+
+  Future<void> _initialize() async {
+    if (isInitialized) return;
+    isInitialized = true;
+    await deleteAll();
     _banners.forEach((banner) async {
       await write(json.encode(banner), key: banner['id'] as String);
     });
@@ -387,8 +399,19 @@ class BannerHiveStorage extends HiveManager<String> {
 }
 
 class CategoryHiveStorage extends HiveManager<String> {
-  CategoryHiveStorage({required super.boxName}) {
-    deleteAll();
+  factory CategoryHiveStorage() => _instance;
+  CategoryHiveStorage._({required super.boxName}) {
+    _initialize();
+  }
+
+  static final _instance = CategoryHiveStorage._(boxName: categoryBoxName);
+
+  bool isInitialized = false;
+
+  Future<void> _initialize() async {
+    if (isInitialized) return;
+    isInitialized = true;
+    await deleteAll();
     _categories.forEach((category) async {
       await write(json.encode(category), key: category['id'] as String);
     });
@@ -396,8 +419,21 @@ class CategoryHiveStorage extends HiveManager<String> {
 }
 
 class OfferHiveStorage extends HiveManager<String> {
-  OfferHiveStorage({required super.boxName}) {
-    deleteAll();
+
+  factory OfferHiveStorage() => _instance;
+
+  OfferHiveStorage._({required super.boxName}) {
+    _initialize();
+  }
+
+  static final _instance = OfferHiveStorage._(boxName: offerBoxName);
+
+  bool isInitialized = false;
+
+  Future<void> _initialize() async {
+    if (isInitialized) return;
+    isInitialized = true;
+    await deleteAll();
     _offers.forEach((offer) async {
       await write(json.encode(offer), key: offer['id'] as String);
     });
@@ -405,8 +441,20 @@ class OfferHiveStorage extends HiveManager<String> {
 }
 
 class ShopHiveStorage extends HiveManager<String> {
-  ShopHiveStorage({required super.boxName}) {
-    deleteAll();
+  factory ShopHiveStorage() => _instance;
+
+  ShopHiveStorage._({required super.boxName}) {
+    _initialize();
+  }
+
+  static final _instance = ShopHiveStorage._(boxName: shopBoxName);
+
+  bool isInitialized = false;
+
+  Future<void> _initialize() async {
+    if (isInitialized) return;
+    isInitialized = true;
+    await deleteAll();
     _shops.forEach((shop) async {
       await write(json.encode(shop), key: shop['id'] as String);
     });

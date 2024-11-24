@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:flow_zero_waste/config/assets/size/app_size.dart';
 import 'package:flow_zero_waste/core/extensions/theme_extension.dart';
 import 'package:flutter/material.dart';

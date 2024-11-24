@@ -12,10 +12,10 @@ import 'package:injectable/injectable.dart';
 /// DiscoverRemoteDataSourceImpl
 @Singleton(as: DiscoverRemoteDataSource)
 class DiscoverRemoteDataSourceImpl implements DiscoverRemoteDataSource {
-  final _bannerdb = BannerHiveStorage(boxName: bannerBoxName);
-  final _categorydb = CategoryHiveStorage(boxName: categoryBoxName);
-  final _offerdb = OfferHiveStorage(boxName: offerBoxName);
-  final _shopdb = ShopHiveStorage(boxName: shopBoxName);
+  final _bannerdb = BannerHiveStorage();
+  final _categorydb = CategoryHiveStorage();
+  final _offerdb = OfferHiveStorage();
+  final _shopdb = ShopHiveStorage();
 
   @override
   Future<List<BannerModel>> getBanners({required String languageCode}) async {
