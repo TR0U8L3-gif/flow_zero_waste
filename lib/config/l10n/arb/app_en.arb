@@ -431,5 +431,29 @@
   "operationSuccessful": "Operation completed successfully",
   "@operationSuccessful": {
     "description": "Message displayed when an operation is successfully completed"
+  },
+  "unableToGetBannerData": "Failed to fetch banner data",
+  "@unableToGetBannerData": {
+    "description": "Message displayed when banner data cannot be fetched"
+  },
+  "unableToGetCategoryData": "Failed to fetch category data",
+  "@unableToGetCategoryData": {
+    "description": "Message displayed when category data cannot be fetched"
+  },
+  "unableToGetOfferData": "Failed to fetch offer data",
+  "@unableToGetOfferData": {
+    "description": "Message displayed when offer data cannot be fetched"
+  },
+  "unableToGetShopData": "Failed to fetch shop data",
+  "@unableToGetShopData": {
+    "description": "Message displayed when shop data cannot be fetched"
+  },
+  "unableToLikeShop": "Failed to like the shop",
+  "@unableToLikeShop": {
+    "description": "Message displayed when the shop cannot be added to favorites"
+  },
+  "chooseLocationBeforeDiscover": "Please choose a location to see nearby offers",
+  "@chooseLocationBeforeDiscover": {
+    "description": "Message prompting the user to select a location before showing nearby offers"
   }
 }

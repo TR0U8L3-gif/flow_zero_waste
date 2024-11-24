@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:flow_zero_waste/config/injection/injection.dart';
-import 'package:flow_zero_waste/core/services/hive/hive_manager.dart';
+import 'package:flow_zero_waste/core/common/data/dev/auth_data_base.dart';
 import 'package:flow_zero_waste/src/auth/data/datasources/auth_data_source_exceptions.dart';
 import 'package:flow_zero_waste/src/auth/data/datasources/remote/auth_remote_data_source.dart';
 import 'package:flow_zero_waste/src/auth/data/models/auth_model.dart';
@@ -9,18 +9,15 @@ import 'package:flow_zero_waste/src/auth/data/models/user_model.dart';
 import 'package:injectable/injectable.dart';
 import 'package:uuid/uuid.dart';
 
-const _userKey = 'userAuth';
-const _currentUserKey = 'userAuthCurrent';
-const _userBoxName = 'userAuthBox';
-const _currentUserBoxName = 'currentUserAuthBox';
+
 
 /// Dev implementation of AuthRemoteDataSource that returns sample data.
 @Singleton(as: AuthRemoteDataSource, env: [Env.development])
 class AuthRemoteDataSourceImplDev implements AuthRemoteDataSource {
   final UserAuthHiveStorage _dbAuth =
-      UserAuthHiveStorage(boxName: _userBoxName);
+      UserAuthHiveStorage(boxName: userBoxName);
   final CurrentUserAuthHiveStorage _dbUser =
-      CurrentUserAuthHiveStorage(boxName: _currentUserBoxName);
+      CurrentUserAuthHiveStorage(boxName: currentUserBoxName);
   @override
   Future<AuthModel> login({
     required String email,
@@ -40,7 +37,7 @@ class AuthRemoteDataSourceImplDev implements AuthRemoteDataSource {
       final checkEmail = userModel.email == email;
       final checkPassword = userDecoded['password'] == password;
       if (checkEmail && checkPassword) {
-        await _dbUser.write(user, key: _currentUserKey);
+        await _dbUser.write(user, key: currentUserKey);
         return AuthModel(
           user: userModel,
           accessToken: 'sample_access_token_123',
@@ -83,13 +80,13 @@ class AuthRemoteDataSourceImplDev implements AuthRemoteDataSource {
         );
       }
     }
-    await _dbAuth.write(jsonData, key: '$_userKey$id');
+    await _dbAuth.write(jsonData, key: '$userKey$id');
   }
 
   @override
   Future<UserModel> getCurrentUser() async {
     try {
-      final jsonData = await _dbUser.read(key: _currentUserKey);
+      final jsonData = await _dbUser.read(key: currentUserKey);
       final userData = json.decode(jsonData!) as Map<String, dynamic>;
       final userModel = UserModel.fromJson(userData);
       return userModel;
@@ -105,7 +102,7 @@ class AuthRemoteDataSourceImplDev implements AuthRemoteDataSource {
   @override
   Future<void> logout() async {
     try {
-    await _dbUser.delete(key: _currentUserKey);
+    await _dbUser.delete(key: currentUserKey);
     } catch (e, st) {
       throw LogoutFailedException(
         error: e,
@@ -114,16 +111,4 @@ class AuthRemoteDataSourceImplDev implements AuthRemoteDataSource {
       );
     }
   }
-}
-
-// ignore: public_member_api_docs
-class UserAuthHiveStorage extends HiveManager<String> {
-  // ignore: public_member_api_docs
-  UserAuthHiveStorage({required super.boxName});
-}
-
-// ignore: public_member_api_docs
-class CurrentUserAuthHiveStorage extends HiveManager<String> {
-  // ignore: public_member_api_docs
-  CurrentUserAuthHiveStorage({required super.boxName});
 }

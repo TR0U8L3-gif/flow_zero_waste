@@ -17,7 +17,6 @@ class OffersSection extends StatelessWidget {
     required this.offers,
     super.key,
     this.onOfferTap,
-    this.onOfferLikeTap,
   });
 
   /// offers
@@ -26,15 +25,12 @@ class OffersSection extends StatelessWidget {
   /// Callback for offer tap
   final void Function(String offerId)? onOfferTap;
 
-  /// Callback for offer like tap
-  final void Function(String offerId)? onOfferLikeTap;
-
   @override
   Widget build(BuildContext context) {
     final page = context.watch<PageProvider>();
     final borderRadius = BorderRadius.circular(page.spacing);
 
-    if (offers != null && offers!.isEmpty) {
+    if (offers == null) {
       return const SizedBox.shrink();
     }
 
@@ -55,16 +51,17 @@ class OffersSection extends StatelessWidget {
               shrinkWrap: true,
               primary: false,
               physics: const NeverScrollableScrollPhysics(),
-              itemCount: offers?.length ?? _offersItemsEmpty,
+              itemCount:
+                  offers!.isNotEmpty ? offers?.length : _offersItemsEmpty,
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount:
-                    page.layoutSize >= PageLayoutSize.expanded ? 2 : 1,
+                    page.layoutSize >= PageLayoutSize.medium ? 2 : 1,
                 childAspectRatio: 2,
                 crossAxisSpacing: page.spacing,
                 mainAxisSpacing: page.spacing,
               ),
               itemBuilder: (context, index) {
-                if (offers == null) {
+                if (offers!.isEmpty) {
                   return Container(
                     width: double.infinity,
                     height: double.infinity,
@@ -84,7 +81,6 @@ class OffersSection extends StatelessWidget {
                       offerData: offer,
                       height: double.infinity,
                       borderRadius: borderRadius,
-                      onOfferLikeTap: onOfferLikeTap,
                     ),
                   );
                 }
@@ -104,7 +100,6 @@ class OfferCard extends StatelessWidget {
     required this.offerData,
     required this.height,
     required this.borderRadius,
-    this.onOfferLikeTap,
     super.key,
   });
 
@@ -116,9 +111,6 @@ class OfferCard extends StatelessWidget {
 
   /// Offer border radius
   final BorderRadius borderRadius;
-
-  /// Callback for offer like tap
-  final void Function(String offerId)? onOfferLikeTap;
 
   @override
   Widget build(BuildContext context) {
@@ -171,52 +163,29 @@ class OfferCard extends StatelessWidget {
                     ),
                   ),
                   Align(
-                    alignment: Alignment.topCenter,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Padding(
-                          padding: EdgeInsets.symmetric(
-                            horizontal: page.spacingHalf,
-                            vertical: page.spacingHalf,
-                          ),
-                          child: Container(
-                            decoration: BoxDecoration(
-                              color: context.colorScheme.tertiaryContainer,
-                              borderRadius: BorderRadius.circular(page.spacing),
-                            ),
-                            padding: EdgeInsets.symmetric(
-                              horizontal: page.spacingHalf,
-                              vertical: page.spacingQuarter,
-                            ),
-                            child: Text(
-                              '+${offerData.newOffers} '
-                              '${context.l10n.newOffers(offerData.newOffers)}',
-                              style: context.textTheme.bodyMedium?.copyWith(
-                                color: context.colorScheme.onTertiaryContainer,
-                              ),
-                            ),
+                    alignment: Alignment.topRight,
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: page.spacingHalf,
+                        vertical: page.spacingHalf,
+                      ),
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: context.colorScheme.tertiaryContainer,
+                          borderRadius: BorderRadius.circular(page.spacing),
+                        ),
+                        padding: EdgeInsets.symmetric(
+                          horizontal: page.spacingHalf,
+                          vertical: page.spacingQuarter,
+                        ),
+                        child: Text(
+                          '+${offerData.newOffers} '
+                          '${context.l10n.newOffers(offerData.newOffers)}',
+                          style: context.textTheme.bodyLarge?.copyWith(
+                            color: context.colorScheme.onTertiaryContainer,
                           ),
                         ),
-                        Container(
-                          decoration: BoxDecoration(
-                            color: context.colorScheme.primaryContainer,
-                            borderRadius: BorderRadius.only(
-                              bottomLeft: Radius.circular(page.spacing),
-                            ),
-                          ),
-                          child: IconButton(
-                            icon: Icon(
-                              offerData.isLiked
-                                  ? Icons.favorite
-                                  : Icons.favorite_border,
-                              color: context.colorScheme.onPrimaryContainer,
-                            ),
-                            onPressed: () => onOfferLikeTap?.call(offerData.id),
-                          ),
-                        ),
-                      ],
+                      ),
                     ),
                   ),
                 ],

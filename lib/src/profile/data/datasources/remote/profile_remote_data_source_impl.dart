@@ -1,17 +1,12 @@
 import 'dart:convert';
 import 'dart:math';
 
-import 'package:flow_zero_waste/src/auth/data/datasources/remote/auth_remote_data_source_impl_dev.dart';
+import 'package:flow_zero_waste/core/common/data/dev/auth_data_base.dart';
 import 'package:flow_zero_waste/src/auth/presentation/logics/auth_provider.dart';
 import 'package:flow_zero_waste/src/profile/data/datasources/profile_data_source_exceptions.dart';
 import 'package:flow_zero_waste/src/profile/data/datasources/remote/profile_remote_data_source.dart';
 import 'package:flow_zero_waste/src/profile/data/models/profile_stats_model.dart';
 import 'package:injectable/injectable.dart';
-
-const _userKey = 'userAuth';
-const _currentUserKey = 'userAuthCurrent';
-const _userBoxName = 'userAuthBox';
-const _currentUserBoxName = 'currentUserAuthBox';
 
 /// Profile remote data source
 @Singleton(as: ProfileRemoteDataSource)
@@ -22,9 +17,9 @@ class ProfileRemoteDataSourceImpl implements ProfileRemoteDataSource {
   }) : _authProvider = authProvider;
 
   final UserAuthHiveStorage _dbAuth =
-      UserAuthHiveStorage(boxName: _userBoxName);
+      UserAuthHiveStorage(boxName: userBoxName);
   final CurrentUserAuthHiveStorage _dbUser =
-      CurrentUserAuthHiveStorage(boxName: _currentUserBoxName);
+      CurrentUserAuthHiveStorage(boxName: currentUserBoxName);
   final AuthProvider _authProvider;
 
   @override
@@ -82,7 +77,7 @@ class ProfileRemoteDataSourceImpl implements ProfileRemoteDataSource {
       if (checkPassword && checkId) {
         final data = userDecoded..['password'] = newPassword;
         final jsonData = json.encode(data);
-        await _dbAuth.write(jsonData, key: '$_userKey$id');
+        await _dbAuth.write(jsonData, key: '$userKey$id');
         return;
       }
     }
@@ -122,8 +117,8 @@ class ProfileRemoteDataSourceImpl implements ProfileRemoteDataSource {
         if (email != null) data = data..['email'] = email;
         if (phoneNumber != null) data = data..['phoneNumber'] = phoneNumber;
         final jsonData = json.encode(data);
-        await _dbAuth.write(jsonData, key: '$_userKey$id');
-        await _dbUser.write(jsonData, key: _currentUserKey);
+        await _dbAuth.write(jsonData, key: '$userKey$id');
+        await _dbUser.write(jsonData, key: currentUserKey);
         await _authProvider.fetchUserData();
         return;
       }

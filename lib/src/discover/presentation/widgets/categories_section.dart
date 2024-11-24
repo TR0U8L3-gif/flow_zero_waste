@@ -33,7 +33,7 @@ class CategoriesSection extends StatelessWidget {
     final page = context.watch<PageProvider>();
     final borderRadius = BorderRadius.circular(page.spacing);
 
-    if (categories != null && categories!.isEmpty) {
+    if (categories == null) {
       return const SizedBox.shrink();
     }
 
@@ -53,11 +53,13 @@ class CategoriesSection extends StatelessWidget {
             width: double.infinity,
             child: ListView.separated(
               scrollDirection: Axis.horizontal,
-              itemCount: categories?.length ?? _categoriesItemsEmpty,
+              itemCount: categories!.isNotEmpty
+                  ? categories!.length
+                  : _categoriesItemsEmpty,
               separatorBuilder: (context, index) =>
                   SizedBox(width: page.spacing),
               itemBuilder: (context, index) {
-                if (categories == null) {
+                if (categories!.isEmpty) {
                   return Container(
                     width: _categoryCardWidth,
                     height: _categoriesSectionHeight,
