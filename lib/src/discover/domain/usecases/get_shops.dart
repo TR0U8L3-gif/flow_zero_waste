@@ -16,6 +16,7 @@ class GetShops extends UseCase<List<Shop>, GetShopsParams> {
   @override
   ResultFuture<Failure, List<Shop>> call(GetShopsParams params) {
     return _repository.getShops(
+      languageCode: params.languageCode,
       latitude: params.latitude,
       longitude: params.longitude,
     );
@@ -26,9 +27,13 @@ class GetShops extends UseCase<List<Shop>, GetShopsParams> {
 class GetShopsParams {
   /// Default constructor
   GetShopsParams({
+    required this.languageCode,
     required this.latitude,
     required this.longitude,
   });
+
+  /// Language code
+  final String languageCode;
 
   /// Latitude
   final double latitude;

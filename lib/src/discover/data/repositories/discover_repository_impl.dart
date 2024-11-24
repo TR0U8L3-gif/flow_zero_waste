@@ -94,12 +94,14 @@ class DiscoverRepositoryImpl implements DiscoverRepository {
 
   @override
   ResultFuture<Failure, List<Offer>> getOffers({
+    required String languageCode,
     required double latitude,
     required double longitude,
   }) async {
     _logger.trace(message: 'getting Offers');
     try {
       final result = await _discoverRemoteDataSource.getOffers(
+        languageCode: languageCode,
         latitude: latitude,
         longitude: longitude,
       );
@@ -117,12 +119,14 @@ class DiscoverRepositoryImpl implements DiscoverRepository {
 
   @override
   ResultFuture<Failure, List<Shop>> getShops({
+    required String languageCode,
     required double latitude,
     required double longitude,
   }) async {
     _logger.trace(message: 'getting Shops');
     try {
       final result = await _discoverRemoteDataSource.getShops(
+        languageCode: languageCode,
         latitude: latitude,
         longitude: longitude,
       );

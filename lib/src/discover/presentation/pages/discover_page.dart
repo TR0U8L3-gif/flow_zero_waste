@@ -165,7 +165,6 @@ class DiscoverPage extends StatelessWidget implements AutoRouteWrapper {
                           vertical: page.spacing,
                         ),
                         child: OffersSection(
-                          onOfferLikeTap: discoverCubit.likeShop,
                           onOfferTap: debugPrint,
                           offers: state.offers.map((e) {
                             return OfferData(

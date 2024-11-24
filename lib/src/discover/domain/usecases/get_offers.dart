@@ -16,6 +16,7 @@ class GetOffers extends UseCase<List<Offer>, GetOffersParams> {
   @override
   ResultFuture<Failure, List<Offer>> call(GetOffersParams params) {
     return _repository.getOffers(
+      languageCode: params.languageCode,
       latitude: params.latitude,
       longitude: params.longitude,
     );
@@ -26,9 +27,13 @@ class GetOffers extends UseCase<List<Offer>, GetOffersParams> {
 class GetOffersParams {
   /// Default constructor
   GetOffersParams({
+    required this.languageCode,
     required this.latitude,
     required this.longitude,
   });
+
+  /// Language code
+  final String languageCode;
 
   /// Latitude
   final double latitude;

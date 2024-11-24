@@ -28,7 +28,7 @@ class LocationSection extends StatelessWidget {
     return ClipRRect(
       borderRadius: BorderRadius.circular(page.spacingDouble),
       child: ColoredBox(
-        color: context.colorScheme.secondaryContainer,
+        color: context.colorScheme.tertiaryContainer,
         child: Padding(
           padding: EdgeInsets.symmetric(
             horizontal: page.spacing,
@@ -38,7 +38,7 @@ class LocationSection extends StatelessWidget {
             children: [
               Icon(
                 Icons.location_on,
-                color: context.colorScheme.onSecondaryContainer,
+                color: context.colorScheme.onTertiaryContainer,
               ),
               SizedBox(width: page.spacingHalf),
               Expanded(
@@ -48,7 +48,7 @@ class LocationSection extends StatelessWidget {
                     child: Text(
                       localization ?? translations.locationSelectLocation,
                       style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                        color: context.colorScheme.onSecondaryContainer,
+                        color: context.colorScheme.onTertiaryContainer,
                       ),
                       maxLines: 1,
                     ),
@@ -61,7 +61,8 @@ class LocationSection extends StatelessWidget {
                 child: Text(
                   translations.change,
                   style: context.textTheme.bodyMedium?.copyWith(
-                    color: context.colorScheme.onSecondaryContainer,
+                    color: context.colorScheme.onTertiaryContainer,
+                    fontWeight: FontWeight.w600,
                   ),
                 ),
               ),

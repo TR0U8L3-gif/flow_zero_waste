@@ -14,6 +14,7 @@ abstract class DiscoverRepository {
 
   /// get shops
   ResultFuture<Failure, List<Shop>> getShops({
+    required String languageCode,
     required double latitude,
     required double longitude,
   });
@@ -25,6 +26,7 @@ abstract class DiscoverRepository {
 
   /// get offers
   ResultFuture<Failure, List<Offer>> getOffers({
+    required String languageCode,
     required double latitude,
     required double longitude,
   });

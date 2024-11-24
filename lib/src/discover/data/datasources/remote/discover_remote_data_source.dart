@@ -12,6 +12,7 @@ abstract class DiscoverRemoteDataSource {
 
   /// get shops
   Future<List<ShopModel>> getShops({
+    required String languageCode,
     required double latitude,
     required double longitude,
   });
@@ -23,6 +24,7 @@ abstract class DiscoverRemoteDataSource {
 
   /// get offers
   Future<List<OfferModel>> getOffers({
+    required String languageCode,
     required double latitude,
     required double longitude,
   });

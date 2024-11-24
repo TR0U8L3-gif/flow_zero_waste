@@ -218,7 +218,7 @@
   "@offersNearby": {
     "description": "Tytuł sekcji z ofertami."
   },
-  "newOffers": "{count, plural,  one{oferta} other{ofert}}",
+  "newOffers": "{count, plural,  one{oferta} other{oferty}}",
   "@newOffers": {
     "description": "liczy ile jest nowych ofert",
     "placeholders": {

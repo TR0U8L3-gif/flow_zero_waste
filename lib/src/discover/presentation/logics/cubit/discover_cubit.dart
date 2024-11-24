@@ -122,7 +122,11 @@ class DiscoverCubit extends Cubit<DiscoverState> {
     );
 
     final offersResult = await _getOffers(
-      GetOffersParams(latitude: latitude, longitude: longitude),
+      GetOffersParams(
+        latitude: latitude,
+        longitude: longitude,
+        languageCode: languageCode,
+      ),
     );
 
     offersResult.fold(
@@ -143,7 +147,11 @@ class DiscoverCubit extends Cubit<DiscoverState> {
     );
 
     final shopsResult = await _getShops(
-      GetShopsParams(latitude: latitude, longitude: longitude),
+      GetShopsParams(
+        latitude: latitude,
+        longitude: longitude,
+        languageCode: languageCode,
+      ),
     );
 
     shopsResult.fold(

@@ -174,7 +174,7 @@ class ShopCard extends StatelessWidget {
                     alignment: Alignment.topRight,
                     child: Container(
                       decoration: BoxDecoration(
-                        color: context.colorScheme.primaryContainer,
+                        color: context.colorScheme.tertiaryContainer,
                         borderRadius: BorderRadius.only(
                           bottomLeft: Radius.circular(page.spacing),
                         ),
@@ -184,7 +184,7 @@ class ShopCard extends StatelessWidget {
                           shopData.isLiked
                               ? Icons.favorite
                               : Icons.favorite_border,
-                          color: context.colorScheme.onPrimaryContainer,
+                          color: context.colorScheme.onTertiaryContainer,
                         ),
                         onPressed: () => onShopLikeTap?.call(shopData.id),
                       ),

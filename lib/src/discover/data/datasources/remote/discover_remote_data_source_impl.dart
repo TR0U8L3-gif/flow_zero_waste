@@ -22,12 +22,22 @@ class DiscoverRemoteDataSourceImpl implements DiscoverRemoteDataSource {
     try {
       await Future<void>.delayed(const Duration(seconds: 2));
       final result = await _bannerdb.readAll();
-      final banners = result
-          .map(
-            (jsonData) => BannerModel.fromJson(
-                json.decode(jsonData) as Map<String, dynamic>),
-          )
-          .toList();
+
+      final banners = <BannerModel>[];
+
+      for (final data in result) {
+        final jsonData = json.decode(data) as Map<String, dynamic>;
+
+        if (jsonData['languageCode'] != languageCode) {
+          continue;
+        }
+
+        final banner = BannerModel.fromJson(
+          jsonData,
+        );
+        banners.add(banner);
+      }
+
       return banners;
     } catch (e, st) {
       throw UnableToGetBannerDataException(
@@ -39,17 +49,28 @@ class DiscoverRemoteDataSourceImpl implements DiscoverRemoteDataSource {
   }
 
   @override
-  Future<List<CategoryModel>> getCategories(
-      {required String languageCode}) async {
+  Future<List<CategoryModel>> getCategories({
+    required String languageCode,
+  }) async {
     try {
       await Future<void>.delayed(const Duration(seconds: 1));
       final result = await _categorydb.readAll();
-      final categories = result
-          .map(
-            (jsonData) => CategoryModel.fromJson(
-                json.decode(jsonData) as Map<String, dynamic>),
-          )
-          .toList();
+
+      final categories = <CategoryModel>[];
+
+      for (final data in result) {
+        final jsonData = json.decode(data) as Map<String, dynamic>;
+
+        if (jsonData['languageCode'] != languageCode) {
+          continue;
+        }
+
+        final category = CategoryModel.fromJson(
+          jsonData,
+        );
+        categories.add(category);
+      }
+
       return categories;
     } catch (e, st) {
       throw UnableToGetCategoryDataException(
@@ -62,18 +83,29 @@ class DiscoverRemoteDataSourceImpl implements DiscoverRemoteDataSource {
 
   @override
   Future<List<OfferModel>> getOffers({
+    required String languageCode,
     required double latitude,
     required double longitude,
   }) async {
     try {
       await Future<void>.delayed(const Duration(seconds: 1));
       final result = await _offerdb.readAll();
-      final offers = result
-          .map(
-            (jsonData) => OfferModel.fromJson(
-                json.decode(jsonData) as Map<String, dynamic>),
-          )
-          .toList();
+
+      final offers = <OfferModel>[];
+
+      for (final data in result) {
+        final jsonData = json.decode(data) as Map<String, dynamic>;
+
+        if (jsonData['languageCode'] != languageCode) {
+          continue;
+        }
+
+        final offer = OfferModel.fromJson(
+          jsonData,
+        );
+        offers.add(offer);
+      }
+
       return offers;
     } catch (e, st) {
       throw UnableToGetOfferDataException(
@@ -85,17 +117,30 @@ class DiscoverRemoteDataSourceImpl implements DiscoverRemoteDataSource {
   }
 
   @override
-  Future<List<ShopModel>> getShops(
-      {required double latitude, required double longitude}) async {
+  Future<List<ShopModel>> getShops({
+    required String languageCode,
+    required double latitude,
+    required double longitude,
+  }) async {
     try {
       await Future<void>.delayed(const Duration(seconds: 2));
       final result = await _shopdb.readAll();
-      final shops = result
-          .map(
-            (jsonData) => ShopModel.fromJson(
-                json.decode(jsonData) as Map<String, dynamic>),
-          )
-          .toList();
+
+      final shops = <ShopModel>[];
+
+      for (final data in result) {
+        final jsonData = json.decode(data) as Map<String, dynamic>;
+
+        if (jsonData['languageCode'] != languageCode) {
+          continue;
+        }
+
+        final shop = ShopModel.fromJson(
+          jsonData,
+        );
+        shops.add(shop);
+      }
+
       return shops;
     } catch (e, st) {
       throw UnableToGetShopDataException(
@@ -109,13 +154,26 @@ class DiscoverRemoteDataSourceImpl implements DiscoverRemoteDataSource {
   @override
   Future<void> likeShop(String id) async {
     try {
-      final shopData = await _shopdb.read(key: id);
-      print(shopData);
-      final shopJson = json.decode(shopData!) as Map<String, dynamic>;
-      final isLiked = shopJson['isLiked'] as bool? ?? false;
-      final newShopJson = shopJson..['isLiked'] = !isLiked;
-      print(newShopJson);
-      await _shopdb.write(json.encode(newShopJson), key: id);
+      final ids = <String>[];
+
+      if (id.length >= 3 && id.substring(id.length - 3) == '-pl') {
+        ids
+          ..add(id)
+          ..add(id.substring(0, id.length - 3));
+      } else {
+        ids
+          ..add(id)
+          ..add('$id-pl');
+      }
+
+      for (final id in ids) {
+        final shopData = await _shopdb.read(key: id);
+        final shopJson = json.decode(shopData!) as Map<String, dynamic>;
+        final isLiked = shopJson['isLiked'] as bool? ?? false;
+        final newShopJson = shopJson..['isLiked'] = !isLiked;
+        await _shopdb.write(json.encode(newShopJson), key: id);
+      }
+
       return;
     } catch (e, st) {
       throw UnableToLikeShopException(
