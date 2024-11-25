@@ -352,8 +352,10 @@ extension GetItInjectableX on _i174.GetIt {
         _i451.UpdateProfileData(repository: gh<_i95.ProfileRepository>()));
     gh.singleton<_i815.UpdateProfilePassword>(() =>
         _i815.UpdateProfilePassword(repository: gh<_i95.ProfileRepository>()));
-    gh.factory<_i359.FavoritesCubit>(
-        () => _i359.FavoritesCubit(fetchFavorites: gh<_i815.GetFavorites>()));
+    gh.factory<_i359.FavoritesCubit>(() => _i359.FavoritesCubit(
+          fetchFavorites: gh<_i815.GetFavorites>(),
+          updateShopLike: gh<_i463.UpdateShopLike>(),
+        ));
     gh.factory<_i627.ProfileStatsCubit>(() =>
         _i627.ProfileStatsCubit(getProfileStats: gh<_i374.GetProfileStats>()));
     gh.factory<_i480.ProfileEditCubit>(() => _i480.ProfileEditCubit(

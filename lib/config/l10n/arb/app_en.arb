@@ -459,5 +459,9 @@
   "unableToGetFavoritesData": "Failed to fetch favorites data",
   "@unableToGetFavoritesData": {
     "description": "Message displayed when the user's favorites data cannot be fetched"
+  },
+  "noLikedShops": "You don't have any liked shops yet",
+  "@noLikedShops": {
+    "description": "Message displayed when the user has not liked any shops yet"
   }
 }

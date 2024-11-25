@@ -459,5 +459,10 @@
   "unableToGetFavoritesData": "Nie udało się pobrać ulubionych danych",
   "@unableToGetFavoritesData": {
     "description": "Komunikat wyświetlany, gdy nie można pobrać danych ulubionych elementów użytkownika"
+  },
+  "noLikedShops": "Nie masz jeszcze polubionych sklepów",
+  "@noLikedShops": {
+    "description": "Komunikat wyświetlany, gdy użytkownik nie ma jeszcze dodanych do ulubionych sklepów"
   }
+
 }

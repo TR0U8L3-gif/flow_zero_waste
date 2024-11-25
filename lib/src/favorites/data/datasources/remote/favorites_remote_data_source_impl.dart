@@ -13,9 +13,9 @@ class FavoritesRemoteDataSourceImpl implements FavoritesRemoteDataSource {
 
   @override
   Future<List<ShopModel>> getFavorites(String languageCode) async {
-    final number = Random().nextInt(5);
+    final number = Random().nextInt(10);
     await Future<void>.delayed(const Duration(seconds: 2));
-    if (number >= 3) {
+    if (number >= 8) {
       throw GetFavoritesException(
         action: 'getFavorites',
         error: 'Error fetching favorites',

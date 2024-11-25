@@ -68,7 +68,7 @@ class FavoritesPage extends StatelessWidget implements AutoRouteWrapper {
             builder: (context, state) {
               return Scaffold(
                 appBar: AppBarStyled(
-                  title: context.l10n.discover,
+                  title: context.l10n.favorites,
                 ),
                 body: SingleChildScrollView(
                   physics: const AlwaysScrollableScrollPhysics(),
@@ -76,13 +76,28 @@ class FavoritesPage extends StatelessWidget implements AutoRouteWrapper {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       if (state is FavoritesDataState) ...[
+                        if(state.favorites == null)
+                          Padding(
+                            padding: EdgeInsets.symmetric(
+                              horizontal: page.spacing,
+                              vertical: page.spacing,
+                            ),
+                            child: Align(
+                              child: Text(
+                                context.l10n.noLikedShops,
+                                style: context.textTheme.bodyLarge,
+                              ),
+                            ),
+                          )
+                        else 
                         Padding(
                           padding: EdgeInsets.symmetric(
                             horizontal: page.spacing,
                             vertical: page.spacing,
                           ),
                           child: FavoritesWidget(
-                            shops: state.favorites.map((e) {
+                            onShopLikeTap: favoritesCubit.likeShop,
+                            shops: state.favorites?.map((e) {
                               return ShopData(
                                 id: e.id,
                                 title: e.name,

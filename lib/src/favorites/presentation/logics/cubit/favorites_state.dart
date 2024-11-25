@@ -14,19 +14,19 @@ abstract class FavoritesDataState extends FavoritesState {
   const FavoritesDataState({
     required this.favorites,
   });
-  final List<Shop> favorites;
+  final List<Shop>? favorites;
 }
 
 final class FavoritesLoading extends FavoritesDataState with BuildableLogicState{
   const FavoritesLoading({
-    required List<Shop> favorites,
+    required List<Shop>? favorites,
   }) : super(favorites: favorites);
   @override
   List<Object?> get props => [favorites];
 }
 final class FavoritesIdle extends FavoritesDataState with BuildableLogicState{
   const FavoritesIdle({
-    required List<Shop> favorites,
+    required List<Shop>? favorites,
   }) : super(favorites: favorites);
   @override
   List<Object?> get props => [favorites];
