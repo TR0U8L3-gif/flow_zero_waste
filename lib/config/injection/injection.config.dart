@@ -61,6 +61,17 @@ import '../../src/discover/domain/usecases/get_shops.dart' as _i364;
 import '../../src/discover/domain/usecases/update_shop_like.dart' as _i463;
 import '../../src/discover/presentation/logics/cubit/discover_cubit.dart'
     as _i534;
+import '../../src/favorites/data/datasources/remote/favorites_remote_data_source.dart'
+    as _i407;
+import '../../src/favorites/data/datasources/remote/favorites_remote_data_source_impl.dart'
+    as _i538;
+import '../../src/favorites/data/repositories/favorites_repository_impl.dart'
+    as _i639;
+import '../../src/favorites/domain/repositories/favorites_repository.dart'
+    as _i45;
+import '../../src/favorites/domain/usecases/get_favorites.dart' as _i815;
+import '../../src/favorites/presentation/logics/cubit/favorites_cubit.dart'
+    as _i359;
 import '../../src/language/data/datasources/language_local_data_source.dart'
     as _i40;
 import '../../src/language/data/datasources/language_local_data_source_impl.dart'
@@ -171,6 +182,8 @@ extension GetItInjectableX on _i174.GetIt {
     gh.singleton<_i124.BannerMapper>(() => _i124.BannerMapper());
     gh.singleton<_i473.CategoryMapper>(() => _i473.CategoryMapper());
     gh.singleton<_i777.ShopMapper>(() => _i777.ShopMapper());
+    gh.singleton<_i407.FavoritesRemoteDataSource>(
+        () => _i538.FavoritesRemoteDataSourceImpl());
     gh.singleton<_i369.DeviceInfoManager>(
         () => _i698.DeviceInfoImplementation());
     gh.singleton<_i768.OfferMapper>(
@@ -262,6 +275,11 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i364.GetShops(repository: gh<_i469.DiscoverRepository>()));
     gh.singleton<_i463.UpdateShopLike>(
         () => _i463.UpdateShopLike(repository: gh<_i469.DiscoverRepository>()));
+    gh.singleton<_i45.FavoritesRepository>(() => _i639.FavoritesRepositoryImpl(
+          logger: gh<_i127.LoggerManager>(),
+          shopMapper: gh<_i777.ShopMapper>(),
+          remoteDataSource: gh<_i407.FavoritesRemoteDataSource>(),
+        ));
     gh.singleton<_i220.LoadTextScaleFromLocalStorage>(() =>
         _i220.LoadTextScaleFromLocalStorage(
             repository: gh<_i106.UiRepository>()));
@@ -294,6 +312,8 @@ extension GetItInjectableX on _i174.GetIt {
           saveOnboardingSeenToLocalStorage:
               gh<_i845.SaveOnboardingSeenToLocalStorage>(),
         ));
+    gh.singleton<_i815.GetFavorites>(
+        () => _i815.GetFavorites(repository: gh<_i45.FavoritesRepository>()));
     gh.singleton<_i659.ProfileRemoteDataSource>(() =>
         _i375.ProfileRemoteDataSourceImpl(
             authProvider: gh<_i346.AuthProvider>()));
@@ -332,6 +352,10 @@ extension GetItInjectableX on _i174.GetIt {
         _i451.UpdateProfileData(repository: gh<_i95.ProfileRepository>()));
     gh.singleton<_i815.UpdateProfilePassword>(() =>
         _i815.UpdateProfilePassword(repository: gh<_i95.ProfileRepository>()));
+    gh.factory<_i359.FavoritesCubit>(() => _i359.FavoritesCubit(
+          fetchFavorites: gh<_i815.GetFavorites>(),
+          updateShopLike: gh<_i463.UpdateShopLike>(),
+        ));
     gh.factory<_i627.ProfileStatsCubit>(() =>
         _i627.ProfileStatsCubit(getProfileStats: gh<_i374.GetProfileStats>()));
     gh.factory<_i480.ProfileEditCubit>(() => _i480.ProfileEditCubit(

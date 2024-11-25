@@ -37,6 +37,7 @@ class NavigationRouter extends RootStackRouter {
             ),
             AutoRoute(
               page: FavoritesRoute.page,
+              maintainState: false,
             ),
             AutoRoute(
               page: OrdersRoute.page,
