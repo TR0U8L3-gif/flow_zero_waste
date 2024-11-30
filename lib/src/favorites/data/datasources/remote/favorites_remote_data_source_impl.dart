@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'dart:math';
 
-import 'package:flow_zero_waste/core/common/data/dev/discover_data_base.dart';
+import 'package:flow_zero_waste/core/common/data/dev/flow_data_base.dart';
 import 'package:flow_zero_waste/src/discover/data/models/shop_model.dart';
 import 'package:flow_zero_waste/src/favorites/data/datasources/favorites_exception.dart';
 import 'package:flow_zero_waste/src/favorites/data/datasources/remote/favorites_remote_data_source.dart';

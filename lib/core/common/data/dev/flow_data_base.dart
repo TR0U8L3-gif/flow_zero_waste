@@ -3,12 +3,14 @@
 import 'dart:convert';
 
 import 'package:flow_zero_waste/core/services/hive/hive_manager.dart';
-import 'package:flow_zero_waste/src/discover/data/models/shop_model.dart';
+// import 'package:flow_zero_waste/src/discover/data/models/shop_model.dart';
 
 const bannerBoxName = 'bannerBox';
 const categoryBoxName = 'categoryBox';
 const offerBoxName = 'offerBox';
 const shopBoxName = 'shopBox';
+const productsBoxName = 'productsBox';
+const ordersBoxName = 'ordersBox';
 
 const _banners = <Map<String, dynamic>>[
   {
@@ -317,7 +319,7 @@ final _offers = <Map<String, dynamic>>[
     'rating': 10.0,
     'distance': 1800.0,
     'newOffers': 1.0,
-    'shop': ShopModel.fromJson(_shops[0]).toJson(),
+    'shop': _shops[0],
   },
   {
     'languageCode': 'en',
@@ -325,7 +327,7 @@ final _offers = <Map<String, dynamic>>[
     'rating': 9.5,
     'distance': 5000.0,
     'newOffers': 2.0,
-    'shop': ShopModel.fromJson(_shops[2]).toJson(),
+    'shop': _shops[2],
   },
   {
     'languageCode': 'en',
@@ -333,7 +335,7 @@ final _offers = <Map<String, dynamic>>[
     'rating': 8.0,
     'distance': 3000.0,
     'newOffers': 3.0,
-    'shop': ShopModel.fromJson(_shops[4]).toJson(),
+    'shop': _shops[4],
   },
   {
     'languageCode': 'en',
@@ -341,7 +343,7 @@ final _offers = <Map<String, dynamic>>[
     'rating': 7.5,
     'distance': 2000.0,
     'newOffers': 4.0,
-    'shop': ShopModel.fromJson(_shops[6]).toJson(),
+    'shop': _shops[6],
   },
   {
     'languageCode': 'pl',
@@ -349,7 +351,7 @@ final _offers = <Map<String, dynamic>>[
     'rating': 10.0,
     'distance': 1800.0,
     'newOffers': 1.0,
-    'shop': ShopModel.fromJson(_shops[7]).toJson(),
+    'shop': _shops[7],
   },
   {
     'languageCode': 'pl',
@@ -357,7 +359,7 @@ final _offers = <Map<String, dynamic>>[
     'rating': 9.5,
     'distance': 5000.0,
     'newOffers': 2.0,
-    'shop': ShopModel.fromJson(_shops[9]).toJson(),
+    'shop': _shops[9],
   },
   {
     'languageCode': 'pl',
@@ -365,7 +367,7 @@ final _offers = <Map<String, dynamic>>[
     'rating': 8.0,
     'distance': 3000.0,
     'newOffers': 3.0,
-    'shop': ShopModel.fromJson(_shops[11]).toJson(),
+    'shop': _shops[11],
   },
   {
     'languageCode': 'pl',
@@ -373,7 +375,213 @@ final _offers = <Map<String, dynamic>>[
     'rating': 7.5,
     'distance': 2000.0,
     'newOffers': 4.0,
-    'shop': ShopModel.fromJson(_shops[13]).toJson(),
+    'shop': _shops[13],
+  },
+];
+
+const _products = <Map<String, dynamic>>[
+  {
+    'imageUrl': 'https://picsum.photos/600/300?image=12',
+    'allergens': ['Gluten', 'Dairy'],
+    'languageCode': 'en',
+    'name': 'Organic Bananas',
+    'description':
+        'Fresh organic bananas sourced from sustainable farms in Ecuador. Perfect for snacking or smoothies. Country of origin: Ecuador. Ingredients: 100% organic bananas.',
+    'quantity': 8,
+    'price': 3.99,
+    'id': 'df447f4c-8f4c-4176-9552-d8d3364c4906',
+  },
+  {
+    'imageUrl': 'https://picsum.photos/600/300?image=12',
+    'allergens': ['Gluten', 'Dairy'],
+    'languageCode': 'pl',
+    'name': 'Ekologiczne Banany',
+    'description':
+        'Świeże ekologiczne banany pochodzące z zrównoważonych gospodarstw w Ekwadorze. Idealne jako przekąska lub do smoothie. Kraj pochodzenia: Ekwador. Składniki: 100% ekologiczne banany.',
+    'quantity': 8,
+    'price': 3.99,
+    'id': 'df447f4c-8f4c-4176-9552-d8d3364c4906',
+  },
+  {
+    'imageUrl': 'https://picsum.photos/600/300?image=12',
+    'allergens': ['None'],
+    'languageCode': 'en',
+    'name': 'Apples',
+    'description':
+        'Crisp and juicy apples with a hint of natural sweetness. Country of origin: Poland. Ingredients: Fresh apples.',
+    'quantity': 10,
+    'price': 2.49,
+    'id': 'b7f3c37a-5f8b-4a4d-89db-6c7d6bca1a7f',
+  },
+  {
+    'imageUrl': 'https://picsum.photos/600/300?image=12',
+    'allergens': ['None'],
+    'languageCode': 'pl',
+    'name': 'Jabłka',
+    'description':
+        'Chrupiące i soczyste jabłka o delikatnej naturalnej słodyczy. Kraj pochodzenia: Polska. Składniki: Świeże jabłka.',
+    'quantity': 10,
+    'price': 2.49,
+    'id': 'b7f3c37a-5f8b-4a4d-89db-6c7d6bca1a7f',
+  },
+  {
+    'imageUrl': 'https://picsum.photos/600/300?image=12',
+    'allergens': ['Gluten', 'Soy'],
+    'languageCode': 'en',
+    'name': 'Pepperoni Pizza',
+    'description':
+        'Delicious pepperoni pizza with a thin crust and rich tomato sauce. Country of origin: Italy. Ingredients: Wheat flour, tomato sauce, pepperoni, mozzarella cheese, spices.',
+    'quantity': 5,
+    'price': 8.99,
+    'id': 'c847fbf8-e6c5-4f84-b1dc-d9b0485fdd16',
+  },
+  {
+    'imageUrl': 'https://picsum.photos/600/300?image=12',
+    'allergens': ['Gluten', 'Soy'],
+    'languageCode': 'pl',
+    'name': 'Pizza Pepperoni',
+    'description':
+        'Pyszna pizza pepperoni na cienkim cieście z bogatym sosem pomidorowym. Kraj pochodzenia: Włochy. Składniki: Mąka pszenna, sos pomidorowy, pepperoni, mozzarella, przyprawy.',
+    'quantity': 5,
+    'price': 8.99,
+    'id': 'c847fbf8-e6c5-4f84-b1dc-d9b0485fdd16',
+  },
+  {
+    'imageUrl': 'https://picsum.photos/600/300?image=12',
+    'allergens': ['Nuts'],
+    'languageCode': 'en',
+    'name': 'Mixed Nuts',
+    'description':
+        'A nutritious mix of almonds, walnuts, and cashews, perfect for a healthy snack. Country of origin: USA. Ingredients: Almonds, walnuts, cashews.',
+    'quantity': 7,
+    'price': 5.49,
+    'id': 'a4bc2d2b-96f3-48b6-9dbf-5cbfb60c38b1',
+  },
+  {
+    'imageUrl': 'https://picsum.photos/600/300?image=12',
+    'allergens': ['Nuts'],
+    'languageCode': 'pl',
+    'name': 'Mieszanka Orzechów',
+    'description':
+        'Odżywcza mieszanka migdałów, orzechów włoskich i nerkowców. Idealna na zdrową przekąskę. Kraj pochodzenia: USA. Składniki: Migdały, orzechy włoskie, nerkowce.',
+    'quantity': 7,
+    'price': 5.49,
+    'id': 'a4bc2d2b-96f3-48b6-9dbf-5cbfb60c38b1',
+  },
+  {
+    'imageUrl': 'https://picsum.photos/600/300?image=12',
+    'allergens': ['Dairy'],
+    'languageCode': 'en',
+    'name': 'Greek Yogurt',
+    'description':
+        'Creamy Greek yogurt made from fresh milk. High in protein and perfect for breakfast or a snack. Country of origin: Greece. Ingredients: Milk, live cultures.',
+    'quantity': 3,
+    'price': 4.29,
+    'id': 'ab01cdd4-7e73-4c1d-8a71-f28d9b6451b8',
+  },
+  {
+    'imageUrl': 'https://picsum.photos/600/300?image=12',
+    'allergens': ['Dairy'],
+    'languageCode': 'pl',
+    'name': 'Jogurt Grecki',
+    'description':
+        'Kremowy jogurt grecki zrobiony ze świeżego mleka. Bogaty w białko, idealny na śniadanie lub przekąskę. Kraj pochodzenia: Grecja. Składniki: Mleko, żywe kultury bakterii.',
+    'quantity': 3,
+    'price': 4.29,
+    'id': 'ab01cdd4-7e73-4c1d-8a71-f28d9b6451b8',
+  }
+];
+
+final _orders = <Map<String, dynamic>>[
+  {
+    'languageCode': 'en',
+    'products_id': _products[0]['id'] as String,
+    'shop_id': _shops[0]['id'] as String,
+    'status': 1,
+    'date': DateTime.now().subtract(Duration(minutes: 1080)).toIso8601String(),
+    'code': 'ABCD1234',
+    'id': 'ab01cdd4-7e73-4c1d-8a71-f28d9b6451ba',
+  },
+  {
+    'languageCode': 'pl',
+    'products_id': _products[1]['id'] as String,
+    'shop_id': _shops[7]['id'] as String,
+    'status': 1,
+    'date': DateTime.now().subtract(Duration(minutes: 1080)).toIso8601String(),
+    'code': 'ABCD1234',
+    'id': 'ab01cdd4-7e73-4c1d-8a71-f28d9b6451bb',
+  },
+  {
+    'languageCode': 'en',
+    'products_id': _products[2]['id'] as String,
+    'shop_id': _shops[1]['id'] as String,
+    'status': 0,
+    'date': DateTime.now().subtract(Duration(minutes: 30)).toIso8601String(),
+    'code': 'EFGH5678',
+    'id': 'ab01cdd4-7e73-4c1d-8a71-f28d9b6451bc',
+  },
+  {
+    'languageCode': 'pl',
+    'products_id': _products[3]['id'] as String,
+    'shop_id': _shops[8]['id'] as String,
+    'status': 0,
+    'date': DateTime.now().subtract(Duration(minutes: 30)).toIso8601String(),
+    'code': 'EFGH5678',
+    'id': 'ab01cdd4-7e73-4c1d-8a71-f28d9b6451bd',
+  },
+  {
+    'languageCode': 'en',
+    'products_id': _products[4]['id'] as String,
+    'shop_id': _shops[2]['id'] as String,
+    'status': -1,
+    'date': DateTime.now().subtract(Duration(minutes: 720)).toIso8601String(),
+    'code': 'IJKL9101',
+    'id': 'ab01cdd4-7e73-4c1d-8a71-f28d9b6451be',
+  },
+  {
+    'languageCode': 'pl',
+    'products_id': _products[5]['id'] as String,
+    'shop_id': _shops[9]['id'] as String,
+    'status': -1,
+    'date': DateTime.now().subtract(Duration(minutes: 720)).toIso8601String(),
+    'code': 'IJKL9101',
+    'id': 'ab01cdd4-7e73-4c1d-8a71-f28d9b6451bf',
+  },
+  {
+    'languageCode': 'en',
+    'products_id': _products[6]['id'] as String,
+    'shop_id': _shops[3]['id'] as String,
+    'status': 1,
+    'date': DateTime.now().subtract(Duration(minutes: 1440)).toIso8601String(),
+    'code': 'MNOP2345',
+    'id': 'ab01cdd4-7e73-4c1d-8a71-f28d9b6451bg',
+  },
+  {
+    'languageCode': 'pl',
+    'products_id': _products[7]['id'] as String,
+    'shop_id': _shops[10]['id'] as String,
+    'status': 1,
+    'date': DateTime.now().subtract(Duration(minutes: 1440)).toIso8601String(),
+    'code': 'MNOP2345',
+    'id': 'ab01cdd4-7e73-4c1d-8a71-f28d9b6451bh',
+  },
+  {
+    'languageCode': 'en',
+    'products_id': _products[8]['id'] as String,
+    'shop_id': _shops[4]['id'] as String,
+    'status': 1,
+    'date': DateTime.now().subtract(Duration(minutes: 1800)).toIso8601String(),
+    'code': 'QRST6789',
+    'id': 'ab01cdd4-7e73-4c1d-8a71-f28d9b6451bi',
+  },
+  {
+    'languageCode': 'pl',
+    'products_id': _products[9]['id'] as String,
+    'shop_id': _shops[11]['id'] as String,
+    'status': 1,
+    'date': DateTime.now().subtract(Duration(minutes: 1800)).toIso8601String(),
+    'code': 'QRST6789',
+    'id': 'ab01cdd4-7e73-4c1d-8a71-f28d9b6451bj',
   },
 ];
 
@@ -457,6 +665,49 @@ class ShopHiveStorage extends HiveManager<String> {
     await deleteAll();
     _shops.forEach((shop) async {
       await write(json.encode(shop), key: shop['id'] as String);
+    });
+  }
+}
+
+
+class ProductsHiveStorage extends HiveManager<String> {
+  factory ProductsHiveStorage() => _instance;
+
+  ProductsHiveStorage._({required super.boxName}) {
+    _initialize();
+  }
+
+  static final _instance = ProductsHiveStorage._(boxName: productsBoxName);
+
+  bool isInitialized = false;
+
+  Future<void> _initialize() async {
+    if (isInitialized) return;
+    isInitialized = true;
+    await deleteAll();
+    _products.forEach((products) async {
+      await write(json.encode(products), key: products['id'] as String);
+    });
+  }
+}
+
+class OrdersHiveStorage extends HiveManager<String> {
+  factory OrdersHiveStorage() => _instance;
+
+  OrdersHiveStorage._({required super.boxName}) {
+    _initialize();
+  }
+
+  static final _instance = OrdersHiveStorage._(boxName: ordersBoxName);
+
+  bool isInitialized = false;
+
+  Future<void> _initialize() async {
+    if (isInitialized) return;
+    isInitialized = true;
+    await deleteAll();
+    _orders.forEach((order) async {
+      await write(json.encode(order), key: order['id'] as String);
     });
   }
 }

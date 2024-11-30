@@ -124,9 +124,10 @@ class DiscoverPage extends StatelessWidget implements AutoRouteWrapper {
                             color: context.colorScheme.surfaceContainer,
                           ),
                           padding: EdgeInsets.all(page.spacingDouble),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            mainAxisSize: MainAxisSize.min,
+                          child: Wrap(
+                            // mainAxisAlignment: MainAxisAlignment.center,
+                            // mainAxisSize: MainAxisSize.min,
+                            alignment: WrapAlignment.center,
                             children: [
                               Icon(
                                 Icons.arrow_upward_rounded,
@@ -137,6 +138,7 @@ class DiscoverPage extends StatelessWidget implements AutoRouteWrapper {
                               Text(
                                 context.l10n.chooseLocationBeforeDiscover,
                                 style: context.textTheme.titleLarge,
+                                textAlign: TextAlign.center,
                               ),
                             ],
                           ),
