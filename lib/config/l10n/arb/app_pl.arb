@@ -463,6 +463,37 @@
   "noLikedShops": "Nie masz jeszcze polubionych sklepów",
   "@noLikedShops": {
     "description": "Komunikat wyświetlany, gdy użytkownik nie ma jeszcze dodanych do ulubionych sklepów"
+  },
+  "pending": "Oczekujące",
+  "@pending": {
+    "description": "Status wskazujący, że coś jest w trakcie oczekiwania na akceptację lub realizację"
+  },
+  "accepted": "Zaakceptowane",
+  "@accepted": {
+    "description": "Status wskazujący, że coś zostało zaakceptowane"
+  },
+  "completed": "Zakończone",
+  "@completed": {
+    "description": "Status wskazujący, że coś zostało zakończone"
+  },
+  "canceled": "Anulowane",
+  "@canceled": {
+    "description": "Status wskazujący, że coś zostało anulowane"
+  },
+  "date": "Data",
+  "@date": {
+    "description": "Etykieta dla pola lub sekcji pokazującej datę"
+  },
+  "status": "Status",
+  "@status": {
+    "description": "Etykieta dla pola lub sekcji pokazującej status"
+  },
+  "shop": "Sklep",
+  "@shop": {
+    "description": "Etykieta dla pola lub sekcji pokazującej nazwę sklepu"
+  },
+  "confirmCancelOrder": "Czy jesteś pewien, że chcesz anulować zamówienie?",
+  "@confirmCancelOrder": {
+    "description": "Komunikat wyświetlany podczas próby anulowania zamówienia, pytający o potwierdzenie"
   }
-
 }

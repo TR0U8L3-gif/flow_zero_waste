@@ -3,6 +3,7 @@ import 'package:flow_zero_waste/config/injection/injection.dart';
 import 'package:flow_zero_waste/core/common/presentation/logics/logic_state.dart';
 import 'package:flow_zero_waste/core/common/presentation/logics/providers/responsive_ui/page_provider.dart';
 import 'package:flow_zero_waste/core/common/presentation/widgets/components/app_bar_styled.dart';
+import 'package:flow_zero_waste/core/common/presentation/widgets/components/refresh_indicator_styled.dart';
 import 'package:flow_zero_waste/core/extensions/l10n_extension.dart';
 import 'package:flow_zero_waste/core/extensions/theme_extension.dart';
 import 'package:flow_zero_waste/src/discover/presentation/widgets/recommended_shops_section.dart';
@@ -28,55 +29,55 @@ class FavoritesPage extends StatelessWidget implements AutoRouteWrapper {
             language.currentLanguage.languageCode,
           );
         }
-        return RefreshIndicator(
-          onRefresh: () async {
-            await favoritesCubit.fetchFavorites(
-              language.currentLanguage.languageCode,
-            );
-          },
-          child: BlocConsumer<FavoritesCubit, FavoritesState>(
-            bloc: favoritesCubit,
-            listener: (context, state) {
-              if (!state.isListenable) return;
-          
-              if (state.isNavigatable) {
-                (state as NavigatableLogicState).navigate(context);
-              }
-          
-              if (state is FavoritesError) {
-                var errorMessage = context.l10n.unexpectedError;
-          
-                if (state.failure is FavoritesFailure) {
-                  switch (state.failure) {
-                    case GetFavoritesFailure():
-                      errorMessage = context.l10n.unableToGetFavoritesData;
-                  }
+        return BlocConsumer<FavoritesCubit, FavoritesState>(
+          bloc: favoritesCubit,
+          listener: (context, state) {
+            if (!state.isListenable) return;
+
+            if (state.isNavigatable) {
+              (state as NavigatableLogicState).navigate(context);
+            }
+
+            if (state is FavoritesError) {
+              var errorMessage = context.l10n.unexpectedError;
+
+              if (state.failure is FavoritesFailure) {
+                switch (state.failure) {
+                  case GetFavoritesFailure():
+                    errorMessage = context.l10n.unableToGetFavoritesData;
                 }
-          
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(
-                    content: Text(
-                      errorMessage,
-                      style: context.textTheme.bodyMedium
-                          ?.copyWith(color: context.colorScheme.onErrorContainer),
-                    ),
-                    backgroundColor: context.colorScheme.errorContainer,
-                  ),
-                );
               }
-            },
-            builder: (context, state) {
-              return Scaffold(
-                appBar: AppBarStyled(
-                  title: context.l10n.favorites,
+
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text(
+                    errorMessage,
+                    style: context.textTheme.bodyMedium
+                        ?.copyWith(color: context.colorScheme.onErrorContainer),
+                  ),
+                  backgroundColor: context.colorScheme.errorContainer,
                 ),
-                body: SingleChildScrollView(
+              );
+            }
+          },
+          builder: (context, state) {
+            return Scaffold(
+              appBar: AppBarStyled(
+                title: context.l10n.favorites,
+              ),
+              body: RefreshIndicatorStyled(
+                onRefresh: () async {
+                  await favoritesCubit.fetchFavorites(
+                    language.currentLanguage.languageCode,
+                  );
+                },
+                child: SingleChildScrollView(
                   physics: const AlwaysScrollableScrollPhysics(),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       if (state is FavoritesDataState) ...[
-                        if(state.favorites == null)
+                        if (state.favorites == null)
                           Padding(
                             padding: EdgeInsets.symmetric(
                               horizontal: page.spacing,
@@ -89,35 +90,35 @@ class FavoritesPage extends StatelessWidget implements AutoRouteWrapper {
                               ),
                             ),
                           )
-                        else 
-                        Padding(
-                          padding: EdgeInsets.symmetric(
-                            horizontal: page.spacing,
-                            vertical: page.spacing,
+                        else
+                          Padding(
+                            padding: EdgeInsets.symmetric(
+                              horizontal: page.spacing,
+                              vertical: page.spacing,
+                            ),
+                            child: FavoritesWidget(
+                              onShopLikeTap: favoritesCubit.likeShop,
+                              shops: state.favorites?.map((e) {
+                                return ShopData(
+                                  id: e.id,
+                                  title: e.name,
+                                  description: e.description,
+                                  imageUrl: e.imageUrl,
+                                  startDate: e.startDate,
+                                  endDate: e.endDate,
+                                  isLiked: e.isLiked,
+                                  localization: e.localization,
+                                );
+                              }).toList(),
+                            ),
                           ),
-                          child: FavoritesWidget(
-                            onShopLikeTap: favoritesCubit.likeShop,
-                            shops: state.favorites?.map((e) {
-                              return ShopData(
-                                id: e.id,
-                                title: e.name,
-                                description: e.description,
-                                imageUrl: e.imageUrl,
-                                startDate: e.startDate,
-                                endDate: e.endDate,
-                                isLiked: e.isLiked,
-                                localization: e.localization,
-                              );
-                            }).toList(),
-                          ),
-                        ),
                       ],
                     ],
                   ),
                 ),
-              );
-            },
-          ),
+              ),
+            );
+          },
         );
       },
     );

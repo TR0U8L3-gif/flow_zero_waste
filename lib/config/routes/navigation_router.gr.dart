@@ -294,7 +294,7 @@ class OrdersRoute extends _i19.PageRouteInfo<void> {
   static _i19.PageInfo page = _i19.PageInfo(
     name,
     builder: (data) {
-      return _i12.OrdersPage();
+      return _i19.WrappedRoute(child: _i12.OrdersPage());
     },
   );
 }
