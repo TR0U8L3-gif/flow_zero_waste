@@ -463,5 +463,37 @@
   "noLikedShops": "You don't have any liked shops yet",
   "@noLikedShops": {
     "description": "Message displayed when the user has not liked any shops yet"
+  },
+  "pending": "Pending",
+  "@pending": {
+    "description": "Status indicating something is awaiting approval or processing"
+  },
+  "accepted": "Accepted",
+  "@accepted": {
+    "description": "Status indicating something has been accepted"
+  },
+  "completed": "Completed",
+  "@completed": {
+    "description": "Status indicating something has been completed"
+  },
+  "canceled": "Canceled",
+  "@canceled": {
+    "description": "Status indicating something has been canceled"
+  },
+  "date": "Date",
+  "@date": {
+    "description": "Label for a field or section displaying a date"
+  },
+  "status": "Status",
+  "@status": {
+    "description": "Label for a field or section displaying a status"
+  },
+  "shop": "Shop",
+  "@shop": {
+    "description": "Label for a field or section displaying the shop's name"
+  },
+  "confirmCancelOrder": "Are you sure you want to cancel the order?",
+  "@confirmCancelOrder": {
+    "description": "Message displayed when attempting to cancel an order, asking for confirmation"
   }
 }
