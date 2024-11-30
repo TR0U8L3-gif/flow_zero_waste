@@ -12,6 +12,7 @@ class Shop extends Equatable {
     required this.localization,
     required this.startDate,
     required this.endDate,
+    required this.rating,
   });
 
   /// Shop ID
@@ -38,6 +39,9 @@ class Shop extends Equatable {
   /// End date
   final DateTime endDate;
 
+  /// Rating
+  final double rating;
+
   /// CopyWith method
   Shop copyWith({
     String? id,
@@ -48,6 +52,7 @@ class Shop extends Equatable {
     String? localization,
     DateTime? startDate,
     DateTime? endDate,
+    double? rating,
   }) {
     return Shop(
       id: id ?? this.id,
@@ -58,6 +63,7 @@ class Shop extends Equatable {
       localization: localization ?? this.localization,
       startDate: startDate ?? this.startDate,
       endDate: endDate ?? this.endDate,
+      rating: rating ?? this.rating,
     );
   }
 
@@ -71,5 +77,6 @@ class Shop extends Equatable {
         localization,
         startDate,
         endDate,
+        rating,
       ];
 }

@@ -42,6 +42,7 @@ import '../../src/auth/domain/usecases/logout_user.dart' as _i910;
 import '../../src/auth/domain/usecases/register_user.dart' as _i651;
 import '../../src/auth/presentation/logics/auth_provider.dart' as _i346;
 import '../../src/auth/presentation/logics/cubit/auth_cubit.dart' as _i751;
+import '../../src/browse/presentation/logics/cubit/shops_cubit.dart' as _i1033;
 import '../../src/discover/data/datasources/remote/discover_remote_data_source.dart'
     as _i327;
 import '../../src/discover/data/datasources/remote/discover_remote_data_source_impl.dart'
@@ -169,6 +170,9 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.singleton<_i239.PageProvider>(() => _i239.PageProvider());
     gh.singleton<_i674.UserMapper>(() => _i674.UserMapper());
+    gh.singleton<_i124.BannerMapper>(() => _i124.BannerMapper());
+    gh.singleton<_i473.CategoryMapper>(() => _i473.CategoryMapper());
+    gh.singleton<_i777.ShopMapper>(() => _i777.ShopMapper());
     gh.singleton<_i681.LanguageStorageHive>(
       () => _i681.LanguageStorageHive(),
       dispose: (i) => i.dispose(),
@@ -181,6 +185,8 @@ extension GetItInjectableX on _i174.GetIt {
       () => _i296.OnboardingStorageHive(),
       dispose: (i) => i.dispose(),
     );
+    gh.singleton<_i564.OrdersMapper>(() => _i564.OrdersMapper());
+    gh.singleton<_i483.ProductMapper>(() => _i483.ProductMapper());
     gh.singleton<_i1006.ProfileStatsMapper>(() => _i1006.ProfileStatsMapper());
     gh.singleton<_i475.UiStorageHive>(
       () => _i475.UiStorageHive(),
@@ -189,11 +195,6 @@ extension GetItInjectableX on _i174.GetIt {
     gh.singleton<_i442.TextScaleDetailsMapper>(
         () => _i442.TextScaleDetailsMapper());
     gh.singleton<_i494.ThemeDetailsMapper>(() => _i494.ThemeDetailsMapper());
-    gh.singleton<_i124.BannerMapper>(() => _i124.BannerMapper());
-    gh.singleton<_i473.CategoryMapper>(() => _i473.CategoryMapper());
-    gh.singleton<_i777.ShopMapper>(() => _i777.ShopMapper());
-    gh.singleton<_i564.OrdersMapper>(() => _i564.OrdersMapper());
-    gh.singleton<_i483.ProductMapper>(() => _i483.ProductMapper());
     gh.singleton<_i407.FavoritesRemoteDataSource>(
         () => _i538.FavoritesRemoteDataSourceImpl());
     gh.singleton<_i915.OrdersRemoteDataSource>(
@@ -360,6 +361,8 @@ extension GetItInjectableX on _i174.GetIt {
           getOffers: gh<_i472.GetOffers>(),
           getShops: gh<_i364.GetShops>(),
         ));
+    gh.factory<_i1033.ShopsCubit>(
+        () => _i1033.ShopsCubit(getShops: gh<_i364.GetShops>()));
     gh.factory<_i751.AuthCubit>(() => _i751.AuthCubit(
           login: gh<_i775.LoginUser>(),
           register: gh<_i651.RegisterUser>(),

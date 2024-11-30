@@ -33,7 +33,13 @@ class NavigationRouter extends RootStackRouter {
               page: DiscoverRoute.page,
             ),
             AutoRoute(
-              page: BrowseRoute.page,
+              page: BrowseNavigationRoute.page,
+              children: [
+                AutoRoute(
+                  page: BrowseRoute.page,
+                  initial: true,
+                ),
+              ],
             ),
             AutoRoute(
               page: FavoritesRoute.page,

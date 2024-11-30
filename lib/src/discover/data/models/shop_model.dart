@@ -12,6 +12,7 @@ class ShopModel extends Equatable {
     required this.localization,
     required this.startDate,
     required this.endDate,
+    required this.rating,
   });
 
   /// Shop ID
@@ -38,6 +39,9 @@ class ShopModel extends Equatable {
   /// End date
   final String endDate;
 
+  /// Rating
+  final double rating;
+
   /// to json
   Map<String, dynamic> toJson() {
     return {
@@ -63,6 +67,7 @@ class ShopModel extends Equatable {
       localization: json['localization'] as String,
       startDate: json['startDate'] as String,
       endDate: json['endDate'] as String,
+      rating: json['rating'] as double,
     );
   }
 
@@ -76,5 +81,6 @@ class ShopModel extends Equatable {
         localization,
         startDate,
         endDate,
+        rating,
       ];
 }

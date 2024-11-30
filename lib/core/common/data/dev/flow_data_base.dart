@@ -1,9 +1,7 @@
 // ignore_for_file: public_member_api_docs
-
 import 'dart:convert';
 
 import 'package:flow_zero_waste/core/services/hive/hive_manager.dart';
-// import 'package:flow_zero_waste/src/discover/data/models/shop_model.dart';
 
 const bannerBoxName = 'bannerBox';
 const categoryBoxName = 'categoryBox';
@@ -164,6 +162,7 @@ final _shops = <Map<String, dynamic>>[
     'startDate': DateTime.now().copyWith(hour: 9, minute: 30).toIso8601String(),
     'endDate': DateTime.now().copyWith(hour: 19, minute: 30).toIso8601String(),
     'isLiked': true,
+    'rating': 10.0,
   },
   {
     'languageCode': 'en',
@@ -175,6 +174,7 @@ final _shops = <Map<String, dynamic>>[
     'startDate': DateTime.now().copyWith(hour: 8, minute: 30).toIso8601String(),
     'endDate': DateTime.now().copyWith(hour: 20, minute: 00).toIso8601String(),
     'isLiked': false,
+    'rating': 9.5,
   },
   {
     'languageCode': 'en',
@@ -186,6 +186,7 @@ final _shops = <Map<String, dynamic>>[
     'startDate': DateTime.now().copyWith(hour: 9, minute: 30).toIso8601String(),
     'endDate': DateTime.now().copyWith(hour: 21, minute: 30).toIso8601String(),
     'isLiked': false,
+    'rating': 8.0,
   },
   {
     'languageCode': 'en',
@@ -197,6 +198,7 @@ final _shops = <Map<String, dynamic>>[
     'startDate': DateTime.now().copyWith(hour: 7, minute: 30).toIso8601String(),
     'endDate': DateTime.now().copyWith(hour: 19, minute: 30).toIso8601String(),
     'isLiked': false,
+    'rating': 7.5,
   },
   {
     'languageCode': 'en',
@@ -208,6 +210,7 @@ final _shops = <Map<String, dynamic>>[
     'startDate': DateTime.now().copyWith(hour: 8, minute: 00).toIso8601String(),
     'endDate': DateTime.now().copyWith(hour: 20, minute: 00).toIso8601String(),
     'isLiked': true,
+    'rating': 10.0,
   },
   {
     'languageCode': 'en',
@@ -219,6 +222,7 @@ final _shops = <Map<String, dynamic>>[
     'startDate': DateTime.now().copyWith(hour: 9, minute: 00).toIso8601String(),
     'endDate': DateTime.now().copyWith(hour: 21, minute: 00).toIso8601String(),
     'isLiked': false,
+    'rating': 9.5,
   },
   {
     'languageCode': 'en',
@@ -230,6 +234,7 @@ final _shops = <Map<String, dynamic>>[
     'startDate': DateTime.now().copyWith(hour: 8, minute: 00).toIso8601String(),
     'endDate': DateTime.now().copyWith(hour: 21, minute: 00).toIso8601String(),
     'isLiked': false,
+    'rating': 8.0,
   },
   {
     'languageCode': 'pl',
@@ -242,6 +247,7 @@ final _shops = <Map<String, dynamic>>[
     'startDate': DateTime.now().copyWith(hour: 9, minute: 30).toIso8601String(),
     'endDate': DateTime.now().copyWith(hour: 19, minute: 30).toIso8601String(),
     'isLiked': true,
+    'rating': 10.0,
   },
   {
     'languageCode': 'pl',
@@ -253,6 +259,7 @@ final _shops = <Map<String, dynamic>>[
     'startDate': DateTime.now().copyWith(hour: 8, minute: 30).toIso8601String(),
     'endDate': DateTime.now().copyWith(hour: 20, minute: 00).toIso8601String(),
     'isLiked': false,
+    'rating': 9.5,
   },
   {
     'languageCode': 'pl',
@@ -264,6 +271,7 @@ final _shops = <Map<String, dynamic>>[
     'startDate': DateTime.now().copyWith(hour: 9, minute: 30).toIso8601String(),
     'endDate': DateTime.now().copyWith(hour: 21, minute: 30).toIso8601String(),
     'isLiked': false,
+    'rating': 8.0,
   },
   {
     'languageCode': 'pl',
@@ -275,6 +283,7 @@ final _shops = <Map<String, dynamic>>[
     'startDate': DateTime.now().copyWith(hour: 7, minute: 30).toIso8601String(),
     'endDate': DateTime.now().copyWith(hour: 19, minute: 30).toIso8601String(),
     'isLiked': false,
+    'rating': 7.5,
   },
   {
     'languageCode': 'pl',
@@ -287,6 +296,7 @@ final _shops = <Map<String, dynamic>>[
     'startDate': DateTime.now().copyWith(hour: 8, minute: 00).toIso8601String(),
     'endDate': DateTime.now().copyWith(hour: 20, minute: 00).toIso8601String(),
     'isLiked': true,
+    'rating': 10.0,
   },
   {
     'languageCode': 'pl',
@@ -298,6 +308,7 @@ final _shops = <Map<String, dynamic>>[
     'startDate': DateTime.now().copyWith(hour: 9, minute: 00).toIso8601String(),
     'endDate': DateTime.now().copyWith(hour: 21, minute: 00).toIso8601String(),
     'isLiked': false,
+    'rating': 9.5,
   },
   {
     'languageCode': 'pl',
@@ -309,6 +320,7 @@ final _shops = <Map<String, dynamic>>[
     'startDate': DateTime.now().copyWith(hour: 8, minute: 00).toIso8601String(),
     'endDate': DateTime.now().copyWith(hour: 21, minute: 00).toIso8601String(),
     'isLiked': false,
+    'rating': 8.0,
   },
 ];
 
