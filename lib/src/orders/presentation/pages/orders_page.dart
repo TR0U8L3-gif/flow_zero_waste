@@ -3,6 +3,7 @@ import 'package:flow_zero_waste/config/injection/injection.dart';
 import 'package:flow_zero_waste/core/common/presentation/logics/logic_state.dart';
 import 'package:flow_zero_waste/core/common/presentation/logics/providers/responsive_ui/page_provider.dart';
 import 'package:flow_zero_waste/core/common/presentation/widgets/components/app_bar_styled.dart';
+import 'package:flow_zero_waste/core/common/presentation/widgets/components/refresh_indicator_styled.dart';
 import 'package:flow_zero_waste/core/common/presentation/widgets/components/scrollbar_styled.dart';
 import 'package:flow_zero_waste/core/extensions/l10n_extension.dart';
 import 'package:flow_zero_waste/core/extensions/theme_extension.dart';
@@ -13,6 +14,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
 import 'package:qr_flutter/qr_flutter.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 @RoutePage()
 class OrdersPage extends StatelessWidget implements AutoRouteWrapper {
@@ -22,42 +24,42 @@ class OrdersPage extends StatelessWidget implements AutoRouteWrapper {
       builder: (context, language, child) {
         final page = context.watch<PageProvider>();
         final ordersCubit = context.read<OrdersCubit>();
-        return RefreshIndicator(
-          onRefresh: () async {
-            await ordersCubit.fetchOrders(
-              language.currentLanguage.languageCode,
-            );
-          },
-          child: BlocConsumer<OrdersCubit, OrdersState>(
-            bloc: ordersCubit,
-            listener: (context, state) {
-              if (!state.isListenable) return;
+        return BlocConsumer<OrdersCubit, OrdersState>(
+          bloc: ordersCubit,
+          listener: (context, state) {
+            if (!state.isListenable) return;
 
-              if (state.isNavigatable) {
-                (state as NavigatableLogicState).navigate(context);
-              }
+            if (state.isNavigatable) {
+              (state as NavigatableLogicState).navigate(context);
+            }
 
-              if (state is OrdersError) {
-                var errorMessage = context.l10n.unexpectedError;
+            if (state is OrdersError) {
+              var errorMessage = context.l10n.unexpectedError;
 
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(
-                    content: Text(
-                      errorMessage,
-                      style: context.textTheme.bodyMedium?.copyWith(
-                          color: context.colorScheme.onErrorContainer),
-                    ),
-                    backgroundColor: context.colorScheme.errorContainer,
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text(
+                    errorMessage,
+                    style: context.textTheme.bodyMedium
+                        ?.copyWith(color: context.colorScheme.onErrorContainer),
                   ),
-                );
-              }
-            },
-            builder: (context, state) {
-              return Scaffold(
-                appBar: AppBarStyled(
-                  title: context.l10n.favorites,
+                  backgroundColor: context.colorScheme.errorContainer,
                 ),
-                body: ScrollbarStyled(
+              );
+            }
+          },
+          builder: (context, state) {
+            return Scaffold(
+              appBar: AppBarStyled(
+                title: context.l10n.favorites,
+              ),
+              body: RefreshIndicatorStyled(
+                onRefresh: () async {
+                  await ordersCubit.fetchOrders(
+                    language.currentLanguage.languageCode,
+                  );
+                },
+                child: ScrollbarStyled(
                   child: Padding(
                     padding: EdgeInsets.symmetric(horizontal: page.spacing),
                     child: SingleChildScrollView(
@@ -72,6 +74,8 @@ class OrdersPage extends StatelessWidget implements AutoRouteWrapper {
                                 vertical: page.spacing,
                               ),
                               child: OrdersWidget(
+                                onOrderLocation: (lng, lat) => launchUrl(Uri.parse(
+                                    'https://www.google.com/maps/search/?api=1&query=$lat,$lng')),
                                 onOrderAccept: (code) {
                                   showDialog<void>(
                                     context: context,
@@ -84,8 +88,9 @@ class OrdersPage extends StatelessWidget implements AutoRouteWrapper {
                                         ),
                                         content: Container(
                                           decoration: BoxDecoration(
-                                              borderRadius: BorderRadius.circular(page.spacing),
-                                              color: Colors.white,
+                                            borderRadius: BorderRadius.circular(
+                                                page.spacing),
+                                            color: Colors.white,
                                           ),
                                           width: page.size.width * 0.64,
                                           padding: EdgeInsets.all(page.spacing),
@@ -158,9 +163,9 @@ class OrdersPage extends StatelessWidget implements AutoRouteWrapper {
                     ),
                   ),
                 ),
-              );
-            },
-          ),
+              ),
+            );
+          },
         );
       },
     );

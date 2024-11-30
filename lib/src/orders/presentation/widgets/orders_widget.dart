@@ -15,6 +15,7 @@ class OrdersWidget extends StatelessWidget {
     required this.orders,
     super.key,
     this.onOrderAccept,
+    this.onOrderLocation,
     this.onOrderCancel,
   });
 
@@ -23,6 +24,7 @@ class OrdersWidget extends StatelessWidget {
 
   /// Callback for order tap
   final void Function(String code)? onOrderAccept;
+  final void Function(double lng, double lat)? onOrderLocation;
   final void Function(String id)? onOrderCancel;
 
   @override
@@ -62,11 +64,14 @@ class OrdersWidget extends StatelessWidget {
             );
           } else {
             final order = orders![index];
-            return OrderCard(
-              order: order,
-              borderRadius: borderRadius,
-              onOrderAccept: onOrderAccept,
-              onOrderCancel: onOrderCancel,
+            return GestureDetector(
+              onTap: () => onOrderLocation?.call(23.152574415, 53.1149982),
+              child: OrderCard(
+                order: order,
+                borderRadius: borderRadius,
+                onOrderAccept: onOrderAccept,
+                onOrderCancel: onOrderCancel,
+              ),
             );
           }
         },
@@ -88,10 +93,13 @@ class OrderCard extends StatelessWidget {
 
   /// Order data
   final Orders order;
+
   /// Border radius
   final BorderRadius borderRadius;
+
   /// Callback for order tap
   final void Function(String code)? onOrderAccept;
+
   /// Callback for order tap
   final void Function(String id)? onOrderCancel;
 
@@ -161,20 +169,20 @@ class OrderCard extends StatelessWidget {
                   ],
                 ),
               ),
-              if(order.status == OrderStatus.accepted)
-              Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                                IconButton(
-                onPressed: () => onOrderCancel?.call(order.id),
-                icon: const Icon(Icons.cancel_outlined),
-              ),
-              IconButton(
-                onPressed: () => onOrderAccept?.call(order.code),
-                icon: const Icon(Icons.check_circle_outline),
-              ),
-                ],
-              )
+              if (order.status == OrderStatus.accepted)
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    IconButton(
+                      onPressed: () => onOrderAccept?.call(order.code),
+                      icon: const Icon(Icons.check_circle_outline),
+                    ),
+                    IconButton(
+                      onPressed: () => onOrderCancel?.call(order.id),
+                      icon: const Icon(Icons.cancel_outlined),
+                    ),
+                  ],
+                ),
             ],
           ),
         ],
