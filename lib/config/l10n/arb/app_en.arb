@@ -495,5 +495,25 @@
   "confirmCancelOrder": "Are you sure you want to cancel the order?",
   "@confirmCancelOrder": {
     "description": "Message displayed when attempting to cancel an order, asking for confirmation"
+  },
+  "price": "Price",
+  "@price": {
+    "description": "Label for a field or section displaying the price"
+  },
+  "quantity": "Quantity",
+  "@quantity": {
+    "description": "Label for a field or section displaying the quantity"
+  },
+  "currency": "$",
+  "@currency": {
+    "description": "Symbol waluty używanej w Stanach Zjednoczonych (dolar amerykański)"
+  },
+  "buyAndPayNow": "Buy and pay now",
+  "@buyAndPayNow": {
+    "description": "Button allowing the user to purchase and pay immediately online"
+  },
+  "buyAndPayInStore": "Buy and pay in store",
+  "@buyAndPayInStore": {
+    "description": "Button allowing the user to purchase with the option to pay directly in the store"
   }
 }

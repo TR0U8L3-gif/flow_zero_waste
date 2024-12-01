@@ -39,6 +39,10 @@ class NavigationRouter extends RootStackRouter {
                   page: BrowseRoute.page,
                   initial: true,
                 ),
+                AutoRoute(
+                  path: 'shop/:id',
+                  page: ShopRoute.page,
+                ),
               ],
             ),
             AutoRoute(
