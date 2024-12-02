@@ -1,10 +1,13 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flow_zero_waste/config/injection/injection.dart';
+import 'package:flow_zero_waste/config/routes/navigation_router.gr.dart';
 import 'package:flow_zero_waste/core/common/presentation/logics/logic_state.dart';
 import 'package:flow_zero_waste/core/common/presentation/logics/providers/responsive_ui/page_provider.dart';
 import 'package:flow_zero_waste/core/common/presentation/widgets/components/app_bar_styled.dart';
 import 'package:flow_zero_waste/core/extensions/l10n_extension.dart';
 import 'package:flow_zero_waste/core/extensions/theme_extension.dart';
+import 'package:flow_zero_waste/src/browse/presentation/logics/shop_cubit.dart';
+import 'package:flow_zero_waste/src/browse/presentation/pages/shop_page.dart';
 import 'package:flow_zero_waste/src/discover/domain/responses/discover_responses.dart';
 import 'package:flow_zero_waste/src/discover/presentation/logics/cubit/discover_cubit.dart';
 import 'package:flow_zero_waste/src/discover/presentation/widgets/banner_section.dart';
@@ -31,7 +34,7 @@ class DiscoverPage extends StatelessWidget implements AutoRouteWrapper {
       builder: (context, location, language, child) {
         final page = context.watch<PageProvider>();
         final discoverCubit = context.read<DiscoverCubit>();
-        if(location.isInitialized){
+        if (location.isInitialized) {
           discoverCubit.getDiscoverData(
             languageCode: language.currentLanguage.languageCode,
             latitude: location.locationData?.latitude,
@@ -167,7 +170,18 @@ class DiscoverPage extends StatelessWidget implements AutoRouteWrapper {
                           vertical: page.spacing,
                         ),
                         child: OffersSection(
-                          onOfferTap: debugPrint,
+                          onOfferTap: (id) {
+                            Navigator.of(context).push(
+                              MaterialPageRoute<void>(
+                                builder: (BuildContext context) => BlocProvider(
+                                  create: (context) => locator<ShopCubit>(),
+                                  child: ShopPage(
+                                    shopId: id,
+                                  ),
+                                ),
+                              ),
+                            );
+                          },
                           offers: state.offers.map((e) {
                             return OfferData(
                               id: e.id,
@@ -206,6 +220,18 @@ class DiscoverPage extends StatelessWidget implements AutoRouteWrapper {
                         ),
                         child: RecommendedShopsSection(
                           onShopLikeTap: discoverCubit.likeShop,
+                          onShopTap: (id) {
+                            Navigator.of(context).push(
+                              MaterialPageRoute<void>(
+                                builder: (BuildContext context) => BlocProvider(
+                                  create: (context) => locator<ShopCubit>(),
+                                  child: ShopPage(
+                                    shopId: id,
+                                  ),
+                                ),
+                              ),
+                            );
+                          },
                           shops: state.shops.map((e) {
                             return ShopData(
                               id: e.id,

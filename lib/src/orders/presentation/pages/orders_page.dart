@@ -51,7 +51,7 @@ class OrdersPage extends StatelessWidget implements AutoRouteWrapper {
           builder: (context, state) {
             return Scaffold(
               appBar: AppBarStyled(
-                title: context.l10n.favorites,
+                title: context.l10n.orders,
               ),
               body: RefreshIndicatorStyled(
                 onRefresh: () async {

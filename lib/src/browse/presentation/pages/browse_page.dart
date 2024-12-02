@@ -1,53 +1,56 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:flow_zero_waste/config/routes/navigation_router.gr.dart';
+import 'package:flow_zero_waste/core/common/presentation/logics/providers/responsive_ui/page_provider.dart';
 import 'package:flow_zero_waste/core/common/presentation/widgets/components/app_bar_styled.dart';
+import 'package:flow_zero_waste/core/common/presentation/widgets/components/refresh_indicator_styled.dart';
+import 'package:flow_zero_waste/core/extensions/l10n_extension.dart';
+import 'package:flow_zero_waste/src/browse/presentation/logics/shops_cubit.dart';
+import 'package:flow_zero_waste/src/browse/presentation/widgets/browse_widget.dart';
+import 'package:flow_zero_waste/src/language/presentation/logics/language_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:provider/provider.dart';
 
 @RoutePage()
 class BrowsePage extends StatelessWidget {
-  final List<String> categories = [
-    "Żywność",
-    "AGD",
-    "Książki",
-    "Odzież",
-    "Elektronika",
-    "Hobby",
-    "Sport",
-  ];
-
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: const AppBarStyled(
-        title: 'Przeglądaj',
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: ListView.builder(
-          itemCount: categories.length,
-          itemBuilder: (context, index) {
-            return CategoryTile(category: categories[index]);
-          },
-        ),
-      ),
-    );
-  }
-}
-
-class CategoryTile extends StatelessWidget {
-  final String category;
-
-  CategoryTile({required this.category});
-
-  @override
-  Widget build(BuildContext context) {
-    return Card(
-      margin: EdgeInsets.symmetric(vertical: 8.0),
-      child: ListTile(
-        title: Text(category),
-        trailing: Icon(Icons.arrow_forward_ios),
-        onTap: () {
-        },
-      ),
+    final page = context.watch<PageProvider>();
+    final shopCubit = context.read<ShopsCubit>();
+    return Consumer<LanguageProvider>(
+      builder: (context, language, child) {
+        shopCubit.getShops(language.currentLanguage.languageCode);
+        return Scaffold(
+          appBar: AppBarStyled(
+            title: context.l10n.browse,
+          ),
+          body: RefreshIndicatorStyled(
+            onRefresh: () =>
+                shopCubit.getShops(language.currentLanguage.languageCode),
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: page.spacing),
+              child: BlocConsumer<ShopsCubit, ShopsState>(
+                bloc: shopCubit,
+                listener: (context, state) {},
+                builder: (context, state) {
+                  if (state is ShopsIdle) {
+                    return BrowseWidget(
+                      shops: state.shops.isEmpty ? null : state.shops,
+                      onShopTap: (id) {
+                        context.router.push(ShopRoute(shopId: id));
+                        },
+                    );
+                  } else {
+                    return const BrowseWidget(
+                      shops: [],
+                    );
+                  }
+                },
+              ),
+            ),
+          ),
+        );
+      },
     );
   }
 }

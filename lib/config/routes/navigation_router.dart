@@ -33,7 +33,17 @@ class NavigationRouter extends RootStackRouter {
               page: DiscoverRoute.page,
             ),
             AutoRoute(
-              page: BrowseRoute.page,
+              page: BrowseNavigationRoute.page,
+              children: [
+                AutoRoute(
+                  page: BrowseRoute.page,
+                  initial: true,
+                ),
+                AutoRoute(
+                  path: 'shop/:id',
+                  page: ShopRoute.page,
+                ),
+              ],
             ),
             AutoRoute(
               page: FavoritesRoute.page,
@@ -41,6 +51,7 @@ class NavigationRouter extends RootStackRouter {
             ),
             AutoRoute(
               page: OrdersRoute.page,
+              maintainState: false,
             ),
             AutoRoute(
               page: ProfileNavigationRoute.page,

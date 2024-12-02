@@ -12,6 +12,8 @@ import 'package:flow_zero_waste/src/discover/domain/entities/offer.dart';
 import 'package:flow_zero_waste/src/discover/domain/entities/shop.dart';
 import 'package:flow_zero_waste/src/discover/domain/repositories/discover_repository.dart';
 import 'package:flow_zero_waste/src/discover/domain/responses/discover_responses.dart';
+import 'package:flow_zero_waste/src/orders/data/mappers/product_mapper.dart';
+import 'package:flow_zero_waste/src/orders/domain/entities/product.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:injectable/injectable.dart';
 import 'package:logger_manager/logger_manager.dart';
@@ -27,12 +29,14 @@ class DiscoverRepositoryImpl implements DiscoverRepository {
     required CategoryMapper categoryMapper,
     required OfferMapper offerMapper,
     required ShopMapper shopMapper,
+    required ProductMapper productsMapper,
   })  : _logger = loggerManager,
         _discoverRemoteDataSource = discoverRemoteDataSource,
         _bannerMapper = bannerMapper,
         _categoryMapper = categoryMapper,
         _offerMapper = offerMapper,
-        _shopMapper = shopMapper;
+        _shopMapper = shopMapper,
+        _productsMapper = productsMapper;
 
   final LoggerManager _logger;
   final DiscoverRemoteDataSource _discoverRemoteDataSource;
@@ -40,6 +44,7 @@ class DiscoverRepositoryImpl implements DiscoverRepository {
   final CategoryMapper _categoryMapper;
   final OfferMapper _offerMapper;
   final ShopMapper _shopMapper;
+  final ProductMapper _productsMapper;
 
   @override
   ResultFuture<Failure, List<Banner>> getBanners({
@@ -155,6 +160,47 @@ class DiscoverRepositoryImpl implements DiscoverRepository {
     } catch (e, st) {
       _logger.fatal(message: 'Unable to like Shop', error: e, stackTrace: st);
       return const Left(Failure(message: 'Unable to like Shop'));
+    }
+  }
+
+  @override
+  ResultFuture<Failure, (Shop, List<Product>)> getShopWithProducts({
+    required String languageCode,
+    required String shopId,
+  }) async {
+    _logger.trace(message: 'getting Shop data with Products');
+    try {
+      final result = await _discoverRemoteDataSource.getShopWithProducts(
+        languageCode: languageCode,
+        shopId: shopId,
+      );
+      final shop = _shopMapper.from(result.$1);
+      final products = result.$2.map(_productsMapper.from).toList();
+      _logger.trace(message: 'received shop with products: ${products.length}');
+      return Right((shop, products));
+    } catch (e, st) {
+      _logger.fatal(message: 'Unable to get Shops', error: e, stackTrace: st);
+      return const Left(Failure(message: 'Unable to get Shops'));
+    }
+  }
+
+  @override
+  ResultFuture<Failure, void> placeOrder({
+    required String shopId,
+    required String productId,
+    required int quantity,
+    required String languageCode,
+  }) async {
+    try {
+      await _discoverRemoteDataSource.placeOrder(
+        shopId: shopId,
+        productId: productId,
+        quantity: quantity,
+        languageCode: languageCode,
+      );
+      return const Right(null);
+    } catch (e) {
+      return const Left(Failure(message: 'Unable to place order'));
     }
   }
 }
