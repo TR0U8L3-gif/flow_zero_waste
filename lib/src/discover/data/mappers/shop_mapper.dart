@@ -17,6 +17,7 @@ class ShopMapper extends Mapper<ShopModel, Shop> {
       isLiked: object.isLiked,
       localization: object.localization,
       startDate: DateTime.parse(object.startDate),
+      rating: object.rating,
     );
   }
 
@@ -31,6 +32,7 @@ class ShopMapper extends Mapper<ShopModel, Shop> {
       isLiked: object.isLiked,
       localization: object.localization,
       startDate: object.startDate.toIso8601String(),
+      rating: object.rating,
     );
   }
 }

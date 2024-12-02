@@ -1,9 +1,7 @@
 // ignore_for_file: public_member_api_docs
-
 import 'dart:convert';
 
 import 'package:flow_zero_waste/core/services/hive/hive_manager.dart';
-// import 'package:flow_zero_waste/src/discover/data/models/shop_model.dart';
 
 const bannerBoxName = 'bannerBox';
 const categoryBoxName = 'categoryBox';
@@ -164,6 +162,7 @@ final _shops = <Map<String, dynamic>>[
     'startDate': DateTime.now().copyWith(hour: 9, minute: 30).toIso8601String(),
     'endDate': DateTime.now().copyWith(hour: 19, minute: 30).toIso8601String(),
     'isLiked': true,
+    'rating': 10.0,
   },
   {
     'languageCode': 'en',
@@ -175,6 +174,7 @@ final _shops = <Map<String, dynamic>>[
     'startDate': DateTime.now().copyWith(hour: 8, minute: 30).toIso8601String(),
     'endDate': DateTime.now().copyWith(hour: 20, minute: 00).toIso8601String(),
     'isLiked': false,
+    'rating': 9.5,
   },
   {
     'languageCode': 'en',
@@ -186,6 +186,7 @@ final _shops = <Map<String, dynamic>>[
     'startDate': DateTime.now().copyWith(hour: 9, minute: 30).toIso8601String(),
     'endDate': DateTime.now().copyWith(hour: 21, minute: 30).toIso8601String(),
     'isLiked': false,
+    'rating': 8.0,
   },
   {
     'languageCode': 'en',
@@ -197,6 +198,7 @@ final _shops = <Map<String, dynamic>>[
     'startDate': DateTime.now().copyWith(hour: 7, minute: 30).toIso8601String(),
     'endDate': DateTime.now().copyWith(hour: 19, minute: 30).toIso8601String(),
     'isLiked': false,
+    'rating': 7.5,
   },
   {
     'languageCode': 'en',
@@ -208,6 +210,7 @@ final _shops = <Map<String, dynamic>>[
     'startDate': DateTime.now().copyWith(hour: 8, minute: 00).toIso8601String(),
     'endDate': DateTime.now().copyWith(hour: 20, minute: 00).toIso8601String(),
     'isLiked': true,
+    'rating': 10.0,
   },
   {
     'languageCode': 'en',
@@ -219,6 +222,7 @@ final _shops = <Map<String, dynamic>>[
     'startDate': DateTime.now().copyWith(hour: 9, minute: 00).toIso8601String(),
     'endDate': DateTime.now().copyWith(hour: 21, minute: 00).toIso8601String(),
     'isLiked': false,
+    'rating': 9.5,
   },
   {
     'languageCode': 'en',
@@ -230,6 +234,7 @@ final _shops = <Map<String, dynamic>>[
     'startDate': DateTime.now().copyWith(hour: 8, minute: 00).toIso8601String(),
     'endDate': DateTime.now().copyWith(hour: 21, minute: 00).toIso8601String(),
     'isLiked': false,
+    'rating': 8.0,
   },
   {
     'languageCode': 'pl',
@@ -242,6 +247,7 @@ final _shops = <Map<String, dynamic>>[
     'startDate': DateTime.now().copyWith(hour: 9, minute: 30).toIso8601String(),
     'endDate': DateTime.now().copyWith(hour: 19, minute: 30).toIso8601String(),
     'isLiked': true,
+    'rating': 10.0,
   },
   {
     'languageCode': 'pl',
@@ -253,6 +259,7 @@ final _shops = <Map<String, dynamic>>[
     'startDate': DateTime.now().copyWith(hour: 8, minute: 30).toIso8601String(),
     'endDate': DateTime.now().copyWith(hour: 20, minute: 00).toIso8601String(),
     'isLiked': false,
+    'rating': 9.5,
   },
   {
     'languageCode': 'pl',
@@ -264,6 +271,7 @@ final _shops = <Map<String, dynamic>>[
     'startDate': DateTime.now().copyWith(hour: 9, minute: 30).toIso8601String(),
     'endDate': DateTime.now().copyWith(hour: 21, minute: 30).toIso8601String(),
     'isLiked': false,
+    'rating': 8.0,
   },
   {
     'languageCode': 'pl',
@@ -275,6 +283,7 @@ final _shops = <Map<String, dynamic>>[
     'startDate': DateTime.now().copyWith(hour: 7, minute: 30).toIso8601String(),
     'endDate': DateTime.now().copyWith(hour: 19, minute: 30).toIso8601String(),
     'isLiked': false,
+    'rating': 7.5,
   },
   {
     'languageCode': 'pl',
@@ -287,6 +296,7 @@ final _shops = <Map<String, dynamic>>[
     'startDate': DateTime.now().copyWith(hour: 8, minute: 00).toIso8601String(),
     'endDate': DateTime.now().copyWith(hour: 20, minute: 00).toIso8601String(),
     'isLiked': true,
+    'rating': 10.0,
   },
   {
     'languageCode': 'pl',
@@ -298,6 +308,7 @@ final _shops = <Map<String, dynamic>>[
     'startDate': DateTime.now().copyWith(hour: 9, minute: 00).toIso8601String(),
     'endDate': DateTime.now().copyWith(hour: 21, minute: 00).toIso8601String(),
     'isLiked': false,
+    'rating': 9.5,
   },
   {
     'languageCode': 'pl',
@@ -309,6 +320,7 @@ final _shops = <Map<String, dynamic>>[
     'startDate': DateTime.now().copyWith(hour: 8, minute: 00).toIso8601String(),
     'endDate': DateTime.now().copyWith(hour: 21, minute: 00).toIso8601String(),
     'isLiked': false,
+    'rating': 8.0,
   },
 ];
 
@@ -378,22 +390,21 @@ final _offers = <Map<String, dynamic>>[
     'shop': _shops[13],
   },
 ];
-
 const _products = <Map<String, dynamic>>[
   {
     'imageUrl': 'https://picsum.photos/600/300?image=75',
-    'allergens': ['None'],
+    'allergens': ['No allergens'], // en
     'languageCode': 'en',
     'name': 'Fresh Grapes',
     'description':
         'Juicy, ripe grapes perfect for snacking or adding to a fruit salad. Country of origin: Italy. Ingredients: Fresh grapes.',
     'quantity': 8,
     'price': 3.99,
-    'id': 'df447f4c-8f4c-4176-9552-d8d3364c4906',
+    'id': 'df447f4c-8f4c-4176-9552-d8d3364c49en',
   },
   {
     'imageUrl': 'https://picsum.photos/600/300?image=75',
-    'allergens': ['None'],
+    'allergens': ['Brak alergenów'], // pl
     'languageCode': 'pl',
     'name': 'Świeże Winogrona',
     'description':
@@ -404,7 +415,7 @@ const _products = <Map<String, dynamic>>[
   },
   {
     'imageUrl': 'https://picsum.photos/600/300?image=102',
-    'allergens': ['None'],
+    'allergens': ['Pollen traces'], // en
     'languageCode': 'en',
     'name': 'Fresh Raspberries',
     'description':
@@ -415,18 +426,18 @@ const _products = <Map<String, dynamic>>[
   },
   {
     'imageUrl': 'https://picsum.photos/600/300?image=102',
-    'allergens': ['None'],
+    'allergens': ['Śladowe ilości pyłków'], // pl
     'languageCode': 'pl',
     'name': 'Świeże Maliny',
     'description':
         'Pyszne, świeże maliny o idealnym balansie słodyczy i kwaskowatości. Kraj pochodzenia: Polska. Składniki: Świeże maliny.',
     'quantity': 10,
     'price': 2.49,
-    'id': 'b7f3c37a-5f8b-4a4d-89db-6c7d6bca1a7f',
+    'id': 'b7f3c37a-5f8b-4a4d-89db-6c7d6bca1en1',
   },
   {
     'imageUrl': 'https://picsum.photos/600/300?image=292',
-    'allergens': ['None'],
+    'allergens': ['May contain celery'], // en
     'languageCode': 'en',
     'name': 'Fresh Vegetables',
     'description':
@@ -437,18 +448,18 @@ const _products = <Map<String, dynamic>>[
   },
   {
     'imageUrl': 'https://picsum.photos/600/300?image=292',
-    'allergens': ['None'],
+    'allergens': ['Może zawierać seler'], // pl
     'languageCode': 'pl',
     'name': 'Świeże Warzywa',
     'description':
         'Różnorodność świeżych warzyw, w tym pietruszka, marchewki i czerwone cebule. Idealne do zup i sałatek. Kraj pochodzenia: Lokalni producenci. Składniki: Mieszanka warzyw.',
     'quantity': 5,
     'price': 8.99,
-    'id': 'c847fbf8-e6c5-4f84-b1dc-d9b0485fdd16',
+    'id': 'c847fbf8-e6c5-4f84-b1dc-d9b0485fj4jo',
   },
   {
     'imageUrl': 'https://picsum.photos/600/300?image=326',
-    'allergens': ['None'],
+    'allergens': ['May contain traces of citrus'], // en
     'languageCode': 'en',
     'name': 'Ginger Tea',
     'description':
@@ -459,29 +470,29 @@ const _products = <Map<String, dynamic>>[
   },
   {
     'imageUrl': 'https://picsum.photos/600/300?image=326',
-    'allergens': ['None'],
+    'allergens': ['Może zawierać śladowe ilości cytrusów'], // pl
     'languageCode': 'pl',
     'name': 'Herbata Imbirowa',
     'description':
         'Ciepła i kojąca herbata imbirowa z nutą cytryny. Idealna do relaksu i na poprawę samopoczucia. Składniki: Plasterki imbiru, cytryna.',
     'quantity': 7,
     'price': 5.49,
-    'id': 'a4bc2d2b-96f3-48b6-9dbf-5cbfb60c38b1',
+    'id': 'a4bc2d2b-96f3-48b6-9dbf-5cbfb60c39b2',
   },
   {
     'imageUrl': 'https://picsum.photos/600/300?image=627',
-    'allergens': ['None'],
+    'allergens': ['No allergens'],
     'languageCode': 'en',
     'name': 'Green Beans',
     'description':
         'Fresh and tender green beans, perfect as a side dish or addition to your favorite meals. Country of origin: Local farms. Ingredients: Green beans.',
     'quantity': 3,
     'price': 4.29,
-    'id': 'ab01cdd4-7e73-4c1d-8a71-f28d9b6451b8',
+    'id': 'ab01cdd4-7e73-4c1d-8a71-f28d9b6451b9',
   },
   {
     'imageUrl': 'https://picsum.photos/600/300?image=627',
-    'allergens': ['None'],
+    'allergens': ['Brak alergenów'], 
     'languageCode': 'pl',
     'name': 'Zielona Fasolka',
     'description':
@@ -509,7 +520,7 @@ final _orders = <Map<String, dynamic>>[
     'status': 0,
     'date': DateTime.now().subtract(Duration(minutes: 80)).toIso8601String(),
     'code': 'ABCD1234',
-    'id': 'ab01cdd4-7e73-4c1d-8a71-f28d9b6451bb',
+    'id': 'ab01cdd4-7e73-4c1d-8a71-f28d9b6451ba-pl',
   },
   {
     'languageCode': 'en',
@@ -527,7 +538,7 @@ final _orders = <Map<String, dynamic>>[
     'status': 0,
     'date': DateTime.now().subtract(Duration(minutes: 30)).toIso8601String(),
     'code': 'EFGH5678',
-    'id': 'ab01cdd4-7e73-4c1d-8a71-f28d9b6451bd',
+    'id': 'ab01cdd4-7e73-4c1d-8a71-f28d9b6451bc-pl',
   },
   {
     'languageCode': 'en',
@@ -545,7 +556,7 @@ final _orders = <Map<String, dynamic>>[
     'status': -1,
     'date': DateTime.now().subtract(Duration(minutes: 720)).toIso8601String(),
     'code': 'IJKL9101',
-    'id': 'ab01cdd4-7e73-4c1d-8a71-f28d9b6451bf',
+    'id': 'ab01cdd4-7e73-4c1d-8a71-f28d9b6451be',
   },
   {
     'languageCode': 'en',
@@ -563,7 +574,7 @@ final _orders = <Map<String, dynamic>>[
     'status': 1,
     'date': DateTime.now().subtract(Duration(minutes: 1440)).toIso8601String(),
     'code': 'MNOP2345',
-    'id': 'ab01cdd4-7e73-4c1d-8a71-f28d9b6451bh',
+    'id': 'ab01cdd4-7e73-4c1d-8a71-f28d9b6451bg-pl',
   },
   {
     'languageCode': 'en',
@@ -581,7 +592,7 @@ final _orders = <Map<String, dynamic>>[
     'status': 1,
     'date': DateTime.now().subtract(Duration(minutes: 1800)).toIso8601String(),
     'code': 'QRST6789',
-    'id': 'ab01cdd4-7e73-4c1d-8a71-f28d9b6451bj',
+    'id': 'ab01cdd4-7e73-4c1d-8a71-f28d9b6451bj-pl',
   },
 ];
 

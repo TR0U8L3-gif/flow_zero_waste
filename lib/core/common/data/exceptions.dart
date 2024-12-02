@@ -22,6 +22,9 @@ abstract class BaseException implements Exception {
 
   /// Exception message
   String get message => '($action) => $error';
+
+  @override
+  String toString() => message;
 }
 
 /// Exception thrown when navigation fails

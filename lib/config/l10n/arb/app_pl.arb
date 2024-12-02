@@ -495,5 +495,33 @@
   "confirmCancelOrder": "Czy jesteś pewien, że chcesz anulować zamówienie?",
   "@confirmCancelOrder": {
     "description": "Komunikat wyświetlany podczas próby anulowania zamówienia, pytający o potwierdzenie"
+  },
+  "price": "Cena",
+  "@price": {
+    "description": "Etykieta dla pola lub sekcji pokazującej cenę"
+  },
+  "quantity": "Ilość",
+  "@quantity": {
+    "description": "Etykieta dla pola lub sekcji pokazującej ilość"
+  },
+  "currency": "zł",
+  "@currency": {
+    "description": "Symbol waluty używanej w Polsce (złoty)"
+  },
+  "buyAndPayNow": "Kup i zapłać teraz",
+  "@buyAndPayNow": {
+    "description": "Przycisk umożliwiający zakup i natychmiastową płatność online"
+  },
+  "buyAndPayInStore": "Kup i zapłać w sklepie",
+  "@buyAndPayInStore": {
+    "description": "Przycisk umożliwiający zakup z opcją zapłaty bezpośrednio w sklepie"
+  },
+  "paymentSuccess": "Płatność zakończona sukcesem",
+  "@paymentSuccess": {
+    "description": "Komunikat wyświetlany, gdy płatność została pomyślnie zakończona"
+  },
+  "paymentError": "Wystąpił błąd podczas płatności",
+  "@paymentError": {
+    "description": "Komunikat wyświetlany, gdy wystąpił problem podczas realizacji płatności"
   }
 }

@@ -4,6 +4,7 @@ import 'package:flow_zero_waste/src/discover/domain/entities/banner.dart';
 import 'package:flow_zero_waste/src/discover/domain/entities/category.dart';
 import 'package:flow_zero_waste/src/discover/domain/entities/offer.dart';
 import 'package:flow_zero_waste/src/discover/domain/entities/shop.dart';
+import 'package:flow_zero_waste/src/orders/domain/entities/product.dart';
 
 /// discover repository
 abstract class DiscoverRepository {
@@ -33,4 +34,18 @@ abstract class DiscoverRepository {
 
   /// get recommended shops
   ResultFuture<Failure, void> likeShop(String id);
+
+  /// get shop wih products
+  ResultFuture<Failure, (Shop, List<Product>)> getShopWithProducts({
+    required String languageCode,
+    required String shopId,
+  });
+
+  /// place order
+  ResultFuture<Failure, void> placeOrder({
+    required String shopId,
+    required String productId,
+    required int quantity,
+    required String languageCode,
+  });
 }

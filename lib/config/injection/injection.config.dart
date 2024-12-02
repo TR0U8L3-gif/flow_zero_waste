@@ -42,6 +42,8 @@ import '../../src/auth/domain/usecases/logout_user.dart' as _i910;
 import '../../src/auth/domain/usecases/register_user.dart' as _i651;
 import '../../src/auth/presentation/logics/auth_provider.dart' as _i346;
 import '../../src/auth/presentation/logics/cubit/auth_cubit.dart' as _i751;
+import '../../src/browse/presentation/logics/shop_cubit.dart' as _i610;
+import '../../src/browse/presentation/logics/shops_cubit.dart' as _i960;
 import '../../src/discover/data/datasources/remote/discover_remote_data_source.dart'
     as _i327;
 import '../../src/discover/data/datasources/remote/discover_remote_data_source_impl.dart'
@@ -57,7 +59,9 @@ import '../../src/discover/domain/repositories/discover_repository.dart'
 import '../../src/discover/domain/usecases/get_banners.dart' as _i319;
 import '../../src/discover/domain/usecases/get_categories.dart' as _i377;
 import '../../src/discover/domain/usecases/get_offers.dart' as _i472;
+import '../../src/discover/domain/usecases/get_shop_with_products.dart' as _i34;
 import '../../src/discover/domain/usecases/get_shops.dart' as _i364;
+import '../../src/discover/domain/usecases/place_order.dart' as _i939;
 import '../../src/discover/domain/usecases/update_shop_like.dart' as _i463;
 import '../../src/discover/presentation/logics/cubit/discover_cubit.dart'
     as _i534;
@@ -169,6 +173,9 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.singleton<_i239.PageProvider>(() => _i239.PageProvider());
     gh.singleton<_i674.UserMapper>(() => _i674.UserMapper());
+    gh.singleton<_i124.BannerMapper>(() => _i124.BannerMapper());
+    gh.singleton<_i473.CategoryMapper>(() => _i473.CategoryMapper());
+    gh.singleton<_i777.ShopMapper>(() => _i777.ShopMapper());
     gh.singleton<_i681.LanguageStorageHive>(
       () => _i681.LanguageStorageHive(),
       dispose: (i) => i.dispose(),
@@ -181,6 +188,8 @@ extension GetItInjectableX on _i174.GetIt {
       () => _i296.OnboardingStorageHive(),
       dispose: (i) => i.dispose(),
     );
+    gh.singleton<_i564.OrdersMapper>(() => _i564.OrdersMapper());
+    gh.singleton<_i483.ProductMapper>(() => _i483.ProductMapper());
     gh.singleton<_i1006.ProfileStatsMapper>(() => _i1006.ProfileStatsMapper());
     gh.singleton<_i475.UiStorageHive>(
       () => _i475.UiStorageHive(),
@@ -189,11 +198,6 @@ extension GetItInjectableX on _i174.GetIt {
     gh.singleton<_i442.TextScaleDetailsMapper>(
         () => _i442.TextScaleDetailsMapper());
     gh.singleton<_i494.ThemeDetailsMapper>(() => _i494.ThemeDetailsMapper());
-    gh.singleton<_i124.BannerMapper>(() => _i124.BannerMapper());
-    gh.singleton<_i473.CategoryMapper>(() => _i473.CategoryMapper());
-    gh.singleton<_i777.ShopMapper>(() => _i777.ShopMapper());
-    gh.singleton<_i564.OrdersMapper>(() => _i564.OrdersMapper());
-    gh.singleton<_i483.ProductMapper>(() => _i483.ProductMapper());
     gh.singleton<_i407.FavoritesRemoteDataSource>(
         () => _i538.FavoritesRemoteDataSourceImpl());
     gh.singleton<_i915.OrdersRemoteDataSource>(
@@ -281,6 +285,7 @@ extension GetItInjectableX on _i174.GetIt {
           categoryMapper: gh<_i473.CategoryMapper>(),
           offerMapper: gh<_i768.OfferMapper>(),
           shopMapper: gh<_i777.ShopMapper>(),
+          productsMapper: gh<_i483.ProductMapper>(),
         ));
     gh.singleton<_i346.AuthProvider>(() => _i346.AuthProvider(
           getCurrentUser: gh<_i458.GetCurrentUser>(),
@@ -294,6 +299,10 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i472.GetOffers(repository: gh<_i469.DiscoverRepository>()));
     gh.singleton<_i364.GetShops>(
         () => _i364.GetShops(repository: gh<_i469.DiscoverRepository>()));
+    gh.singleton<_i34.GetShopWithProducts>(() =>
+        _i34.GetShopWithProducts(repository: gh<_i469.DiscoverRepository>()));
+    gh.singleton<_i939.PlaceOrder>(
+        () => _i939.PlaceOrder(repository: gh<_i469.DiscoverRepository>()));
     gh.singleton<_i463.UpdateShopLike>(
         () => _i463.UpdateShopLike(repository: gh<_i469.DiscoverRepository>()));
     gh.singleton<_i45.FavoritesRepository>(() => _i639.FavoritesRepositoryImpl(
@@ -311,6 +320,11 @@ extension GetItInjectableX on _i174.GetIt {
             repository: gh<_i106.UiRepository>()));
     gh.singleton<_i523.SaveThemeToLocalStorage>(() =>
         _i523.SaveThemeToLocalStorage(repository: gh<_i106.UiRepository>()));
+    gh.factory<_i610.ShopCubit>(() => _i610.ShopCubit(
+          getShopWithProducts: gh<_i34.GetShopWithProducts>(),
+          updateShopLike: gh<_i463.UpdateShopLike>(),
+          placeOrder: gh<_i939.PlaceOrder>(),
+        ));
     gh.singleton<_i706.LanguageRepository>(() => _i472.LanguageRepositoryImpl(
           languageLocalDataSorce: gh<_i40.LanguageLocalDataSource>(),
           logger: gh<_i127.LoggerManager>(),
@@ -360,6 +374,8 @@ extension GetItInjectableX on _i174.GetIt {
           getOffers: gh<_i472.GetOffers>(),
           getShops: gh<_i364.GetShops>(),
         ));
+    gh.factory<_i960.ShopsCubit>(
+        () => _i960.ShopsCubit(getShops: gh<_i364.GetShops>()));
     gh.factory<_i751.AuthCubit>(() => _i751.AuthCubit(
           login: gh<_i775.LoginUser>(),
           register: gh<_i651.RegisterUser>(),
