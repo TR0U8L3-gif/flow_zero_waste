@@ -299,12 +299,12 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i472.GetOffers(repository: gh<_i469.DiscoverRepository>()));
     gh.singleton<_i364.GetShops>(
         () => _i364.GetShops(repository: gh<_i469.DiscoverRepository>()));
-    gh.singleton<_i463.UpdateShopLike>(
-        () => _i463.UpdateShopLike(repository: gh<_i469.DiscoverRepository>()));
     gh.singleton<_i34.GetShopWithProducts>(() =>
         _i34.GetShopWithProducts(repository: gh<_i469.DiscoverRepository>()));
     gh.singleton<_i939.PlaceOrder>(
         () => _i939.PlaceOrder(repository: gh<_i469.DiscoverRepository>()));
+    gh.singleton<_i463.UpdateShopLike>(
+        () => _i463.UpdateShopLike(repository: gh<_i469.DiscoverRepository>()));
     gh.singleton<_i45.FavoritesRepository>(() => _i639.FavoritesRepositoryImpl(
           logger: gh<_i127.LoggerManager>(),
           shopMapper: gh<_i777.ShopMapper>(),

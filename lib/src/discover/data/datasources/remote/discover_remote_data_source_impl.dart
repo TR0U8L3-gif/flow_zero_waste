@@ -248,8 +248,22 @@ class DiscoverRemoteDataSourceImpl implements DiscoverRemoteDataSource {
       status: 0,
     );
 
-    final orderJson = orderModel.toJson()..['languageCode'] = languageCode;
+    final isPl = languageCode == 'pl';
+    final id = orderModel.id;
+    var otherId = '';
+    if (isPl) {
+      otherId = '$id-en';
+    } else {
+      otherId = '$id-pl';
+    }
+    final orderJson = orderModel.toJson()
+      ..['languageCode'] = languageCode
+      ..['id'] = id;
+    final otherOrderJson = orderModel.toJson()
+      ..['languageCode'] = (isPl ? 'en' : 'pl')
+      ..['id'] = otherId;
 
-    await _ordersdb.write(json.encode(orderJson), key: orderModel.id);
+    await _ordersdb.write(json.encode(orderJson), key: id);
+    await _ordersdb.write(json.encode(otherOrderJson), key: otherId);
   }
 }

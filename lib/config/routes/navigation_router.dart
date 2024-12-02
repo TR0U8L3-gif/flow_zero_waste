@@ -51,6 +51,7 @@ class NavigationRouter extends RootStackRouter {
             ),
             AutoRoute(
               page: OrdersRoute.page,
+              maintainState: false,
             ),
             AutoRoute(
               page: ProfileNavigationRoute.page,

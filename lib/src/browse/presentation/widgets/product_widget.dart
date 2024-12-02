@@ -1,4 +1,3 @@
-import 'package:flow_zero_waste/core/common/presentation/pages/responsive_ui/scaffold_page.dart';
 import 'package:flow_zero_waste/core/extensions/l10n_extension.dart';
 import 'package:flow_zero_waste/core/extensions/num_extension.dart';
 import 'package:flow_zero_waste/core/extensions/theme_extension.dart';
