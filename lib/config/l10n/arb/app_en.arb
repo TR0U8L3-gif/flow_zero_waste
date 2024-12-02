@@ -515,5 +515,13 @@
   "buyAndPayInStore": "Buy and pay in store",
   "@buyAndPayInStore": {
     "description": "Button allowing the user to purchase with the option to pay directly in the store"
+  },
+  "paymentSuccess": "Payment completed successfully",
+  "@paymentSuccess": {
+    "description": "Message displayed when the payment was successfully processed"
+  },
+  "paymentError": "An error occurred during the payment",
+  "@paymentError": {
+    "description": "Message displayed when there was an issue processing the payment"
   }
 }

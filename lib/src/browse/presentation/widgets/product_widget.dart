@@ -1,4 +1,8 @@
+import 'package:flow_zero_waste/core/common/presentation/pages/responsive_ui/scaffold_page.dart';
 import 'package:flow_zero_waste/core/extensions/l10n_extension.dart';
+import 'package:flow_zero_waste/core/extensions/num_extension.dart';
+import 'package:flow_zero_waste/core/extensions/theme_extension.dart';
+import 'package:flow_zero_waste/core/services/stripe/stripe_service.dart';
 import 'package:flow_zero_waste/src/orders/domain/entities/product.dart';
 import 'package:flutter/material.dart';
 
@@ -143,8 +147,36 @@ class _ProductWidgetState extends State<ProductWidget> {
           Wrap(
             children: [
               TextButton(
-                onPressed: () {
-                  // TODO ad stripe
+                onPressed: () async {
+                  final languageCode =
+                      Localizations.localeOf(context).languageCode;
+                  final result = await StripeService().makePayment(
+                    (_initialPrice * _quantity).roundToPlaces(2),
+                    languageCode == 'en' ? 'usd' : 'pln',
+                  );
+                  if (result) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text(
+                          context.l10n.paymentSuccess,
+                          style: context.textTheme.bodyMedium?.copyWith(
+                              color: context.colorScheme.onPrimaryContainer),
+                        ),
+                        backgroundColor: context.colorScheme.primaryContainer,
+                      ),
+                    );
+                  } else {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text(
+                          context.l10n.paymentError,
+                          style: context.textTheme.bodyMedium?.copyWith(
+                              color: context.colorScheme.onErrorContainer),
+                        ),
+                        backgroundColor: context.colorScheme.errorContainer,
+                      ),
+                    );
+                  }
                   Navigator.of(context).pop(
                     widget.product.copyWith(
                       quantity: _quantity,

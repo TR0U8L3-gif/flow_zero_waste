@@ -515,5 +515,13 @@
   "buyAndPayInStore": "Kup i zapłać w sklepie",
   "@buyAndPayInStore": {
     "description": "Przycisk umożliwiający zakup z opcją zapłaty bezpośrednio w sklepie"
+  },
+  "paymentSuccess": "Płatność zakończona sukcesem",
+  "@paymentSuccess": {
+    "description": "Komunikat wyświetlany, gdy płatność została pomyślnie zakończona"
+  },
+  "paymentError": "Wystąpił błąd podczas płatności",
+  "@paymentError": {
+    "description": "Komunikat wyświetlany, gdy wystąpił problem podczas realizacji płatności"
   }
 }
