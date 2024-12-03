@@ -24,7 +24,7 @@ class BrowseWidget extends StatelessWidget {
     return GridView.builder(
       shrinkWrap: true,
       primary: false,
-      physics: const AlwaysScrollableScrollPhysics(),
+      physics: const NeverScrollableScrollPhysics(),
       itemCount: shops!.isNotEmpty ? shops?.length : _shopsItemsEmpty,
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: page.layoutSize >= PageLayoutSize.medium ? 2 : 1,

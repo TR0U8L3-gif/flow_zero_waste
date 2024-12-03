@@ -185,11 +185,23 @@ class _ProductWidgetState extends State<ProductWidget> {
                 child: Text(context.l10n.buyAndPayNow),
               ),
               TextButton(
-                onPressed: () => Navigator.of(context).pop(
-                  widget.product.copyWith(
-                    quantity: _quantity,
-                  ),
-                ),
+                onPressed: () {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text(
+                        context.l10n.paymentSuccess,
+                        style: context.textTheme.bodyMedium?.copyWith(
+                            color: context.colorScheme.onPrimaryContainer),
+                      ),
+                      backgroundColor: context.colorScheme.primaryContainer,
+                    ),
+                  );
+                  Navigator.of(context).pop(
+                    widget.product.copyWith(
+                      quantity: _quantity,
+                    ),
+                  );
+                },
                 child: Text(context.l10n.buyAndPayInStore),
               ),
             ],

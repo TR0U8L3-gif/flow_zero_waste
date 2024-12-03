@@ -6,6 +6,7 @@ import 'package:flow_zero_waste/core/common/presentation/widgets/components/refr
 import 'package:flow_zero_waste/core/extensions/l10n_extension.dart';
 import 'package:flow_zero_waste/src/browse/presentation/logics/shops_cubit.dart';
 import 'package:flow_zero_waste/src/browse/presentation/widgets/browse_widget.dart';
+import 'package:flow_zero_waste/src/browse/presentation/widgets/category_widget.dart';
 import 'package:flow_zero_waste/src/language/presentation/logics/language_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -29,23 +30,36 @@ class BrowsePage extends StatelessWidget {
                 shopCubit.getShops(language.currentLanguage.languageCode),
             child: Padding(
               padding: EdgeInsets.symmetric(horizontal: page.spacing),
-              child: BlocConsumer<ShopsCubit, ShopsState>(
-                bloc: shopCubit,
-                listener: (context, state) {},
-                builder: (context, state) {
-                  if (state is ShopsIdle) {
-                    return BrowseWidget(
-                      shops: state.shops.isEmpty ? null : state.shops,
-                      onShopTap: (id) {
-                        context.router.push(ShopRoute(shopId: id));
-                        },
-                    );
-                  } else {
-                    return const BrowseWidget(
-                      shops: [],
-                    );
-                  }
-                },
+              child: SingleChildScrollView(
+                physics: const AlwaysScrollableScrollPhysics(),
+                child: Column(
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.symmetric(vertical: page.spacing),
+                      child: CategoryWidget(
+                        onCategoryTap: shopCubit.getShopsByCategory,
+                      ),
+                    ),
+                    BlocConsumer<ShopsCubit, ShopsState>(
+                      bloc: shopCubit,
+                      listener: (context, state) {},
+                      builder: (context, state) {
+                        if (state is ShopsIdle) {
+                          return BrowseWidget(
+                            shops: state.shops.isEmpty ? null : state.shops,
+                            onShopTap: (id) {
+                              context.router.push(ShopRoute(shopId: id));
+                              },
+                          );
+                        } else {
+                          return const BrowseWidget(
+                            shops: [],
+                          );
+                        }
+                      },
+                    ),
+                  ],
+                ),
               ),
             ),
           ),

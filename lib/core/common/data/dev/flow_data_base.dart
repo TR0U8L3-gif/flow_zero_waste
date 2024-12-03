@@ -92,63 +92,39 @@ const _categories = <Map<String, dynamic>>[
   {
     'languageCode': 'en',
     'id': '81358300-5baa-47ca-a58c-b42ecd7501df',
-    'name': 'Fruits',
-    'imageUrl': 'https://picsum.photos/124/64?image=51',
+    'name': 'Cheapest',
+    'imageUrl': 'https://picsum.photos/124/64?image=17',
   },
   {
     'languageCode': 'en',
     'id': '71c2207e-cf2f-4be4-b79b-4daa8b324def',
-    'name': 'Vegetables',
-    'imageUrl': 'https://picsum.photos/124/64?image=52',
+    'name': 'Accessible',
+    'imageUrl': 'https://picsum.photos/124/64?image=19',
   },
   {
     'languageCode': 'en',
     'id': '32028068-9f05-450d-b5d4-1f7ef1de497f',
-    'name': 'Meat',
-    'imageUrl': 'https://picsum.photos/124/64?image=53',
-  },
-  {
-    'languageCode': 'en',
-    'id': 'e7d676f3-a3fd-4cf7-885f-45813e507815',
-    'name': 'Fish',
-    'imageUrl': 'https://picsum.photos/124/64?image=54',
-  },
-  {
-    'languageCode': 'en',
-    'id': 'b3352f56-ec47-4991-b60e-29a21213353a',
-    'name': 'Chips',
-    'imageUrl': 'https://picsum.photos/124/64?image=55',
+    'name': 'Popular',
+    'imageUrl': 'https://picsum.photos/124/64?image=18',
   },
   {
     'languageCode': 'pl',
     'id': '81358300-5baa-47ca-a58c-b42ecd7501df-pl',
-    'name': 'Owoce',
-    'imageUrl': 'https://picsum.photos/124/64?image=51',
+    'name': 'Najtańsze',
+    'imageUrl': 'https://picsum.photos/124/64?image=17',
   },
   {
     'languageCode': 'pl',
     'id': '71c2207e-cf2f-4be4-b79b-4daa8b324def-pl',
-    'name': 'Warzywa',
-    'imageUrl': 'https://picsum.photos/124/64?image=52',
+    'name': 'Dostępne',
+    'imageUrl': 'https://picsum.photos/124/64?image=19',
   },
   {
     'languageCode': 'pl',
     'id': '32028068-9f05-450d-b5d4-1f7ef1de497f-pl',
-    'name': 'Mięso',
-    'imageUrl': 'https://picsum.photos/124/64?image=53',
-  },
-  {
-    'languageCode': 'pl',
-    'id': 'e7d676f3-a3fd-4cf7-885f-45813e507815-pl',
-    'name': 'Ryby',
-    'imageUrl': 'https://picsum.photos/124/64?image=54',
-  },
-  {
-    'languageCode': 'pl',
-    'id': 'b3352f56-ec47-4991-b60e-29a21213353a-pl',
-    'name': 'Chipsy',
-    'imageUrl': 'https://picsum.photos/124/64?image=55',
-  },
+    'name': 'Popularne',
+    'imageUrl': 'https://picsum.photos/124/64?image=18',
+  }
 ];
 
 final _shops = <Map<String, dynamic>>[

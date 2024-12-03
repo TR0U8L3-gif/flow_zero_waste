@@ -24,8 +24,7 @@ class StripeService {
           merchantDisplayName: 'Flow - Zero Waste App',
         ),
       );
-      await _processPayment();
-      return true;
+      return await _processPayment();
     } catch (e) {
       debugPrint('Error: $e');
     }
@@ -67,11 +66,13 @@ class StripeService {
     return null;
   }
 
-  Future<void> _processPayment() async {
+  Future<bool> _processPayment() async {
     try {
       await Stripe.instance.presentPaymentSheet();
+      return true;
     } catch (e) {
       debugPrint('Error: $e');
     }
+    return false;
   }
 }
