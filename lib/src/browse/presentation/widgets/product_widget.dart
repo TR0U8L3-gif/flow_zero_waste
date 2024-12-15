@@ -123,26 +123,27 @@ class _ProductWidgetState extends State<ProductWidget> {
               ),
               const SizedBox(width: 8),
               Text(
-                '${context.l10n.quantity}  ${_quantity} / ${widget.product.quantity}',
+                // '${context.l10n.quantity}  ${_quantity} / ${widget.product.quantity}',
+                '${context.l10n.quantity} ${widget.product.quantity}',
                 style: Theme.of(context).textTheme.bodyMedium,
               ),
             ],
           ),
           const SizedBox(height: 8),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              IconButton(
-                icon: const Icon(Icons.remove),
-                onPressed: _decrementQuantity,
-              ),
-              IconButton(
-                icon: const Icon(Icons.add),
-                onPressed: _incrementQuantity,
-              ),
-            ],
-          ),
-          const SizedBox(height: 8),
+          // Row(
+          //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          //   children: [
+          //     IconButton(
+          //       icon: const Icon(Icons.remove),
+          //       onPressed: _decrementQuantity,
+          //     ),
+          //     IconButton(
+          //       icon: const Icon(Icons.add),
+          //       onPressed: _incrementQuantity,
+          //     ),
+          //   ],
+          // ),
+          // const SizedBox(height: 8),
           Wrap(
             children: [
               TextButton(
