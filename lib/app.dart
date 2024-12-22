@@ -26,6 +26,8 @@ class App extends StatelessWidget {
     required String flavour,
     BuildType? buildType,
   }) async {
+    final buildTypeOrFromFlutter = buildType ?? BuildType.fromFlutter;
+
     var exception = const AppSetupException(
       error: 'unknown error',
       action: 'app setup',
@@ -40,7 +42,7 @@ class App extends StatelessWidget {
       AppEnv.setFromEnv(
         env: dotenv.env,
         flavour: flavour,
-        buildType: buildType ?? BuildType.fromFlutter,
+        buildType: buildTypeOrFromFlutter,
       );
     } catch (e, st) {
       exception = AppSetupException(
@@ -52,7 +54,7 @@ class App extends StatelessWidget {
 
     // initialize the app
     AppSetup.init<void>(
-      buildType: buildType ?? BuildType.fromFlutter,
+      buildType: buildTypeOrFromFlutter,
       success: App._(MyAppSuccess()),
       failure: App._(MyAppFailure(exception, exception.stackTrace)),
       initialize: (initLocator) => [
@@ -90,7 +92,9 @@ class App extends StatelessWidget {
 
     return MultiProvider(
       providers: providers,
-      child: _BuildApp(result: result,),
+      child: _BuildApp(
+        result: result,
+      ),
     );
   }
 }
@@ -114,12 +118,23 @@ class _BuildApp extends StatelessWidget {
     final themeProvider = context.watch<ThemeProvider>();
     final pageProvider = context.read<PageProvider>();
 
+    final showCheckedModeBanner = () {
+      var result = false;
+      try {
+        result = AppEnv().buildType == BuildType.release;
+      } catch (e) {
+        result = false;
+      }
+      return result;
+    }();
+
     WidgetsBinding.instance.addPostFrameCallback((_) {
       pageProvider.updatePageSize(MediaQuery.sizeOf(context));
     });
 
     if (result is MyAppFailure) {
       return MaterialApp(
+        debugShowCheckedModeBanner: showCheckedModeBanner,
         title: title,
         theme: themeProvider.themeData,
         supportedLocales: supportedLocales,
@@ -153,6 +168,7 @@ class _BuildApp extends StatelessWidget {
       );
     } else {
       return MaterialApp.router(
+        debugShowCheckedModeBanner: showCheckedModeBanner,
         title: title,
         theme: themeProvider.themeData,
         supportedLocales: supportedLocales,
