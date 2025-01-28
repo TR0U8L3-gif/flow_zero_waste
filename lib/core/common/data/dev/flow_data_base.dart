@@ -391,7 +391,7 @@ final _offers = <Map<String, dynamic>>[
     'shop': _shops[13],
   },
 ];
-//git 
+//git
 const _products = <Map<String, dynamic>>[
   {
     'imageUrl': 'https://picsum.photos/600/300?image=75',
@@ -494,7 +494,7 @@ const _products = <Map<String, dynamic>>[
   },
   {
     'imageUrl': 'https://picsum.photos/600/300?image=627',
-    'allergens': ['Brak alergenów'], 
+    'allergens': ['Brak alergenów'],
     'languageCode': 'pl',
     'name': 'Zielona Fasolka',
     'description':
@@ -509,93 +509,147 @@ const _products = <Map<String, dynamic>>[
 final _orders = <Map<String, dynamic>>[
   {
     'languageCode': 'en',
-    'products_id': _products[0]['id'] as String,
     'shop_id': _shops[0]['id'] as String,
     'status': 0,
-    'date': DateTime.now().subtract(const Duration(minutes: 80)).toIso8601String(),
-    'code': 'ABCD1234',
+    'date':
+        DateTime.now().subtract(const Duration(minutes: 80)).toIso8601String(),
+    'code': 'h34ws',
     'id': 'ab01cdd4-7e73-4c1d-8a71-f28d9b6451ba',
+    'products_ids': [
+      _products[0]['id'] as String,
+      _products[2]['id'] as String,
+      _products[4]['id'] as String,
+    ],
   },
   {
     'languageCode': 'pl',
-    'products_id': _products[1]['id'] as String,
     'shop_id': _shops[7]['id'] as String,
     'status': 0,
-    'date': DateTime.now().subtract(const Duration(minutes: 80)).toIso8601String(),
-    'code': 'ABCD1234',
+    'date':
+        DateTime.now().subtract(const Duration(minutes: 80)).toIso8601String(),
+    'code': 'h34ws',
     'id': 'ab01cdd4-7e73-4c1d-8a71-f28d9b6451ba-pl',
+    'products_ids': [
+      _products[1]['id'] as String,
+      _products[3]['id'] as String,
+      _products[5]['id'] as String,
+    ],
   },
   {
     'languageCode': 'en',
-    'products_id': _products[2]['id'] as String,
     'shop_id': _shops[1]['id'] as String,
     'status': 0,
-    'date': DateTime.now().subtract(const Duration(minutes: 30)).toIso8601String(),
-    'code': 'EFGH5678',
+    'date':
+        DateTime.now().subtract(const Duration(minutes: 30)).toIso8601String(),
+    'code': 'h34ws',
     'id': 'ab01cdd4-7e73-4c1d-8a71-f28d9b6451bc',
+    'products_ids': [
+      _products[0]['id'] as String,
+      _products[2]['id'] as String,
+      _products[4]['id'] as String,
+    ],
   },
   {
     'languageCode': 'pl',
-    'products_id': _products[3]['id'] as String,
     'shop_id': _shops[8]['id'] as String,
     'status': 0,
-    'date': DateTime.now().subtract(const Duration(minutes: 30)).toIso8601String(),
-    'code': 'EFGH5678',
+    'date':
+        DateTime.now().subtract(const Duration(minutes: 30)).toIso8601String(),
+    'code': 'h34ws',
     'id': 'ab01cdd4-7e73-4c1d-8a71-f28d9b6451bc-pl',
+    'products_ids': [
+      _products[1]['id'] as String,
+      _products[3]['id'] as String,
+      _products[5]['id'] as String,
+    ],
   },
   {
     'languageCode': 'en',
-    'products_id': _products[4]['id'] as String,
     'shop_id': _shops[2]['id'] as String,
     'status': -1,
-    'date': DateTime.now().subtract(const Duration(minutes: 720)).toIso8601String(),
+    'date':
+        DateTime.now().subtract(const Duration(minutes: 720)).toIso8601String(),
     'code': 'IJKL9101',
     'id': 'ab01cdd4-7e73-4c1d-8a71-f28d9b6451be',
+    'products_ids': [
+      _products[0]['id'] as String,
+      _products[2]['id'] as String,
+      _products[4]['id'] as String,
+    ],
   },
   {
     'languageCode': 'pl',
-    'products_id': _products[5]['id'] as String,
     'shop_id': _shops[9]['id'] as String,
     'status': -1,
-    'date': DateTime.now().subtract(const Duration(minutes: 720)).toIso8601String(),
+    'date':
+        DateTime.now().subtract(const Duration(minutes: 720)).toIso8601String(),
     'code': 'IJKL9101',
     'id': 'ab01cdd4-7e73-4c1d-8a71-f28d9b6451be',
+    'products_ids': [
+      _products[1]['id'] as String,
+      _products[3]['id'] as String,
+      _products[5]['id'] as String,
+    ],
   },
   {
     'languageCode': 'en',
-    'products_id': _products[6]['id'] as String,
     'shop_id': _shops[3]['id'] as String,
     'status': 1,
-    'date': DateTime.now().subtract(const Duration(minutes: 1440)).toIso8601String(),
+    'date': DateTime.now()
+        .subtract(const Duration(minutes: 1440))
+        .toIso8601String(),
     'code': 'MNOP2345',
     'id': 'ab01cdd4-7e73-4c1d-8a71-f28d9b6451bg',
+    'products_ids': [
+      _products[4]['id'] as String,
+      _products[6]['id'] as String,
+      _products[8]['id'] as String,
+    ],
   },
   {
     'languageCode': 'pl',
-    'products_id': _products[7]['id'] as String,
     'shop_id': _shops[10]['id'] as String,
     'status': 1,
-    'date': DateTime.now().subtract(const Duration(minutes: 1440)).toIso8601String(),
+    'date': DateTime.now()
+        .subtract(const Duration(minutes: 1440))
+        .toIso8601String(),
     'code': 'MNOP2345',
     'id': 'ab01cdd4-7e73-4c1d-8a71-f28d9b6451bg-pl',
+    'products_ids': [
+      _products[5]['id'] as String,
+      _products[7]['id'] as String,
+      _products[9]['id'] as String,
+    ],
   },
   {
     'languageCode': 'en',
-    'products_id': _products[8]['id'] as String,
     'shop_id': _shops[4]['id'] as String,
     'status': 1,
-    'date': DateTime.now().subtract(const Duration(minutes: 1800)).toIso8601String(),
+    'date': DateTime.now()
+        .subtract(const Duration(minutes: 1800))
+        .toIso8601String(),
     'code': 'QRST6789',
     'id': 'ab01cdd4-7e73-4c1d-8a71-f28d9b6451bi',
+    'products_ids': [
+      _products[4]['id'] as String,
+      _products[6]['id'] as String,
+      _products[8]['id'] as String,
+    ],
   },
   {
     'languageCode': 'pl',
-    'products_id': _products[9]['id'] as String,
     'shop_id': _shops[11]['id'] as String,
     'status': 1,
-    'date': DateTime.now().subtract(const Duration(minutes: 1800)).toIso8601String(),
+    'date': DateTime.now()
+        .subtract(const Duration(minutes: 1800))
+        .toIso8601String(),
     'code': 'QRST6789',
     'id': 'ab01cdd4-7e73-4c1d-8a71-f28d9b6451bj-pl',
+    'products_ids': [
+      _products[5]['id'] as String,
+      _products[7]['id'] as String,
+      _products[9]['id'] as String,
+    ],
   },
 ];
 
@@ -641,7 +695,6 @@ class CategoryHiveStorage extends HiveManager<String> {
 }
 
 class OfferHiveStorage extends HiveManager<String> {
-
   factory OfferHiveStorage() => _instance;
 
   OfferHiveStorage._({required super.boxName}) {
@@ -682,7 +735,6 @@ class ShopHiveStorage extends HiveManager<String> {
     });
   }
 }
-
 
 class ProductsHiveStorage extends HiveManager<String> {
   factory ProductsHiveStorage() => _instance;

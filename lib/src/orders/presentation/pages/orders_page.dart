@@ -84,7 +84,7 @@ class OrdersPage extends StatelessWidget implements AutoRouteWrapper {
                                     builder: (BuildContext context) {
                                       return AlertDialog(
                                         title: Text(
-                                          code,
+                                          code.toUpperCase(),
                                           style: context.textTheme.titleLarge,
                                           textAlign: TextAlign.center,
                                         ),
@@ -95,7 +95,7 @@ class OrdersPage extends StatelessWidget implements AutoRouteWrapper {
                                             color: Colors.white,
                                           ),
                                           width: page.size.width * 0.64,
-                                          padding: EdgeInsets.all(page.spacing),
+                                          padding: EdgeInsets.all(4.0),
                                           child: AspectRatio(
                                             aspectRatio: 1,
                                             child: QrImageView(

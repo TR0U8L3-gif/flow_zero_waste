@@ -14,7 +14,7 @@ class PlaceOrder extends UseCase<void, PlaceOrderParams> {
   ResultFuture<Failure, void> call(PlaceOrderParams params) {
     return _repository.placeOrder(
       shopId: params.shopId,
-      productId: params.productId,
+      productIds: params.productIds,
       quantity: params.quantity,
       languageCode: params.languageCode,
     );
@@ -23,13 +23,13 @@ class PlaceOrder extends UseCase<void, PlaceOrderParams> {
 
 class PlaceOrderParams {
   final String shopId;
-  final String productId;
+  final List<String> productIds;
   final int quantity;
   final String languageCode;
 
   PlaceOrderParams({
     required this.shopId,
-    required this.productId,
+    required this.productIds,
     required this.quantity,
     required this.languageCode,
   });

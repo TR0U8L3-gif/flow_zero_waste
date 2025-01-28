@@ -5,7 +5,7 @@ class OrdersModel {
     required this.code,
     required this.date,
     required this.status,
-    required this.productId,
+    required this.productIds,
     required this.shopId,
   });
 
@@ -13,7 +13,7 @@ class OrdersModel {
   final String code;
   final String date;
   final int status;
-  final String productId;
+  final List<String> productIds;
   final String shopId;
 
   Map<String, dynamic> toJson() {
@@ -22,7 +22,7 @@ class OrdersModel {
       'code': code,
       'date': date,
       'status': status,
-      'products_id': productId,
+      'products_ids': productIds,
       'shop_id': shopId,
     };
   }
@@ -33,7 +33,7 @@ class OrdersModel {
       code: json['code'] as String,
       date: json['date'] as String,
       status: json['status'] as int,
-      productId: json['products_id'] as String,
+      productIds: List<String>.from(json['products_ids'] as List),
       shopId: json['shop_id'] as String,
     );
   }

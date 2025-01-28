@@ -187,14 +187,14 @@ class DiscoverRepositoryImpl implements DiscoverRepository {
   @override
   ResultFuture<Failure, void> placeOrder({
     required String shopId,
-    required String productId,
+    required List<String> productIds,
     required int quantity,
     required String languageCode,
   }) async {
     try {
       await _discoverRemoteDataSource.placeOrder(
         shopId: shopId,
-        productId: productId,
+        productIds: productIds,
         quantity: quantity,
         languageCode: languageCode,
       );

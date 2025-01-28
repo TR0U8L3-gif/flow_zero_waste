@@ -4,6 +4,7 @@ import 'package:flow_zero_waste/src/discover/data/mappers/shop_mapper.dart';
 import 'package:flow_zero_waste/src/orders/data/datasources/remote/orders_remote_data_source.dart';
 import 'package:flow_zero_waste/src/orders/data/mappers/orders_mapper.dart';
 import 'package:flow_zero_waste/src/orders/data/mappers/product_mapper.dart';
+import 'package:flow_zero_waste/src/orders/data/models/product_model.dart';
 import 'package:flow_zero_waste/src/orders/domain/entities/orders.dart';
 import 'package:flow_zero_waste/src/orders/domain/repositories/orders_repository.dart';
 import 'package:fpdart/fpdart.dart';
@@ -37,7 +38,10 @@ class OrdersRepositoryImpl implements OrdersRepository {
       return const Right(null);
     } catch (e, st) {
       _logger.error(
-          message: 'Error cancelling order', error: e, stackTrace: st,);
+        message: 'Error cancelling order',
+        error: e,
+        stackTrace: st,
+      );
       return const Left(Failure(message: 'Error cancelling order'));
     }
   }
@@ -51,13 +55,22 @@ class OrdersRepositoryImpl implements OrdersRepository {
         try {
           final shopModel =
               await _ordersRemoteDataSource.getShop(orderModel.shopId);
-          final productModel =
-              await _ordersRemoteDataSource.getProduct(orderModel.productId);
-          
-          final shop = _shopMapper.from(shopModel);
-          final product = _productMapper.from(productModel);
 
-          final order = _ordersMapper.from(orderModel, shop: shop, product: product);
+          List<ProductModel> productModels = [];
+
+          for (final productId in orderModel.productIds) {
+            final productModel =
+                await _ordersRemoteDataSource.getProduct(productId);
+            productModels.add(productModel);
+          }
+
+          final shop = _shopMapper.from(shopModel);
+
+          final order = _ordersMapper.from(
+            orderModel,
+            shop: shop,
+            products: productModels.map(_productMapper.from).toList(),
+          );
           orderList.add(order);
         } catch (e) {
           continue;

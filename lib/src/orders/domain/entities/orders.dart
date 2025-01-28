@@ -7,7 +7,7 @@ class Orders {
     required this.code,
     required this.date,
     required this.status,
-    required this.product,
+    required this.products,
     required this.shop,
   });
 
@@ -15,7 +15,7 @@ class Orders {
   final String code;
   final DateTime date;
   final OrderStatus status;
-  final Product product;
+  final List<Product> products;
   final Shop shop;
 
   Orders copyWith({
@@ -23,7 +23,7 @@ class Orders {
     String? code,
     DateTime? date,
     OrderStatus? status,
-    Product? product,
+    List<Product>? products,
     Shop? shop,
   }) {
     return Orders(
@@ -31,7 +31,7 @@ class Orders {
       code: code ?? this.code,
       date: date ?? this.date,
       status: status ?? this.status,
-      product: product ?? this.product,
+      products: products ?? this.products,
       shop: shop ?? this.shop,
     );
   }

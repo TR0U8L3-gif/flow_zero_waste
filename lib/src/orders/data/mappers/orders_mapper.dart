@@ -11,9 +11,9 @@ class OrdersMapper extends Mapper<OrdersModel, Orders> {
   Orders from(
     OrdersModel object, {
     Shop? shop,
-    Product? product,
+    List<Product>? products,
   }) {
-    if (shop == null || product == null) {
+    if (shop == null || products == null) {
       throw Exception('Shop or Order is null');
     }
 
@@ -22,7 +22,7 @@ class OrdersMapper extends Mapper<OrdersModel, Orders> {
       code: object.code,
       date: DateTime.parse(object.date),
       status: _getStatus(object.status),
-      product: product,
+      products: products,
       shop: shop,
     );
   }
@@ -31,9 +31,9 @@ class OrdersMapper extends Mapper<OrdersModel, Orders> {
   OrdersModel to(
     Orders object, {
     String? shopId,
-    String? productId,
+    List<String>? productIds,
   }) {
-    if (shopId == null || productId == null) {
+    if (shopId == null || productIds == null) {
       throw Exception('Shop or Order is null');
     }
     return OrdersModel(
@@ -41,7 +41,7 @@ class OrdersMapper extends Mapper<OrdersModel, Orders> {
       code: object.code,
       date: object.date.toUtc().toIso8601String(),
       status: _getStatusValue(object.status),
-      productId: productId,
+      productIds: productIds,
       shopId: shopId,
     );
   }

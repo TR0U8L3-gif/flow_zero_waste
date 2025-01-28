@@ -19,7 +19,7 @@ class ShopWidget extends StatelessWidget {
   final Shop shop;
   final List<Product> products;
   final void Function(String id)? onShopLike;
-  final void Function(Product product)? onProductOrder;
+  final void Function(List<Product> products)? onProductOrder;
 
   @override
   Widget build(BuildContext context) {
@@ -70,7 +70,8 @@ class ShopWidget extends StatelessWidget {
                     },
                   );
                   if (result != null) {
-                    onProductOrder?.call(result);
+                    //TODO: change
+                    onProductOrder?.call([result]);
                   }
                 },
                 child: ProductCard(

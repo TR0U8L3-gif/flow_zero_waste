@@ -38,17 +38,18 @@ class OrdersWidget extends StatelessWidget {
 
     return ClipRRect(
       borderRadius: borderRadius,
-      child: GridView.builder(
+      // child: GridView.builder(
+      child: ListView.builder(
         shrinkWrap: true,
         primary: false,
         physics: const NeverScrollableScrollPhysics(),
         itemCount: orders!.isNotEmpty ? orders!.length : _ordersItemsEmpty,
-        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: page.layoutSize >= PageLayoutSize.medium ? 2 : 1,
-          childAspectRatio: 3,
-          crossAxisSpacing: page.spacing,
-          mainAxisSpacing: page.spacing,
-        ),
+        // gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+        //   crossAxisCount: page.layoutSize >= PageLayoutSize.medium ? 2 : 1,
+        //   childAspectRatio: 3,
+        //   crossAxisSpacing: page.spacing,
+        //   mainAxisSpacing: page.spacing,
+        // ),
         itemBuilder: (context, index) {
           if (orders!.isEmpty) {
             return Container(
@@ -105,87 +106,96 @@ class OrderCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      height: double.maxFinite,
-      decoration: BoxDecoration(
-        borderRadius: borderRadius,
-        color: Theme.of(context).colorScheme.surfaceContainer,
-      ),
-      padding: const EdgeInsets.all(8),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Row(
-            children: [
-              // Product image
-              ClipRRect(
-                borderRadius: borderRadius,
-                child: Image.network(
-                  order.product.imageUrl,
-                  width: 80,
-                  height: 80,
-                  fit: BoxFit.cover,
-                  errorBuilder: (context, error, stackTrace) => const Icon(
-                    Icons.broken_image,
-                    size: 80,
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 16.0),
+      child: Container(
+        width: double.infinity,
+        // height: double.maxFinite,
+        decoration: BoxDecoration(
+          borderRadius: borderRadius,
+          color: Theme.of(context).colorScheme.surfaceContainer,
+        ),
+        padding: const EdgeInsets.all(8),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Row(
+              children: [
+                const SizedBox(width: 16),
+                // Order details
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        '${context.l10n.shop}: ${order.shop.name}',
+                        style: Theme.of(context).textTheme.bodyMedium,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                      const SizedBox(height: 4),
+                      Text(
+                        '${context.l10n.status}: ${_mapOrderStatus(order.status, context)}',
+                        style: Theme.of(context)
+                            .textTheme
+                            .bodyMedium!
+                            .copyWith(color: _getStatusColor(order.status)),
+                      ),
+                      const SizedBox(height: 4),
+                      Text(
+                        '${context.l10n.date}: ${_formatDate(order.date)}',
+                        style: Theme.of(context).textTheme.bodySmall,
+                      ),
+                    ],
                   ),
                 ),
-              ),
-              const SizedBox(width: 16),
-              // Order details
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                if (order.status == OrderStatus.accepted)
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      IconButton(
+                        onPressed: () => onOrderAccept?.call(order.code),
+                        icon: const Icon(Icons.check_circle_outline),
+                      ),
+                      IconButton(
+                        onPressed: () => onOrderCancel?.call(order.id),
+                        icon: const Icon(Icons.cancel_outlined),
+                      ),
+                    ],
+                  ),
+              ],
+            ),
+            const SizedBox(height: 8),
+            for (final product in order.products)
+              Padding(
+                padding: const EdgeInsets.only(bottom: 8.0),
+                child: Row(
                   children: [
-                    Text(
-                      order.product.name,
-                      style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                            fontWeight: FontWeight.bold,
-                          ),
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
+                    const SizedBox(width: 16),
+                    // Product image
+                    ClipRRect(
+                      borderRadius: borderRadius,
+                      child: Image.network(
+                        product.imageUrl,
+                        width: 36,
+                        height: 36,
+                        fit: BoxFit.cover,
+                        errorBuilder: (context, error, stackTrace) => const Icon(
+                          Icons.broken_image,
+                          size: 36,
+                        ),
+                      ),
                     ),
-                    const SizedBox(height: 4),
+                    const SizedBox(width: 24),
                     Text(
-                      '${context.l10n.shop}: ${order.shop.name}',
+                      '${product.name} - ${product.quantity}',
                       style: Theme.of(context).textTheme.bodyMedium,
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                    const SizedBox(height: 4),
-                    Text(
-                      '${context.l10n.status}: ${_mapOrderStatus(order.status, context)}',
-                      style: Theme.of(context)
-                          .textTheme
-                          .bodyMedium!
-                          .copyWith(color: _getStatusColor(order.status)),
-                    ),
-                    const SizedBox(height: 4),
-                    Text(
-                      '${context.l10n.date}: ${_formatDate(order.date)}',
-                      style: Theme.of(context).textTheme.bodySmall,
                     ),
                   ],
                 ),
               ),
-              if (order.status == OrderStatus.accepted)
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    IconButton(
-                      onPressed: () => onOrderAccept?.call(order.code),
-                      icon: const Icon(Icons.check_circle_outline),
-                    ),
-                    IconButton(
-                      onPressed: () => onOrderCancel?.call(order.id),
-                      icon: const Icon(Icons.cancel_outlined),
-                    ),
-                  ],
-                ),
-            ],
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

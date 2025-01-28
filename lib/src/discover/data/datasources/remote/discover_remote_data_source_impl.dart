@@ -229,20 +229,15 @@ class DiscoverRemoteDataSourceImpl implements DiscoverRemoteDataSource {
   @override
   Future<void> placeOrder({
     required String shopId,
-    required String productId,
+    required List<String> productIds,
     required int quantity,
     required String languageCode,
   }) async {
-    final productData = await _productsdb.read(key: productId);
-    final productJson = json.decode(productData!) as Map<String, dynamic>;
-    final newProductJson = productJson
-      ..['quantity'] = max((productJson['quantity'] as int) - quantity, 0);
-    await _productsdb.write(json.encode(newProductJson), key: productId);
 
     final orderModel = OrdersModel(
       id: '${Random().nextInt(1000)}-${Random().nextInt(1000)}-${Random().nextInt(1000)}-${Random().nextInt(1000)}',
       code: '${Random().nextInt(1000)}-${Random().nextInt(1000)}',
-      productId: productId,
+      productIds: productIds,
       date: DateTime.now().toIso8601String(),
       shopId: shopId,
       status: 0,

@@ -44,7 +44,7 @@ abstract class DiscoverRepository {
   /// place order
   ResultFuture<Failure, void> placeOrder({
     required String shopId,
-    required String productId,
+    required List<String> productIds,
     required int quantity,
     required String languageCode,
   });

@@ -41,15 +41,15 @@ class ShopCubit extends Cubit<ShopState> {
     emit(ShopIdle(shop: _shop, products: _products));
   }
 
-  Future<void> order(Product product, String languageCode) async {
+  Future<void> order(List<Product> products, String languageCode) async {
     if (_shop == null) {
       return;
     }
     final result = await _placeOrder(
       PlaceOrderParams(
         shopId: _shop!.id,
-        productId: product.id,
-        quantity: product.quantity,
+        productIds: products.map((e)=>e.id).toList(),
+        quantity: 3,
         languageCode: languageCode,
       ),
     );

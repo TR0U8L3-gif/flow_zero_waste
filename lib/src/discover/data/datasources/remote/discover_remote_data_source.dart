@@ -42,7 +42,7 @@ abstract class DiscoverRemoteDataSource {
   /// place order
   Future<void> placeOrder({
     required String shopId,
-    required String productId,
+    required List<String> productIds,
     required int quantity,
     required String languageCode,
   });
