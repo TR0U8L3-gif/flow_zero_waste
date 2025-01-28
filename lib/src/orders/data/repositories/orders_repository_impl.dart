@@ -37,7 +37,7 @@ class OrdersRepositoryImpl implements OrdersRepository {
       return const Right(null);
     } catch (e, st) {
       _logger.error(
-          message: 'Error cancelling order', error: e, stackTrace: st);
+          message: 'Error cancelling order', error: e, stackTrace: st,);
       return const Left(Failure(message: 'Error cancelling order'));
     }
   }

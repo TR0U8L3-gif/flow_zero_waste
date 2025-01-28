@@ -85,16 +85,15 @@ class ProfileOption extends StatelessWidget {
   final void Function()? onTap;
 
   const ProfileOption(
-      {Key? key, required this.icon, required this.title, this.onTap})
-      : super(key: key);
+      {super.key, required this.icon, required this.title, this.onTap,});
 
   @override
   Widget build(BuildContext context) {
     return Card(
-      margin: const EdgeInsets.symmetric(vertical: 8.0),
+      margin: const EdgeInsets.symmetric(vertical: 8),
       child: ListTile(
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(12.0),
+          borderRadius: BorderRadius.circular(12),
         ),
         leading: Icon(icon, color: Theme.of(context).colorScheme.primary),
         title: Text(title),

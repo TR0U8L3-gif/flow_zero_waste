@@ -1,0 +1,325 @@
+// users
+{
+  "uid": "271c9f7f-6fe7-468b-a232-5e7471e67220",
+  "email": "jan.rydzewski1337@gmail.com",
+  "firstName": "Jan",
+  "lastName": "Rydzewski",
+  "profilePhoto": "https://i.postimg.cc/VLc49Dbk/IMG-7367.png",
+  "admin": true
+},
+
+// zamowienia
+[
+  {
+    "orderId": 924592,
+    "client": {
+      "clientId": "924592",
+      "clientName": "Michael Brown"
+    },
+    "orderDate": "2024-12-07T10:51:00Z",
+    "status": "ongoing",
+    "totalAmount": 10.47,
+    "quantity": 1,
+    "currency": {
+      "currencyCode": "USD",
+      "currencyName": "United States Dollar",
+      "symbol": "$"
+    }
+  },
+  {
+    "orderId": 924593,
+    "client": {
+      "clientId": "924593",
+      "clientName": "Emily Johnson"
+    },
+    "orderDate": "2024-12-05T15:11:00Z",
+    "status": "ongoing",
+    "totalAmount": 15.49,
+    "quantity": 2,
+    "currency": {
+      "currencyCode": "USD",
+      "currencyName": "United States Dollar",
+      "symbol": "$"
+    }
+  },
+  {
+    "orderId": 924594,
+    "client": {
+      "clientId": "924594",
+      "clientName": "Sarah Davis"
+    },
+    "orderDate": "2024-12-04T13:19:00Z",
+    "status": "ongoing",
+    "totalAmount": 11.49,
+    "quantity": 1,
+    "currency": {
+      "currencyCode": "USD",
+      "currencyName": "United States Dollar",
+      "symbol": "$"
+    }
+  },
+  {
+    "orderId": 924595,
+    "client": {
+      "clientId": "924595",
+      "clientName": "James Wilson"
+    },
+    "orderDate": "2024-12-01T10:00:00Z",
+    "status": "ongoing",
+    "totalAmount": 19.98,
+    "quantity": 2,
+    "currency": {
+      "currencyCode": "USD",
+      "currencyName": "United States Dollar",
+      "symbol": "$"
+    }
+  },
+  {
+    "orderId": 924592,
+    "client": {
+      "clientId": "924592",
+      "clientName": "Joe Doe"
+    },
+    "orderDate": "2023-11-02T10:00:00Z",
+    "status": "ongoing",
+    "totalAmount": 12,
+    "quantity": 2,
+    "currency": {
+      "currencyCode": "USD",
+      "currencyName": "United States Dollar",
+      "symbol": "$"
+    }
+  }
+],
+
+// oferty
+[
+  {
+    "imagePhoto": "https://static.vecteezy.com/system/resources/previews/032/325/447/non_2x/paper-bag-with-vegetables-isolated-on-transparent-background-file-cut-out-ai-generated-png.png",
+    "packageName": "Fresh fruits for low price!",
+    "productList": [
+      {
+        "productId": 1,
+        "name": "Raspberries",
+        "price": 4.99,
+        "photoUrl": "https://example.com/images/dessert.jpg",
+        "category": "dessert",
+        "quantity": 2
+      },
+      {
+        "productId": 2,
+        "name": "Grapes",
+        "price": 2.99,
+        "photoUrl": "https://example.com/images/drink.jpg",
+        "category": "food",
+        "quantity": 3
+      },
+      {
+        "productId": 3,
+        "name": "Strawberries",
+        "price": 2.99,
+        "photoUrl": "https://example.com/images/drink.jpg",
+        "category": "food",
+        "quantity": 1
+      },
+      {
+        "productId": 4,
+        "name": "Apples",
+        "price": 2.99,
+        "photoUrl": "https://example.com/images/drink.jpg",
+        "category": "food",
+        "quantity": 5
+      }
+    ],
+    "price": 30.48,
+    "quantity": 1
+  },
+  
+  {
+    "imagePhoto": "https://static.vecteezy.com/system/resources/previews/049/240/701/non_2x/freshly-baked-artisan-bread-in-a-paper-bag-png.png",
+    "packageName": "Extra food for only 19.98!",
+    "productList": [
+      {
+        "productId": 1,
+        "name": "Bread",
+        "price": 4.99,
+        "photoUrl": "https://example.com/images/dessert.jpg",
+        "category": "dessert",
+        "quantity": 2
+      },
+      {
+        "productId": 2,
+        "name": "Croissant",
+        "price": 2.99,
+        "photoUrl": "https://example.com/images/drink.jpg",
+        "category": "food",
+        "quantity": 6
+      },
+      {
+        "productId": 2,
+        "name": "Baguette",
+        "price": 2.99,
+        "photoUrl": "https://example.com/images/drink.jpg",
+        "category": "food",
+        "quantity": 2
+      },
+      {
+        "productId": 2,
+        "name": "Muffin",
+        "price": 2.99,
+        "photoUrl": "https://example.com/images/drink.jpg",
+        "category": "food",
+        "quantity": 1
+      }
+    ],
+    "price": 19.98,
+    "quantity": 3
+  },
+  {
+    "imagePhoto": "https://static.vecteezy.com/system/resources/previews/049/240/701/non_2x/freshly-baked-artisan-bread-in-a-paper-bag-png.png",
+    "packageName": "Extra food for only 8.98!",
+    "productList": [
+      {
+        "productId": 2,
+        "name": "Baguette",
+        "price": 2.99,
+        "photoUrl": "https://example.com/images/drink.jpg",
+        "category": "food",
+        "quantity": 4
+      },
+      {
+        "productId": 2,
+        "name": "Muffin",
+        "price": 2.99,
+        "photoUrl": "https://example.com/images/drink.jpg",
+        "category": "food",
+        "quantity": 2
+      }
+    ],
+    "price": 8.98,
+    "quantity": 1
+  },
+  {
+    "imagePhoto": "https://static.vecteezy.com/system/resources/previews/032/325/447/non_2x/paper-bag-with-vegetables-isolated-on-transparent-background-file-cut-out-ai-generated-png.png",
+    "packageName": "Fresh fruits for low price!",
+    "productList": [
+      {
+        "productId": 1,
+        "name": "Raspberries",
+        "price": 4.99,
+        "photoUrl": "https://example.com/images/dessert.jpg",
+        "category": "dessert",
+        "quantity": 2
+      },
+      {
+        "productId": 3,
+        "name": "Strawberries",
+        "price": 2.99,
+        "photoUrl": "https://example.com/images/drink.jpg",
+        "category": "food",
+        "quantity": 1
+      },
+      {
+        "productId": 4,
+        "name": "Apples",
+        "price": 2.99,
+        "photoUrl": "https://example.com/images/drink.jpg",
+        "category": "food",
+        "quantity": 5
+      }
+    ],
+    "price": 3.98,
+    "quantity": 1
+  }
+],
+
+// alergeny:
+[
+  {
+    "id": 0,
+    "name": "Peanuts",
+    "shopId": 123456789,
+    "severity": "none"
+  },
+  {
+    "id": 1,
+    "name": "Tree nuts",
+    "shopId": 123456789,
+    "severity": "small"
+  },
+  {
+    "id": 2,
+    "name": "Dairy",
+    "shopId": 123456789,
+    "severity": "mild"
+  },
+  {
+    "id": 3,
+    "name": "Shellfish",
+    "shopId": 123456789,
+    "severity": "high"
+  }
+],
+
+// produkty
+
+
+[
+  {
+    "productId": 1,
+    "name": "Raspberry",
+    "price": 1.99,
+    "photoUrl": "https://static.vecteezy.com/system/resources/thumbnails/025/230/092/small_2x/fresh-tasty-raspberries-isolated-on-transparent-background-free-png.png",
+    "category": "food"
+  },
+  {
+    "productId": 1,
+    "name": "Grape",
+    "price": 2.99,
+    "photoUrl": "https://static.vecteezy.com/system/resources/previews/011/222/254/non_2x/ripe-red-wet-grape-isolated-png.png",
+    "category": "food"
+  },
+  {
+    "productId": 1,
+    "name": "Strawberry",
+    "price": 1.99,
+    "photoUrl": "https://static.vecteezy.com/system/resources/thumbnails/041/491/386/small_2x/ai-generated-3d-strawberry-fruit-png.png",
+    "category": "food"
+  },
+  {
+    "productId": 1,
+    "name": "Apple",
+    "price": 3.19,
+    "photoUrl": "https://static.vecteezy.com/system/resources/thumbnails/023/290/773/small_2x/fresh-red-apple-isolated-on-transparent-background-generative-ai-png.png",
+    "category": "food"
+  },
+  {
+    "productId": 1,
+    "name": "Bread",
+    "price": 5.99,
+    "photoUrl": "https://static.vecteezy.com/system/resources/previews/045/847/897/non_2x/bread-clipart-illustration-png.png",
+    "category": "food"
+  },
+  {
+    "productId": 1,
+    "name": "Croissant",
+    "price": 4.99,
+    "photoUrl": "https://static.vecteezy.com/system/resources/previews/027/291/761/original/croissant-on-transparent-background-free-png.png",
+    "category": "food"
+  },
+  {
+    "productId": 1,
+    "name": "Baguette",
+    "price": 3.49,
+    "photoUrl": "https://static.vecteezy.com/system/resources/previews/035/715/799/non_2x/ai-generated-baguette-on-transparent-background-image-png.png",
+    "category": "food"
+  },
+  {
+    "productId": 1,
+    "name": "Muffin",
+    "price": 8.99,
+    "photoUrl": "https://static.vecteezy.com/system/resources/previews/044/765/878/non_2x/chocolate-chip-muffin-png.png",
+    "category": "food"
+  }
+  
+],

@@ -191,7 +191,7 @@ class DiscoverRemoteDataSourceImpl implements DiscoverRemoteDataSource {
 
   @override
   Future<(ShopModel, List<ProductModel>)> getShopWithProducts(
-      {required String languageCode, required String shopId}) async {
+      {required String languageCode, required String shopId,}) async {
     try {
       final result = await _shopdb.read(key: shopId);
       final products = await _productsdb.readAll();

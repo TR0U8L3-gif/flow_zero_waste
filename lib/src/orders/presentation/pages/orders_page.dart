@@ -18,6 +18,8 @@ import 'package:url_launcher/url_launcher.dart';
 
 @RoutePage()
 class OrdersPage extends StatelessWidget implements AutoRouteWrapper {
+  const OrdersPage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Consumer<LanguageProvider>(
@@ -34,7 +36,7 @@ class OrdersPage extends StatelessWidget implements AutoRouteWrapper {
             }
 
             if (state is OrdersError) {
-              var errorMessage = context.l10n.unexpectedError;
+              final errorMessage = context.l10n.unexpectedError;
 
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
@@ -75,7 +77,7 @@ class OrdersPage extends StatelessWidget implements AutoRouteWrapper {
                               ),
                               child: OrdersWidget(
                                 onOrderLocation: (lng, lat) => launchUrl(Uri.parse(
-                                    'https://www.google.com/maps/search/?api=1&query=$lat,$lng')),
+                                    'https://www.google.com/maps/search/?api=1&query=$lat,$lng',),),
                                 onOrderAccept: (code) {
                                   showDialog<void>(
                                     context: context,
@@ -89,7 +91,7 @@ class OrdersPage extends StatelessWidget implements AutoRouteWrapper {
                                         content: Container(
                                           decoration: BoxDecoration(
                                             borderRadius: BorderRadius.circular(
-                                                page.spacing),
+                                                page.spacing,),
                                             color: Colors.white,
                                           ),
                                           width: page.size.width * 0.64,
@@ -112,7 +114,7 @@ class OrdersPage extends StatelessWidget implements AutoRouteWrapper {
                                     builder: (BuildContext context) {
                                       return AlertDialog(
                                         title: Text(
-                                            context.l10n.confirmCancelOrder),
+                                            context.l10n.confirmCancelOrder,),
                                         actions: <Widget>[
                                           TextButton(
                                             style: TextButton.styleFrom(
@@ -177,6 +179,6 @@ class OrdersPage extends StatelessWidget implements AutoRouteWrapper {
     return BlocProvider(
         create: (context) =>
             locator<OrdersCubit>()..fetchOrders(lang.languageCode),
-        child: this);
+        child: this,);
   }
 }

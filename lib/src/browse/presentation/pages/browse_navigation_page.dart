@@ -7,7 +7,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 @RoutePage()
 class BrowseNavigationPage extends StatelessWidget implements AutoRouteWrapper {
-  const BrowseNavigationPage({Key? key}) : super(key: key);
+  const BrowseNavigationPage({super.key});
 
   @override
   Widget build(BuildContext context) {

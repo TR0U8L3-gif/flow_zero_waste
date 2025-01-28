@@ -4,7 +4,6 @@ import 'package:flow_zero_waste/config/assets/theme/app_theme.dart';
 import 'package:flow_zero_waste/core/common/domain/use_case.dart';
 import 'package:flow_zero_waste/core/enums/contrast_enum.dart';
 import 'package:flow_zero_waste/core/extensions/theme_extension.dart';
-import 'package:flow_zero_waste/src/discover/presentation/widgets/banner_section.dart';
 import 'package:flow_zero_waste/src/ui/domain/entities/theme_details.dart';
 import 'package:flow_zero_waste/src/ui/domain/usecases/load_theme_from_local_storage.dart';
 import 'package:flow_zero_waste/src/ui/domain/usecases/save_theme_to_local_storage.dart';

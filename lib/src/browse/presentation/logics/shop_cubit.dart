@@ -73,7 +73,7 @@ class ShopCubit extends Cubit<ShopState> {
       emit(ShopLoading());
       final result = await _getShopWithProducts(
         GetShopWithProductsParams(
-            languageCode: languageCode, shopId: _shop!.id),
+            languageCode: languageCode, shopId: _shop!.id,),
       );
       result.fold((failure) => emit(ShopError(failure: failure)), (data) {
         _shop = data.$1;

@@ -18,6 +18,8 @@ import 'package:provider/provider.dart';
 
 @RoutePage()
 class FavoritesPage extends StatelessWidget implements AutoRouteWrapper {
+  const FavoritesPage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Consumer2<LocationProvider, LanguageProvider>(

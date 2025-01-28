@@ -1,6 +1,5 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flow_zero_waste/config/injection/injection.dart';
-import 'package:flow_zero_waste/config/routes/navigation_router.gr.dart';
 import 'package:flow_zero_waste/core/common/presentation/logics/logic_state.dart';
 import 'package:flow_zero_waste/core/common/presentation/logics/providers/responsive_ui/page_provider.dart';
 import 'package:flow_zero_waste/core/common/presentation/widgets/components/app_bar_styled.dart';

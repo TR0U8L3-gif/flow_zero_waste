@@ -13,6 +13,8 @@ import 'package:provider/provider.dart';
 
 @RoutePage()
 class BrowsePage extends StatelessWidget {
+  const BrowsePage({super.key});
+
   @override
   Widget build(BuildContext context) {
     final page = context.watch<PageProvider>();

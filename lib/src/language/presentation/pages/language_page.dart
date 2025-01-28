@@ -6,7 +6,6 @@ import 'package:flow_zero_waste/core/common/presentation/widgets/components/app_
 import 'package:flow_zero_waste/core/common/presentation/widgets/components/scrollbar_styled.dart';
 import 'package:flow_zero_waste/core/extensions/l10n_extension.dart';
 import 'package:flow_zero_waste/core/extensions/theme_extension.dart';
-import 'package:flow_zero_waste/src/discover/presentation/widgets/banner_section.dart';
 import 'package:flow_zero_waste/src/language/presentation/logics/language_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';

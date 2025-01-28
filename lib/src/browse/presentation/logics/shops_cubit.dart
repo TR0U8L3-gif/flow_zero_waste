@@ -23,7 +23,7 @@ class ShopsCubit extends Cubit<ShopsState> {
     emit(ShopsLoading());
     _shops.clear();
     final result = await _getShops(
-        GetShopsParams(languageCode: languageCode, latitude: 0, longitude: 0));
+        GetShopsParams(languageCode: languageCode, latitude: 0, longitude: 0),);
     result.fold(
       (failure) => emit(ShopsError(failure: failure)),
       _shops.addAll,

@@ -15,7 +15,6 @@ import 'package:flow_zero_waste/src/profile/presentation/logics/profile_edit_cub
 import 'package:flow_zero_waste/src/profile/presentation/widgets/components/section_title.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:provider/provider.dart';
 
 /// Page for changing user data
 @RoutePage()

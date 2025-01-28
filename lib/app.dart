@@ -125,21 +125,25 @@ class _BuildApp extends StatelessWidget {
         supportedLocales: supportedLocales,
         locale: languageProvider.currentLanguage,
         localizationsDelegates: localizationsDelegates,
-        home: ErrorPage(
-          reportError: true,
-          data: ErrorPageData(
-            title: context.l10n.appInitErrorTitle,
-            message: () {
-              try {
-                return ((result as MyAppFailure).exception as BaseException)
-                    .message;
-              } catch (e) {
-                return context.l10n.unknownErrorOccurred;
-              }
-            }(),
-            exception: (result as MyAppFailure).exception,
-            stackTrace: (result as MyAppFailure).stackTrace,
-          ),
+        home: Builder(
+          builder: (readyContext) {
+            return ErrorPage(
+              reportError: true,
+              data: ErrorPageData(
+                title: readyContext.l10n.appInitErrorTitle,
+                message: () {
+                  try {
+                    return ((result as MyAppFailure).exception as BaseException)
+                        .message;
+                  } catch (e) {
+                    return readyContext.l10n.unknownErrorOccurred;
+                  }
+                }(),
+                exception: (result as MyAppFailure).exception,
+                stackTrace: (result as MyAppFailure).stackTrace,
+              ),
+            );
+          },
         ),
         builder: (context, child) {
           final mediaQuery = MediaQuery.of(context);

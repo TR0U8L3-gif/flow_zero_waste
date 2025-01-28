@@ -220,15 +220,15 @@ class ShopCard extends StatelessWidget {
                             overflow: TextOverflow.ellipsis,
                             maxLines: 1,
                           ),
-                          Text(
-                            '${context.l10n.available}: '
-                            '${shopData.startDate.ddMM} | '
-                            '${shopData.startDate.HHmm} - '
-                            '${shopData.endDate.HHmm}',
-                            style: context.textTheme.bodyMedium,
-                            overflow: TextOverflow.ellipsis,
-                            maxLines: 1,
-                          ),
+                          // Text(
+                          //   '${context.l10n.available}: '
+                          //   '${shopData.startDate.ddMM} | '
+                          //   '${shopData.startDate.HHmm} - '
+                          //   '${shopData.endDate.HHmm}',
+                          //   style: context.textTheme.bodyMedium,
+                          //   overflow: TextOverflow.ellipsis,
+                          //   maxLines: 1,
+                          // ),
                         ],
                       ),
                     ),

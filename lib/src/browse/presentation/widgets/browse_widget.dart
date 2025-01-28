@@ -12,7 +12,7 @@ import 'package:provider/provider.dart';
 const _shopsItemsEmpty = 6;
 
 class BrowseWidget extends StatelessWidget {
-  const BrowseWidget({super.key, required this.shops, this.onShopTap});
+  const BrowseWidget({required this.shops, super.key, this.onShopTap});
 
   final List<Shop>? shops;
   final void Function(String id)? onShopTap;
@@ -191,15 +191,15 @@ class ShopCard extends StatelessWidget {
                             overflow: TextOverflow.ellipsis,
                             maxLines: 1,
                           ),
-                          Text(
-                            '${context.l10n.available}: '
-                            '${shop.startDate.ddMM} | '
-                            '${shop.startDate.HHmm} - '
-                            '${shop.endDate.HHmm}',
-                            style: context.textTheme.bodyMedium,
-                            overflow: TextOverflow.ellipsis,
-                            maxLines: 1,
-                          ),
+                          // Text(
+                          //   '${context.l10n.available}: '
+                          //   '${shop.startDate.ddMM} | '
+                          //   '${shop.startDate.HHmm} - '
+                          //   '${shop.endDate.HHmm}',
+                          //   style: context.textTheme.bodyMedium,
+                          //   overflow: TextOverflow.ellipsis,
+                          //   maxLines: 1,
+                          // ),
                         ],
                       ),
                     ),

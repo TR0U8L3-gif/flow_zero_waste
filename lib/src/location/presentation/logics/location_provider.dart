@@ -54,7 +54,7 @@ class LocationProvider extends ChangeNotifier {
       notifyListeners();
     } catch (e, st) {
       _loggerManager.error(
-          message: 'Error loading location data: $e', stackTrace: st);
+          message: 'Error loading location data: $e', stackTrace: st,);
     }
   }
 

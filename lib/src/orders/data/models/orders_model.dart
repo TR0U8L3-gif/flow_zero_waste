@@ -1,5 +1,3 @@
-import 'package:flow_zero_waste/src/discover/domain/entities/shop.dart';
-import 'package:flow_zero_waste/src/orders/domain/entities/product.dart';
 
 class OrdersModel {
   OrdersModel({

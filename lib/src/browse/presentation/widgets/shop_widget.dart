@@ -109,7 +109,7 @@ class ProductCard extends StatelessWidget {
         borderRadius: borderRadius,
         color: Theme.of(context).colorScheme.surfaceContainer,
       ),
-      padding: const EdgeInsets.all(8.0),
+      padding: const EdgeInsets.all(8),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [

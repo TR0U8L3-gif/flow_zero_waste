@@ -60,7 +60,7 @@ class _ProductWidgetState extends State<ProductWidget> {
         borderRadius: widget.borderRadius,
         color: Theme.of(context).colorScheme.surfaceContainer,
       ),
-      padding: const EdgeInsets.all(8.0),
+      padding: const EdgeInsets.all(8),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
@@ -123,7 +123,7 @@ class _ProductWidgetState extends State<ProductWidget> {
               ),
               const SizedBox(width: 8),
               Text(
-                '${context.l10n.quantity}  ${_quantity} / ${widget.product.quantity}',
+                '${context.l10n.quantity}  $_quantity / ${widget.product.quantity}',
                 style: Theme.of(context).textTheme.bodyMedium,
               ),
             ],
@@ -159,7 +159,7 @@ class _ProductWidgetState extends State<ProductWidget> {
                         content: Text(
                           context.l10n.paymentSuccess,
                           style: context.textTheme.bodyMedium?.copyWith(
-                              color: context.colorScheme.onPrimaryContainer),
+                              color: context.colorScheme.onPrimaryContainer,),
                         ),
                         backgroundColor: context.colorScheme.primaryContainer,
                       ),
@@ -170,7 +170,7 @@ class _ProductWidgetState extends State<ProductWidget> {
                         content: Text(
                           context.l10n.paymentError,
                           style: context.textTheme.bodyMedium?.copyWith(
-                              color: context.colorScheme.onErrorContainer),
+                              color: context.colorScheme.onErrorContainer,),
                         ),
                         backgroundColor: context.colorScheme.errorContainer,
                       ),

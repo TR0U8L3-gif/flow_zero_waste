@@ -106,7 +106,7 @@ class ProfilePage extends StatelessWidget {
                 icon: Icons.store,
                 title: translations.profileRegisterLocal,
                 onTap: () => launchUrl(
-                    Uri.parse('https://flowzerowaste.com/register-local')),
+                    Uri.parse('https://flowzerowaste.com/register-local'),),
               ),
               ProfileOption(
                 icon: Icons.recommend,
@@ -126,7 +126,7 @@ class ProfilePage extends StatelessWidget {
                 icon: Icons.info,
                 title: translations.profileHowItWorks,
                 onTap: () => launchUrl(
-                    Uri.parse('https://flowzerowaste.com/how-it-works')),
+                    Uri.parse('https://flowzerowaste.com/how-it-works'),),
               ),
               ProfileOption(
                 icon: Icons.gavel,

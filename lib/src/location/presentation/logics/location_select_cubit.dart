@@ -15,8 +15,8 @@ const locationDistanceMax = 20.0;
 const locationZoomMin = 8.0;
 const locationZoomMax = 14.0;
 const locationDefault = LocationData(
-  latitude: 53.1045529,
-  longitude: 23.1230006,
+  latitude: 53.1046893,
+  longitude: 23.1254141,
   distance: locationDistanceMin,
 );
 
@@ -93,10 +93,14 @@ class LocationSelectCubit extends Cubit<LocationSelectState> {
     }
 
     final location = await Geolocator.getCurrentPosition();
-    _locationData = LocationData(
-      latitude: location.latitude,
-      longitude: location.longitude,
-      distance: locationDistanceMin,
+    // _locationData = LocationData(
+    //   latitude: location.latitude,
+    //   longitude: location.longitude,
+    //   distance: locationDistanceMin,
+    // );
+    _locationData = _locationData.copyWith(
+      latitude: locationDefault.latitude,
+      longitude: locationDefault.longitude,
     );
     rebuildMap();
     emitIdle();

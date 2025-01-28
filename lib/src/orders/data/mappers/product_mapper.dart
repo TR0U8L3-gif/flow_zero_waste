@@ -14,7 +14,7 @@ class ProductMapper extends Mapper<ProductModel,Product> {
       price: object.price,
       allergens: object.allergens,
       imageUrl: object.imageUrl,
-      quantity: object.quantity
+      quantity: object.quantity,
     );
   }
 
@@ -27,7 +27,7 @@ class ProductMapper extends Mapper<ProductModel,Product> {
       price: object.price,
       allergens: object.allergens,
       imageUrl: object.imageUrl,
-      quantity: object.quantity
+      quantity: object.quantity,
     );
   }
 }

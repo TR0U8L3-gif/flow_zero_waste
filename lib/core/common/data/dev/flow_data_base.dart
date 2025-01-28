@@ -162,7 +162,7 @@ final _shops = <Map<String, dynamic>>[
     'startDate': DateTime.now().copyWith(hour: 9, minute: 30).toIso8601String(),
     'endDate': DateTime.now().copyWith(hour: 19, minute: 30).toIso8601String(),
     'isLiked': true,
-    'rating': 10.0,
+    'rating': 5.0,
   },
   {
     'languageCode': 'en',
@@ -174,7 +174,7 @@ final _shops = <Map<String, dynamic>>[
     'startDate': DateTime.now().copyWith(hour: 8, minute: 30).toIso8601String(),
     'endDate': DateTime.now().copyWith(hour: 20, minute: 00).toIso8601String(),
     'isLiked': false,
-    'rating': 9.5,
+    'rating': 4.5,
   },
   {
     'languageCode': 'en',
@@ -186,7 +186,7 @@ final _shops = <Map<String, dynamic>>[
     'startDate': DateTime.now().copyWith(hour: 9, minute: 30).toIso8601String(),
     'endDate': DateTime.now().copyWith(hour: 21, minute: 30).toIso8601String(),
     'isLiked': false,
-    'rating': 8.0,
+    'rating': 4.0,
   },
   {
     'languageCode': 'en',
@@ -198,7 +198,7 @@ final _shops = <Map<String, dynamic>>[
     'startDate': DateTime.now().copyWith(hour: 7, minute: 30).toIso8601String(),
     'endDate': DateTime.now().copyWith(hour: 19, minute: 30).toIso8601String(),
     'isLiked': false,
-    'rating': 7.5,
+    'rating': 3.5,
   },
   {
     'languageCode': 'en',
@@ -210,7 +210,7 @@ final _shops = <Map<String, dynamic>>[
     'startDate': DateTime.now().copyWith(hour: 8, minute: 00).toIso8601String(),
     'endDate': DateTime.now().copyWith(hour: 20, minute: 00).toIso8601String(),
     'isLiked': true,
-    'rating': 10.0,
+    'rating': 5.0,
   },
   {
     'languageCode': 'en',
@@ -222,7 +222,7 @@ final _shops = <Map<String, dynamic>>[
     'startDate': DateTime.now().copyWith(hour: 9, minute: 00).toIso8601String(),
     'endDate': DateTime.now().copyWith(hour: 21, minute: 00).toIso8601String(),
     'isLiked': false,
-    'rating': 9.5,
+    'rating': 4.5,
   },
   {
     'languageCode': 'en',
@@ -234,7 +234,7 @@ final _shops = <Map<String, dynamic>>[
     'startDate': DateTime.now().copyWith(hour: 8, minute: 00).toIso8601String(),
     'endDate': DateTime.now().copyWith(hour: 21, minute: 00).toIso8601String(),
     'isLiked': false,
-    'rating': 8.0,
+    'rating': 4.0,
   },
   {
     'languageCode': 'pl',
@@ -247,7 +247,7 @@ final _shops = <Map<String, dynamic>>[
     'startDate': DateTime.now().copyWith(hour: 9, minute: 30).toIso8601String(),
     'endDate': DateTime.now().copyWith(hour: 19, minute: 30).toIso8601String(),
     'isLiked': true,
-    'rating': 10.0,
+    'rating': 5.0,
   },
   {
     'languageCode': 'pl',
@@ -259,7 +259,7 @@ final _shops = <Map<String, dynamic>>[
     'startDate': DateTime.now().copyWith(hour: 8, minute: 30).toIso8601String(),
     'endDate': DateTime.now().copyWith(hour: 20, minute: 00).toIso8601String(),
     'isLiked': false,
-    'rating': 9.5,
+    'rating': 4.5,
   },
   {
     'languageCode': 'pl',
@@ -271,7 +271,7 @@ final _shops = <Map<String, dynamic>>[
     'startDate': DateTime.now().copyWith(hour: 9, minute: 30).toIso8601String(),
     'endDate': DateTime.now().copyWith(hour: 21, minute: 30).toIso8601String(),
     'isLiked': false,
-    'rating': 8.0,
+    'rating': 4.0,
   },
   {
     'languageCode': 'pl',
@@ -283,7 +283,7 @@ final _shops = <Map<String, dynamic>>[
     'startDate': DateTime.now().copyWith(hour: 7, minute: 30).toIso8601String(),
     'endDate': DateTime.now().copyWith(hour: 19, minute: 30).toIso8601String(),
     'isLiked': false,
-    'rating': 7.5,
+    'rating': 3.5,
   },
   {
     'languageCode': 'pl',
@@ -296,7 +296,7 @@ final _shops = <Map<String, dynamic>>[
     'startDate': DateTime.now().copyWith(hour: 8, minute: 00).toIso8601String(),
     'endDate': DateTime.now().copyWith(hour: 20, minute: 00).toIso8601String(),
     'isLiked': true,
-    'rating': 10.0,
+    'rating': 5.0,
   },
   {
     'languageCode': 'pl',
@@ -308,7 +308,7 @@ final _shops = <Map<String, dynamic>>[
     'startDate': DateTime.now().copyWith(hour: 9, minute: 00).toIso8601String(),
     'endDate': DateTime.now().copyWith(hour: 21, minute: 00).toIso8601String(),
     'isLiked': false,
-    'rating': 9.5,
+    'rating': 4.5,
   },
   {
     'languageCode': 'pl',
@@ -320,15 +320,16 @@ final _shops = <Map<String, dynamic>>[
     'startDate': DateTime.now().copyWith(hour: 8, minute: 00).toIso8601String(),
     'endDate': DateTime.now().copyWith(hour: 21, minute: 00).toIso8601String(),
     'isLiked': false,
-    'rating': 8.0,
+    'rating': 4.0,
   },
 ];
 
+// do zmiany
 final _offers = <Map<String, dynamic>>[
   {
     'languageCode': 'en',
     'id': _shops[0]['id'] as String,
-    'rating': 10.0,
+    'rating': 5.0,
     'distance': 1800.0,
     'newOffers': 1.0,
     'shop': _shops[0],
@@ -336,7 +337,7 @@ final _offers = <Map<String, dynamic>>[
   {
     'languageCode': 'en',
     'id': _shops[2]['id'] as String,
-    'rating': 9.5,
+    'rating': 4.5,
     'distance': 5000.0,
     'newOffers': 2.0,
     'shop': _shops[2],
@@ -344,7 +345,7 @@ final _offers = <Map<String, dynamic>>[
   {
     'languageCode': 'en',
     'id': _shops[4]['id'] as String,
-    'rating': 8.0,
+    'rating': 4.0,
     'distance': 3000.0,
     'newOffers': 3.0,
     'shop': _shops[4],
@@ -352,7 +353,7 @@ final _offers = <Map<String, dynamic>>[
   {
     'languageCode': 'en',
     'id': _shops[6]['id'] as String,
-    'rating': 7.5,
+    'rating': 3.5,
     'distance': 2000.0,
     'newOffers': 4.0,
     'shop': _shops[6],
@@ -360,7 +361,7 @@ final _offers = <Map<String, dynamic>>[
   {
     'languageCode': 'pl',
     'id': _shops[7]['id'] as String,
-    'rating': 10.0,
+    'rating': 5.0,
     'distance': 1800.0,
     'newOffers': 1.0,
     'shop': _shops[7],
@@ -368,7 +369,7 @@ final _offers = <Map<String, dynamic>>[
   {
     'languageCode': 'pl',
     'id': _shops[9]['id'] as String,
-    'rating': 9.5,
+    'rating': 4.5,
     'distance': 5000.0,
     'newOffers': 2.0,
     'shop': _shops[9],
@@ -376,7 +377,7 @@ final _offers = <Map<String, dynamic>>[
   {
     'languageCode': 'pl',
     'id': _shops[11]['id'] as String,
-    'rating': 8.0,
+    'rating': 4.0,
     'distance': 3000.0,
     'newOffers': 3.0,
     'shop': _shops[11],
@@ -384,12 +385,13 @@ final _offers = <Map<String, dynamic>>[
   {
     'languageCode': 'pl',
     'id': _shops[13]['id'] as String,
-    'rating': 7.5,
+    'rating': 3.5,
     'distance': 2000.0,
     'newOffers': 4.0,
     'shop': _shops[13],
   },
 ];
+//git 
 const _products = <Map<String, dynamic>>[
   {
     'imageUrl': 'https://picsum.photos/600/300?image=75',
@@ -503,13 +505,14 @@ const _products = <Map<String, dynamic>>[
   }
 ];
 
+// do poprawy
 final _orders = <Map<String, dynamic>>[
   {
     'languageCode': 'en',
     'products_id': _products[0]['id'] as String,
     'shop_id': _shops[0]['id'] as String,
     'status': 0,
-    'date': DateTime.now().subtract(Duration(minutes: 80)).toIso8601String(),
+    'date': DateTime.now().subtract(const Duration(minutes: 80)).toIso8601String(),
     'code': 'ABCD1234',
     'id': 'ab01cdd4-7e73-4c1d-8a71-f28d9b6451ba',
   },
@@ -518,7 +521,7 @@ final _orders = <Map<String, dynamic>>[
     'products_id': _products[1]['id'] as String,
     'shop_id': _shops[7]['id'] as String,
     'status': 0,
-    'date': DateTime.now().subtract(Duration(minutes: 80)).toIso8601String(),
+    'date': DateTime.now().subtract(const Duration(minutes: 80)).toIso8601String(),
     'code': 'ABCD1234',
     'id': 'ab01cdd4-7e73-4c1d-8a71-f28d9b6451ba-pl',
   },
@@ -527,7 +530,7 @@ final _orders = <Map<String, dynamic>>[
     'products_id': _products[2]['id'] as String,
     'shop_id': _shops[1]['id'] as String,
     'status': 0,
-    'date': DateTime.now().subtract(Duration(minutes: 30)).toIso8601String(),
+    'date': DateTime.now().subtract(const Duration(minutes: 30)).toIso8601String(),
     'code': 'EFGH5678',
     'id': 'ab01cdd4-7e73-4c1d-8a71-f28d9b6451bc',
   },
@@ -536,7 +539,7 @@ final _orders = <Map<String, dynamic>>[
     'products_id': _products[3]['id'] as String,
     'shop_id': _shops[8]['id'] as String,
     'status': 0,
-    'date': DateTime.now().subtract(Duration(minutes: 30)).toIso8601String(),
+    'date': DateTime.now().subtract(const Duration(minutes: 30)).toIso8601String(),
     'code': 'EFGH5678',
     'id': 'ab01cdd4-7e73-4c1d-8a71-f28d9b6451bc-pl',
   },
@@ -545,7 +548,7 @@ final _orders = <Map<String, dynamic>>[
     'products_id': _products[4]['id'] as String,
     'shop_id': _shops[2]['id'] as String,
     'status': -1,
-    'date': DateTime.now().subtract(Duration(minutes: 720)).toIso8601String(),
+    'date': DateTime.now().subtract(const Duration(minutes: 720)).toIso8601String(),
     'code': 'IJKL9101',
     'id': 'ab01cdd4-7e73-4c1d-8a71-f28d9b6451be',
   },
@@ -554,7 +557,7 @@ final _orders = <Map<String, dynamic>>[
     'products_id': _products[5]['id'] as String,
     'shop_id': _shops[9]['id'] as String,
     'status': -1,
-    'date': DateTime.now().subtract(Duration(minutes: 720)).toIso8601String(),
+    'date': DateTime.now().subtract(const Duration(minutes: 720)).toIso8601String(),
     'code': 'IJKL9101',
     'id': 'ab01cdd4-7e73-4c1d-8a71-f28d9b6451be',
   },
@@ -563,7 +566,7 @@ final _orders = <Map<String, dynamic>>[
     'products_id': _products[6]['id'] as String,
     'shop_id': _shops[3]['id'] as String,
     'status': 1,
-    'date': DateTime.now().subtract(Duration(minutes: 1440)).toIso8601String(),
+    'date': DateTime.now().subtract(const Duration(minutes: 1440)).toIso8601String(),
     'code': 'MNOP2345',
     'id': 'ab01cdd4-7e73-4c1d-8a71-f28d9b6451bg',
   },
@@ -572,7 +575,7 @@ final _orders = <Map<String, dynamic>>[
     'products_id': _products[7]['id'] as String,
     'shop_id': _shops[10]['id'] as String,
     'status': 1,
-    'date': DateTime.now().subtract(Duration(minutes: 1440)).toIso8601String(),
+    'date': DateTime.now().subtract(const Duration(minutes: 1440)).toIso8601String(),
     'code': 'MNOP2345',
     'id': 'ab01cdd4-7e73-4c1d-8a71-f28d9b6451bg-pl',
   },
@@ -581,7 +584,7 @@ final _orders = <Map<String, dynamic>>[
     'products_id': _products[8]['id'] as String,
     'shop_id': _shops[4]['id'] as String,
     'status': 1,
-    'date': DateTime.now().subtract(Duration(minutes: 1800)).toIso8601String(),
+    'date': DateTime.now().subtract(const Duration(minutes: 1800)).toIso8601String(),
     'code': 'QRST6789',
     'id': 'ab01cdd4-7e73-4c1d-8a71-f28d9b6451bi',
   },
@@ -590,7 +593,7 @@ final _orders = <Map<String, dynamic>>[
     'products_id': _products[9]['id'] as String,
     'shop_id': _shops[11]['id'] as String,
     'status': 1,
-    'date': DateTime.now().subtract(Duration(minutes: 1800)).toIso8601String(),
+    'date': DateTime.now().subtract(const Duration(minutes: 1800)).toIso8601String(),
     'code': 'QRST6789',
     'id': 'ab01cdd4-7e73-4c1d-8a71-f28d9b6451bj-pl',
   },
