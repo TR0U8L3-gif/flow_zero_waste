@@ -1,3 +1,4 @@
+import 'package:flow_zero_waste/core/common/presentation/widgets/components/scrollbar_styled.dart';
 import 'package:flow_zero_waste/core/extensions/l10n_extension.dart';
 import 'package:flow_zero_waste/core/extensions/num_extension.dart';
 import 'package:flow_zero_waste/core/extensions/theme_extension.dart';
@@ -9,13 +10,13 @@ import 'package:flutter/material.dart';
 class ProductWidget extends StatefulWidget {
   /// Default constructor
   const ProductWidget({
-    required this.product,
+    required this.products,
     required this.borderRadius,
     super.key,
   });
 
   /// Product data
-  final Product product;
+  final List<Product> products;
 
   /// Border radius
   final BorderRadius borderRadius;
@@ -32,8 +33,8 @@ class _ProductWidgetState extends State<ProductWidget> {
   @override
   void initState() {
     super.initState();
-    _maxQuantity = widget.product.quantity;
-    _initialPrice = widget.product.price;
+    _maxQuantity = widget.products.first.quantity;
+    _initialPrice = widget.products.first.price;
   }
 
   void _incrementQuantity() {
@@ -64,55 +65,79 @@ class _ProductWidgetState extends State<ProductWidget> {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          AspectRatio(
-            aspectRatio: 16 / 9,
-            child: ClipRRect(
-              borderRadius: widget.borderRadius,
-              child: Image.network(
-                widget.product.imageUrl,
-                width: double.infinity,
-                fit: BoxFit.cover,
-                errorBuilder: (context, error, stackTrace) => const Icon(
-                  Icons.broken_image,
-                  size: 80,
-                ),
-              ),
-            ),
-          ),
-          const SizedBox(height: 16),
-          // Order details
-          Text(
-            softWrap: true,
-            widget.product.name,
-            style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                  fontWeight: FontWeight.bold,
-                ),
-            textAlign: TextAlign.center,
-          ),
-          const SizedBox(height: 8),
-          Text(
-            softWrap: true,
-            widget.product.description,
-            style: Theme.of(context).textTheme.bodyMedium,
-            textAlign: TextAlign.center,
-          ),
-          const SizedBox(height: 8),
-          if (widget.product.allergens.isNotEmpty)
-            SingleChildScrollView(
+          Scrollbar(
+            thumbVisibility: true,
+            trackVisibility: true,
+            child: SingleChildScrollView(
               scrollDirection: Axis.horizontal,
               child: Row(
-                children: widget.product.allergens
-                    .map(
-                      (allergen) => Padding(
-                        padding: const EdgeInsets.only(right: 4),
-                        child: Chip(
-                          label: Text(allergen),
-                        ),
+                children: [
+                  for (final product in widget.products)
+                    Container(
+                      width: MediaQuery.of(context).size.width - 16,
+                      padding: const EdgeInsets.all(8.0),
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          AspectRatio(
+                            aspectRatio: 16 / 9,
+                            child: ClipRRect(
+                              borderRadius: widget.borderRadius,
+                              child: Image.network(
+                                product.imageUrl,
+                                width: double.infinity,
+                                fit: BoxFit.cover,
+                                errorBuilder: (context, error, stackTrace) =>
+                                    const Icon(
+                                  Icons.broken_image,
+                                  size: 80,
+                                ),
+                              ),
+                            ),
+                          ),
+                          const SizedBox(height: 16),
+                          // Order details
+                          Text(
+                            softWrap: true,
+                            product.name,
+                            style:
+                                Theme.of(context).textTheme.bodyLarge!.copyWith(
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                            textAlign: TextAlign.center,
+                          ),
+                          const SizedBox(height: 8),
+                          Text(
+                            softWrap: true,
+                            product.description,
+                            style: Theme.of(context).textTheme.bodyMedium,
+                            textAlign: TextAlign.center,
+                          ),
+                          const SizedBox(height: 8),
+                          if (product.allergens.isNotEmpty)
+                            SingleChildScrollView(
+                              scrollDirection: Axis.horizontal,
+                              child: Row(
+                                children: product.allergens
+                                    .map(
+                                      (allergen) => Padding(
+                                        padding:
+                                            const EdgeInsets.only(right: 4),
+                                        child: Chip(
+                                          label: Text(allergen),
+                                        ),
+                                      ),
+                                    )
+                                    .toList(),
+                              ),
+                            ),
+                        ],
                       ),
-                    )
-                    .toList(),
+                    ),
+                ],
               ),
             ),
+          ),
           const SizedBox(height: 16),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -121,27 +146,27 @@ class _ProductWidgetState extends State<ProductWidget> {
                 '${context.l10n.price} ${(_initialPrice * _quantity).toStringAsFixed(2)} ${context.l10n.currency}',
                 style: Theme.of(context).textTheme.bodyMedium,
               ),
-              const SizedBox(width: 8),
-              Text(
-                '${context.l10n.quantity}  $_quantity / ${widget.product.quantity}',
-                style: Theme.of(context).textTheme.bodyMedium,
-              ),
+              // const SizedBox(width: 8),
+              // Text(
+              //   '${context.l10n.quantity}  $_quantity / ${widget.product.quantity}',
+              //   style: Theme.of(context).textTheme.bodyMedium,
+              // ),
             ],
           ),
-          const SizedBox(height: 8),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              IconButton(
-                icon: const Icon(Icons.remove),
-                onPressed: _decrementQuantity,
-              ),
-              IconButton(
-                icon: const Icon(Icons.add),
-                onPressed: _incrementQuantity,
-              ),
-            ],
-          ),
+          // const SizedBox(height: 8),
+          // Row(
+          //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          //   children: [
+          //     IconButton(
+          //       icon: const Icon(Icons.remove),
+          //       onPressed: _decrementQuantity,
+          //     ),
+          //     IconButton(
+          //       icon: const Icon(Icons.add),
+          //       onPressed: _incrementQuantity,
+          //     ),
+          //   ],
+          // ),
           const SizedBox(height: 8),
           Wrap(
             children: [
@@ -159,10 +184,14 @@ class _ProductWidgetState extends State<ProductWidget> {
                         content: Text(
                           context.l10n.paymentSuccess,
                           style: context.textTheme.bodyMedium?.copyWith(
-                              color: context.colorScheme.onPrimaryContainer,),
+                            color: context.colorScheme.onPrimaryContainer,
+                          ),
                         ),
                         backgroundColor: context.colorScheme.primaryContainer,
                       ),
+                    );
+                    Navigator.of(context).pop(
+                      widget.products,
                     );
                   } else {
                     ScaffoldMessenger.of(context).showSnackBar(
@@ -170,30 +199,36 @@ class _ProductWidgetState extends State<ProductWidget> {
                         content: Text(
                           context.l10n.paymentError,
                           style: context.textTheme.bodyMedium?.copyWith(
-                              color: context.colorScheme.onErrorContainer,),
+                            color: context.colorScheme.onErrorContainer,
+                          ),
                         ),
                         backgroundColor: context.colorScheme.errorContainer,
                       ),
                     );
+                    Navigator.of(context).pop();
                   }
-                  Navigator.of(context).pop(
-                    widget.product.copyWith(
-                      quantity: _quantity,
-                    ),
-                  );
                 },
                 child: Text(context.l10n.buyAndPayNow),
               ),
               TextButton(
-                onPressed: () => Navigator.of(context).pop(
-                  widget.product.copyWith(
-                    quantity: _quantity,
-                  ),
-                ),
+                onPressed: () {
+                   ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text(
+                          'Placed order in store',
+                          style: context.textTheme.bodyMedium?.copyWith(
+                            color: context.colorScheme.onPrimaryContainer,
+                          ),
+                        ),
+                        backgroundColor: context.colorScheme.primaryContainer,
+                      ),
+                    );
+                  Navigator.of(context).pop(widget.products);
+                  },
                 child: Text(context.l10n.buyAndPayInStore),
               ),
             ],
-          ),
+          )
         ],
       ),
     );

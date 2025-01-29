@@ -207,6 +207,8 @@ class DiscoverRemoteDataSourceImpl implements DiscoverRemoteDataSource {
         }
       }
 
+      return (shop, languageProducts);
+
       final randomMax = languageProducts.length ~/ 2;
       if (randomMax == 0) {
         return (shop, languageProducts);

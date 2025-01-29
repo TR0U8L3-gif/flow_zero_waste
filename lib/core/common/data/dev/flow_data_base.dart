@@ -10,6 +10,7 @@ const shopBoxName = 'shopBox';
 const productsBoxName = 'productsBox';
 const ordersBoxName = 'ordersBox';
 
+// git
 const _banners = <Map<String, dynamic>>[
   {
     'languageCode': 'en',
@@ -88,6 +89,7 @@ const _banners = <Map<String, dynamic>>[
   },
 ];
 
+// git
 const _categories = <Map<String, dynamic>>[
   {
     'languageCode': 'en',
@@ -151,6 +153,7 @@ const _categories = <Map<String, dynamic>>[
   },
 ];
 
+// git
 final _shops = <Map<String, dynamic>>[
   {
     'languageCode': 'en',
@@ -324,7 +327,7 @@ final _shops = <Map<String, dynamic>>[
   },
 ];
 
-// do zmiany
+// git
 final _offers = <Map<String, dynamic>>[
   {
     'languageCode': 'en',
@@ -391,6 +394,7 @@ final _offers = <Map<String, dynamic>>[
     'shop': _shops[13],
   },
 ];
+
 //git
 const _products = <Map<String, dynamic>>[
   {
@@ -505,7 +509,7 @@ const _products = <Map<String, dynamic>>[
   }
 ];
 
-// do poprawy
+// git
 final _orders = <Map<String, dynamic>>[
   {
     'languageCode': 'en',
