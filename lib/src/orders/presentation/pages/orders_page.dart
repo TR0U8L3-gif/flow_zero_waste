@@ -84,7 +84,7 @@ class OrdersPage extends StatelessWidget implements AutoRouteWrapper {
                                     builder: (BuildContext context) {
                                       return AlertDialog(
                                         title: Text(
-                                          code.toUpperCase(),
+                                          'BZ4P2',
                                           style: context.textTheme.titleLarge,
                                           textAlign: TextAlign.center,
                                         ),

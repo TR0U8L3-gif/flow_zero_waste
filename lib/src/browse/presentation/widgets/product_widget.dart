@@ -174,6 +174,7 @@ class _ProductWidgetState extends State<ProductWidget> {
                 onPressed: () async {
                   final languageCode =
                       Localizations.localeOf(context).languageCode;
+                  // to do stripe do not work
                   final result = await StripeService().makePayment(
                     (_initialPrice * _quantity).roundToPlaces(2),
                     languageCode == 'en' ? 'usd' : 'pln',

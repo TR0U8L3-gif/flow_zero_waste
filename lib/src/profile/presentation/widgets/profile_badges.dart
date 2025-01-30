@@ -98,15 +98,15 @@ class ProfileBadges extends StatelessWidget {
                     icon: Icons.cloud_outlined,
                   ),
                 ),
-              if (moneySaved != null)
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: page.spacing),
-                  child: StatRow(
-                    title: translations.profileMoneySaved,
-                    value: '$moneySaved zł',
-                    icon: Icons.attach_money,
-                  ),
-                ),
+              // if (moneySaved != null)
+              //   Padding(
+              //     padding: EdgeInsets.symmetric(horizontal: page.spacing),
+              //     child: StatRow(
+              //       title: translations.profileMoneySaved,
+              //       value: '$moneySaved zł',
+              //       icon: Icons.attach_money,
+              //     ),
+              //   ),
               if (orderCount != null)
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: page.spacing),
@@ -116,15 +116,15 @@ class ProfileBadges extends StatelessWidget {
                     icon: Icons.shopping_cart_outlined,
                   ),
                 ),
-              if (pointsCollected != null)
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: page.spacing),
-                  child: StatRow(
-                    title: translations.profilePointsCollected,
-                    value: pointsCollected,
-                    icon: Icons.star_outline,
-                  ),
-                ),
+              // if (pointsCollected != null)
+              //   Padding(
+              //     padding: EdgeInsets.symmetric(horizontal: page.spacing),
+              //     child: StatRow(
+              //       title: translations.profilePointsCollected,
+              //       value: pointsCollected,
+              //       icon: Icons.star_outline,
+              //     ),
+              //   ),
               if (treesPlanted != null)
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: page.spacing),

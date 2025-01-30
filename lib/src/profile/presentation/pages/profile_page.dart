@@ -1,3 +1,5 @@
+// ignore_for_file: lines_longer_than_80_chars
+
 import 'package:auto_route/auto_route.dart';
 import 'package:flow_zero_waste/config/gen/assets.gen.dart';
 import 'package:flow_zero_waste/config/injection/injection.dart';
@@ -19,6 +21,7 @@ import 'package:flow_zero_waste/src/profile/presentation/widgets/profile_header.
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:uuid/uuid.dart';
 
 /// Profile Page
 @RoutePage()
@@ -106,7 +109,8 @@ class ProfilePage extends StatelessWidget {
                 icon: Icons.store,
                 title: translations.profileRegisterLocal,
                 onTap: () => launchUrl(
-                    Uri.parse('https://flowzerowaste.com/register-local'),),
+                  Uri.parse('https://flowzerowaste.com/register-local'),
+                ),
               ),
               ProfileOption(
                 icon: Icons.recommend,
@@ -119,14 +123,17 @@ class ProfilePage extends StatelessWidget {
               ProfileOption(
                 icon: Icons.help,
                 title: translations.profileHelp,
-                onTap: () =>
-                    launchUrl(Uri.parse('https://flowzerowaste.com/help')),
+                onTap: () => Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => TicketScreen()),
+                ),
               ),
               ProfileOption(
                 icon: Icons.info,
                 title: translations.profileHowItWorks,
                 onTap: () => launchUrl(
-                    Uri.parse('https://flowzerowaste.com/how-it-works'),),
+                  Uri.parse('https://flowzerowaste.com/how-it-works'),
+                ),
               ),
               ProfileOption(
                 icon: Icons.gavel,
@@ -162,6 +169,112 @@ class ProfilePage extends StatelessWidget {
             ],
           ),
         ),
+      ),
+    );
+  }
+}
+
+class TicketScreen extends StatefulWidget {
+  @override
+  State<TicketScreen> createState() => _TicketScreenState();
+}
+
+class _TicketScreenState extends State<TicketScreen> {
+  final ticketsList = <(String, String, List<String>)>[
+    (
+      'Ticket 1',
+      'fa38eea9-d551-4c62-8bd8-31811194c732',
+      [
+        'user: Hi, I had a problem with processing a payment for order number XXX. Could you help me with this?',
+        "support: Hello! I'm sorry to hear about the issue with your payment. Could you provide more details about what happened? For example, did you see an error message?",
+        'user: Yes, the payment seemed to fail, but the amount was deducted from my account. The order status still shows as pending.',
+        'support: Thank you for the details. I’ll check our system to see if the payment went through. Can you also confirm the payment method you used (e.g., card, PayPal)?',
+        'user: I used my credit card for this payment.',
+        'support: Got it. I’m currently investigating the issue. Please allow me a few minutes to check. In the meantime, I’ll ensure your order is prioritized for review.',
+        'user: Thank you!',
+        'support: Thank you for your patience! I’ve reviewed your order and can confirm that the payment did not fully process. We will issue a refund for the amount deducted, and you can try placing the order again. The refund will take 3–5 business days to reflect in your account.',
+        'user: Thanks for the update. I’ll wait for the refund and try again later.',
+        'support: You’re welcome! Please feel free to reach out if you need further assistance. Have a great day!',
+      ],
+    ),
+    (
+      'Ticket 2',
+      '25b851bb-59a2-4003-ba9b-fbb694c53e77',
+      [
+        'user: Hi, I noticed a payment issue with my order number XXX. Can you help?',
+        'support: Hello! I’m sorry to hear that. We will check the issue and process a refund if necessary. Please allow us some time to investigate.',
+        'user: Thank you! How long will the refund process take?',
+        'support: Refunds typically take 3–5 business days to reflect in your account. We’ll notify you once the process is complete.',
+        'user: Great, I’ll wait for the update.',
+        'support: Thank you for your patience! If you have further questions, feel free to reach out.',
+      ],
+    ),
+  ];
+  void _createNewTicket() {
+    setState(() {
+      ticketsList.add(
+        (
+          'Ticket ${ticketsList.length + 1}',
+          const Uuid().v4(),
+          [],
+        ),
+      );
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Tickets'),
+      ),
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          for (final ticket in ticketsList) ...[
+            InkWell(
+              onTap: () {
+                // Handle ticket selection
+              },
+              child: Card(
+                margin: const EdgeInsets.all(8.0),
+                child: Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        ticket.$1,
+                        style:
+                            TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                      ),
+                      SizedBox(height: 8),
+                      Text(
+                        ticket.$2,
+                        style: TextStyle(color: Colors.grey[600]),
+                      ),
+                      SizedBox(height: 8),
+                      Text(
+                        ticket.$3.isNotEmpty ? ticket.$3.last : 'No messages yet',
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(color: Colors.black87),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          ],
+          Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: ElevatedButton(
+              onPressed: _createNewTicket,
+              child: const Text('Create New Ticket'),
+            ),
+          ),
+        ],
       ),
     );
   }

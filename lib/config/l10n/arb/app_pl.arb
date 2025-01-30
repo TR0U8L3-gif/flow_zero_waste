@@ -292,7 +292,7 @@
   "@profileRecommendPlace": {
     "description": "Opcja menu profilu, pozwalająca użytkownikowi polecić miejsce"
   },
-  "profileHelp": "Pomoc z zamówieniem",
+  "profileHelp": "Pomoc",
   "@profileHelp": {
     "description": "Opcja menu profilu, oferująca pomoc z zamówieniami użytkownika"
   },
