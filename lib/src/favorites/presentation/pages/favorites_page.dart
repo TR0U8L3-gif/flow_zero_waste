@@ -6,6 +6,8 @@ import 'package:flow_zero_waste/core/common/presentation/widgets/components/app_
 import 'package:flow_zero_waste/core/common/presentation/widgets/components/refresh_indicator_styled.dart';
 import 'package:flow_zero_waste/core/extensions/l10n_extension.dart';
 import 'package:flow_zero_waste/core/extensions/theme_extension.dart';
+import 'package:flow_zero_waste/src/browse/presentation/logics/shop_cubit.dart';
+import 'package:flow_zero_waste/src/browse/presentation/pages/shop_page.dart';
 import 'package:flow_zero_waste/src/discover/presentation/widgets/recommended_shops_section.dart';
 import 'package:flow_zero_waste/src/favorites/domain/response/favorites_response.dart';
 import 'package:flow_zero_waste/src/favorites/presentation/logics/cubit/favorites_cubit.dart';
@@ -100,6 +102,17 @@ class FavoritesPage extends StatelessWidget implements AutoRouteWrapper {
                             ),
                             child: FavoritesWidget(
                               onShopLikeTap: favoritesCubit.likeShop,
+                              onShopTap: (id) => Navigator.of(context).push(
+                                MaterialPageRoute<void>(
+                                  builder: (BuildContext context) =>
+                                      BlocProvider(
+                                    create: (context) => locator<ShopCubit>(),
+                                    child: ShopPage(
+                                      shopId: id,
+                                    ),
+                                  ),
+                                ),
+                              ),
                               shops: state.favorites?.map((e) {
                                 return ShopData(
                                   id: e.id,

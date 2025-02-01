@@ -59,6 +59,22 @@ class $AssetsImagesGen {
   AssetGenImage get greenEcoStore =>
       const AssetGenImage('assets/images/green_eco_store.webp');
 
+  /// File path: assets/images/offer_image_1.webp
+  AssetGenImage get offerImage1 =>
+      const AssetGenImage('assets/images/offer_image_1.webp');
+
+  /// File path: assets/images/offer_image_2.webp
+  AssetGenImage get offerImage2 =>
+      const AssetGenImage('assets/images/offer_image_2.webp');
+
+  /// File path: assets/images/offer_image_3.webp
+  AssetGenImage get offerImage3 =>
+      const AssetGenImage('assets/images/offer_image_3.webp');
+
+  /// File path: assets/images/offer_image_4.webp
+  AssetGenImage get offerImage4 =>
+      const AssetGenImage('assets/images/offer_image_4.webp');
+
   /// File path: assets/images/product_on_palette.webp
   AssetGenImage get productOnPalette =>
       const AssetGenImage('assets/images/product_on_palette.webp');
@@ -68,8 +84,15 @@ class $AssetsImagesGen {
       'assets/images/zero_waste_fruits_and_vegetables.webp');
 
   /// List of all assets
-  List<AssetGenImage> get values =>
-      [greenEcoStore, productOnPalette, zeroWasteFruitsAndVegetables];
+  List<AssetGenImage> get values => [
+        greenEcoStore,
+        offerImage1,
+        offerImage2,
+        offerImage3,
+        offerImage4,
+        productOnPalette,
+        zeroWasteFruitsAndVegetables
+      ];
 }
 
 class Assets {

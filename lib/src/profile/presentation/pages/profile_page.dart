@@ -130,17 +130,17 @@ class ProfilePage extends StatelessWidget {
               ),
               ProfileOption(
                 icon: Icons.info,
-                title: translations.profileHowItWorks,
+                title: 'FAQ',
                 onTap: () => launchUrl(
-                  Uri.parse('https://flowzerowaste.com/how-it-works'),
+                  Uri.parse('https://flow-web-app-two.vercel.app/user#FAQ'),
                 ),
               ),
-              ProfileOption(
-                icon: Icons.gavel,
-                title: translations.profileLegal,
-                onTap: () =>
-                    launchUrl(Uri.parse('https://flowzerowaste.com/legal')),
-              ),
+              // ProfileOption(
+              //   icon: Icons.gavel,
+              //   title: translations.profileLegal,
+              //   onTap: () =>
+              //       launchUrl(Uri.parse('https://flowzerowaste.com/legal')),
+              // ),
               ProfileOption(
                 icon: Icons.article,
                 title: translations.profileLicenses,

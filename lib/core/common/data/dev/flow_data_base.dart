@@ -399,7 +399,7 @@ final _offers = <Map<String, dynamic>>[
 const _products = <Map<String, dynamic>>[
   {
     'imageUrl': 'https://picsum.photos/600/300?image=75',
-    'allergens': ['No allergens'], // en
+    'allergens': [], // en
     'languageCode': 'en',
     'name': 'Fresh Grapes',
     'description':
@@ -410,7 +410,7 @@ const _products = <Map<String, dynamic>>[
   },
   {
     'imageUrl': 'https://picsum.photos/600/300?image=75',
-    'allergens': ['Brak alergenów'], // pl
+    'allergens': [], // pl
     'languageCode': 'pl',
     'name': 'Świeże Winogrona',
     'description':
@@ -487,7 +487,7 @@ const _products = <Map<String, dynamic>>[
   },
   {
     'imageUrl': 'https://picsum.photos/600/300?image=627',
-    'allergens': ['No allergens'],
+    'allergens': [],
     'languageCode': 'en',
     'name': 'Green Beans',
     'description':
@@ -498,7 +498,7 @@ const _products = <Map<String, dynamic>>[
   },
   {
     'imageUrl': 'https://picsum.photos/600/300?image=627',
-    'allergens': ['Brak alergenów'],
+    'allergens': [],
     'languageCode': 'pl',
     'name': 'Zielona Fasolka',
     'description':

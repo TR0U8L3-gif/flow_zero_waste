@@ -71,6 +71,7 @@ class _ProductWidgetState extends State<ProductWidget> {
             child: SingleChildScrollView(
               scrollDirection: Axis.horizontal,
               child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   for (final product in widget.products)
                     Container(
@@ -144,7 +145,7 @@ class _ProductWidgetState extends State<ProductWidget> {
             children: [
               Text(
                 '${context.l10n.price} ${(_initialPrice * _quantity).toStringAsFixed(2)} ${context.l10n.currency}',
-                style: Theme.of(context).textTheme.bodyMedium,
+                style: Theme.of(context).textTheme.headlineMedium,
               ),
               // const SizedBox(width: 8),
               // Text(

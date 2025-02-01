@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flow_zero_waste/core/common/presentation/logics/providers/responsive_ui/page_provider.dart';
 import 'package:flow_zero_waste/core/common/presentation/widgets/shimmer/shimmer_rectangle.dart';
 import 'package:flow_zero_waste/core/enums/page_layout_size.dart';
@@ -69,6 +71,7 @@ class OrdersWidget extends StatelessWidget {
               onTap: () => onOrderLocation?.call(23.152574415, 53.1149982),
               child: OrderCard(
                 order: order,
+                index: index,
                 borderRadius: borderRadius,
                 onOrderAccept: onOrderAccept,
                 onOrderCancel: onOrderCancel,
@@ -87,6 +90,7 @@ class OrderCard extends StatelessWidget {
   const OrderCard({
     required this.order,
     required this.borderRadius,
+    required this.index,
     this.onOrderAccept,
     this.onOrderCancel,
     super.key,
@@ -103,6 +107,9 @@ class OrderCard extends StatelessWidget {
 
   /// Callback for order tap
   final void Function(String id)? onOrderCancel;
+
+  // index
+  final int index;
 
   @override
   Widget build(BuildContext context) {
@@ -133,7 +140,7 @@ class OrderCard extends StatelessWidget {
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                       ),
-                      const SizedBox(height: 4),
+                      const SizedBox(height: 2),
                       Text(
                         '${context.l10n.status}: ${_mapOrderStatus(order.status, context)}',
                         style: Theme.of(context)
@@ -146,6 +153,14 @@ class OrderCard extends StatelessWidget {
                         '${context.l10n.date}: ${_formatDate(order.date)}',
                         style: Theme.of(context).textTheme.bodySmall,
                       ),
+                      const SizedBox(height: 4),
+                      Text(
+                        'Order id: ${Random().nextInt(1000) + 945000 - (1003 * index)}',
+                        style: Theme.of(context).textTheme.bodySmall,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                      const SizedBox(height: 8),
                     ],
                   ),
                 ),
@@ -180,7 +195,8 @@ class OrderCard extends StatelessWidget {
                         width: 36,
                         height: 36,
                         fit: BoxFit.cover,
-                        errorBuilder: (context, error, stackTrace) => const Icon(
+                        errorBuilder: (context, error, stackTrace) =>
+                            const Icon(
                           Icons.broken_image,
                           size: 36,
                         ),

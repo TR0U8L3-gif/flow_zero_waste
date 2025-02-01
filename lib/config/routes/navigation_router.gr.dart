@@ -138,7 +138,7 @@ class BrowseRoute extends _i21.PageRouteInfo<void> {
   static _i21.PageInfo page = _i21.PageInfo(
     name,
     builder: (data) {
-      return _i5.BrowsePage();
+      return const _i5.BrowsePage();
     },
   );
 }
@@ -176,7 +176,7 @@ class FavoritesRoute extends _i21.PageRouteInfo<void> {
   static _i21.PageInfo page = _i21.PageInfo(
     name,
     builder: (data) {
-      return _i21.WrappedRoute(child: _i7.FavoritesPage());
+      return _i21.WrappedRoute(child: const _i7.FavoritesPage());
     },
   );
 }
@@ -317,7 +317,7 @@ class OrdersRoute extends _i21.PageRouteInfo<void> {
   static _i21.PageInfo page = _i21.PageInfo(
     name,
     builder: (data) {
-      return _i21.WrappedRoute(child: _i13.OrdersPage());
+      return _i21.WrappedRoute(child: const _i13.OrdersPage());
     },
   );
 }

@@ -1,7 +1,10 @@
 import 'dart:math';
 
+import 'package:flow_zero_waste/config/assets/size/app_size.dart';
+import 'package:flow_zero_waste/config/gen/assets.gen.dart';
 import 'package:flow_zero_waste/core/common/presentation/logics/providers/responsive_ui/page_provider.dart';
 import 'package:flow_zero_waste/core/extensions/l10n_extension.dart';
+import 'package:flow_zero_waste/core/helpers/calculations/image_cache_size.dart';
 import 'package:flow_zero_waste/src/browse/presentation/widgets/product_widget.dart';
 import 'package:flow_zero_waste/src/discover/domain/entities/shop.dart';
 import 'package:flow_zero_waste/src/discover/presentation/widgets/recommended_shops_section.dart';
@@ -141,16 +144,54 @@ class ProductCard extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Align(
-              alignment: Alignment.centerLeft,
-              child: Text(
-                ' #$index',
-                style: Theme.of(context).textTheme.displayMedium?.copyWith(
-                      height: 1.2,
+            const SizedBox(height: 16),
+            Opacity(
+              opacity: 0.72,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  ClipRRect(
+                    borderRadius: borderRadius,
+                    child: Container(
+                      width: 64,
+                      height: 64,
+                      color: Theme.of(context).colorScheme.primary,
+                      child: Image.asset(
+                        'assets/images/offer_image_$index.webp',
+                        excludeFromSemantics: true,
+                        fit: BoxFit.cover,
+                        cacheWidth: ImageCacheSize.calculate(
+                          context,
+                          64,
+                        ),
+                        errorBuilder: (context, error, stackTrace) =>
+                            const SizedBox.expand(),
+                        frameBuilder:
+                            (context, child, frame, wasSynchronouslyLoaded) {
+                          if (wasSynchronouslyLoaded) {
+                            return child;
+                          }
+                          return AnimatedOpacity(
+                            duration: const Duration(
+                                milliseconds: AppSize.durationSmall),
+                            opacity: frame == null ? 0 : 1,
+                            child: child,
+                          );
+                        },
+                      ),
                     ),
+                  ),
+                  const SizedBox(width: 8),
+                  Text(
+                    'Package $index',
+                    style: Theme.of(context).textTheme.displaySmall?.copyWith(
+                          height: 1,
+                        ),
+                  ),
+                ],
               ),
             ),
-            const SizedBox(height: 8),
+            const SizedBox(height: 16),
             for (final product in products) ...[
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 8),
@@ -178,7 +219,7 @@ class ProductCard extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            product.name,
+                            '${product.name} x${product.quantity}',
                             style:
                                 Theme.of(context).textTheme.bodyLarge!.copyWith(
                                       fontWeight: FontWeight.bold,
@@ -226,7 +267,7 @@ class ProductCard extends StatelessWidget {
               children: [
                 Text(
                   '${context.l10n.price} ${products.first.price} ${context.l10n.currency}',
-                  style: Theme.of(context).textTheme.bodyMedium,
+                  style: Theme.of(context).textTheme.headlineSmall,
                 ),
                 // Text(
                 //   '${context.l10n.quantity} ${products.first.quantity}',
