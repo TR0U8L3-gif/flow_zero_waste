@@ -102,6 +102,7 @@ class LocationSelectCubit extends Cubit<LocationSelectState> {
       latitude: locationDefault.latitude,
       longitude: locationDefault.longitude,
     );
+    setLocation(_locationData.latitude, _locationData.longitude);
     rebuildMap();
     emitIdle();
   }

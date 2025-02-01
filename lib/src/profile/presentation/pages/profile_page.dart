@@ -382,8 +382,8 @@ class _TicketScreenState extends State<TicketScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Help'),
+      appBar: AppBarStyled(
+        title: "Help",
       ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
