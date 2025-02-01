@@ -69,14 +69,14 @@ class ProfilePage extends StatelessWidget {
                   const ThemeChangeRoute(),
                 ),
               ),
-              ProfileOption(
-                icon: Icons.card_giftcard,
-                title: translations.profileVouchers,
-              ),
-              ProfileOption(
-                icon: Icons.notifications,
-                title: translations.profileNotifications,
-              ),
+              // ProfileOption(
+              //   icon: Icons.card_giftcard,
+              //   title: translations.profileVouchers,
+              // ),
+              // ProfileOption(
+              //   icon: Icons.notifications,
+              //   title: translations.profileNotifications,
+              // ),
               ProfileOption(
                 icon: Icons.logout,
                 title: translations.profileLogOut,
@@ -180,9 +180,9 @@ class TicketScreen extends StatefulWidget {
 }
 
 class _TicketScreenState extends State<TicketScreen> {
-  final ticketsList = <(String, String, List<String>)>[
+  var ticketsList = <(String, String, List<String>)>[
     (
-      'Ticket 1',
+      'Unable to process payment for order',
       'fa38eea9-d551-4c62-8bd8-31811194c732',
       [
         'user: Hi, I had a problem with processing a payment for order number XXX. Could you help me with this?',
@@ -198,44 +198,199 @@ class _TicketScreenState extends State<TicketScreen> {
       ],
     ),
     (
-      'Ticket 2',
+      'Refund status',
       '25b851bb-59a2-4003-ba9b-fbb694c53e77',
       [
         'user: Hi, I noticed a payment issue with my order number XXX. Can you help?',
         'support: Hello! I’m sorry to hear that. We will check the issue and process a refund if necessary. Please allow us some time to investigate.',
         'user: Thank you! How long will the refund process take?',
-        'support: Refunds typically take 3–5 business days to reflect in your account. We’ll notify you once the process is complete.',
-        'user: Great, I’ll wait for the update.',
-        'support: Thank you for your patience! If you have further questions, feel free to reach out.',
+        'support: Refunds typically take 3-5 business days to reflect in your account. We’ll notify you once the process is complete.',
       ],
     ),
   ];
-  void _createNewTicket() {
-    setState(() {
-      ticketsList.add(
-        (
-          'Ticket ${ticketsList.length + 1}',
-          const Uuid().v4(),
-          [],
-        ),
-      );
-    });
+
+  void showSupportTicketModal(BuildContext context) {
+    final TextEditingController titleController = TextEditingController();
+    final TextEditingController messageController = TextEditingController();
+
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(16.0)),
+      ),
+      builder: (context) {
+        return Padding(
+          padding: EdgeInsets.only(
+            left: 16.0,
+            right: 16.0,
+            bottom: MediaQuery.of(context).viewInsets.bottom + 16.0,
+            top: 16.0,
+          ),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                'Create Support Ticket',
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              ),
+              SizedBox(height: 12.0),
+              TextField(
+                controller: titleController,
+                decoration: InputDecoration(
+                  labelText: 'Title',
+                  border: OutlineInputBorder(),
+                ),
+              ),
+              SizedBox(height: 12.0),
+              TextField(
+                controller: messageController,
+                maxLines: 4,
+                decoration: InputDecoration(
+                  labelText: 'Message',
+                  border: OutlineInputBorder(),
+                ),
+              ),
+              SizedBox(height: 16.0),
+              ElevatedButton(
+                onPressed: () {
+                  String title = titleController.text.trim();
+                  String message = messageController.text.trim();
+                  if (title.isNotEmpty && message.isNotEmpty) {
+                    setState(() {
+                      ticketsList.add(
+                        (
+                          title,
+                          const Uuid().v4(),
+                          ['user: $message'],
+                        ),
+                      );
+                    });
+                    Navigator.pop(context);
+                  }
+                },
+                child: Center(child: Text('Submit Ticket')),
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
+  void showChatModal(BuildContext context, List<String> messages) {
+    final TextEditingController messageController = TextEditingController();
+    final messageList = List<String>.from(messages);
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(16.0)),
+      ),
+      builder: (context) {
+        return Padding(
+          padding: EdgeInsets.only(
+            left: 16.0,
+            right: 16.0,
+            bottom: MediaQuery.of(context).viewInsets.bottom + 16.0,
+            top: MediaQuery.of(context).padding.top + 64.0,
+          ),
+          child: StatefulBuilder(
+            builder: (contextX, setStateX) {
+              return Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Expanded(
+                    child: SingleChildScrollView(
+                      reverse: true,
+                      child: Column(
+                        children: messageList.map((msg) {
+                          bool isUser = msg.startsWith('user:');
+                          return Align(
+                            alignment: isUser
+                                ? Alignment.centerRight
+                                : Alignment.centerLeft,
+                            child: Padding(
+                              padding: EdgeInsets.only(
+                                right: isUser ? 0 : 32.0,
+                                left: isUser ? 32.0 : 0,
+                              ),
+                              child: Container(
+                                margin: EdgeInsets.symmetric(vertical: 4.0),
+                                padding: EdgeInsets.all(12.0),
+                                decoration: BoxDecoration(
+                                  color: isUser
+                                      ? contextX.colorScheme.primary
+                                      : contextX.colorScheme.primaryContainer,
+                                  borderRadius: BorderRadius.circular(12.0),
+                                ),
+                                child: Text(
+                                  msg.replaceFirst(
+                                      RegExp(r'^(user|support): '), ''),
+                                  style: TextStyle(
+                                    color: isUser
+                                        ? contextX.colorScheme.onPrimary
+                                        : contextX
+                                            .colorScheme.onPrimaryContainer,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          );
+                        }).toList(),
+                      ),
+                    ),
+                  ),
+                  const Divider(),
+                  TextField(
+                    controller: messageController,
+                    decoration: InputDecoration(
+                      labelText: 'Type a message...',
+                      border: OutlineInputBorder(),
+                      suffixIcon: IconButton(
+                        icon: Icon(Icons.send),
+                        onPressed: () {
+                          String message = messageController.text.trim();
+                          if (message.isNotEmpty) {
+                            setStateX(() {
+                              messageList.add('user: $message');
+                            });
+                            setState(() {
+                              ticketsList = ticketsList.map((ticket) {
+                                if (ticket.$3 == messages) {
+                                  return (ticket.$1, ticket.$2, messageList);
+                                }
+                                return ticket;
+                              }).toList();
+                            });
+                            messageController.clear();
+                          }
+                        },
+                      ),
+                    ),
+                  ),
+                ],
+              );
+            },
+          ),
+        );
+      },
+    );
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Tickets'),
+        title: const Text('Help'),
       ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           for (final ticket in ticketsList) ...[
             InkWell(
-              onTap: () {
-                // Handle ticket selection
-              },
+              onTap: () => showChatModal(context, ticket.$3),
               child: Card(
                 margin: const EdgeInsets.all(8.0),
                 child: Padding(
@@ -246,9 +401,10 @@ class _TicketScreenState extends State<TicketScreen> {
                     children: [
                       Text(
                         ticket.$1,
-                        style:
-                            TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                        style: TextStyle(
+                            fontSize: 18, fontWeight: FontWeight.bold),
                       ),
+                      const Divider(),
                       SizedBox(height: 8),
                       Text(
                         ticket.$2,
@@ -256,7 +412,9 @@ class _TicketScreenState extends State<TicketScreen> {
                       ),
                       SizedBox(height: 8),
                       Text(
-                        ticket.$3.isNotEmpty ? ticket.$3.last : 'No messages yet',
+                        ticket.$3.isNotEmpty
+                            ? ticket.$3.last
+                            : 'No messages yet',
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                         style: TextStyle(color: Colors.black87),
@@ -270,7 +428,7 @@ class _TicketScreenState extends State<TicketScreen> {
           Padding(
             padding: const EdgeInsets.all(16.0),
             child: ElevatedButton(
-              onPressed: _createNewTicket,
+              onPressed: () => showSupportTicketModal(context),
               child: const Text('Create New Ticket'),
             ),
           ),

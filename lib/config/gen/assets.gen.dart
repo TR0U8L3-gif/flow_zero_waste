@@ -55,6 +55,9 @@ class $AssetsIconsGen {
 class $AssetsImagesGen {
   const $AssetsImagesGen();
 
+  /// File path: assets/images/banner.png
+  AssetGenImage get banner => const AssetGenImage('assets/images/banner.png');
+
   /// File path: assets/images/green_eco_store.webp
   AssetGenImage get greenEcoStore =>
       const AssetGenImage('assets/images/green_eco_store.webp');
@@ -85,6 +88,7 @@ class $AssetsImagesGen {
 
   /// List of all assets
   List<AssetGenImage> get values => [
+        banner,
         greenEcoStore,
         offerImage1,
         offerImage2,

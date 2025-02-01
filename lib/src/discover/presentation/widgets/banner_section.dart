@@ -1,4 +1,5 @@
 import 'package:flow_zero_waste/config/assets/size/app_size.dart';
+import 'package:flow_zero_waste/config/gen/assets.gen.dart';
 import 'package:flow_zero_waste/core/common/presentation/logics/providers/responsive_ui/page_provider.dart';
 import 'package:flow_zero_waste/core/common/presentation/widgets/shimmer/shimmer_rectangle.dart';
 import 'package:flow_zero_waste/core/common/presentation/widgets/text_outline.dart';
@@ -9,7 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 const _bannerSectionHeight = 128.0;
-const _bannerCardWidth = 256.0;
+const _bannerCardWidth = 300.0;
 const _bannerItemsEmpty = 4;
 
 /// Banners section
@@ -122,74 +123,76 @@ class BannerCard extends StatelessWidget {
           children: [
             if (bannerData.imageUrl != null)
               Opacity(
-                opacity: 0.9,
+                opacity: 0.8,
                 child: SizedBox.expand(
-                  child: Image.network(
-                    bannerData.imageUrl!,
-                    fit: BoxFit.cover,
+                  child: Image.asset(
+                    Assets.images.banner.path,
+                    // bannerData.imageUrl!,
+                    fit: BoxFit.fill,
                     cacheWidth: ImageCacheSize.calculate(
                       context,
                       _bannerCardWidth,
                     ),
                     errorBuilder: errorBuilder,
-                    loadingBuilder: loadingBuilder,
+                    // loadingBuilder: loadingBuilder,
                     frameBuilder: frameBuilder,
                   ),
                 ),
               ),
-            Align(
-              alignment: Alignment.bottomLeft,
-              child: Column(
-                // mainAxisSize: MainAxisSize.min,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Container(
-                    decoration: BoxDecoration(
-                      color:
-                          context.colorScheme.primaryContainer.withOpacity(0.6),
-                      borderRadius: const BorderRadius.only(
-                        bottomRight: Radius.circular(AppSize.m),
-                      ),
-                    ),
-                    padding: const EdgeInsets.only(
-                      left: AppSize.s,
-                      right: AppSize.s,
-                    ),
-                    child: TextOutline(
-                      bannerData.title,
-                      style: context.textTheme.titleLarge?.copyWith(
-                        fontWeight: FontWeight.w500,
-                      ),
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                      strokeWidth: 1,
-                    ),
-                  ),
-                  if (bannerData.description != null)
-                    Container(
-                      color:
-                          context.colorScheme.primaryContainer.withOpacity(0.6),
-                      padding: const EdgeInsets.only(
-                        left: AppSize.s,
-                        right: AppSize.s,
-                        bottom: AppSize.s2,
-                      ),
-                      alignment: Alignment.center,
-                      child: TextOutline(
-                        bannerData.description!,
-                        style: context.textTheme.bodySmall?.copyWith(
-                          fontWeight: FontWeight.w500,
-                        ),
-                        maxLines: 2,
-                        overflow: TextOverflow.ellipsis,
-                        strokeWidth: 0.8,
-                        textAlign: TextAlign.center,
-                      ),
-                    ),
-                ],
-              ),
-            ),
+            // Align(
+            //   alignment: Alignment.bottomLeft,
+            //   child: Column(
+            //     // mainAxisSize: MainAxisSize.min,
+            //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            //     crossAxisAlignment: CrossAxisAlignment.start,
+            //     children: [
+            //       Container(
+            //         decoration: BoxDecoration(
+            //           color:
+            //               context.colorScheme.primaryContainer.withOpacity(0.6),
+            //           borderRadius: const BorderRadius.only(
+            //             bottomRight: Radius.circular(AppSize.m),
+            //           ),
+            //         ),
+            //         padding: const EdgeInsets.only(
+            //           left: AppSize.s,
+            //           right: AppSize.s,
+            //         ),
+            //         child: TextOutline(
+            //           bannerData.title,
+            //           style: context.textTheme.titleLarge?.copyWith(
+            //             fontWeight: FontWeight.w500,
+            //           ),
+            //           maxLines: 1,
+            //           overflow: TextOverflow.ellipsis,
+            //           strokeWidth: 1,
+            //         ),
+            //       ),
+            //       if (bannerData.description != null)
+            //         Container(
+            //           color:
+            //               context.colorScheme.primaryContainer.withOpacity(0.6),
+            //           padding: const EdgeInsets.only(
+            //             left: AppSize.s,
+            //             right: AppSize.s,
+            //             bottom: AppSize.s2,
+            //           ),
+            //           alignment: Alignment.center,
+            //           child: TextOutline(
+            //             bannerData.description!,
+            //             style: context.textTheme.bodySmall?.copyWith(
+            //               fontWeight: FontWeight.w500,
+            //             ),
+            //             maxLines: 2,
+            //             overflow: TextOverflow.ellipsis,
+            //             strokeWidth: 0.8,
+            //             textAlign: TextAlign.center,
+            //           ),
+            //         ),
+            //     ],
+            //   ),
+            // ),
+          
           ],
         ),
       ),
